@@ -1,0 +1,77 @@
+\label{Top}
+
+\chapter*{Unofficial Texinfo Format}
+\addcontentsline{toc}{chapter}{Unofficial Texinfo Format}
+\label{UTF}
+
+This is the second edition \acronym{SICP} book, from Unofficial Texinfo
+Format.
+
+You are probably reading it in an Info hypertext browser, such as the Info
+mode of Emacs.  You might alternatively be reading it {\TeX}-formatted on your
+screen or printer, though that would be silly.  And, if printed, expensive.
+
+The freely-distributed official \acronym{HTML}-and-\acronym{GIF} format was
+first converted personally to Unofficial Texinfo Format (\acronym{UTF})
+version 1 by Lytha Ayth during a long Emacs lovefest weekend in April, 2001.
+
+The \acronym{UTF} is easier to search than the \acronym{HTML} format.  It is
+also much more accessible to people running on modest computers, such as
+donated '386-based PCs.  A 386 can, in theory, run Linux, Emacs, and a Scheme
+interpreter simultaneously, but most 386s probably can't also run both Netscape
+and the necessary X Window System without prematurely introducing budding young
+underfunded hackers to the concept of \newterm{thrashing}.  \acronym{UTF} can also fit
+uncompressed on a 1.44\acronym{MB} floppy diskette, which may come in handy for
+installing \acronym{UTF} on PCs that do not have Internet or \acronym{LAN} access.
+
+The Texinfo conversion has been a straight transliteration, to the extent
+possible.  Like the {\TeX}-to-\acronym{HTML} conversion, this was not without
+some introduction of breakage.  In the case of Unofficial Texinfo Format,
+figures have suffered an amateurish resurrection of the lost art of
+\acronym{ASCII}.  Also, it's quite possible that some errors of ambiguity
+were introduced during the conversion of some of the copious superscripts (`\^{}')
+and subscripts (`\_').  Divining \emph{which} has been left as an exercise to
+the reader. But at least we don't put our brave astronauts at risk by encoding
+the \emph{greater-than-or-equal} symbol as \code{<u>\&gt;</u>}.
+
+If you modify \texttt{sicp.texi} to correct errors or improve the
+\acronym{ASCII} art, then update the \code{@set utfversion 2.andresraba5.6}
+line to reflect your delta.  For example, if you started with Lytha's version
+\code{1}, and your name is Bob, then you could name your successive versions
+\code{1.bob1}, \code{1.bob2}, \( \dots \) \code{1.bob\textit{n}}.  Also update
+\code{utfversiondate}.  If you want to distribute your version on the Web, then
+embedding the string ``sicp.texi'' somewhere in the file or Web page will make
+it easier for people to find with Web search engines.
+
+It is believed that the Unofficial Texinfo Format is in keeping with the
+spirit of the graciously freely-distributed \acronym{HTML} version.  But you
+never know when someone's armada of lawyers might need something to do, and get
+their shorts all in a knot over some benign little thing, so think twice before
+you use your full name or distribute Info, \acronym{DVI}, PostScript, or
+\acronym{PDF} formats that might embed your account or machine name.
+
+\vspace{0.5em}
+\noindent
+\textit{Peath, Lytha Ayth}
+
+\vspace{1.0em}
+\noindent
+\textbf{Addendum:} See also the \acronym{SICP} video lectures by Abelson and Sussman:\\
+at \href{http://groups.csail.mit.edu/mac/classes/6.001/abelson-sussman-lectures/}{\acronym{MIT CSAIL}} or
+\href{http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/video-lectures/}{\acronym{MIT OCW}}.
+
+\vspace{0.5em}
+\noindent
+\textbf{Second Addendum:} Above is the original introduction to the \acronym{UTF}
+from 2001. Ten years later, \acronym{UTF} has been transformed: mathematical
+symbols and formulas are properly typeset, and figures drawn in
+vector graphics. The original text formulas and \acronym{ASCII} art figures
+are still there in the Texinfo source, but will display only when compiled
+to Info output. At the dawn of e-book readers and tablets, reading a
+\acronym{PDF} on screen is officially not silly anymore. Enjoy!
+
+\enlargethispage{\baselineskip}
+
+\vspace{0.5em}
+\noindent
+\textit{A.R, May, 2011}
