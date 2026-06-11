@@ -5,6 +5,7 @@
 *.fdb_latexmk
 *.ky
 *.log
+*.lof
 *.pg
 *.toc
 *.tp
