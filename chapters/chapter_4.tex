@@ -1,21 +1,20 @@
 \chapter{Metalinguistic Abstraction}
 \label{Chapter 4}
 
-\begin{quote}
-\( \dots \) It's in words that the magic is---Abracadabra, Open Sesame, and the
-rest---but the magic words in one story aren't magical in the next.  The real
-magic is to understand which words work, and when, and for what; the trick is
-to learn the trick.
+\chapterQuote{%
+    \( \dots \) It's in words that the magic is --- Abracadabra, Open Sesame,
+    and the rest --- but the magic words in one story aren't magical in the
+    next. The real magic is to understand which words work, and when, and for
+    what; the trick is to learn the trick.
 
-\( \dots \) And those words are made from the letters of our alphabet: a
-couple-dozen squiggles we can draw with the pen.  This is the key!  And the
-treasure, too, if we can only get our hands on it!  It's as if---as if the key
-to the treasure \emph{is} the treasure!
-
----John Barth, \textit{Chimera}
-\end{quote}
-
-% \vspace{0.8em}
+    \( \dots \) And those words are made from the letters of our alphabet: a
+    couple-dozen squiggles we can draw with the pen.  This is the key!  And the
+    treasure, too, if we can only get our hands on it!  It's as if --- as if
+    the key to the treasure \emph{is} the treasure!
+  }
+  {John Barth}
+  {Chimera}
+  {}
 
 \noindent
 \lettrine{I}{n our study of program design}, we have seen that expert programmers control
@@ -244,43 +243,14 @@ procedures, \code{lookup\-/variable\-/value} accesses the values of variables, a
 \code{apply\-/primitive\-/procedure} applies a primitive procedure to a given list
 of arguments.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 4.1}
-\centering
-\begin{comment}
-\heading{Figure 4.1:} The \code{eval}-\code{apply} cycle exposes the essence of a computer language.
-
-\begin{example}
-                           .,ad88888888baa,
-                  _    ,d8P"""        ""9888ba.      _
-                 /  .a8"          ,ad88888888888a   |\
-               /   aP'          ,88888888888888888a   \
-              /  ,8"           ,88888888888888888888,  \
-             |  ,8'            (888888888888888888888, |
-            /  ,8'             `8888888888888888888888  \
-            |  8)               `888888888888888888888, |
-Procedure,  |  8                  "88888 Apply 8888888) | Expression
-Arguments   |  8     Eval          `888888888888888888) | Environment
-            |  8)                    "8888888888888888  |
-            \  (b                     "88888888888888'  /
-             | `8,                     8888888888888)  |
-             \  "8a                   ,888888888888)  /
-              \   V8,                 d88888888888"  /
-              _\| `8b,             ,d8888888888P' _/
-                     `V8a,       ,ad8888888888P'
-                        ""88888888888888888P"
-                             """"""""""""
-
-                               [graphic by Normand Veillux, modified]
-\end{example}
-\end{comment}
-\includegraphics[width=100mm]{assets/figures/chapter_4/figure_4.1.pdf}
-\begin{quote}
-\heading{Figure 4.1:} The \code{eval}-\code{apply} cycle exposes the essence of a computer language.
-\end{quote}
-\end{figure}
-
-
+% figure 4.1
+\begin{imageFigure}
+  {%
+    The \code{eval}-\code{apply} cycle exposes the essence of a computer
+    language.
+  }%
+  \includegraphics[width=100mm]{assets/figures/chapter_4/figure_4.1.pdf}
+\end{imageFigure}
 
 \subsection{The Core of the Evaluator}
 \label{Section 4.1.1}
@@ -1442,42 +1412,10 @@ configures itself to emulate the machine described.  For example, if we feed
 our evaluator the definition of \code{factorial}, as shown in \link{Figure 4.3},
 the evaluator will be able to compute factorials.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 4.2}
-\centering
-\begin{comment}
-\heading{Figure 4.2:} The factorial program, viewed as an abstract machine.
-
-\begin{example}
-    +-----------------------------------+
-    | factorial                   |1    |
-    |              |1             V     |
-    |              |           +-----+  |
-    |              V           | #   |  |
-    |           +-----+        |     |  |
-6 --------*-----|  =  |------->|   #-+-----> 720
-    |     |     +-----+        |  /  |  |
-    |     |                    | #   |  |
-    |     |                    +-----+  |
-    |     |                       ^     |
-    |     |                       |     |
-    |     |                    +--+--+  |
-    |     *------------------->|  *  |  |
-    |     |                    +-----+  |
-    |     V                       ^     |
-    |  +-----+    +-----------+   |     |
-    |  |  -  +--->| factorial +---+     |
-    |  +-----+    +-----------+         |
-    |     ^                             |
-    |     |1                            |
-    +-----------------------------------+
-\end{example}
-\end{comment}
-\includegraphics[width=84mm]{assets/figures/chapter_4/figure_4.2.pdf}
-\begin{quote}
-\heading{Figure 4.2:} The factorial program, viewed as an abstract machine.
-\end{quote}
-\end{figure}
+% figure 4.2
+\begin{imageFigure}{The factorial program, viewed as an abstract machine.}
+  \includegraphics[width=84mm]{assets/figures/chapter_4/figure_4.2.pdf}
+\end{imageFigure}
 
 From this perspective, our evaluator is seen to be a \newterm{universal
 machine}.  It mimics other machines when these are described as Lisp
@@ -1517,34 +1455,10 @@ theory}, a branch of mathematical logic, is concerned with logical limits of
 computation.  Douglas Hofstadter's beautiful book \textit{G\"odel, Escher, Bach}
 explores some of these ideas (\link{Hofstadter 1979}).}
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 4.3}
-\centering
-\begin{comment}
-\heading{Figure 4.3:} The evaluator emulating a factorial machine.
-
-\begin{example}
-                   +--------+
-            6 ---->|  eval  |----> 720
-                   +--------+
-                       /
-             . . .    /  . . .
-       . . .       ../. .      .
-     .                           ..
-    .   (define (factorial n)      . . .
-   .      (if (= n 1)                   . .
-    .         1                            .
-    .         (* (factorial (- n 1)) n)))   .
-      . .                       . .        .
-          . .  . .      . . . .     . . . .
-                   . ..
-\end{example}
-\end{comment}
-\includegraphics[width=69mm]{assets/figures/chapter_4/figure_4.3.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 4.3:} The evaluator emulating a factorial machine.
-\end{figure}
+% figure 4.3
+\begin{imageFigure}{The evaluator emulating a factorial machine.}
+  \includegraphics[width=69mm]{assets/figures/chapter_4/figure_4.3.pdf}
+\end{imageFigure}
 
 Another striking aspect of the evaluator is that it acts as a bridge between
 the data objects that are manipulated by our programming language and the
@@ -2196,7 +2110,7 @@ the version in this section.  Use your results to estimate the fraction of time
 that is spent in analysis versus execution for various procedures.
 \end{quote}
 
-\section{Variations on a Scheme --- Lazy Evaluation}
+\section{Variations on a Scheme - Lazy Evaluation}
 \label{Section 4.2}
 
 Now that we have an evaluator expressed as a Lisp program, we can experiment
@@ -5340,30 +5254,10 @@ used to generate a stream of copies of the original query pattern with the
 variables instantiated by the values in each frame, and this is the stream that
 is finally printed.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 4.4}
-\centering
-\begin{comment}
-\heading{Figure 4.4:} A query processes a stream of frames.
-
-\begin{example}
-                                  output stream
-  input stream   +-------------+  of frames,
-  of frames      |    query    |  filtered and extended
----------------->|             +------------------------->
-                 | (job ?x ?y) |
-                 +-------------+
-                        ^
-                        |
-               stream of assertions
-                  from data base
-\end{example}
-\end{comment}
-\includegraphics[width=102mm]{assets/figures/chapter_4/figure_4.4.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 4.4:} A query processes a stream of frames.
-\end{figure}
+% figure 4.4
+\begin{imageFigure}{A query processes a stream of frames.}
+  \includegraphics[width=102mm]{assets/figures/chapter_4/figure_4.4.pdf}
+\end{imageFigure}
 
 \subsubsection*{Compound queries}
 
@@ -5385,33 +5279,14 @@ trainee''), we first find all entries that match the pattern
 (can-do-job ?x (computer programmer trainee))
 \end{scheme}
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 4.5}
-\centering
-\begin{comment}
-\heading{Figure 4.5:} The \code{and} combination of two queries is produced
-by operating on the stream of frames in series.
-
-\begin{example}
-                +----------------------+
-                |       (and A B)      |
-  input stream  |                      |  output stream
-  of frames     |   +---+       +---+  |  of frames
-------------------->| A +------>| B +-------------------->
-                |   +---+       +---+  |
-                |     ^           ^    |
-                |     |           |    |
-                |     +-----*-----+    |
-                +-----------|----------+
-                            |
-                        data base
-\end{example}
-\end{comment}
-\includegraphics[width=93mm]{assets/figures/chapter_4/figure_4.5.pdf}
-\begin{quote}
-\heading{Figure 4.5:} The \code{and} combination of two queries is produced by operating on the stream of frames in series.
-\end{quote}
-\end{figure}
+% figure 4.5
+\begin{imageFigure}
+  {%
+    The \code{and} combination of two queries is produced by operating on the
+    stream of frames in series.
+  }%
+  \includegraphics[width=93mm]{assets/figures/chapter_4/figure_4.5.pdf}
+\end{imageFigure}
 
 \noindent
 This produces a stream of frames, each of which contains a binding for
@@ -5429,39 +5304,14 @@ combination of the two component queries, as shown in \link{Figure 4.5}.  The
 frames that pass through the first query filter are filtered and further
 extended by the second query.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 4.6}
-\centering
-\begin{comment}
-\heading{Figure 4.6:} The \code{or} combination of two queries is produced
-by operating on the stream of frames in parallel and merging the results.
-
-\begin{example}
-           +---------------------------+
-           |          (or A B)         |
-           |    +---+                  |
-input      | +->| A |------------+     |  output
-stream of  | |  +---+            V     |  stream of
-frames     | |    ^          +-------+ |  frames
--------------*    |          | merge +--------------->
-           | |    |          +-------+ |
-           | |    |              ^     |
-           | |    |   +---+      |     |
-           | +------->| B +------+     |
-           |      |   +---+            |
-           |      |     ^              |
-           |      |     |              |
-           |      +--*--+              |
-           +---------|-----------------+
-                     |
-                 data base
-\end{example}
-\end{comment}
-\includegraphics[width=107mm]{assets/figures/chapter_4/figure_4.6.pdf}
-\begin{quote}
-\heading{Figure 4.6:} The \code{or} combination of two queries is produced by operating on the stream of frames in parallel and merging the results.
-\end{quote}
-\end{figure}
+% figure 4.6
+\begin{imageFigure}
+  {%
+    The \code{or} combination of two queries is produced by operating on the
+    stream of frames in parallel and merging the results.
+  }%
+  \includegraphics[width=107mm]{assets/figures/chapter_4/figure_4.6.pdf}
+\end{imageFigure}
 
 \link{Figure 4.6} shows the analogous method for computing the
 \code{or} of two
@@ -6333,7 +6183,7 @@ satisfied).
 The selectors that define the syntax of \code{not} and \code{lisp\-/value} are
 given in \link{Section 4.4.4.7}.
 
-\subsubsection{Finding Assertions\\ by Pattern Matching}
+\subsubsection{Finding Assertions by Pattern Matching}
 \label{Section 4.4.4.3}
 
 \code{find\-/assertions}, called by \code{simple\-/query} (\link{Section 4.4.4.2}),

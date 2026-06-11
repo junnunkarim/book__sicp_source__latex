@@ -2,20 +2,20 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="376.6933"
-   height="245.41798"
+   width="380"
+   height="250"
    id="svg8906"
    version="1.1"
-   inkscape:version="0.48.3.1 r9886"
-   sodipodi:docname="Fig2.26e.svg"
-   style="display:inline">
+   inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
+   sodipodi:docname="figure_2.26e.svg"
+   style="display:inline"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <defs
      id="defs8908" />
   <sodipodi:namedview
@@ -25,21 +25,24 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="229.8115"
-     inkscape:cy="129.26678"
+     inkscape:zoom="2.8"
+     inkscape:cx="203.21428"
+     inkscape:cy="116.78571"
      inkscape:document-units="px"
-     inkscape:current-layer="layer6"
-     showgrid="false"
+     inkscape:current-layer="layer7"
+     showgrid="true"
      inkscape:window-width="1920"
-     inkscape:window-height="1004"
+     inkscape:window-height="1080"
      inkscape:window-x="0"
-     inkscape:window-y="24"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      fit-margin-top="1"
      fit-margin-left="1"
      fit-margin-right="1"
-     fit-margin-bottom="1">
+     fit-margin-bottom="1"
+     inkscape:showpageshadow="2"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1">
     <inkscape:grid
        type="xygrid"
        id="grid8914"
@@ -47,8 +50,11 @@
        visible="true"
        enabled="true"
        snapvisiblegridlinesonly="true"
-       originx="-85.890242px"
-       originy="-738.8984px" />
+       originx="-85"
+       originy="-735"
+       spacingy="1"
+       spacingx="1"
+       units="px" />
   </sodipodi:namedview>
   <metadata
      id="metadata_2.26">
@@ -100,51 +106,51 @@
      id="layer6"
      inkscape:label="Lines"
      style="display:inline"
-     transform="translate(-85.890242,-68.045804)">
+     transform="translate(-84.999998,-64.147428)">
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.53149605;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:none;stroke:#000000;stroke-width:0.531496;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 365,127.36218 -30,30"
        id="path9537-3-17"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.53149605;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:none;stroke:#000000;stroke-width:0.531496;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 380,217.36218 30,30"
        id="path9537-3-3"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.53149605;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:none;stroke:#000000;stroke-width:0.531496;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 370,217.36218 -30,30"
        id="path9537-3-17-4"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.53149605;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:none;stroke:#000000;stroke-width:0.531496;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 405,262.36218 -30,30"
        id="path9537-3-17-6"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.53149605;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:none;stroke:#000000;stroke-width:0.531496;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 335,262.36218 30,30"
        id="path9537-3-9-6"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.53149605;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:none;stroke:#000000;stroke-width:0.531496;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 450,217.36218 -30,30"
        id="path9537-3-17-7"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.53149605;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:none;stroke:#000000;stroke-width:0.531496;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 330,82.362183 30,29.999997"
        id="path9537-3-8"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.53149605;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:none;stroke:#000000;stroke-width:0.531496;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 335,172.36218 30,30"
        id="path9537-3-8-0"
        inkscape:connector-curvature="0"
@@ -154,39 +160,39 @@
        inkscape:connector-curvature="0"
        id="path9537-3-17-1-9-1-5"
        d="M 320,82.362186 245,157.36218"
-       style="fill:none;stroke:#000000;stroke-width:0.53149605;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+       style="fill:none;stroke:#000000;stroke-width:0.531496;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.53149605;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:none;stroke:#000000;stroke-width:0.531496;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 375,127.36218 75,75"
        id="path9537-3-9-1"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.53149605;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline"
+       style="display:inline;fill:none;stroke:#000000;stroke-width:0.531496;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 240,172.36218 35,35"
        id="path9537-3-8-2"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.53149605;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline"
+       style="display:inline;fill:none;stroke:#000000;stroke-width:0.531496;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 175,237.36218 45,45"
        id="path9537-3-8-2-3"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.53149605;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline"
+       style="display:inline;fill:none;stroke:#000000;stroke-width:0.531496;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 230,172.36218 -35,35"
        id="path9537-3-17-1-9-1-0"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.53149605;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline"
+       style="display:inline;fill:none;stroke:#000000;stroke-width:0.531496;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 275,237.36218 -45,45"
        id="path9537-3-17-1-9-1-0-5"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.53149605;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline"
+       style="display:inline;fill:none;stroke:#000000;stroke-width:0.531496;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 165,237.36218 -45,45"
        id="path9537-3-17-72-3-9"
        inkscape:connector-curvature="0"
@@ -197,165 +203,169 @@
      id="layer7"
      inkscape:label="Text"
      style="display:inline"
-     transform="translate(-85.890242,-68.045804)">
+     transform="translate(-84.999998,-64.147428)">
     <text
        xml:space="preserve"
-       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Libertinus Sans;-inkscape-font-specification:Libertinus Sans"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0%;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
        x="325"
        y="78.119804"
-       id="text9475"
-       sodipodi:linespacing="125%"><tspan
+       id="text9475"><tspan
          sodipodi:role="line"
          id="tspan9477"
          x="325"
-         y="78.119804">polygon</tspan></text>
+         y="78.119804"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">polygon</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Libertinus Sans;-inkscape-font-specification:Libertinus Sans"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0%;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
        x="370"
        y="123.1198"
-       id="text9479"
-       sodipodi:linespacing="125%"><tspan
+       id="text9479"><tspan
          sodipodi:role="line"
          id="tspan9481"
          x="370"
-         y="123.1198">quadrilateral</tspan></text>
+         y="123.1198"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">quadrilateral</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Libertinus Sans;-inkscape-font-specification:Libertinus Sans"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0%;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
        x="452"
        y="213.11978"
-       id="text9483"
-       sodipodi:linespacing="125%"><tspan
+       id="text9483"><tspan
          sodipodi:role="line"
          id="tspan9485"
          x="452"
-         y="213.11978">kite</tspan></text>
+         y="213.11978"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">kite</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Libertinus Sans;-inkscape-font-specification:Libertinus Sans"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0%;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
        x="333"
        y="168.11978"
-       id="text9487"
-       sodipodi:linespacing="125%"><tspan
+       id="text9487"><tspan
          sodipodi:role="line"
          id="tspan9489"
          x="333"
-         y="168.11978">trapezoid</tspan></text>
+         y="168.11978"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">trapezoid</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Libertinus Sans;-inkscape-font-specification:Libertinus Sans"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0%;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
        x="375"
        y="213.11978"
-       id="text9491"
-       sodipodi:linespacing="125%"><tspan
+       id="text9491"><tspan
          sodipodi:role="line"
          id="tspan9493"
          x="375"
-         y="213.11978">parallelogram</tspan></text>
+         y="213.11978"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">parallelogram</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Libertinus Sans;-inkscape-font-specification:Libertinus Sans"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0%;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
        x="333"
        y="258.11978"
-       id="text9511"
-       sodipodi:linespacing="125%"><tspan
+       id="text9511"><tspan
          sodipodi:role="line"
          id="tspan9513"
          x="333"
-         y="258.11978">rectangle</tspan></text>
+         y="258.11978"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">rectangle</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Libertinus Sans;-inkscape-font-specification:Libertinus Sans"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0%;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
        x="415"
        y="258.11978"
-       id="text9515"
-       sodipodi:linespacing="125%"><tspan
+       id="text9515"><tspan
          sodipodi:role="line"
          id="tspan9517"
          x="415"
-         y="258.11978">rhombus</tspan></text>
+         y="258.11978"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">rhombus</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Libertinus Sans;-inkscape-font-specification:Libertinus Sans"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0%;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
        x="370"
        y="303.11978"
-       id="text9519"
-       sodipodi:linespacing="125%"><tspan
+       id="text9519"><tspan
          sodipodi:role="line"
          id="tspan9521"
          x="370"
-         y="303.11978">square</tspan></text>
+         y="303.11978"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">square</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Libertinus Sans;-inkscape-font-specification:Libertinus Sans"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0%;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
        x="235"
        y="168.11978"
-       id="text9495"
-       sodipodi:linespacing="125%"><tspan
+       id="text9495"><tspan
          sodipodi:role="line"
          id="tspan9497"
          x="235"
-         y="168.11978">triangle</tspan></text>
+         y="168.11978"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">triangle</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Libertinus Sans;-inkscape-font-specification:Libertinus Sans"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0%;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
        x="175"
        y="218.11978"
-       id="text9499"
-       sodipodi:linespacing="125%"><tspan
+       id="text9499"><tspan
          sodipodi:role="line"
          id="tspan9501"
          x="175"
-         y="218.11978">isosceles</tspan><tspan
+         y="218.11978"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">isosceles</tspan><tspan
          sodipodi:role="line"
          x="175"
-         y="234.36978"
-         id="tspan9503">triangle</tspan></text>
+         y="233.11978"
+         id="tspan9503"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">triangle</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Libertinus Sans;-inkscape-font-specification:Libertinus Sans"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0%;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
        x="280"
        y="218.11978"
-       id="text9505"
-       sodipodi:linespacing="125%"><tspan
+       id="text9505"><tspan
          sodipodi:role="line"
          id="tspan9507"
          x="280"
-         y="218.11978">right</tspan><tspan
+         y="218.11978"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">right</tspan><tspan
          sodipodi:role="line"
          x="280"
-         y="234.36978"
-         id="tspan9509">triangle</tspan></text>
+         y="233.11978"
+         id="tspan9509"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">triangle</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Libertinus Sans;-inkscape-font-specification:Libertinus Sans"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0%;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
        x="225"
        y="293.11978"
-       id="text9523"
-       sodipodi:linespacing="125%"><tspan
+       id="text9523"><tspan
          sodipodi:role="line"
          id="tspan9525"
          x="225"
-         y="293.11978">isosceles</tspan><tspan
+         y="293.11978"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">isosceles</tspan><tspan
          sodipodi:role="line"
          x="225"
-         y="309.36978"
-         id="tspan9529">right triangle</tspan></text>
+         y="308.11978"
+         id="tspan9529"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">right triangle</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Libertinus Sans;-inkscape-font-specification:Libertinus Sans"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0%;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
        x="115"
        y="293.11978"
-       id="text9531"
-       sodipodi:linespacing="125%"><tspan
+       id="text9531"><tspan
          sodipodi:role="line"
          id="tspan9533"
          x="115"
-         y="293.11978">equilateral</tspan><tspan
+         y="293.11978"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">equilateral</tspan><tspan
          sodipodi:role="line"
          x="115"
-         y="309.36978"
-         id="tspan9535">triangle</tspan></text>
+         y="308.11978"
+         id="tspan9535"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">triangle</tspan></text>
   </g>
 </svg>

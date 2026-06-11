@@ -1,0 +1,58 @@
+\input{preamble/packages}
+\input{preamble/commons}
+
+\input{preamble/layout}
+\input{preamble/header}
+
+% multi-language
+\setdefaultlanguage[variant=american]{english}
+\setotherlanguages{greek}
+
+% from package: hyperref
+% customize link colors
+\hypersetup{
+  pdfauthor={Harold Abelson, Gerald Jay Sussman, Julie Sussman},
+  pdftitle={Structure and Interpretation of Computer Programs, 2nd ed.},
+  pdfsubject={computer science, programming, abstraction},
+  colorlinks=true,
+  linkcolor=LinkRed,
+  urlcolor=LinkRed,
+}
+
+% lettrine - oversized initial letter
+% package: lettrine
+\renewcommand{\LettrineFontHook}{%
+  \rmfamily\mdseries\color{MediumGray}%
+}
+\LettrineRealHeighttrue
+% indentation of paragraphs around lettrine
+\setlength{\DefaultFindent}{1pt}
+\setlength{\DefaultNindent}{0em}
+
+% vertical spacing between paragraphs
+\setlength{\parskip}{0.2\baselineskip plus 0.1ex minus 0.1ex}
+\setlength{\parindent}{2em}
+
+% make space after all punctuation identical to the space between words in the
+% middle of a sentence.
+\frenchspacing
+
+% depth level up to which section headings are automatically numbered.
+\setcounter{secnumdepth}{3} % 3 -> upto subsubsection
+% depth level up to which toc content is displayed
+\setcounter{tocdepth}{3} % 3 -> upto subsubsection
+
+\input{preamble/title}
+\input{preamble/toc}
+\input{preamble/figure}
+\input{preamble/syntaxhighlight}
+
+% index style
+\idxlayout{%
+  totoc, % add to toc
+  font=footnotesize,
+  justific=raggedright,
+}
+
+% generate index
+\makeindex[options={-s preamble/indexstyle.ist}]

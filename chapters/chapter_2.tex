@@ -1,19 +1,18 @@
 \chapter{Building Abstractions with Data}
 \label{Chapter 2}
 
-\begin{quote}
-We now come to the decisive step of mathematical abstraction: we forget about
-what the symbols stand for. \( \dots \)[The mathematician] need not be idle; there
-are many operations which he may carry out with these symbols, without ever
-having to look at the things they stand for.
-
----Hermann Weyl, \textit{The Mathematical Way of Thinking}
-\end{quote}
-
-% \vspace{1.0em}
+\chapterQuote{%
+    We now come to the decisive step of mathematical abstraction: we forget
+    about what the symbols stand for. \( \dots \)[The mathematician] need not
+    be idle; there are many operations which he may carry out with these
+    symbols, without ever having to look at the things they stand for.
+  }
+  {Hermann Weyl}
+  {The Mathematical Way of Thinking}
+  {}
 
 \noindent
-\lettrine[findent=1pt]{W}{e concentrated in} \link{Chapter 1} on computational processes and on the role
+\lettrine{W}{e concentrated in} \link{Chapter 1} on computational processes and on the role
 of procedures in program design.  We saw how to use primitive data (numbers)
 and primitive operations (arithmetic operations), how to combine procedures to
 form compound procedures through composition, conditionals, and the use of
@@ -448,13 +447,13 @@ as desired.  This modification was accomplished by changing the constructor
 \code{make\-/rat} without changing any of the procedures (such as \code{add\-/rat}
 and \code{mul\-/rat}) that implement the actual operations.
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.1}Exercise 2.1:} Define a better version of
 \code{make\-/rat} that handles both positive and negative arguments.
 \code{make\-/rat} should normalize the sign so that if the rational number is
 positive, both the numerator and denominator are positive, and if the rational
 number is negative, only the numerator is negative.
-\end{quote}
+\end{exercises}
 
 \subsection{Abstraction Barriers}
 \label{Section 2.1.2}
@@ -468,38 +467,10 @@ a basic set of operations in terms of which all manipulations of data objects
 of that type will be expressed, and then to use only those operations in
 manipulating the data.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 2.1}
-\centering
-\begin{comment}
-\begin{quote}
-\heading{Figure 2.1:} Data-abstraction barriers in the rational-number package.
-
-\begin{example}
-        +------------------------------------+
---------| Programs that use rational numbers |--------
-        +------------------------------------+
-          Rational numbers in problem domain
-            +---------------------------+
-------------|   add-rat  sub-rat  ...   |-------------
-            +---------------------------+
-   Rational numbers as numerators and denominators
-              +------------------------+
---------------| make-rat  numer  denom |--------------
-              +------------------------+
-              Rational numbers as pairs
-                  +----------------+
-------------------| cons  car  cdr |------------------
-                  +----------------+
-            However pairs are implemented
-\end{example}
-\end{quote}
-\end{comment}
-\includegraphics[width=91mm]{assets/figures/chapter_2/figure_2.1c.pdf}
-\begin{quote}
-\heading{Figure 2.1:} Data-abstraction barriers in the rational-number package.
-\end{quote}
-\end{figure}
+% figure 2.1
+\begin{imageFigure}{Data-abstraction barriers in the rational-number package.}
+  \includegraphics[width=91mm]{assets/figures/chapter_2/figure_2.1c.pdf}
+\end{imageFigure}
 
 We can envision the structure of the rational-number system as shown in
 \link{Figure 2.1}.  The horizontal lines represent \newterm{abstraction
@@ -561,7 +532,7 @@ time or at selection time.  The data-abstraction methodology gives us a way to
 defer that decision without losing the ability to make progress on the rest of
 the system.
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.2}Exercise 2.2:} Consider the problem of
 representing line segments in a plane.  Each segment is represented as a pair
 of points: a starting point and an ending point.  Define a constructor
@@ -584,9 +555,7 @@ endpoints).  To try your procedures, you'll need a way to print points:
   (display (y-point p))
   (display ")"))
 \end{scheme}
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.3}Exercise 2.3:} Implement a representation for
 rectangles in a plane.  (Hint: You may want to make use of \link{Exercise 2.2}.)
 In terms of your constructors and selectors, create procedures that compute the
@@ -594,7 +563,7 @@ perimeter and the area of a given rectangle.  Now implement a different
 representation for rectangles.  Can you design your system with suitable
 abstraction barriers, so that the same perimeter and area procedures will work
 using either representation?
-\end{quote}
+\end{exercises}
 
 \subsection{What Is Meant by Data?}
 \label{Section 2.1.3}
@@ -712,7 +681,7 @@ programming is often called \newterm{message passing}, and we will be using it
 as a basic tool in \link{Chapter 3} when we address the issues of modeling and
 simulation.
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.4}Exercise 2.4:} Here is an alternative procedural
 representation of pairs.  For this representation, verify that \code{(car (cons
 x y))} yields \code{x} for any objects \code{x} and \code{y}.
@@ -726,17 +695,13 @@ x y))} yields \code{x} for any objects \code{x} and \code{y}.
 
 What is the corresponding definition of \code{cdr}? (Hint: To verify that this
 works, make use of the substitution model of \link{Section 1.1.5}.)
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.5}Exercise 2.5:} Show that we can represent pairs of
 nonnegative integers using only numbers and arithmetic operations if we
 represent the pair \( a \) and \( b \) as the integer that is the product \( 2^a 3^b \).
 Give the corresponding definitions of the procedures \code{cons},
 \code{car}, and \code{cdr}.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.6}Exercise 2.6:} In case representing pairs as
 procedures wasn't mind-boggling enough, consider that, in a language that can
 manipulate procedures, we can get by without numbers (at least insofar as
@@ -756,7 +721,7 @@ Define \code{one} and \code{two} directly (not in terms of \code{zero} and
 \code{add\-/1}).  (Hint: Use substitution to evaluate \code{(add\-/1 zero)}).  Give
 a direct definition of the addition procedure \code{+} (not in terms of
 repeated application of \code{add\-/1}).
-\end{quote}
+\end{exercises}
 
 \subsection{Extended Exercise: Interval Arithmetic}
 \label{Section 2.1.4}
@@ -841,7 +806,7 @@ the upper bound and the reciprocal of the lower bound, in that order.
                   (/ 1.0 (lower-bound y)))))
 \end{scheme}
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.7}Exercise 2.7:} Alyssa's program is incomplete
 because she has not specified the implementation of the interval abstraction.
 Here is a definition of the interval constructor:
@@ -852,15 +817,11 @@ Here is a definition of the interval constructor:
 
 Define selectors \code{upper\-/bound} and \code{lower\-/bound} to complete the
 implementation.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.8}Exercise 2.8:} Using reasoning analogous to
 Alyssa's, describe how the difference of two intervals may be computed.  Define
 a corresponding subtraction procedure, called \code{sub\-/interval}.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.9}Exercise 2.9:} The \newterm{width} of an interval
 is half of the difference between its upper and lower bounds.  The width is a
 measure of the uncertainty of the number specified by the interval.  For some
@@ -870,16 +831,12 @@ width of the combination is not a function of the widths of the argument
 intervals.  Show that the width of the sum (or difference) of two intervals is
 a function only of the widths of the intervals being added (or subtracted).
 Give examples to show that this is not true for multiplication or division.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.10}Exercise 2.10:} Ben Bitdiddle, an expert systems
 programmer, looks over Alyssa's shoulder and comments that it is not clear what
 it means to divide by an interval that spans zero.  Modify Alyssa's code to
 check for this condition and to signal an error if it occurs.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.11}Exercise 2.11:} In passing, Ben also cryptically
 comments: ``By testing the signs of the endpoints of the intervals, it is
 possible to break \code{mul\-/interval} into nine cases, only one of which
@@ -907,17 +864,13 @@ situations usually involve measurements with only a small uncertainty, measured
 as the ratio of the width of the interval to the midpoint of the interval.
 Engineers usually specify percentage tolerances on the parameters of devices,
 as in the resistor specifications given earlier.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.12}Exercise 2.12:} Define a constructor
 \code{make\-/center\-/percent} that takes a center and a percentage tolerance and
 produces the desired interval.  You must also define a selector \code{percent}
 that produces the percentage tolerance for a given interval.  The \code{center}
 selector is the same as the one shown above.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.13}Exercise 2.13:} Show that under the assumption of
 small percentage tolerances there is a simple formula for the approximate
 percentage tolerance of the product of two intervals in terms of the tolerances
@@ -975,18 +928,14 @@ parallel-resistors formula differently:
 
 Lem complains that Alyssa's program gives different answers for the two ways of
 computing. This is a serious complaint.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.14}Exercise 2.14:} Demonstrate that Lem is right.
 Investigate the behavior of the system on a variety of arithmetic
 expressions. Make some intervals \( A \) and \( B \), and use them in computing the
 expressions \( A / A \) and \( A / B \).  You will get the most insight by
 using intervals whose width is a small percentage of the center value. Examine
 the results of the computation in center-percent form (see \link{Exercise 2.12}).
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.15}Exercise 2.15:} Eva Lu Ator, another user, has
 also noticed the different intervals computed by different but algebraically
 equivalent expressions. She says that a formula to compute with intervals using
@@ -994,14 +943,12 @@ Alyssa's system will produce tighter error bounds if it can be written in such
 a form that no variable that represents an uncertain number is repeated.  Thus,
 she says, \code{par2} is a ``better'' program for parallel resistances than
 \code{par1}.  Is she right?  Why?
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.16}Exercise 2.16:} Explain, in general, why
 equivalent algebraic expressions may lead to different answers.  Can you devise
 an interval-arithmetic package that does not have this shortcoming, or is this
 task impossible?  (Warning: This problem is very difficult.)
-\end{quote}
+\end{exercises}
 
 
 \section{Hierarchical Data and the Closure Property}
@@ -1024,60 +971,16 @@ universal building block from which we can construct all sorts of data
 structures.  \link{Figure 2.3} shows two ways to use pairs to combine the
 numbers 1, 2, 3, and 4.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 2.2}
-\centering
-\begin{comment}
-\heading{Figure 2.2:} Box-and-pointer representation of \code{(cons 1 2)}.
 
-\begin{example}
-     +---+---+     +---+
----->| * | *-+---->| 2 |
-     +-|-+---+     +---+
-       |
-       V
-     +---+
-     | 1 |
-     +---+
-\end{example}
-\end{comment}
-\includegraphics[width=34mm]{assets/figures/chapter_2/figure_2.2c.pdf}
-\begin{quote}
-\heading{Figure 2.2:} Box-and-pointer representation of \code{(cons 1 2)}.
-\end{quote}
-\end{figure}
+% figure 2.2
+\begin{imageFigure}{Box-and-pointer representation of \code{(cons 1 2)}}
+  \includegraphics[width=34mm]{assets/figures/chapter_2/figure_2.2c.pdf}
+\end{imageFigure}
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 2.3}
-\centering
-\begin{comment}
-\heading{Figure 2.3:} Two ways to combine 1, 2, 3, and 4 using pairs.
-
-\begin{example}
-     +---+---+     +---+---+         +---+---+     +---+
----->| * | *-+---->| * | * |    ---->| * | *-+---->| 4 |
-     +-|-+---+     +-|-+-|-+         +-|-+---+     +---+
-       |             |   |             |
-       V             V   V             V
-   +---+---+      +---+ +---+      +---+---+     +---+---+
-   | * | * |      | 3 | | 4 |      | * | *-+---->| * | * |
-   +-|-+-|-+      +---+ +---+      +-|-+---+     +-|-+-|-+
-     |   |                           |             |   |
-     V   V                           V             V   V
-  +---+ +---+                      +---+        +---+ +---+
-  | 1 | | 2 |                      | 1 |        | 2 | | 3 |
-  +---+ +---+                      +---+        +---+ +---+
-
-  (cons (cons 1 2)                 (cons (cons 1
-        (cons 3 4))                            (cons 2 3))
-                                         4)
-\end{example}
-\end{comment}
-\includegraphics[width=96mm]{assets/figures/chapter_2/figure_2.3c.pdf}
-\begin{quote}
-\heading{Figure 2.3:} Two ways to combine 1, 2, 3, and 4 using pairs.
-\end{quote}
-\end{figure}
+% figure 2.3
+\begin{imageFigure}{Two ways to combine 1, 2, 3, and 4 using pairs.}
+  \includegraphics[width=96mm]{assets/figures/chapter_2/figure_2.3c.pdf}
+\end{imageFigure}
 
 The ability to create pairs whose elements are pairs is the essence of list
 structure's importance as a representational tool.  We refer to this ability as
@@ -1142,28 +1045,10 @@ nested \code{cons} operations:
                   (cons 4 nil))))
 \end{scheme}
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 2.4}
-\centering
-\begin{comment}
-\heading{Figure 2.4:} The sequence 1, 2, 3, 4 represented as a chain of pairs.
-
-\begin{example}
-     +---+---+     +---+---+     +---+---+     +---+---+
----->| * | *-+---->| * | *-+---->| * | *-+---->| * | / |
-     +-|-+---+     +-|-+---+     +-|-+---+     +-|-+---+
-       |             |             |             |
-       V             V             V             V
-     +---+         +---+         +---+         +---+
-     | 1 |         | 2 |         | 3 |         | 4 |
-     +---+         +---+         +---+         +---+
-\end{example}
-\end{comment}
-\includegraphics[width=76mm]{assets/figures/chapter_2/figure_2.4c.pdf}
-\begin{quote}
-\heading{Figure 2.4:} The sequence 1, 2, 3, 4 represented as a chain of pairs.
-\end{quote}
-\end{figure}
+% figure 2.4
+\begin{imageFigure}{The sequence 1, 2, 3, 4 represented as a chain of pairs.}
+  \includegraphics[width=76mm]{assets/figures/chapter_2/figure_2.4c.pdf}
+\end{imageFigure}
 
 Such a sequence of pairs, formed by nested \code{cons}es, is called a
 \newterm{list}, and Scheme provides a primitive called \code{list} to help in
@@ -1368,7 +1253,7 @@ Otherwise, \code{append} the \code{cdr} of \code{list1} and \code{list2}, and
       (cons (car list1) (append (cdr list1) list2))))
 \end{scheme}
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.17}Exercise 2.17:} Define a procedure
 \code{last\-/pair} that returns the list that contains only the last element of a
 given (nonempty) list:
@@ -1377,9 +1262,7 @@ given (nonempty) list:
 (last-pair (list 23 72 149 34))
 ~\textit{(34)}~
 \end{scheme}
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.18}Exercise 2.18:} Define a procedure \code{reverse}
 that takes a list as argument and returns a list of the same elements in
 reverse order:
@@ -1388,9 +1271,7 @@ reverse order:
 (reverse (list 1 4 9 16 25))
 ~\textit{(25 16 9 4 1)}~
 \end{scheme}
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.19}Exercise 2.19:} Consider the change-counting
 program of \link{Section 1.2.2}.  It would be nice to be able to easily change
 the currency used by the program, so that we could compute the number of ways
@@ -1438,9 +1319,7 @@ Define the procedures \code{first\-/denomination},
 \code{except\-/first\-/denomination}, and \code{no\-/more?} in terms of primitive
 operations on list structures.  Does the order of the list \code{coin\-/values}
 affect the answer produced by \code{cc}?  Why or why not?
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.20}Exercise 2.20:} The procedures \code{+},
 \code{*}, and \code{list} take arbitrary numbers of arguments. One way to
 define such procedures is to use \code{define} with \newterm{dotted-tail
@@ -1499,7 +1378,7 @@ even-odd parity as the first argument.  For example,
 (same-parity 2 3 4 5 6 7)
 ~\textit{(2 4 6)}~
 \end{scheme}
-\end{quote}
+\end{exercises}
 
 \subsubsection*{Mapping over lists}
 
@@ -1579,7 +1458,7 @@ while preserving the conceptual framework of operations that transform
 sequences to sequences.  \link{Section 2.2.3} expands on this use of sequences
 as a framework for organizing programs.
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.21}Exercise 2.21:} The procedure \code{square\-/list}
 takes a list of numbers as argument and returns a list of the squares of those
 numbers.
@@ -1600,9 +1479,7 @@ them by filling in the missing expressions:
 (define (square-list items)
   (map ~\( \dark \langle \)~??~\( \dark \rangle \)~ ~\( \dark \langle \)~??~\( \dark \rangle \)~))
 \end{scheme}
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.22}Exercise 2.22:} Louis Reasoner tries to rewrite
 the first \code{square\-/list} procedure of \link{Exercise 2.21} so that it
 evolves an iterative process:
@@ -1635,9 +1512,7 @@ Louis then tries to fix his bug by interchanging the arguments to \code{cons}:
 \end{scheme}
 
 This doesn't work either.  Explain.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.23}Exercise 2.23:} The procedure \code{for\-/each} is
 similar to \code{map}.  It takes as arguments a procedure and a list of
 elements.  However, rather than forming a list of the results, \code{for\-/each}
@@ -1659,7 +1534,7 @@ printing.  For example,
 The value returned by the call to \code{for\-/each} (not illustrated above) can
 be something arbitrary, such as true.  Give an implementation of
 \code{for\-/each}.
-\end{quote}
+\end{exercises}
 
 \subsection{Hierarchical Structures}
 \label{Section 2.2.2}
@@ -1678,62 +1553,20 @@ Indeed, this is suggested by the form in which the result is printed by the
 interpreter.  \link{Figure 2.5} shows the representation of
 this structure in terms of pairs.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 2.5}
-\centering
-\begin{comment}
-\heading{Figure 2.5:} Structure formed by \code{(cons (list 1 2) (list 3 4))}.
-
-\begin{example}
-                                          (3 4)
-                                            |
-                                            V
-((1 2) 3 4)  +---+---+                  +---+---+     +---+---+
-        ---->| * | *-+----------------->| * | *-+---->| * | / |
-             +-|-+---+                  +-|-+---+     +-|-+---+
-               |                          |             |
-               V                          V             V
-      (1 2)  +---+---+     +---+---+    +---+         +---+
-        ---->| * | *-+---->| * | / |    | 3 |         | 4 |
-             +-|-+---+     +-|-+---+    +---+         +---+
-               |             |
-               V             V
-             +---+         +---+
-             | 1 |         | 2 |
-             +---+         +---+
-\end{example}
-\end{comment}
-\includegraphics[width=91mm]{assets/figures/chapter_2/figure_2.5c.pdf}
-\begin{quote}
-\heading{Figure 2.5:} Structure formed by \code{(cons (list 1 2) (list 3 4))}.
-\end{quote}
-\end{figure}
+% figure 2.5
+\begin{imageFigure}{Structure formed by \code{(cons (list 1 2) (list 3 4))}.}
+  \includegraphics[width=91mm]{assets/figures/chapter_2/figure_2.5c.pdf}
+\end{imageFigure}
 
 Another way to think of sequences whose elements are sequences is as
 \newterm{trees}.  The elements of the sequence are the branches of the tree,
 and \mbox{elements} that are themselves sequences are subtrees.  \link{Figure 2.6}
 shows \mbox{the structure} in \link{Figure 2.5} viewed as a tree.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 2.6}
-\centering
-\begin{comment}
-\heading{Figure 2.6:} The list structure in \link{Figure 2.5} viewed as a tree.
-
-\begin{example}
- ((1 2) 3 4)
-     /\\
-    /  | \
-(1 2)  3 4
- / \
- 1 2
-\end{example}
-\end{comment}
+% figure 2.6
+\begin{imageFigure}{The list structure in \link{Figure 2.5} viewed as a tree.}
 \includegraphics[width=22mm]{assets/figures/chapter_2/figure_2.6a.pdf}
-\begin{quote}
-\heading{Figure 2.6:} The list structure in \link{Figure 2.5} viewed as a tree.
-\end{quote}
-\end{figure}
+\end{imageFigure}
 
 Recursion is a natural tool for dealing with tree structures, since we can
 often reduce operations on trees to operations on their branches, which reduce
@@ -1820,14 +1653,12 @@ not a pair.}
                  (count-leaves (cdr x))))))
 \end{scheme}
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.24}Exercise 2.24:} Suppose we evaluate the
 expression \code{(list 1 (list 2 (list 3 4)))}.  Give the result printed by the
 interpreter, the corresponding box-and-pointer structure, and the
 interpretation of this as a tree (as in \link{Figure 2.6}).
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.25}Exercise 2.25:} Give combinations of \code{car}s
 and \code{cdr}s that will pick 7 from each of the following lists:
 
@@ -1836,9 +1667,7 @@ and \code{cdr}s that will pick 7 from each of the following lists:
 ((7))
 (1 (2 (3 (4 (5 (6 7))))))
 \end{scheme}
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.26}Exercise 2.26:} Suppose we define \code{x} and
 \code{y} to be two lists:
 
@@ -1855,9 +1684,7 @@ following expressions:
 (cons x y)
 (list x y)
 \end{scheme}
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.27}Exercise 2.27:} Modify your \code{reverse}
 procedure of \link{Exercise 2.18} to produce a \code{deep\-/reverse} procedure
 that takes a list as argument and returns as its value the list with its
@@ -1872,9 +1699,7 @@ x
 (deep-reverse x)
 ~\textit{((4 3) (2 1))}~
 \end{scheme}
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.28}Exercise 2.28:} Write a procedure \code{fringe}
 that takes as argument a tree (represented as a list) and returns a list whose
 elements are all the leaves of the tree arranged in left-to-right order.  For
@@ -1887,9 +1712,7 @@ example,
 (fringe (list x x))
 ~\textit{(1 2 3 4 1 2 3 4)}~
 \end{scheme}
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.29}Exercise 2.29:} A binary mobile consists of two
 branches, a left branch and a right branch.  Each branch is a rod of a certain
 length, from which hangs either a weight or another binary mobile.  We can
@@ -1942,7 +1765,7 @@ How much do you need to change your programs to convert to the new
 representation?
 
 \end{enumerate}
-\end{quote}
+\end{exercises}
 
 \subsubsection*{Mapping over trees}
 
@@ -1983,7 +1806,7 @@ tree is a leaf, we simply multiply by the factor:
 Many tree operations can be implemented by similar combinations of sequence
 operations and recursion.
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.30}Exercise 2.30:} Define a procedure
 \code{square\-/tree} analogous to the \code{square\-/list} procedure of
 \link{Exercise 2.21}.  That is, \code{square\-/tree} should behave as follows:
@@ -1998,9 +1821,7 @@ operations and recursion.
 
 Define \code{square\-/tree} both directly (i.e., without using any higher-order
 procedures) and also by using \code{map} and recursion.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.31}Exercise 2.31:} Abstract your answer to
 \link{Exercise 2.30} to produce a procedure \code{tree\-/map} with the property
 that \code{square\-/tree} could be defined as
@@ -2008,9 +1829,7 @@ that \code{square\-/tree} could be defined as
 \begin{scheme}
 (define (square-tree tree) (tree-map square tree))
 \end{scheme}
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.32}Exercise 2.32:} We can represent a set as a list
 of distinct elements, and we can represent the set of all subsets of the set as
 a list of lists.  For example, if the set is \code{(1 2 3)}, then the set of
@@ -2025,7 +1844,7 @@ and give a clear explanation of why it works:
       (let ((rest (subsets (cdr s))))
         (append rest (map ~\( \dark \langle \)~??~\( \dark \rangle \)~ rest)))))
 \end{scheme}
-\end{quote}
+\end{exercises}
 
 \subsection{Sequences as Conventional Interfaces}
 \label{Section 2.2.3}
@@ -2112,33 +1931,10 @@ empty list.
 
 \end{itemize}
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 2.7}
-\centering
-\begin{comment}
-\begin{quote}
-\heading{Figure 2.7:} The signal-flow plans for the
-procedures \code{sum\-/odd\-/squares} (top) and \code{even\-/fibs} (bottom) reveal
-the commonality between the two programs.
-
-\begin{example}
-+-------------+   +-------------+   +-------------+   +-------------+
-| enumerate:  |-->| filter:     |-->| map:        |-->| accumulate: |
-| tree leaves |   | odd?        |   | square      |   | +, 0        |
-+-------------+   +-------------+   +-------------+   +-------------+
-
-+-------------+   +-------------+   +-------------+   +-------------+
-| enumerate:  |-->| map:        |-->| filter:     |-->| accumulate: |
-| integers    |   | fib         |   | even?       |   | cons, ()    |
-+-------------+   +-------------+   +-------------+   +-------------+
-\end{example}
-\end{quote}
-\end{comment}
-\includegraphics[width=111mm]{assets/figures/chapter_2/figure_2.7d.pdf}
-\begin{quote}
-\heading{Figure 2.7:} The signal-flow plans for the procedures \code{sum\-/odd\-/squares} (top) and \code{even\-/fibs} (bottom) reveal the commonality between the two programs.
-\end{quote}
-\end{figure}
+% figure 2.7
+\begin{imageFigure}{The signal-flow plans for the procedures \code{sum\-/odd\-/squares} (top) and \code{even\-/fibs} (bottom) reveal the commonality between the two programs.}
+  \includegraphics[width=111mm]{assets/figures/chapter_2/figure_2.7d.pdf}
+\end{imageFigure}
 
 \noindent
 A signal-processing engineer would find it natural to conceptualize these
@@ -2353,7 +2149,7 @@ sequences, while leaving the overall design of our programs intact.  We will
 exploit this capability in \link{Section 3.5}, when we generalize the
 sequence-processing paradigm to admit infinite sequences.
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.33}Exercise 2.33:} Fill in the missing expressions
 to complete the following definitions of some basic list-manipulation
 operations as accumulations:
@@ -2366,9 +2162,7 @@ operations as accumulations:
 (define (length sequence)
   (accumulate ~\( \dark \langle \)~??~\( \dark \rangle \)~ 0 sequence))
 \end{scheme}
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.34}Exercise 2.34:} Evaluating a polynomial in \( x \)
 at a given value of \( x \) can be formulated as an accumulation.  We evaluate
 the polynomial
@@ -2432,9 +2226,7 @@ would evaluate
 \begin{scheme}
 (horner-eval 2 (list 1 3 0 5 0 1))
 \end{scheme}
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.35}Exercise 2.35:} Redefine \code{count\-/leaves} from
 \link{Section 2.2.2} as an accumulation:
 
@@ -2442,9 +2234,7 @@ would evaluate
 (define (count-leaves t)
   (accumulate ~\( \dark \langle \)~??~\( \dark \rangle \)~ ~\( \dark \langle \)~??~\( \dark \rangle \)~ (map ~\( \dark \langle \)~??~\( \dark \rangle \)~ ~\( \dark \langle \)~??~\( \dark \rangle \)~)))
 \end{scheme}
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.36}Exercise 2.36:} The procedure \code{accumulate\-/n}
 is similar to \code{accumulate} except that it takes as its third argument a
 sequence of sequences, which are all assumed to have the same number of
@@ -2463,9 +2253,7 @@ of \code{accumulate\-/n}:
       (cons (accumulate op init ~\( \dark \langle \)~??~\( \dark \rangle \)~)
             (accumulate-n op init ~\( \dark \langle \)~??~\( \dark \rangle \)~))))
 \end{scheme}
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.37}Exercise 2.37:}
 Suppose we represent vectors \( \hbox{\bf v} = (v_i) \) as sequences of numbers, and
 matrices \( \hbox{\bf m} = (m_{i\!j}) \) as sequences of vectors (the rows of the
@@ -2550,9 +2338,7 @@ other matrix operations.  (The procedure \code{accumulate\-/n} is defined in
   (let ((cols (transpose n)))
     (map ~\( \dark \langle \)~??~\( \dark \rangle \)~ m)))
 \end{scheme}
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.38}Exercise 2.38:} The \code{accumulate} procedure
 is also known as \code{fold\-/right}, because it combines the first element of
 the sequence with the result of combining all the elements to the right.  There
@@ -2581,9 +2367,7 @@ What are the values of
 Give a property that \code{op} should satisfy to guarantee that
 \code{fold\-/right} and \code{fold\-/left} will produce the same values for any
 sequence.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.39}Exercise 2.39:} Complete the following
 definitions of \code{reverse} (\link{Exercise 2.18}) in terms of
 \code{fold\-/right} and \code{fold\-/left} from \link{Exercise 2.38}:
@@ -2594,7 +2378,7 @@ definitions of \code{reverse} (\link{Exercise 2.18}) in terms of
 (define (reverse sequence)
   (fold-left (lambda (x y) ~\( \dark \langle \)~??~\( \dark \rangle \)~) nil sequence))
 \end{scheme}
-\end{quote}
+\end{exercises}
 
 \subsubsection*{Nested Mappings}
 
@@ -2747,20 +2531,16 @@ filter:
           sequence))
 \end{scheme}
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.40}Exercise 2.40:} Define a procedure
 \code{unique\-/pairs} that, given an integer \( n \), generates the sequence of
 pairs \( (i, j) \) with \( 1 \le j < i \le n \).  Use \code{unique\-/pairs}
 to simplify the definition of \code{prime\-/sum\-/pairs} given above.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.41}Exercise 2.41:} Write a procedure to find all
 ordered triples of distinct positive integers \( i \), \( j \), and \( k \) less than
 or equal to a given integer \( n \) that sum to a given integer \( s \).
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.42}Exercise 2.42:} The ``eight-queens puzzle'' asks
 how to place eight queens on a chessboard so that no queen is in check from any
 other (i.e., no two queens are in the same row, column, or diagonal).  One
@@ -2777,37 +2557,10 @@ respect to the other queens.  This produces the sequence of all ways to place
 \( k \) queens in the first \( k \) columns.  By continuing this process, we will
 produce not only one solution, but all solutions to the puzzle.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 2.8}
-\centering
-\begin{comment}
-\heading{Figure 2.8:} A solution to the eight-queens puzzle.
-
-\begin{example}
-+---+---+---+---+---+---+---+---+
-|   |   |   |   |   | Q |   |   |
-+---+---+---+---+---+---+---+---+
-|   |   | Q |   |   |   |   |   |
-+---+---+---+---+---+---+---+---+
-| Q |   |   |   |   |   |   |   |
-+---+---+---+---+---+---+---+---+
-|   |   |   |   |   |   | Q |   |
-+---+---+---+---+---+---+---+---+
-|   |   |   |   | Q |   |   |   |
-+---+---+---+---+---+---+---+---+
-|   |   |   |   |   |   |   | Q |
-+---+---+---+---+---+---+---+---+
-|   | Q |   |   |   |   |   |   |
-+---+---+---+---+---+---+---+---+
-|   |   |   | Q |   |   |   |   |
-+---+---+---+---+---+---+---+---+
-\end{example}
-\end{comment}
-\includegraphics[width=48mm]{assets/figures/chapter_2/figure_2.8c.pdf}      % 73mm
-\par\bigskip
-\noindent
-\heading{Figure 2.8:} A solution to the eight-queens puzzle.
-\end{figure}
+% figure 2.8
+\begin{imageFigure}{A solution to the eight-queens puzzle.}
+  \includegraphics[width=48mm]{assets/figures/chapter_2/figure_2.8c.pdf}
+\end{imageFigure}
 
 We implement this solution as a procedure \code{queens}, which returns a
 sequence of all solutions to the problem of placing \( n \) queens on an
@@ -2843,9 +2596,7 @@ You must also write the procedure \code{safe?}, which determines for a set of
 positions, whether the queen in the \( k^{\mathrm{th}} \) column is safe with respect to the
 others.  (Note that we need only check whether the new queen is safe---the
 other queens are already guaranteed safe with respect to each other.)
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.43}Exercise 2.43:} Louis Reasoner is having a
 terrible time doing \link{Exercise 2.42}.  His \code{queens} procedure seems to
 work, but it runs extremely slowly.  (Louis never does manage to wait long
@@ -2865,7 +2616,7 @@ in the \code{flatmap}, writing it as
 Explain why this interchange makes the program run slowly.  Estimate how long
 it will take Louis's program to solve the eight-queens puzzle, assuming that
 the program in \link{Exercise 2.42} solves the puzzle in time \( T \).
-\end{quote}
+\end{exercises}
 
 \subsection{Example: A Picture Language}
 \label{Section 2.2.4}
@@ -2893,35 +2644,19 @@ importance of describing a language by focusing on the language's primitives,
 its means of combination, and its means of abstraction.  We'll follow that
 framework here.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 2.9}
-\centering
-\begin{comment}
-\heading{Figure 2.9:} Designs generated with the picture language.
+% figure 2.9
+\begin{imageFigure}{Designs generated with the picture language.}
+  \includegraphics[width=111mm]{assets/figures/chapter_2/figure_2.9_bigger.png}
+\end{imageFigure}
 
-[two graphic images not included]
-\end{comment}
-\includegraphics[width=111mm]{assets/figures/chapter_2/figure_2.9_bigger.png}
-\par\bigskip
-\noindent
-\heading{Figure 2.9:} Designs generated with the picture language.
-\end{figure}
-
-\begin{figure}[tb]
-\phantomsection\label{Figure 2.10}
-\centering
-\begin{comment}
-\heading{Figure 2.10:} Images produced by the \code{wave}
-painter, with respect to four different frames.  The frames, shown with dotted
-lines, are not part of the images.
-
-[four graphic images not included]
-\end{comment}
-\includegraphics[width=50mm]{assets/figures/chapter_2/figure_2.10.pdf}
-\begin{quote}
-\heading{Figure 2.10:} Images produced by the \code{wave} painter, with respect to four different frames.  The frames, shown with dotted lines, are not part of the images.
-\end{quote}
-\end{figure}
+% figure 2.10
+\begin{imageFigure}
+  {%
+    Images produced by the \code{wave} painter, with respect to four different
+    frames. The frames, shown with dotted lines, are not part of the images.
+  }%
+  \includegraphics[width=50mm]{assets/figures/chapter_2/figure_2.10.pdf}
+\end{imageFigure}
 
 Part of the elegance of this picture language is that there is only one kind of
 element, called a \newterm{painter}.  A painter draws an image that is shifted
@@ -2987,22 +2722,15 @@ the very part and act of public duty.
 } The four images in figure 2.11 are drawn with respect to the same four
 frames as the \code{wave} images in figure 2.10.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 2.11}
-\centering
-\begin{comment}
-\heading{Figure 2.11:} Images of William Barton Rogers,
-founder and first president of \acronym{MIT}, painted with respect to the same
-four frames as in \link{Figure 2.10} (original image reprinted with the
-permission of the \acronym{MIT} Museum).
-
-[four graphic images not included]
-\end{comment}
-\includegraphics[width=48mm]{assets/figures/chapter_2/figure_2.11.pdf}
-\begin{quote}
-\heading{Figure 2.11:} Images of William Barton Rogers, founder and first president of \acronym{MIT}, painted with respect to the same four frames as in \link{Figure 2.10} (original image from Wikimedia Commons).
-\end{quote}
-\end{figure}
+% figure 2.11
+\begin{imageFigure}
+  {%
+    Images of William Barton Rogers, founder and first president of
+    \acronym{MIT}, painted with respect to the same four frames as in
+    \link{Figure 2.10} (original image from Wikimedia Commons).
+  }%
+  \includegraphics[width=48mm]{assets/figures/chapter_2/figure_2.11.pdf}
+\end{imageFigure}
 
 To combine images, we use various operations that construct new painters from
 given painters.  For example, the \code{beside} operation takes two painters
@@ -3023,25 +2751,14 @@ original painter's image left-to-right reversed.
 (define wave4 (below wave2 wave2))
 \end{scheme}
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 2.12}
-\centering
-\begin{comment}
-\heading{Figure 2.12:} Creating a complex figure, starting
-from the \code{wave} painter of \link{Figure 2.10}.
-
-[two graphic images not included]
-
-\begin{scheme}
-(define wave2                      (define wave4
-  (beside wave (flip-vert wave)))    (below wave2 wave2))
-\end{scheme}
-\end{comment}
-\includegraphics[width=50mm]{assets/figures/chapter_2/figure_2.12.pdf}
-\begin{quote}
-\heading{Figure 2.12:} Creating a complex figure, starting from the \code{wave} painter of \link{Figure 2.10}.
-\end{quote}
-\end{figure}
+% figure 2.12
+\begin{imageFigure}
+  {%
+    Creating a complex figure, starting from the \code{wave} painter of
+    \link{Figure 2.10}.
+  }%
+  \includegraphics[width=50mm]{assets/figures/chapter_2/figure_2.12.pdf}
+\end{imageFigure}
 
 In building up a complex image in this manner we are exploiting the fact that
 painters are closed under the language's means of combination.  The
@@ -3072,37 +2789,10 @@ and define \code{wave4} as an instance of this pattern:
 (define wave4 (flipped-pairs wave))
 \end{scheme}
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 2.13}
-\centering
-\begin{comment}
-\begin{quote}
-\heading{Figure 2.13:} Recursive plans for \code{right\-/split} and \code{corner\-/split}.
-
-\begin{example}
-+-------------+-------------+    +------+------+-------------+
-|             |             |    | up-  | up-  |             |
-|             | right-split |    | split| split| corner-split|
-|             |             |    |      |      |             |
-|             |     n-1     |    |  n-1 |  n-1 |     n-1     |
-|             |             |    |      |      |             |
-|  identity   +-------------+    +------+------+-------------+
-|             |             |    |             | right-split |
-|             | right-split |    |             |     n-1     |
-|             |             |    |  identity   +-------------+
-|             |     n-1     |    |             | right-split |
-|             |             |    |             |     n-1     |
-+-------------+-------------+    +-------------+-------------+
-
-       right-split n                    corner-split n
-\end{example}
-\end{quote}
-\end{comment}
-\includegraphics[width=111mm]{assets/figures/chapter_2/figure_2.13a.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 2.13:} Recursive plans for \code{right\-/split} and \code{corner\-/split}. 
-\end{figure}
+% figure 2.13
+\begin{imageFigure}{Recursive plans for \code{right\-/split} and \code{corner\-/split}.}
+  \includegraphics[width=111mm]{assets/figures/chapter_2/figure_2.13a.pdf}
+\end{imageFigure}
 
 \noindent
 We can also define recursive operations.  Here's one that makes painters split
@@ -3146,36 +2836,23 @@ pattern called \code{square\-/limit}, whose application to \code{wave} and
       (below (flip-vert half) half))))
 \end{scheme}
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.44}Exercise 2.44:} Define the procedure
 \code{up\-/split} used by \code{corner\-/split}.  It is similar to
 \code{right\-/split}, except that it switches the roles of \code{below} and
 \code{beside}.
-\end{quote}
+\end{exercises}
 
-\begin{figure}[tbp]
-\phantomsection\label{Figure 2.14}
-\centering
-\begin{comment}
-\heading{Figure 2.14:} The recursive operations \code{right\-/split} and \code{corner\-/split} applied to the painters \code{wave} and \code{rogers}.  Combining four \code{corner\-/split} figures produces symmetric \code{square\-/limit} designs as shown in \link{Figure 2.9}.
-
-[two graphic images not included]
-
-\begin{scheme}
-(right-split wave 4)         (right-split rogers 4)
-\end{scheme}
-
-[two graphic images not included]
-
-\begin{scheme}
-(corner-split wave 4)        (corner-split rogers 4)
-\end{scheme}
-\end{comment}
-\includegraphics[width=91mm]{assets/figures/chapter_2/figure_2.14b.pdf}
-\begin{quote}
-\heading{Figure 2.14:} The recursive operations \code{right\-/split} and \code{corner\-/split} applied to the painters \code{wave} and \code{rogers}.  Combining four \code{corner\-/split} figures produces symmetric \code{square\-/limit} designs as shown in \link{Figure 2.9}.
-\end{quote}
-\end{figure}
+% figure 2.14
+\begin{imageFigure}
+  {%
+    The recursive operations \code{right\-/split} and \code{corner\-/split}
+    applied to the painters \code{wave} and \code{rogers}. Combining four
+    \code{corner\-/split} figures produces symmetric \code{square\-/limit}
+    designs as shown in \link{Figure 2.9}.
+  }%
+  \includegraphics[width=91mm]{assets/figures/chapter_2/figure_2.14b.pdf}
+\end{imageFigure}
 
 \subsubsection*{Higher-order operations}
 
@@ -3233,7 +2910,7 @@ procedure from \link{Exercise 1.42}.}
     (combine4 (corner-split painter n))))
 \end{scheme}
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.45}Exercise 2.45:} \code{right\-/split} and
 \code{up\-/split} can be expressed as instances of a general splitting operation.
 Define a procedure \code{split} with the property that evaluating
@@ -3246,7 +2923,7 @@ Define a procedure \code{split} with the property that evaluating
 \noindent
 produces procedures \code{right\-/split} and \code{up\-/split} with the same
 behaviors as the ones already defined.
-\end{quote}
+\end{exercises}
 
 \subsubsection*{Frames}
 
@@ -3265,35 +2942,10 @@ frames are represented, other than to say that there is a constructor
 corresponding selectors \code{origin\-/frame}, \code{edge1\-/frame}, and
 \code{edge2\-/frame} (see \link{Exercise 2.47}).
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 2.15}
-\centering
-\begin{comment}
-\heading{Figure 2.15:} A frame is described by three vectors
--- an origin and two edges.
-
-\begin{example}
-                         __
-                     __--  \
-                 __--       \
-      __     __--            \   __
-     |\  __--                 \__-|
-       \-                  __--
-frame   \              __--
-edge2    \         __--    frame
-vector    \    __--        edge1
-           \_--            vector
-            -   <--+
-          frame    |
-          origin   +-- (0, 0) point
-          vector       on display screen
-\end{example}
-\end{comment}
-\includegraphics[width=51mm]{assets/figures/chapter_2/figure_2.15a.pdf}
-\begin{quote}
-\heading{Figure 2.15:} A frame is described by three vectors --- an origin and two edges.
-\end{quote}
-\end{figure}
+% figure 2.15
+\begin{imageFigure}{A frame is described by three vectors --- an origin and two edges.}
+  \includegraphics[width=51mm]{assets/figures/chapter_2/figure_2.15a.pdf}
+\end{imageFigure}
 
 We will use coordinates in the unit square \( (0 \le x, y \le 1) \) to specify
 images.  With each frame, we associate a \newterm{frame coordinate map}, which
@@ -3345,7 +2997,7 @@ returns the same vector as
 (origin-frame a-frame)
 \end{scheme}
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.46}Exercise 2.46:} A two-dimensional vector \( \hbox{\bf v} \)
 running from the origin to a point can be represented as a pair consisting of
 an \( x \)-coordinate and a \( y \)-coordinate.  Implement a data abstraction for
@@ -3371,9 +3023,7 @@ $$
 \end{array}
 $$
 
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.47}Exercise 2.47:} Here are two possible
 constructors for frames:
 
@@ -3386,7 +3036,7 @@ constructors for frames:
 
 For each constructor supply the appropriate selectors to produce an
 implementation for frames.
-\end{quote}
+\end{exercises}
 
 \subsubsection*{Painters}
 
@@ -3439,16 +3089,14 @@ way at all, so long as it draws something in the designated frame.
 \link{Section 2.1.3} also showed how pairs could be implemented as procedures.  Painters
 are our second example of a procedural representation for data.}
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.48}Exercise 2.48:} A directed line segment in the
 plane can be represented as a pair of vectors---the vector running from the
 origin to the start-point of the segment, and the vector running from the
 origin to the end-point of the segment.  Use your vector representation from
 \link{Exercise 2.46} to define a representation for segments with a constructor
 \code{make\-/segment} and selectors \code{start\-/segment} and \code{end\-/segment}.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.49}Exercise 2.49:} Use \code{segments\-/>painter}
 to define the following primitive painters:
 
@@ -3468,7 +3116,7 @@ of the frame.
 The \code{wave} painter.
 
 \end{enumerate}
-\end{quote}
+\end{exercises}
 
 \subsubsection*{Transforming and combining painters}
 
@@ -3585,13 +3233,11 @@ of painters as procedures, makes \code{beside} easy to implement.  The
 component painters other than that each painter will draw something in its
 designated frame.
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.50}Exercise 2.50:} Define the transformation
 \code{flip\-/horiz}, which flips painters horizontally, and transformations that
 rotate painters counterclockwise by 180 degrees and 270 degrees.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.51}Exercise 2.51:} Define the \code{below} operation
 for painters.  \code{below} takes two painters as arguments.  The resulting
 painter, given a frame, draws with the first painter in the bottom of the frame
@@ -3599,7 +3245,7 @@ and with the second painter in the top.  Define \code{below} in two different
 ways---first by writing a procedure that is analogous to the \code{beside}
 procedure given above, and again in terms of \code{beside} and suitable
 rotation operations (from \link{Exercise 2.50}).
-\end{quote}
+\end{exercises}
 
 \subsubsection*{Levels of language for robust design}
 
@@ -3652,7 +3298,7 @@ work at the middle level to change the way \code{corner\-/split} replicates the
 level of a stratified design provides a different vocabulary for expressing the
 characteristics of the system, and a different kind of ability to change it.
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.52}Exercise 2.52:} Make changes to the square limit
 of \code{wave} shown in \link{Figure 2.9} by working at each of the levels
 described above.  In particular:
@@ -3674,7 +3320,7 @@ to assemble the corners in a different pattern.  (For example, you might make
 the big Mr. Rogers look outward from each corner of the square.)
 
 \end{enumerate}
-\end{quote}
+\end{exercises}
 
 \section{Symbolic Data}
 \label{Section 2.3}
@@ -3823,7 +3469,7 @@ is false, whereas the value of
 \noindent
 is \code{(apple pear)}.
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.53}Exercise 2.53:} What would the interpreter print
 in response to evaluating each of the following expressions?
 
@@ -3836,9 +3482,7 @@ in response to evaluating each of the following expressions?
 (memq 'red '((red shoes) (blue socks)))
 (memq 'red '(red shoes blue socks))
 \end{scheme}
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.54}Exercise 2.54:} Two lists are said to be
 \code{equal?} if they contain equal elements arranged in the same order.  For
 example,
@@ -3868,9 +3512,7 @@ highly implementation-dependent.  A better definition of \code{equal?} (such as
 the one that comes as a primitive in Scheme) would also stipulate that if
 \code{a} and \code{b} are both numbers, then \code{a} and \code{b} are
 \code{equal?} if they are numerically equal.}
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.55}Exercise 2.55:} Eva Lu Ator types to the
 interpreter the expression
 
@@ -3879,7 +3521,7 @@ interpreter the expression
 \end{scheme}
 
 To her surprise, the interpreter prints back \code{quote}.  Explain.
-\end{quote}
+\end{exercises}
 
 \subsection{Example: Symbolic Differentiation}
 \label{Section 2.3.2}
@@ -4187,7 +3829,7 @@ form that we might agree is ``simplest.''  The problem of algebraic
 simplification is complex because, among other reasons, a form that may be
 simplest for one purpose may not be for another.
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.56}Exercise 2.56:} Show how to extend the basic
 differentiator to handle more kinds of expressions.  For instance, implement
 the differentiation rule
@@ -4209,9 +3851,7 @@ procedures \code{exponentiation?}, \code{base}, \code{exponent}, and
 \code{make\-/exponentiation}.  (You may use the symbol \code{**} to denote
 exponentiation.)  Build in the rules that anything raised to the power 0 is 1
 and anything raised to the power 1 is the thing itself.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.57}Exercise 2.57:} Extend the differentiation
 program to handle sums and products of arbitrary numbers of (two or more)
 terms.  Then the last example above could be expressed as
@@ -4224,9 +3864,7 @@ Try to do this by changing only the representation for sums and products,
 without changing the \code{deriv} procedure at all.  For example, the
 \code{addend} of a sum would be the first term, and the \code{augend} would be
 the sum of the rest of the terms.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.58}Exercise 2.58:} Suppose we want to modify the
 differentiation program so that it works with ordinary mathematical notation,
 in which \code{+} and \code{*} are infix rather than prefix operators.  Since
@@ -4251,7 +3889,7 @@ design appropriate predicates, selectors, and constructors for this notation
 such that our derivative program still works?
 
 \end{enumerate}
-\end{quote}
+\end{exercises}
 
 \subsection{Example: Representing Sets}
 \label{Section 2.3.3}
@@ -4362,12 +4000,10 @@ each element of \code{set1}, the number of steps required grows as the product
 of the sizes of the sets involved, or \( \Theta(n^2) \) for two sets of size
 \( n \).  The same will be true of \code{union\-/set}.
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.59}Exercise 2.59:} Implement the \code{union\-/set}
 operation for the unordered-list representation of sets.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.60}Exercise 2.60:} We specified that a set would be
 represented as a list with no duplicates.  Now suppose we allow duplicates.
 For instance, the set \( \{1, 2, 3\} \) could be represented as the list \code{(2 3 2 1
@@ -4376,7 +4012,7 @@ For instance, the set \( \{1, 2, 3\} \) could be represented as the list \code{(
 representation.  How does the efficiency of each compare with the corresponding
 procedure for the non-duplicate representation?  Are there applications for
 which you would use this representation in preference to the non-duplicate one?
-\end{quote}
+\end{exercises}
 
 \subsubsection*{Sets as ordered lists}
 
@@ -4457,18 +4093,16 @@ Thus, the number of steps required is at most the sum of the sizes of
 unordered representation.  This is \( \Theta(n) \) growth rather than
 \( \Theta(n^2) \)---a considerable speedup, even for sets of moderate size.
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.61}Exercise 2.61:} Give an implementation of
 \code{adjoin\-/set} using the ordered representation.  By analogy with
 \code{element\-/of\-/set?} show how to take advantage of the ordering to produce a
 procedure that requires on the average about half as many steps as with the
 unordered representation.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.62}Exercise 2.62:} Give a \( \Theta(n) \)
 implementation of \code{union\-/set} for sets represented as ordered lists.
-\end{quote}
+\end{exercises}
 
 \subsubsection*{Sets as binary trees}
 
@@ -4483,27 +4117,10 @@ different ways.  The only thing we require for a valid representation is that
 all elements in the left subtree be smaller than the node entry and that all
 elements in the right subtree be larger.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 2.16}
-\centering
-\begin{comment}
-\heading{Figure 2.16:} Various binary trees that represent the set \( \{1, 3, 5, 7, 9, 11\} \).
-
-\begin{example}
-   7          3             5
-   /\         /\            /\
-  3  9       1  7          3  9
- /\   \         /\        /   /\
-1  5  11       5  9      1   7  11
-                   \
-                   11
-\end{example}
-\end{comment}
-\includegraphics[width=70mm]{assets/figures/chapter_2/figure_2.16b.pdf}
-\begin{quote}
-\heading{Figure 2.16:} Various binary trees that represent the set \( \{1, 3, 5, 7, 9, 11\} \).
-\end{quote}
-\end{figure}
+% figure 2.16
+\begin{imageFigure}{Various binary trees that represent the set \( \{1, 3, 5, 7, 9, 11\} \).}
+  \includegraphics[width=70mm]{assets/figures/chapter_2/figure_2.16b.pdf}
+\end{imageFigure}
 
 The advantage of the tree representation is this: Suppose we want to check
 whether a number \( x \) is contained in a set.  We begin by comparing \( x \) with
@@ -4601,33 +4218,12 @@ steps.\footnote{Examples of such structures include \newterm{B-trees} and
 \newterm{red-black trees}.  There is a large literature on data structures
 devoted to this problem.  See \link{Cormen et al. 1990}.}
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 2.17}
-\centering
-\begin{comment}
-\heading{Figure 2.17:} Unbalanced tree produced by adjoining 1 through 7 in sequence.
+% figure 2.17
+\begin{imageFigure}{Unbalanced tree produced by adjoining 1 through 7 in sequence.}
+  \includegraphics[width=40mm]{assets/figures/chapter_2/figure_2.17a.pdf}
+\end{imageFigure}
 
-\begin{example}
-1
- \
-  2
-   \
-    4
-     \
-      5
-       \
-        6
-         \
-          7
-\end{example}
-\end{comment}
-\includegraphics[width=40mm]{assets/figures/chapter_2/figure_2.17a.pdf}
-\begin{quote}
-\heading{Figure 2.17:} Unbalanced tree produced by adjoining 1 through 7 in sequence.
-\end{quote}
-\end{figure}
-
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.63}Exercise 2.63:} Each of the following two
 procedures converts a binary tree to a list.
 
@@ -4664,9 +4260,7 @@ required to convert a balanced tree with \( n \) elements to a list?  If not,
 which one grows more slowly?
 
 \end{enumerate}
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.64}Exercise 2.64:} The following procedure
 \code{list\-/>tree} converts an ordered list to a balanced binary tree.  The
 helper procedure \code{partial\-/tree} takes as arguments an integer \( n \) and
@@ -4713,15 +4307,13 @@ What is the order of growth in the number of steps required by
 \code{list\-/>tree} to convert a list of \( n \) elements?
 
 \end{enumerate}
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.65}Exercise 2.65:} Use the results of \link{Exercise 2.63}
 and \link{Exercise 2.64} to give \( \Theta(n) \) implementations of
 \code{union\-/set} and \code{intersection\-/set} for sets implemented as (balanced)
 binary trees.\footnote{\link{Exercise 2.63} through \link{Exercise 2.65} are due
 to Paul Hilfinger.}
-\end{quote}
+\end{exercises}
 
 \subsubsection*{Sets and information retrieval}
 
@@ -4772,11 +4364,11 @@ to be more sophisticated.  If the data base is accessed in terms of abstract
 selectors and constructors, this change in representation will not require any
 changes to the rest of the system.
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.66}Exercise 2.66:} Implement the \code{lookup}
 procedure for the case where the set of records is structured as a binary tree,
 ordered by the numerical values of the keys.
-\end{quote}
+\end{exercises}
 
 \subsection{Example: Huffman Encoding Trees}
 \label{Section 2.3.4}
@@ -4866,34 +4458,10 @@ The weights at the leaves indicate that the tree was designed for messages in
 which A appears with relative frequency 8, B with relative frequency 3, and the
 other letters each with relative frequency 1.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 2.18}
-\centering
-\begin{comment}
-\heading{Figure 2.18:} A Huffman encoding tree.
-
-\begin{example}
-           {A B C D E F G H} 17
-                    *
-                   / \
-                  /   \
-                A 8    * {B C D E F G H} 9
-            __________/ \_____________
-           /                          \
-{B C D} 5 *                            * {E F G H} 4
-         / \                       ___/ \___
-        /   \                     /         \
-      B 3    * {C D} 2   {E F} 2 *           * {G H} 2
-            / \                 / \         / \
-           /   \               /   \       /   \
-         C 1   D 1           E 1   F 1   G 1   H 1
-\end{example}
-\end{comment}
-\includegraphics[width=81mm]{assets/figures/chapter_2/figure_2.18a.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 2.18:} A Huffman encoding tree.
-\end{figure}
+% figure 2.18
+\begin{imageFigure}{A Huffman encoding tree.}
+  \includegraphics[width=81mm]{assets/figures/chapter_2/figure_2.18a.pdf}
+\end{imageFigure}
 
 Given a Huffman tree, we can find the encoding of any symbol by starting at the
 root and moving down until we reach the leaf that holds the symbol.  Each time
@@ -5093,7 +4661,7 @@ leaves, ready to be merged according to the Huffman algorithm:
                     (make-leaf-set (cdr pairs))))))
 \end{scheme}
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.67}Exercise 2.67:} Define an encoding tree and a
 sample message:
 
@@ -5109,9 +4677,7 @@ sample message:
 \end{scheme}
 
 Use the \code{decode} procedure to decode the message, and give the \mbox{result}.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.68}Exercise 2.68:} The \code{encode} procedure takes
 as arguments a message and a tree and produces the list of bits that gives the
 encoded message.
@@ -5130,9 +4696,7 @@ design \code{encode\-/symbol} so that it signals an error if the symbol is not i
 the tree at all.  Test your procedure by encoding the result you obtained in
 \link{Exercise 2.67} with the sample tree and seeing whether it is the same as
 the original sample message.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.69}Exercise 2.69:} The following procedure takes as
 its argument a list of symbol-frequency pairs (where no symbol appears in more
 than one pair) and generates a Huffman encoding tree according to the Huffman
@@ -5151,9 +4715,7 @@ is the desired Huffman tree.  (This procedure is slightly tricky, but not
 really complicated.  If you find yourself designing a complex procedure, then
 you are almost certainly doing something wrong.  You can take significant
 advantage of the fact that we are using an ordered set representation.)
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.70}Exercise 2.70:} The following eight-symbol
 alphabet with associated relative frequencies was designed to efficiently
 encode the lyrics of 1950s rock songs.  (Note that the ``symbols'' of an
@@ -5180,17 +4742,13 @@ Sha boom
 How many bits are required for the encoding?  What is the smallest number of
 bits that would be needed to encode this song if we used a fixed-length code
 for the eight-symbol alphabet?
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.71}Exercise 2.71:} Suppose we have a Huffman tree
 for an alphabet of \( n \) symbols, and that the relative frequencies of the
 symbols are \( 1, 2, 4, \dots, 2^{n-1} \).  Sketch the tree for \( n=5 \); for
 \( n=10 \).  In such a tree (for general \( n \)) how many bits are required to
 encode the most frequent symbol?  The least frequent symbol?
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.72}Exercise 2.72:} Consider the encoding procedure
 that you designed in \link{Exercise 2.68}.  What is the order of growth in the
 number of steps needed to encode a symbol?  Be sure to include the number of
@@ -5200,7 +4758,7 @@ relative frequencies of the \( n \) symbols are as described in \link{Exercise 2
 and give the order of growth (as a function of \( n \)) of the number of
 steps needed to encode the most frequent and least frequent symbols in the
 alphabet.
-\end{quote}
+\end{exercises}
 
 \section{Multiple Representations for Abstract Data}
 \label{Section 2.4}
@@ -5276,32 +4834,10 @@ representations.  In addition, there is a ``vertical'' barrier that
 gives us the ability to separately design and install alternative
 representations.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 2.19}
-\centering
-\begin{comment}
-\begin{quote}
-\heading{Figure 2.19:} Data-abstraction barriers in the complex-number system.
-
-\begin{example}
-           Programs that use complex numbers
-  +-------------------------------------------------+
---| add-complex sub-complex mul-complex div-complex |--
-  +-------------------------------------------------+
-              Complex arithmetic package
----------------------------+---------------------------
-          Rectangular      |         Polar
-        representation     |     representation
----------------------------+---------------------------
-    List structure and primitive machine arithmetic
-\end{example}
-\end{quote}
-\end{comment}
-\includegraphics[width=108mm]{assets/figures/chapter_2/figure_2.19a.pdf}
-\begin{quote}
-\heading{Figure 2.19:} Data-abstraction barriers in the complex-number system.
-\end{quote}
-\end{figure}
+% figure 2.19
+\begin{imageFigure}{Data-abstraction barriers in the complex-number system.}
+  \includegraphics[width=108mm]{assets/figures/chapter_2/figure_2.19a.pdf}
+\end{imageFigure}
 
 In \link{Section 2.5} we will show how to use type tags and data-directed style
 to develop a generic arithmetic package.  This provides procedures (\code{add},
@@ -5356,32 +4892,10 @@ $$
 $$
 
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 2.20}
-\centering
-\begin{comment}
-\heading{Figure 2.20:} Complex numbers as points in the plane.
-
-\begin{example}
- Imaginary
-    ^
-    |
-  y |.........................* z = x + ?y = r e^(?A)
-    |                    __-- .
-    |                __--     .
-    |          r __--         .
-    |        __--             .
-    |    __-- \               .
-    |__--    A |              .
-----+----------+-------------------> Real
-                              x
-\end{example}
-\end{comment}
-\includegraphics[width=79mm]{assets/figures/chapter_2/figure_2.20.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 2.20:} Complex numbers as points in the plane.
-\end{figure}
+% figure 2.20
+\begin{imageFigure}{Complex numbers as points in the plane.}
+  \includegraphics[width=79mm]{assets/figures/chapter_2/figure_2.20.pdf}
+\end{imageFigure}
 
 When multiplying complex numbers, it is more natural to think in terms of
 representing a complex number in polar form, as a magnitude and an angle (\( r \)
@@ -5716,35 +5230,10 @@ can be used as underlying representations by a third programmer implementing
 the complex-arithmetic procedures in terms of the abstract constructor/selector
 interface.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 2.21}
-\centering
-\begin{comment}
-\begin{quote}
-\heading{Figure 2.21:} Structure of the generic complex-arithmetic system.
-
-\begin{example}
-    +-------------------------------------------------+
-----| add-complex sub-complex mul-complex div-complex |----
-    +-------------------------------------------------+
-                Complex arithmetic package
-                 +-----------------------+
-                 | real-part   imag-part |
------------------|                       |------------------
-                 | magnitude   angle     |
-                 +-----------+-----------+
-           Rectangular       |          Polar
-          representation     |     representation
------------------------------+------------------------------
-       List structure and primitive machine arithmetic
-\end{example}
-\end{quote}
-\end{comment}
-\includegraphics[width=108mm]{assets/figures/chapter_2/figure_2.21a.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 2.21:} Structure of the generic complex-arithmetic system. 
-\end{figure}
+% figure 2.21
+\begin{imageFigure}{Structure of the generic complex-arithmetic system.}
+  \includegraphics[width=108mm]{assets/figures/chapter_2/figure_2.21a.pdf}
+\end{imageFigure}
 
 Since each data object is tagged with its type, the selectors operate on the
 data in a generic manner.  That is, each selector is defined to have a behavior
@@ -5819,29 +5308,10 @@ argument.  If we do this, then to add a new representation package to the
 system we need not change any existing procedures; we need only add new entries
 to the table.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 2.22}
-\centering
-\begin{comment}
-\begin{quote}
-\heading{Figure 2.22:} Table of operations for the complex-number system.
-
-\begin{example}
-           |               Types
-Operations | Polar           | Rectangular
-===========+=================+======================
-real-part  | real-part-polar | real-part-rectangular
-imag-part  | imag-part-polar | imag-part-rectangular
-magnitude  | magnitude-polar | magnitude-rectangular
-angle      | angle-polar     | angle-rectangular
-\end{example}
-\end{quote}
-\end{comment}
-\includegraphics[width=102mm]{assets/figures/chapter_2/figure_2.22.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 2.22:} Table of operations for the complex-number system. 
-\end{figure}
+% figure 2.22
+\begin{imageFigure}{Table of operations for the complex-number system.}
+  \includegraphics[width=102mm]{assets/figures/chapter_2/figure_2.22.pdf}
+\end{imageFigure}
 
 To implement this plan, assume that we have two procedures, \code{put} and
 \code{get}, for manipulating the operation-and-type table:
@@ -6006,7 +5476,7 @@ numbers whenever we have magnitudes and angles:
   ((get 'make-from-mag-ang 'polar) r a))
 \end{scheme}
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.73}Exercise 2.73:} \link{Section 2.3.2} described a
 program that performs symbolic differentiation:
 
@@ -6074,9 +5544,7 @@ in the opposite way, so that the dispatch line in \code{deriv} looked like
 What corresponding changes to the derivative system are required?
 
 \end{enumerate}
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.74}Exercise 2.74:} Insatiable Enterprises, Inc., is
 a highly decentralized conglomerate company consisting of a large number of
 independent divisions located all over the world.  The company's computer
@@ -6124,7 +5592,7 @@ When Insatiable takes over a new company, what changes must be made in order to
 incorporate the new personnel information into the central system?
 
 \end{enumerate}
-\end{quote}
+\end{exercises}
 
 \subsubsection*{Message passing}
 
@@ -6182,13 +5650,11 @@ to discuss generic arithmetic operations.  In \link{Chapter 3} we will return to
 message passing, and we will see that it can be a powerful tool for structuring
 simulation programs.
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.75}Exercise 2.75:} Implement the constructor
 \code{make\-/from\-/mag\-/ang} in message-passing style.  This procedure should be
 analogous to the \code{make\-/from\-/real\-/imag} procedure given above.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.76}Exercise 2.76:} As a large system with generic
 operations evolves, new types of data objects or new operations may be needed.
 For each of the three strategies---generic operations with explicit dispatch,
@@ -6197,7 +5663,7 @@ must be made to a system in order to add new types or new operations.  Which
 organization would be most appropriate for a system in which new types must
 often be added?  Which would be most appropriate for a system in which new
 operations must often be added?
-\end{quote}
+\end{exercises}
 
 \section{Systems with Generic Operations}
 \label{Section 2.5}
@@ -6216,36 +5682,10 @@ arithmetic that we implemented in \link{Section 2.4.3}.  We will now use
 data-directed techniques to construct a package of arithmetic operations that
 incorporates all the arithmetic packages we have already constructed.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 2.23}
-\centering
-\begin{comment}
-\label{Figure 2.23}
-\heading{Figure 2.23:} Generic arithmetic system.
-
-\begin{example}
-                        Programs that use numbers
-                           +-----------------+
----------------------------| add sub mul div |-------------------
-                           +-----------------+
-                        Generic arithmetic package
- +-----------------+   +-------------------------+
- | add-rat sub-rat |   | add-complex sub-complex |   +---------+
--|                 |-+-|                         |-+-| + - * / |-
- | mul-rat div-rat | | | mul-complex div-complex | | +---------+
- +-----------------+ | +-------------------------+ |
-      Rational       |     Complex artithmetic     |   Ordinary
-     arithmetic      +--------------+--------------+  arithmetic
-                     | Rectangular  |     Polar    |
----------------------+--------------+--------------+-------------
-             List structure and primitive machine arithmetic
-\end{example}
-\end{comment}
-\includegraphics[width=111mm]{assets/figures/chapter_2/figure_2.23a.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 2.23:} Generic arithmetic system.
-\end{figure}
+% figure 2.23
+\begin{imageFigure}{Generic arithmetic system.}
+  \includegraphics[width=111mm]{assets/figures/chapter_2/figure_2.23a.pdf}
+\end{imageFigure}
 
 \link{Figure 2.23} shows the structure of the system we shall build.
 Notice the
@@ -6437,28 +5877,10 @@ with the next by means of generic operations.  As a data object is passed
 package is stripped off (by applying \code{contents}) and the next level of tag
 (if any) becomes visible to be used for further dispatching.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 2.24}
-\centering
-\begin{comment}
-\heading{Figure 2.24:} Representation of \( 3 + 4i \) in rectangular form.
-
-\begin{example}
-     +---+---+     +---+---+     +---+---+
----->| * | *-+---->| * | *-+---->| * | * |
-     +-|-+---+     +-|-+---+     +-|-+-|-+
-       |             |             |   |
-       V             V             V   V
- +---------+   +-------------+  +---+ +---+
- | complex |   | rectangular |  | 3 | | 4 |
- +---------+   +-------------+  +---+ +---+
-\end{example}
-\end{comment}
-\includegraphics[width=64mm]{assets/figures/chapter_2/figure_2.24c.pdf}
-\begin{quote}
-\heading{Figure 2.24:} Representation of \( 3 + 4i \) in rectangular form.
-\end{quote}
-\end{figure}
+% figure 2.24
+\begin{imageFigure}{Representation of \( 3 + 4i \) in rectangular form.}
+  \includegraphics[width=64mm]{assets/figures/chapter_2/figure_2.24c.pdf}
+\end{imageFigure}
 
 In the above packages, we used \code{add\-/rat}, \code{add\-/complex}, and the
 other arithmetic procedures exactly as originally written.  Once these
@@ -6466,7 +5888,7 @@ definitions are internal to different installation procedures, however, they no
 longer need names that are distinct from each other: we could simply name them
 \code{add}, \code{sub}, \code{mul}, and \code{div} in both packages.
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.77}Exercise 2.77:} Louis Reasoner tries to evaluate
 the expression \code{(magnitude z)} where \code{z} is the object shown in
 \link{Figure 2.24}.  To his surprise, instead of the answer 5 he gets an error
@@ -6489,9 +5911,7 @@ procedures called in evaluating the expression \code{(magnitude z)} where
 \code{z} is the object shown in \link{Figure 2.24}.  In particular, how many
 times is \code{apply\-/generic} invoked?  What procedure is dispatched to in each
 case?
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.78}Exercise 2.78:} The internal procedures in the
 \code{scheme\-/number} package are essentially nothing more than calls to the
 primitive procedures \code{+}, \code{-}, etc.  It was not possible to use the
@@ -6505,21 +5925,17 @@ generic system takes advantage of Scheme's internal type system.  That is to
 say, the system should work as before except that ordinary numbers should be
 represented simply as Scheme numbers rather than as pairs whose \code{car} is
 the symbol \code{scheme\-/number}.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.79}Exercise 2.79:} Define a generic equality
 predicate \code{equ?} that tests the equality of two numbers, and install it in
 the generic arithmetic package.  This operation should work for ordinary
 numbers, rational numbers, and complex numbers.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.80}Exercise 2.80:} Define a generic predicate
 \code{=zero?} that tests if its argument is zero, and install it in the generic
 arithmetic package.  This operation should work for ordinary numbers, rational
 numbers, and complex numbers.
-\end{quote}
+\end{exercises}
 
 \subsection{Combining Data of Different Types}
 \label{Section 2.5.2}
@@ -6696,30 +6112,10 @@ very simple kind, in which each type has at most one supertype and at most one
 subtype.  Such a structure, called a \newterm{tower}, is illustrated in
 \link{Figure 2.25}.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 2.25}
-\centering
-\begin{comment}
-\heading{Figure 2.25:} A tower of types.
-
-\begin{example}
- complex
-   ^
-   |
-  real
-   ^
-   |
-rational
-   ^
-   |
-integer
-\end{example}
-\end{comment}
-\includegraphics[width=11mm]{assets/figures/chapter_2/figure_2.25.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 2.25:} A tower of types.
-\end{figure}
+% figure 2.25
+\begin{imageFigure}{A tower of types.}
+  \includegraphics[width=11mm]{assets/figures/chapter_2/figure_2.25.pdf}
+\end{imageFigure}
 
 If we have a tower structure, then we can greatly simplify the problem of
 adding a new type to the hierarchy, for we need only specify how the new type
@@ -6759,37 +6155,10 @@ answer as the integer 6 rather than as the complex number \( 6 + 0i \).
 (The trick is that we need a general way to distinguish those objects that can
 be lowered, such as \( 6 + 0i \), from those that cannot, such as \( 6 + 2i \).)
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 2.26}
-\centering
-\begin{comment}
-\heading{Figure 2.26:} Relations among types of geometric figures.
-
-\begin{example}
-                     polygon
-                    /       \
-                   /         \
-            triangle         quadrilateral
-            /     \              /     \
-           /       \            /       \
-     isosceles   right      trapezoid   kite
-     triangle    triangle       |         |
-      |     \      |            |         |
-      |      \     |            |         |
-equilateral   isosceles   parallelogram   |
-triangle      right          |       \    |
-              triangle       |        \   |
-                          rectangle  rhombus
-                                \    /
-                                 \  /
-                                square
-\end{example}
-\end{comment}
-\includegraphics[width=96mm]{assets/figures/chapter_2/figure_2.26e.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 2.26:} Relations among types of geometric figures.
-\end{figure}
+% figure 2.26
+\begin{imageFigure}{Relations among types of geometric figures.}
+  \includegraphics[width=96mm]{assets/figures/chapter_2/figure_2.26e.pdf}
+\end{imageFigure}
 
 \subsubsection*{Inadequacies of hierarchies}
 
@@ -6831,7 +6200,7 @@ chapter 3 about local state, but we do not even mention ``classes'' or
 addressed in terms of computer-language design alone, without also drawing on
 work in knowledge representation and automated reasoning.}
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.81}Exercise 2.81:} Louis Reasoner has noticed that
 \code{apply\-/generic} may try to coerce the arguments to each other's type even
 if they already have the same type.  Therefore, he reasons, we need to put
@@ -6884,9 +6253,7 @@ Modify \code{apply\-/generic} so that it doesn't try coercion if the two
 arguments have the same type.
 
 \end{enumerate}
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.82}Exercise 2.82:} Show how to generalize
 \code{apply\-/generic} to handle coercion in the general case of multiple
 arguments.  One strategy is to attempt to coerce all the arguments to the type
@@ -6895,18 +6262,14 @@ Give an example of a situation where this strategy (and likewise the
 two-argument version given above) is not sufficiently general.  (Hint: Consider
 the case where there are some suitable mixed-type operations present in the
 table that will not be tried.)
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.83}Exercise 2.83:} Suppose you are designing a
 generic arithmetic system for dealing with the tower of types shown in
 \link{Figure 2.25}: integer, rational, real, complex.  For each type (except
 complex), design a procedure that raises objects of that type one level in the
 tower.  Show how to install a generic \code{raise} operation that will work for
 each type (except complex).
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.84}Exercise 2.84:} Using the \code{raise} operation
 of \link{Exercise 2.83}, modify the \code{apply\-/generic} procedure so that it
 coerces its arguments to have the same type by the method of successive
@@ -6914,9 +6277,7 @@ raising, as discussed in this section.  You will need to devise a way to test
 which of two types is higher in the tower.  Do this in a manner that is
 ``compatible'' with the rest of the system and will not lead to problems in
 adding new levels to the tower.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.85}Exercise 2.85:} This section mentioned a method
 for ``simplifying'' a data object by lowering it in the tower of types as far
 as possible.  Design a procedure \code{drop} that accomplishes this for the
@@ -6938,16 +6299,14 @@ install \code{project} as a generic operation in the system.  You will also
 need to make use of a generic equality predicate, such as described in
 \link{Exercise 2.79}.  Finally, use \code{drop} to rewrite \code{apply\-/generic}
 from \link{Exercise 2.84} so that it ``simplifies'' its answers.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.86}Exercise 2.86:} Suppose we want to handle complex
 numbers whose real parts, imaginary parts, magnitudes, and angles can be either
 ordinary numbers, rational numbers, or other numbers we might wish to add to
 the system.  Describe and implement the changes to the system needed to
 accommodate this.  You will have to define operations such as \code{sine} and
 \code{cosine} that are generic over ordinary numbers and rational numbers.
-\end{quote}
+\end{exercises}
 
 \subsection{Example: Symbolic Algebra}
 \label{Section 2.5.3}
@@ -7339,26 +6698,20 @@ the procedure:
   ((get 'make 'polynomial) var terms))
 \end{scheme}
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.87}Exercise 2.87:} Install \code{=zero?} for
 polynomials in the generic arithmetic package.  This will allow
 \code{adjoin\-/term} to work for polynomials with coefficients that are
 themselves polynomials.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.88}Exercise 2.88:} Extend the polynomial system to
 include subtraction of polynomials.  (Hint: You may find it helpful to define a
 generic negation operation.)
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.89}Exercise 2.89:} Define procedures that implement
 the term-list representation described above as appropriate for dense
 polynomials.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.90}Exercise 2.90:} Suppose we want to have a
 polynomial system that is efficient for both sparse and dense polynomials.  One
 way to do this is to allow both kinds of term-list representations in our
@@ -7367,9 +6720,7 @@ system.  The situation is analogous to the complex-number example of
 this we must distinguish different types of term lists and make the operations
 on term lists generic.  Redesign the polynomial system to implement this
 generalization.  This is a major effort, not a local change.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.91}Exercise 2.91:} A univariate polynomial can be
 divided by another one to produce a polynomial quotient and a polynomial
 remainder.  For example,
@@ -7422,7 +6773,7 @@ arguments and returns a list of the quotient and remainder polys.
                      ~\( \langle \)~~\var{compute rest of result recursively}~~\( \rangle \)~ ))
                 ~\( \langle \)~~\var{form complete result}~~\( \rangle \)~ ))))))
 \end{smallscheme}
-\end{quote}
+\end{exercises}
 
 \subsubsection*{Hierarchies of types in symbolic algebra}
 
@@ -7462,11 +6813,11 @@ In fact, we do not yet completely understand the concept of a data type.
 Nevertheless, what we know provides us with powerful structuring and modularity
 principles to support the design of large systems.
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.92}Exercise 2.92:} By imposing an ordering on
 variables, extend the polynomial package so that addition and multiplication of
 polynomials works for polynomials in different variables.  (This is not easy!)
-\end{quote}
+\end{exercises}
 
 \subsubsection*{Extended exercise: Rational functions}
 
@@ -7509,7 +6860,7 @@ If we modify our rational-arithmetic package so that it uses generic
 operations, then it will do what we want, except for the problem of reducing
 fractions to lowest terms.
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.93}Exercise 2.93:} Modify the rational-arithmetic
 package to use generic operations, but change \code{make\-/rat} so that it does
 not attempt to reduce fractions to lowest terms.  Test your system by calling
@@ -7523,7 +6874,7 @@ not attempt to reduce fractions to lowest terms.  Test your system by calling
 
 Now add \code{rf} to itself, using \code{add}. You will observe that this
 addition procedure does not reduce fractions to lowest terms.
-\end{quote}
+\end{exercises}
 
 \noindent
 We can reduce polynomial fractions to lowest terms using the same idea we used
@@ -7568,7 +6919,7 @@ where \code{remainder\-/terms} picks out the remainder component of the list
 returned by the term-list division operation \code{div\-/terms} that was
 implemented in \link{Exercise 2.91}.
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.94}Exercise 2.94:} Using \code{div\-/terms}, implement
 the procedure \code{remainder\-/terms} and use this to define \code{gcd\-/terms} as
 above.  Now write a procedure \code{gcd\-/poly} that computes the polynomial
@@ -7586,9 +6937,7 @@ and to ordinary \code{gcd} for ordinary numbers.  As a test, try
 
 \noindent
 and check your result by hand.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 2.95}Exercise 2.95:} Define \( P_1 \), \( P_2 \), and
 \( P_3 \) to be the polynomials
 \begin{comment}
@@ -7624,7 +6973,7 @@ which division of integers can produce limited-precision decimal numbers, we
 may fail to get a valid divisor.}  To understand what is happening, try tracing
 \code{gcd\-/terms} while computing the \acronym{GCD} or try performing the
 division by hand.
-\end{quote}
+\end{exercises}
 
 \noindent
 We can solve the problem exhibited in \link{Exercise 2.95} if we use the
@@ -7650,7 +6999,7 @@ operation of multiplying the dividend by this constant and then dividing is
 sometimes called the \newterm{pseudodivision} of \( P \) by \( Q \).  The remainder
 of the division is called the \newterm{pseudoremainder}.
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.96}Exercise 2.96:}
 \begin{enumerate}[a.]
 
@@ -7669,7 +7018,7 @@ coefficients of the answer by dividing all the coefficients by their (integer)
 greatest common divisor.
 
 \end{enumerate}
-\end{quote}
+\end{exercises}
 
 \noindent
 Thus, here is how to reduce a rational function to lowest terms:
@@ -7699,7 +7048,7 @@ the numerator and the denominator and dividing through by this factor.
 
 \end{itemize}
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 2.97}Exercise 2.97:}
 \begin{enumerate}[a.]
 
@@ -7745,7 +7094,7 @@ example at the beginning of this extended exercise:
 
 See if you get the correct answer, correctly reduced to lowest terms.
 \end{enumerate}
-\end{quote}
+\end{exercises}
 
 \noindent
 The \acronym{GCD} computation is at the heart of any system that does

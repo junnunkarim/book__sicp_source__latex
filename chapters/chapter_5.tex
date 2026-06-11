@@ -1,22 +1,19 @@
 \chapter{Computing with Register Machines}
 \label{Chapter 5}
 
-% \vspace{0.2em}
-
-\begin{quote}
-My aim is to show that the heavenly machine is not a kind of divine, live
-being, but a kind of clockwork (and he who believes that a clock has soul
-attributes the maker's glory to the work), insofar as nearly all the manifold
-motions are caused by a most simple and material force, just as all motions of
-the clock are caused by a single weight.
-
----Johannes Kepler (letter to Herwart von Hohenburg, 1605)
-\end{quote}
-
-% \vspace{1.0em}
+\chapterQuote{%
+    My aim is to show that the heavenly machine is not a kind of divine, live
+    being, but a kind of clockwork (and he who believes that a clock has soul
+    attributes the maker's glory to the work), insofar as nearly all the
+    manifold motions are caused by a most simple and material force, just as
+    all motions of the clock are caused by a single weight.
+  }
+  {Johannes Kepler}
+  {letter to Herwart von Hohenburg}
+  {1605}
 
 \noindent
-\lettrine[findent=1pt]{W}{e began this book} by studying processes and by describing processes in terms
+\lettrine{W}{e began this book} by studying processes and by describing processes in terms
 of procedures written in Lisp.  To explain the meanings of these procedures, we
 used a succession of models of evaluation: the substitution model of
 \link{Chapter 1}, the environment model of \link{Chapter 3}, and the metacircular
@@ -125,37 +122,10 @@ register \code{a}).  The source of data for a register can be another register
 assignment), or a constant (a built-in value that cannot be changed,
 represented in a data-path diagram by a triangle containing the constant).
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 5.1}
-\centering
-\begin{comment}
-\heading{Figure 5.1:} Data paths for a \acronym{GCD} machine.
-
-\begin{example}
-                              ___
-+-----+          +-----+     /   \
-|  a  |<--(X)----|  b  +--->|  =  |
-+--+--+   a<-b   +-+---+     \___/
-   |               |  ^        ^
-   +------+   +----+  |        |
-          |   |      (X) b<-t  |
-       .--+---+--.    |       / \
-        \  rem  /     |      / O \
-         \_____/      |     +-----+
-            |         |
-           (X) t<-r   |
-            |         |
-            V         |
-         +-----+      |
-         |  t  +------+
-         +-----+
-\end{example}
-\end{comment}
-\includegraphics[width=58mm]{assets/figures/chapter_5/figure_5.1a.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 5.1:} Data paths for a \acronym{GCD} machine.
-\end{figure}
+% figure 5.1
+\begin{imageFigure}{Data paths for a \acronym{GCD} machine.}
+  \includegraphics[width=58mm]{assets/figures/chapter_5/figure_5.1a.pdf}
+\end{imageFigure}
 
 An operation that computes a value from constants and the contents of registers
 is represented in a data-path diagram by a trapezoid containing a name for the
@@ -174,41 +144,10 @@ arrows as wires and the \code{X} buttons as switches, the data-path diagram is
 very like the wiring diagram for a machine that could be constructed from
 electrical components.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 5.2}
-\centering
-\begin{comment}
-\heading{Figure 5.2:} Controller for a \acronym{GCD} machine.
-
-\begin{example}
-     start
-       |
-       V
-      / \ yes
-+--->< = >-----> done
-|     \ /
-|      | no
-|      V
-|  +------+
-|  | t<-r |
-|  +---+--+
-|      |
-|      V
-|  +------+
-|  | a<-b |
-|  +---+--+
-|      |
-|      V
-|  +------+
-+--+ b<-t |
-   +------+
-\end{example}
-\end{comment}
-\includegraphics[width=41mm]{assets/figures/chapter_5/figure_5.2.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 5.2:} Controller for a \acronym{GCD} machine.
-\end{figure}
+% figure 5.2
+\begin{imageFigure}{Controller for a \acronym{GCD} machine.}
+  \includegraphics[width=41mm]{assets/figures/chapter_5/figure_5.2.pdf}
+\end{imageFigure}
 
 In order for the data paths to actually compute \acronym{GCD}s, the buttons
 must be pushed in the correct sequence.  We will describe this sequence in
@@ -299,34 +238,32 @@ stops when execution reaches the end of the sequence.  Except when a branch
 changes the flow of control, instructions are executed in the order in which
 they are listed.
 
-\begin{quote}
-\heading{\phantomsection\label{Figure 5.3}Figure 5.3:} \( \downarrow \) A specification of the \acronym{GCD}
-machine.
-
-\begin{scheme}
-(data-paths
- (registers
-  ((name a)
-   (buttons ((name a<-b) (source (register b)))))
-  ((name b)
-   (buttons ((name b<-t) (source (register t)))))
-  ((name t)
-   (buttons ((name t<-r) (source (operation rem))))))
- (operations
-  ((name rem) (inputs (register a) (register b)))
-  ((name =) (inputs (register b) (constant 0)))))
-(controller
- test-b                           ~\textrm{; label}~
-   (test =)                       ~\textrm{; test}~
-   (branch (label gcd-done))      ~\textrm{; conditional branch}~
-   (t<-r)                         ~\textrm{; button push}~
-   (a<-b)                         ~\textrm{; button push}~
-   (b<-t)                         ~\textrm{; button push}~
-   (goto (label test-b))          ~\textrm{; unconditional branch}~
- gcd-done)                        ~\textrm{; label}~
-\end{scheme}
-
-\end{quote}
+% figure 5.3
+\begin{codeFigure}{A specification of the \acronym{GCD}
+machine.}
+  \begin{scheme}
+  (data-paths
+   (registers
+    ((name a)
+     (buttons ((name a<-b) (source (register b)))))
+    ((name b)
+     (buttons ((name b<-t) (source (register t)))))
+    ((name t)
+     (buttons ((name t<-r) (source (operation rem))))))
+   (operations
+    ((name rem) (inputs (register a) (register b)))
+    ((name =) (inputs (register b) (constant 0)))))
+  (controller
+   test-b                           ~\textrm{; label}~
+     (test =)                       ~\textrm{; test}~
+     (branch (label gcd-done))      ~\textrm{; conditional branch}~
+     (t<-r)                         ~\textrm{; button push}~
+     (a<-b)                         ~\textrm{; button push}~
+     (b<-t)                         ~\textrm{; button push}~
+     (goto (label test-b))          ~\textrm{; unconditional branch}~
+   gcd-done)                        ~\textrm{; label}~
+  \end{scheme}
+\end{codeFigure}
 
 \noindent
 \link{Figure 5.3} shows the \acronym{GCD} machine described in this way.  This
@@ -414,64 +351,13 @@ available as primitive operations.\footnote{This assumption glosses over a
 great deal of complexity.  Usually a large portion of the implementation of a
 Lisp system is dedicated to making reading and printing work.}
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 5.4}
-\centering
-\begin{comment}
-\heading{Figure 5.4:} A \acronym{GCD} machine that reads inputs and prints results.
-
-\begin{example}
-                   .--------.
-                    \ read /
-                     \____/
-                       |
-               +-------*------+
-               |              |
-        a<-rd (X)            (X) b<-rd
-               |              |
-               V              V           ___
-            +-----+        +-----+       /   \
-            |  a  |<--(X)--+  b  +----->|  =  |
-            +-+-+-+  a<-b  +-+---+       \___/
-              | |            |  ^          ^
-           +--+ +----+    +--+  |          |
-           |         |    |    (X) b<-t   / \
-           V         V    V     |        / O \
-      .---------.  .---------.  |       /_____\
---(X)->\ print /    \  rem  /   |
-   P    \_____/      \_____/    |
-                        |       |
-                       (X) t<-r |
-                        |       |
-                        V       |
-                     +-----+    |
-                     |  t  +----+
-                     +-----+
-\end{example}
-
-\begin{scheme}
- (controller
-  gcd-loop
-    (assign a (op read))
-    (assign b (op read))
-  test-b
-    (test (op =) (reg b) (const 0))
-    (branch (label gcd-done))
-    (assign t (op rem) (reg a) (reg b))
-    (assign a (reg b))
-    (assign b (reg t))
-    (goto (label test-b))
-  gcd-done
-    (perform (op print) (reg a))
-    (goto (label gcd-loop)))
-\end{scheme}
-
-\end{comment}
-\includegraphics[width=107mm]{assets/figures/chapter_5/figure_5.4b.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 5.4:} A \acronym{GCD} machine that reads inputs and prints results. 
-\end{figure}
+% figure 5.4
+\begin{imageFigure}
+  {%
+    A \acronym{GCD} machine that reads inputs and prints results.
+  }%
+  \includegraphics[width=107mm]{assets/figures/chapter_5/figure_5.4b.pdf}
+\end{imageFigure}
 
 \code{read} is like the operations we have been using in that it produces a
 value that can be stored in a register.  But \code{read} does not take inputs
@@ -533,61 +419,13 @@ this way:
       (remainder (- n d) d)))
 \end{scheme}
 
-\begin{figure}[tp]
-\phantomsection\label{Figure 5.5}
-\centering
-\begin{comment}
-\heading{Figure 5.5:} Data paths and controller for the elaborated \acronym{GCD} machine.
-
-\begin{example}
-                                    ___
-+-----+         +-----+            /   \
-|  a  |<--(X)---+  b  +-------*-->|  =  |
-+--+--+   a<-b  +-+---+       |    \___/
-   |              |  ^        |
-  (X) t<-a        |  |        |
-   |              | (X) b<-t  |
-   V              |  |       _V_
-+-----+           |  |      /   \
-|  t  +-------*---|--*-----|  <  |
-+-----+       |   |         \___/
-   ^          V   V
-   |        ---------
-  (X) t<-d   \  -  /
-   |          --+--
-   |            |
-   +------------+
-
-
-   start
-     |
-     V
-    / \ yes            +-------+
-+->< = >----> done     | t<-d  |<--+
-|   \ /                +---+---+   |
-|    | no                  |       |
-|    |                     V       |
-|    |   +------+         / \ no   |
-|    +-->| t<-a +------->< < >-----+
-|        +------+         \ /
-|                          | yes
-|      +-------------------+
-|      V
-|  +-------+
-|  | a<-b  |
-|  +---+---+
-|      |
-|      V
-|  +-------+
-+--+ b<-t  |
-   +-------+
-\end{example}
-\end{comment}
-\includegraphics[width=67mm]{assets/figures/chapter_5/figure_5.5a.pdf}
-\begin{quote}
-\heading{Figure 5.5:} Data paths and controller for the elaborated \acronym{GCD} machine.
-\end{quote}
-\end{figure}
+% figure 5.5
+\begin{imageFigure}
+  {%
+    Data paths and controller for the elaborated \acronym{GCD} machine.
+  }%
+  \includegraphics[width=67mm]{assets/figures/chapter_5/figure_5.5a.pdf}
+\end{imageFigure}
 
 We can thus replace the remainder operation in the \acronym{GCD} machine's data
 paths with a subtraction operation and a comparison test.  \link{Figure 5.5}
@@ -602,26 +440,29 @@ instruction
 in the \acronym{GCD} controller definition is replaced by a sequence of
 instructions that contains a loop, as shown in \link{Figure 5.6}.
 
-\begin{quote}
-\heading{\phantomsection\label{Figure 5.6}\mbox{Figure 5.6:}} \( \downarrow \) Controller instruction sequence for the \acronym{GCD} machine in \link{Figure 5.5}.
-
-\begin{scheme}
-(controller test-b
-              (test (op =) (reg b) (const 0))
-              (branch (label gcd-done))
-              (assign t (reg a))
-            rem-loop
-              (test (op <) (reg t) (reg b))
-              (branch (label rem-done))
-              (assign t (op -) (reg t) (reg b))
-              (goto (label rem-loop))
-            rem-done
-              (assign a (reg b))
-              (assign b (reg t))
-              (goto (label test-b))
-            gcd-done)
-\end{scheme}
-\end{quote}
+% figure 5.6
+\begin{codeFigure}
+  {%
+    Controller instruction sequence for the \acronym{GCD} machine in
+    \link{Figure 5.5}.
+  }%
+  \begin{scheme}
+  (controller test-b
+                (test (op =) (reg b) (const 0))
+                (branch (label gcd-done))
+                (assign t (reg a))
+              rem-loop
+                (test (op <) (reg t) (reg b))
+                (branch (label rem-done))
+                (assign t (op -) (reg t) (reg b))
+                (goto (label rem-loop))
+              rem-done
+                (assign a (reg b))
+                (assign b (reg t))
+                (goto (label test-b))
+              gcd-done)
+  \end{scheme}
+\end{codeFigure}
 
 \begin{quote}
 \heading{\phantomsection\label{Exercise 5.3}Exercise 5.3:} Design a machine to compute square
@@ -662,58 +503,14 @@ the \acronym{GCD} portions of the resulting machine's data paths, without
 showing how they connect to the rest of the machine.  The figure also shows the
 corresponding portions of the machine's controller sequence.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 5.7}
-\centering
-\begin{comment}
-\heading{Figure 5.7:} Portions of the data paths and controller sequence for a machine with two \acronym{GCD} computations.
-
-\begin{example}
-                            ___                                 ___
-+-----+        +-----+     /   \    +-----+        +-----+     /   \
-|  a  |<-(X)---+  b  |--->|  =  |   |  c  |<-(X)---+  d  |--->|  =  |
-+--+--+  a<-b  ++----+     \___/    +--+--+  c<-d  ++----+     \___/
-   |            |  ^         ^         |            |  ^         ^
-   `----.   .---'  |         |         `----.   .---'  |         |
-        V   V     (X) b<-t   |              V   V     (X) d<-t   |
-       -------     |        / \            -------     |        / \
-       \ rem /     |       /_0_\           \ rem /     |       /_0_\
-        --+--      |                        --+--      |
-          |        |                          |        |
-         (X) t<-r  |                         (X) s<-r  |
-          |        |                          |        |
-          V        |                          V        |
-       +-----+     |                       +-----+     |
-       |  t  +-----'                       |  s  +-----'
-       +-----+                             +-----+
-\end{example}
-
-\begin{scheme}
-gcd-1
- (test (op =) (reg b) (const 0))
- (branch (label after-gcd-1))
- (assign t (op rem) (reg a) (reg b))
- (assign a (reg b))
- (assign b (reg t))
- (goto (label gcd-1))
-after-gcd-1
-   ~\( \dots \)~
-gcd-2
- (test (op =) (reg d) (const 0))
- (branch (label after-gcd-2))
- (assign s (op rem) (reg c) (reg d))
- (assign c (reg d))
- (assign d (reg s))
- (goto (label gcd-2))
-after-gcd-2
-\end{scheme}
-
-\end{comment}
-\includegraphics[width=105mm]{assets/figures/chapter_5/figure_5.7b.pdf}
-\begin{quote}
-\heading{Figure 5.7:} Portions of the data paths and controller sequence for a \mbox{machine} with two \acronym{GCD} computations.
-\end{quote}
-\end{figure}
+% figure 5.7
+\begin{imageFigure}
+  {%
+    Portions of the data paths and controller sequence for a \mbox{machine}
+    with two \acronym{GCD} computations.
+  }%
+  \includegraphics[width=105mm]{assets/figures/chapter_5/figure_5.7b.pdf}
+\end{imageFigure}
 
 This machine has two remainder operation boxes and two boxes for testing
 equality.  If the duplicated components are complicated, as is the remainder
@@ -728,30 +525,32 @@ registers \code{c} and \code{d}, in computing the second \acronym{GCD} as well
 as the first.  If we do this, we obtain the controller sequence shown in
 \link{Figure 5.8}.
 
-\begin{quote}
-\heading{\phantomsection\label{Figure 5.8}Figure 5.8:} \( \downarrow \) Portions of the
-controller sequence for a machine that uses the same data-path components
-for two different \acronym{GCD} computations.
-\begin{scheme}
-gcd-1
- (test (op =) (reg b) (const 0))
- (branch (label after-gcd-1))
- (assign t (op rem) (reg a) (reg b))
- (assign a (reg b))
- (assign b (reg t))
- (goto (label gcd-1))
-after-gcd-1
-  ~\( \dots \)~
-gcd-2
- (test (op =) (reg b) (const 0))
- (branch (label after-gcd-2))
- (assign t (op rem) (reg a) (reg b))
- (assign a (reg b))
- (assign b (reg t))
- (goto (label gcd-2))
-after-gcd-2
-\end{scheme}
-\end{quote}
+% figure 5.8
+\begin{codeFigure}
+  {%
+    Portions of the controller sequence for a machine that uses the same
+    data-path components for two different \acronym{GCD} computations.
+  }%
+  \begin{scheme}
+  gcd-1
+   (test (op =) (reg b) (const 0))
+   (branch (label after-gcd-1))
+   (assign t (op rem) (reg a) (reg b))
+   (assign a (reg b))
+   (assign b (reg t))
+   (goto (label gcd-1))
+  after-gcd-1
+    ~\( \dots \)~
+  gcd-2
+   (test (op =) (reg b) (const 0))
+   (branch (label after-gcd-2))
+   (assign t (op rem) (reg a) (reg b))
+   (assign a (reg b))
+   (assign b (reg t))
+   (goto (label gcd-2))
+  after-gcd-2
+  \end{scheme}
+\end{codeFigure}
 
 \noindent
 We have removed the duplicate data-path components (so that the data paths are
@@ -767,36 +566,39 @@ the value of the \code{continue} register. \link{Figure 5.9} shows the relevant
 portion of the resulting controller sequence, which includes only a single copy
 of the \code{gcd} instructions.
 
-\begin{quote}
-\heading{\phantomsection\label{Figure 5.9}Figure 5.9:} \( \downarrow \) Using a \code{continue}
-register to avoid the duplicate controller sequence in \link{Figure 5.8}.
-\begin{scheme}
-gcd
- (test (op =) (reg b) (const 0))
- (branch (label gcd-done))
- (assign t (op rem) (reg a) (reg b))
- (assign a (reg b))
- (assign b (reg t))
- (goto (label gcd))
-gcd-done
- (test (op =) (reg continue) (const 0))
- (branch (label after-gcd-1))
- (goto (label after-gcd-2))
-  ~\( \dots \)~
- ~\textrm{;; Before branching to \code{gcd} from the first place where}~
- ~\textrm{;; it is needed, we place 0 in the \code{continue} register}~
- (assign continue (const 0))
- (goto (label gcd))
-after-gcd-1
-  ~\( \dots \)~
+% figure 5.9
+\begin{codeFigure}
+  {%
+    Using a \code{continue} register to avoid the duplicate controller sequence
+    in \link{Figure 5.8}.
+  }%
+  \begin{scheme}
+  gcd
+   (test (op =) (reg b) (const 0))
+   (branch (label gcd-done))
+   (assign t (op rem) (reg a) (reg b))
+   (assign a (reg b))
+   (assign b (reg t))
+   (goto (label gcd))
+  gcd-done
+   (test (op =) (reg continue) (const 0))
+   (branch (label after-gcd-1))
+   (goto (label after-gcd-2))
+    ~\( \dots \)~
+   ~\textrm{;; Before branching to \code{gcd} from the first place where}~
+   ~\textrm{;; it is needed, we place 0 in the \code{continue} register}~
+   (assign continue (const 0))
+   (goto (label gcd))
+  after-gcd-1
+    ~\( \dots \)~
 
- ~\textrm{;; Before the second use of \code{gcd}, we place 1}~
- ~\textrm{;; in the \code{continue} register}~
- (assign continue (const 1))
- (goto (label gcd))
-after-gcd-2
-\end{scheme}
-\end{quote}
+   ~\textrm{;; Before the second use of \code{gcd}, we place 1}~
+   ~\textrm{;; in the \code{continue} register}~
+   (assign continue (const 1))
+   (goto (label gcd))
+  after-gcd-2
+  \end{scheme}
+\end{codeFigure}
 
 \noindent
 This is a reasonable approach for handling small problems, but it would be
@@ -822,34 +624,36 @@ terminate the \code{gcd} subroutine with a branch to the location stored in the
 \code{continue} register.  This leads to the controller sequence shown in
 \link{Figure 5.10}.
 
-\begin{quote}
-\heading{\phantomsection\label{Figure 5.10}Figure 5.10:} \( \downarrow \) Assigning labels to the
-\code{continue} register simplifies and generalizes the strategy shown in
-\link{Figure 5.9}.
-\begin{scheme}
-gcd
- (test (op =) (reg b) (const 0))
- (branch (label gcd-done))
- (assign t (op rem) (reg a) (reg b))
- (assign a (reg b))
- (assign b (reg t))
- (goto (label gcd))
-gcd-done
- (goto (reg continue))
-   ~\( \dots \)~
- ~\textrm{;; Before calling \code{gcd}, we assign to \code{continue}}~
- ~\textrm{;; the label to which \code{gcd} should return.}~
- (assign continue (label after-gcd-1))
- (goto (label gcd))
-after-gcd-1
-   ~\( \dots \)~
- ~\textrm{;; Here is the second call to \code{gcd},}~
- ~\textrm{;; with a different continuation.}~
- (assign continue (label after-gcd-2))
- (goto (label gcd))
-after-gcd-2
-\end{scheme}
-\end{quote}
+% figure 5.10
+\begin{codeFigure}
+  {%
+    Assigning labels to the \code{continue} register simplifies and generalizes
+    the strategy shown in \link{Figure 5.9}.
+  }%
+  \begin{scheme}
+  gcd
+   (test (op =) (reg b) (const 0))
+   (branch (label gcd-done))
+   (assign t (op rem) (reg a) (reg b))
+   (assign a (reg b))
+   (assign b (reg t))
+   (goto (label gcd))
+  gcd-done
+   (goto (reg continue))
+     ~\( \dots \)~
+   ~\textrm{;; Before calling \code{gcd}, we assign to \code{continue}}~
+   ~\textrm{;; the label to which \code{gcd} should return.}~
+   (assign continue (label after-gcd-1))
+   (goto (label gcd))
+  after-gcd-1
+     ~\( \dots \)~
+   ~\textrm{;; Here is the second call to \code{gcd},}~
+   ~\textrm{;; with a different continuation.}~
+   (assign continue (label after-gcd-2))
+   (goto (label gcd))
+  after-gcd-2
+  \end{scheme}
+\end{codeFigure}
 
 \noindent
 A machine with more than one subroutine could use multiple continuation
@@ -995,72 +799,10 @@ recursive call, because the old contents of \code{val} is not useful after the
 subroutine returns.  Only the new value, which is the value produced by the
 subcomputation, is needed.
 
-\begin{figure}[tp]
-\phantomsection\label{Figure 5.11}
-\centering
-\begin{comment}
-\heading{Figure 5.11:} A recursive factorial machine.
-
-\begin{example}
-                             ___
-                            /   \
-    +----------*-----------|  =  |
-    |          |            \___/
-   (X)         |              ^
-    |          |              |
-    V          |          +---+---+   sn    +-------+
-+-------+      |          |       +---(X)-->|       |
-|  val  |<-(X)-|----------+   n   |         | stack |
-+-----+-+      |          |       |<--(X)---+       |
-  ^   |        |          +-------+   rn    +-+-----+
-  |   |        |            ^                 |   ^
- (X)  |        |            |                 |   |
-  |   |   +----|--------*  (X)                |  (X) sc
-  |   |   |    |        |   |             rc (X)  |
-  |   |   |    *----.   |   |                 |   |
-  |   V   V    |    V   V   |                 V   |
-  |  -------   |   -------  |              +------+-+
-  |  \  *  /   |   \  -  /  |              |continue+--> controller
-  |   --+--    |    --+--   |              +--------+
-  |     |      |      |     |               ^      ^
-  +-----+      |      +-----+               |      |
-               |                           (X)    (X)
-               |                            |      |
-              / \                   after- / \    / \  fact-
-             /_1_\                  fact  /___\  /___\ done
-\end{example}
-
-\begin{smallscheme}
-(controller
-   (assign continue (label fact-done))     ~\textrm{; set up final return address}~
- fact-loop
-   (test (op =) (reg n) (const 1))
-   (branch (label base-case))
-   ~\textrm{;; Set up for the recursive call by saving \code{n} and \code{continue}.}~
-   ~\textrm{;; Set up \code{continue} so that the computation will continue}~
-   ~\textrm{;; at \code{after\-/fact} when the subroutine returns.}~
-   (save continue)
-   (save n)
-   (assign n (op -) (reg n) (const 1))
-   (assign continue (label after-fact))
-   (goto (label fact-loop))
- after-fact
-   (restore n)
-   (restore continue)
-   (assign val (op *) (reg n) (reg val))   ~\textrm{; \code{val} now contains}~ ~\( n(n-1)! \)~
-   (goto (reg continue))                   ~\textrm{; return to caller}~
- base-case
-   (assign val (const 1))                  ~\textrm{; base case: }~1! = 1
-   (goto (reg continue))                   ~\textrm{; return to caller}~
- fact-done)
-\end{smallscheme}
-
-\end{comment}
-\includegraphics[width=106mm]{assets/figures/chapter_5/figure_5.11a.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 5.11:} A recursive factorial machine.
-\end{figure}
+% figure 5.11
+\begin{imageFigure}{A recursive factorial machine.}
+  \includegraphics[width=106mm]{assets/figures/chapter_5/figure_5.11a.pdf}
+\end{imageFigure}
 
 Although in principle the factorial computation requires an infinite machine,
 the machine in \link{Figure 5.11} is actually finite except for the stack, which
@@ -1103,45 +845,43 @@ entry point in the main sequence to which to return (\code{afterfib\-/n\-/1} or
 return from the recursive call, the answer is in \code{val}.  \link{Figure 5.12}
 shows the controller sequence for this machine.
 
-\begin{quote}
-\heading{\phantomsection\label{Figure 5.12}Figure 5.12:} \( \downarrow \) Controller for a machine to compute
-Fibonacci numbers.
+% figure 5.12
+\begin{codeFigure}{Controller for a machine to compute Fibonacci numbers.}
+  \begin{scheme}
+  (controller
+     (assign continue (label fib-done))
+   fib-loop
+     (test (op <) (reg n) (const 2))
+     (branch (label immediate-answer))
+     ~\textrm{;; set up to compute Fib\( (n-1) \)}~
+     (save continue)
+     (assign continue (label afterfib-n-1))
+     (save n)                 ~\textrm{; save old value of \code{n}}~
+     (assign n (op -) (reg n) (const 1)) ~\textrm{; clobber \code{n} to \code{n\-/1}}~
+     (goto (label fib-loop))  ~\textrm{; perform recursive call}~
+   afterfib-n-1     ~\textrm{; upon return, \code{val} contains Fib\( (n-1) \)}~
+     (restore n)
+     (restore continue)
+     ~\textrm{;; set up to compute Fib\( (n - 2) \)}~
+     (assign n (op -) (reg n) (const 2))
+     (save continue)
+     (assign continue (label afterfib-n-2))
+     (save val)               ~\textrm{; save Fib\( (n-1) \)}~
+     (goto (label fib-loop))
+   afterfib-n-2     ~\textrm{; upon return, \code{val} contains Fib\( (n-2) \)}~
+     (assign n (reg val))     ~\textrm{; \code{n} now contains Fib\( (n-2) \)}~
+     (restore val)            ~\textrm{; \code{val} now contains Fib\( (n-1) \)}~
+     (restore continue)
+     (assign val              ~\textrm{; Fib\( (n-1) \) + Fib\( (n-2) \)}~
+             (op +) (reg val) (reg n))
+     (goto (reg continue))    ~\textrm{; return to caller, answer is in \code{val}}~
+   immediate-answer
+     (assign val (reg n))     ~\textrm{; base case: Fib\( (n) = n \)}~
+     (goto (reg continue))
+   fib-done)
+  \end{scheme}
 
-\begin{scheme}
-(controller
-   (assign continue (label fib-done))
- fib-loop
-   (test (op <) (reg n) (const 2))
-   (branch (label immediate-answer))
-   ~\textrm{;; set up to compute Fib\( (n-1) \)}~
-   (save continue)
-   (assign continue (label afterfib-n-1))
-   (save n)                 ~\textrm{; save old value of \code{n}}~
-   (assign n (op -) (reg n) (const 1)) ~\textrm{; clobber \code{n} to \code{n\-/1}}~
-   (goto (label fib-loop))  ~\textrm{; perform recursive call}~
- afterfib-n-1     ~\textrm{; upon return, \code{val} contains Fib\( (n-1) \)}~
-   (restore n)
-   (restore continue)
-   ~\textrm{;; set up to compute Fib\( (n - 2) \)}~
-   (assign n (op -) (reg n) (const 2))
-   (save continue)
-   (assign continue (label afterfib-n-2))
-   (save val)               ~\textrm{; save Fib\( (n-1) \)}~
-   (goto (label fib-loop))
- afterfib-n-2     ~\textrm{; upon return, \code{val} contains Fib\( (n-2) \)}~
-   (assign n (reg val))     ~\textrm{; \code{n} now contains Fib\( (n-2) \)}~
-   (restore val)            ~\textrm{; \code{val} now contains Fib\( (n-1) \)}~
-   (restore continue)
-   (assign val              ~\textrm{; Fib\( (n-1) \) + Fib\( (n-2) \)}~
-           (op +) (reg val) (reg n))
-   (goto (reg continue))    ~\textrm{; return to caller, answer is in \code{val}}~
- immediate-answer
-   (assign val (reg n))     ~\textrm{; base case: Fib\( (n) = n \)}~
-   (goto (reg continue))
- fib-done)
-\end{scheme}
-
-\end{quote}
+\end{codeFigure}
 
 \begin{quote}
 \heading{\phantomsection\label{Exercise 5.4}Exercise 5.4:} Specify register machines that
@@ -1465,61 +1205,63 @@ execution procedure, and repeats this cycle until there are no more
 instructions to execute (i.e., until \code{pc} points to the end of the
 instruction sequence).
 
-\begin{quote}
-\heading{\phantomsection\label{Figure 5.13}Figure 5.13:} \( \downarrow \) The \code{make\-/new\-/machine}
-procedure, which implements the basic machine model.
-
-\begin{scheme}
-(define (make-new-machine)
-  (let ((pc (make-register 'pc))
-        (flag (make-register 'flag))
-        (stack (make-stack))
-        (the-instruction-sequence '()))
-    (let ((the-ops
-           (list (list 'initialize-stack
-                       (lambda () (stack 'initialize)))))
-          (register-table
-           (list (list 'pc pc) (list 'flag flag))))
-      (define (allocate-register name)
-        (if (assoc name register-table)
-            (error "Multiply defined register: " name)
-            (set! register-table
-                  (cons (list name (make-register name))
-                        register-table)))
-        'register-allocated)
-      (define (lookup-register name)
-        (let ((val (assoc name register-table)))
-          (if val
-              (cadr val)
-              (error "Unknown register:" name))))
-      (define (execute)
-        (let ((insts (get-contents pc)))
-          (if (null? insts)
-              'done
-              (begin
-                ((instruction-execution-proc (car insts)))
-                (execute)))))
-      (define (dispatch message)
-        (cond ((eq? message 'start)
-               (set-contents! pc the-instruction-sequence)
-               (execute))
-              ((eq? message 'install-instruction-sequence)
-               (lambda (seq)
-                 (set! the-instruction-sequence seq)))
-              ((eq? message 'allocate-register)
-               allocate-register)
-              ((eq? message 'get-register)
-               lookup-register)
-              ((eq? message 'install-operations)
-               (lambda (ops)
-                 (set! the-ops (append the-ops ops))))
-              ((eq? message 'stack) stack)
-              ((eq? message 'operations) the-ops)
-              (else (error "Unknown request: MACHINE"
-                           message))))
-      dispatch)))
-\end{scheme}
-\end{quote}
+% figure 5.14
+\begin{codeFigure}
+  {%
+    The \code{make\-/new\-/machine} procedure, which implements the basic
+    machine model.
+  }%
+  \begin{scheme}
+  (define (make-new-machine)
+    (let ((pc (make-register 'pc))
+          (flag (make-register 'flag))
+          (stack (make-stack))
+          (the-instruction-sequence '()))
+      (let ((the-ops
+             (list (list 'initialize-stack
+                         (lambda () (stack 'initialize)))))
+            (register-table
+             (list (list 'pc pc) (list 'flag flag))))
+        (define (allocate-register name)
+          (if (assoc name register-table)
+              (error "Multiply defined register: " name)
+              (set! register-table
+                    (cons (list name (make-register name))
+                          register-table)))
+          'register-allocated)
+        (define (lookup-register name)
+          (let ((val (assoc name register-table)))
+            (if val
+                (cadr val)
+                (error "Unknown register:" name))))
+        (define (execute)
+          (let ((insts (get-contents pc)))
+            (if (null? insts)
+                'done
+                (begin
+                  ((instruction-execution-proc (car insts)))
+                  (execute)))))
+        (define (dispatch message)
+          (cond ((eq? message 'start)
+                 (set-contents! pc the-instruction-sequence)
+                 (execute))
+                ((eq? message 'install-instruction-sequence)
+                 (lambda (seq)
+                   (set! the-instruction-sequence seq)))
+                ((eq? message 'allocate-register)
+                 allocate-register)
+                ((eq? message 'get-register)
+                 lookup-register)
+                ((eq? message 'install-operations)
+                 (lambda (ops)
+                   (set! the-ops (append the-ops ops))))
+                ((eq? message 'stack) stack)
+                ((eq? message 'operations) the-ops)
+                (else (error "Unknown request: MACHINE"
+                             message))))
+        dispatch)))
+  \end{scheme}
+\end{codeFigure}
 
 \noindent
 As part of its operation, each instruction execution procedure modifies
@@ -2450,40 +2192,14 @@ the parts of the number are stored.\footnote{This is just like writing a number
 as a sequence of digits, except that each ``digit'' is a number between 0 and
 the largest number that can be stored in a single pointer.}
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 5.14}
-\centering
-\begin{comment}
-\heading{Figure 5.14:} Box-and-pointer and memory-vector representations of the list \code{((1 2) 3 4)}.
-
-\begin{example}
-               +---+---+               +---+---+    +---+---+
-((1 2) 3 4) -->| * | *-+-------------->| * | *-+--->| * | / |
-               +-|-+---+               +-|-+---+    +-|-+---+
-              1  |                    2  |         4  |
-                 V                       V            V
-               +---+---+    +---+---+  +---+        +---+
-               | * | *-+--->| * | / |  | 3 |        | 4 |
-               +-|-+---+    +-|-+---+  +---+        +---+
-              5  |         7  |
-                 V            V
-               +---+        +---+
-               | 1 |        | 2 |
-               +---+        +---+
-
-   Index   0    1    2    3    4    5    6    7    8    ...
-         +----+----+----+----+----+----+----+----+----+----
-the-cars |    | p5 | n3 |    | n4 | n1 |    | n2 |    | ...
-         +----+----+----+----+----+----+----+----+----+----
-the-cdrs |    | p2 | p4 |    | e0 | p7 |    | e0 |    | ...
-         +----+----+----+----+----+----+----+----+----+----
-\end{example}
-\end{comment}
-\includegraphics[width=91mm]{assets/figures/chapter_5/figure_5.14a.pdf}
-\begin{quote}
-\heading{Figure 5.14:} Box-and-pointer and memory-vector representations of the list \code{((1 2) 3 4)}.
-\end{quote}
-\end{figure}
+% figure 5.14
+\begin{imageFigure}
+  {%
+    Box-and-pointer and memory-vector representations of the list 
+    \code{((1 2) 3 4)}.
+  }%
+  \includegraphics[width=91mm]{assets/figures/chapter_5/figure_5.14a.pdf}
+\end{imageFigure}
 
 A symbol might be represented as a typed pointer that designates a sequence of
 the characters that form the symbol's printed representation.  This sequence is
@@ -2795,53 +2511,10 @@ will be constructed in the new memory, beginning at the place indicated by
 memory for the next garbage collection.  \link{Figure 5.15} shows the
 arrangement of memory just before and just after garbage collection.
 
-\begin{figure}[tp]
-\phantomsection\label{Figure 5.15}
-\centering
-\begin{comment}
-\begin{quote}
-\heading{Figure 5.15:} Reconfiguration of memory by the garbage-collection process.
-
-\begin{example}
-             Just before garbage collection
-
-         +------------------------------------+
-the-cars |                                    | working
-         | mixture of useful data and garbage | memory
-the-cdrs |                                    |
-         +------------------------------------+
-                                            ^
-                                            | free
-
-         +------------------------------------+
-new-cars |                                    | free
-         |            free memory             | memory
-new-cdrs |                                    |
-         +------------------------------------+
-
-             Just after garbage collection
-
-         +------------------------------------+
-new-cars |                                    | new
-         |          discarded memory          | free
-new-cdrs |                                    | memory
-         +------------------------------------+
-
-         +------------------+-----------------+
-the-cars |                  |                 | new
-         |   useful data    |    free area    | working
-the-cdrs |                  |                 | memory
-         +------------------+-----------------+
-                              ^
-                              | free
-\end{example}
-\end{quote}
-\end{comment}
-\includegraphics[width=91mm]{assets/figures/chapter_5/figure_5.15a.pdf}
-\begin{quote}
-\heading{Figure 5.15:} Reconfiguration of memory by the garbage-collection process.
-\end{quote}
-\end{figure}
+% figure 5.15
+\begin{imageFigure}{Reconfiguration of memory by the garbage-collection process.}
+  \includegraphics[width=91mm]{assets/figures/chapter_5/figure_5.15a.pdf}
+\end{imageFigure}
 
 The state of the garbage-collection process is controlled by maintaining two
 pointers: \code{free} and \code{scan}.  These are initialized to point to the
@@ -3043,20 +2716,10 @@ this section and used design automation programs to construct the
 integrated-circuit layout.\footnote{See \link{Batali et al. 1982} for more information
 on the chip and the method by which it was designed.}
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 5.16}
-\centering
-\begin{comment}
-\heading{Figure 5.16:} A silicon-chip implementation of an evaluator for Scheme.
-
-[A photograph of chip layout]
-
-\end{comment}
-\includegraphics[width=91mm]{assets/figures/chapter_5/chip.jpg}
-\begin{quote}
-\heading{Figure 5.16:} A silicon-chip implementation of an evaluator for Scheme.
-\end{quote}
-\end{figure}
+% figure 5.16
+\begin{imageFigure}{A silicon-chip implementation of an evaluator for Scheme.}
+  \includegraphics[width=91mm]{assets/figures/chapter_5/chip.jpg}
+\end{imageFigure}
 
 \subsubsection*{Registers and operations}
 
@@ -5612,250 +5275,245 @@ for iterative and recursive versions of \code{factorial} that makes one process
 build up stack space and the other run in constant stack space.
 \end{quote}
 
-\begin{quote}
-\heading{\phantomsection\label{Figure 5.17}Figure 5.17:} \( \downarrow \) Compilation of the definition of the
-\code{factorial} procedure.
-
-\begin{smallscheme}
-~\textrm{;; construct the procedure and skip over code for the procedure body}~
-  (assign val
-          (op make-compiled-procedure)
-          (label entry2)
-          (reg env))
-  (goto (label after-lambda1))
-entry2     ~\textrm{; calls to \code{factorial} will enter here}~
-  (assign env (op compiled-procedure-env) (reg proc))
-  (assign env
-          (op extend-environment)
-          (const (n))
-          (reg argl)
-          (reg env))
-~\textrm{;; begin actual procedure body}~
-  (save continue)
-  (save env)
-~\textrm{;; compute \code{(= n 1)}}~
-  (assign proc
-          (op lookup-variable-value)
-          (const =)
-          (reg env))
-  (assign val (const 1))
-  (assign argl (op list) (reg val))
-  (assign val
-          (op lookup-variable-value)
-          (const n)
-          (reg env))
-  (assign argl (op cons) (reg val) (reg argl))
-  (test (op primitive-procedure?) (reg proc))
-  (branch (label primitive-branch17))
-compiled-branch16
-  (assign continue (label after-call15))
-  (assign val (op compiled-procedure-entry) (reg proc))
-  (goto (reg val))
-primitive-branch17
-  (assign val
-          (op apply-primitive-procedure)
-          (reg proc)
-          (reg argl))
-after-call15   ~\textrm{; \code{val} now contains result of \code{(= n 1)}}~
-  (restore env)
-  (restore continue)
-  (test (op false?) (reg val))
-  (branch (label false-branch4))
-true-branch5  ~\textrm{; return 1}~
-  (assign val (const 1))
-  (goto (reg continue))
-false-branch4
-~\textrm{;; compute and return \code{(* (factorial (- n 1)) n)}}~
-  (assign proc
-          (op lookup-variable-value)
-          (const *)
-          (reg env))
-  (save continue)
-  (save proc)   ~\textrm{; save \code{*}}~ procedure
-  (assign val
-          (op lookup-variable-value)
-          (const n)
-          (reg env))
-  (assign argl (op list) (reg val))
-  (save argl)   ~\textrm{; save partial argument list for \code{*}}~
-~\textrm{;; compute \code{(factorial (- n 1))}, which is the other argument for \code{*}}~
-  (assign proc
-          (op lookup-variable-value)
-          (const factorial)
-          (reg env))
-  (save proc)  ~\textrm{; save \code{factorial} procedure}~
-~\textrm{;; compute \code{(- n 1)}, which is the argument for \code{factorial}}~
-  (assign proc
-          (op lookup-variable-value)
-          (const -)
-          (reg env))
-  (assign val (const 1))
-  (assign argl (op list) (reg val))
-  (assign val
-          (op lookup-variable-value)
-          (const n)
-          (reg env))
-  (assign argl (op cons) (reg val) (reg argl))
-  (test (op primitive-procedure?) (reg proc))
-  (branch (label primitive-branch8))
-compiled-branch7
-  (assign continue (label after-call6))
-  (assign val (op compiled-procedure-entry) (reg proc))
-  (goto (reg val))
-primitive-branch8
-  (assign val
-          (op apply-primitive-procedure)
-          (reg proc)
-          (reg argl))
-after-call6   ~\textrm{; \code{val} now contains result of \code{(- n 1)}}~
-  (assign argl (op list) (reg val))
-  (restore proc) ~\textrm{; restore \code{factorial}}~
-~\textrm{;; apply \code{factorial}}~
-  (test (op primitive-procedure?) (reg proc))
-  (branch (label primitive-branch11))
-compiled-branch10
-  (assign continue (label after-call9))
-  (assign val (op compiled-procedure-entry) (reg proc))
-  (goto (reg val))
-primitive-branch11
-  (assign val
-          (op apply-primitive-procedure)
-          (reg proc)
-          (reg argl))
-after-call9      ~\textrm{; \code{val} now contains result of \code{(factorial (- n 1))}}~
-  (restore argl) ~\textrm{; restore partial argument list for \code{*}}~
-  (assign argl (op cons) (reg val) (reg argl))
-  (restore proc) ~\textrm{; restore \code{*}}~
-  (restore continue)
-~\textrm{;; apply \code{*} and return its value}~
-  (test (op primitive-procedure?) (reg proc))
-  (branch (label primitive-branch14))
-compiled-branch13
-~\textrm{;; note that a compound procedure here is called tail-recursively}~
-  (assign val (op compiled-procedure-entry) (reg proc))
-  (goto (reg val))
-primitive-branch14
-  (assign val
-          (op apply-primitive-procedure)
-          (reg proc)
-          (reg argl))
-  (goto (reg continue))
-after-call12
-after-if3
-after-lambda1
-~\textrm{;; assign the procedure to the variable \code{factorial}}~
-  (perform (op define-variable!)
-           (const factorial)
-           (reg val)
-           (reg env))
-  (assign val (const ok))
-\end{smallscheme}
-
-\end{quote}
+% figure 5.17
+\begin{codeFigure}
+  {Compilation of the definition of the \code{factorial} procedure.}
+  \begin{smallscheme}
+  ~\textrm{;; construct the procedure and skip over code for the procedure body}~
+    (assign val
+            (op make-compiled-procedure)
+            (label entry2)
+            (reg env))
+    (goto (label after-lambda1))
+  entry2     ~\textrm{; calls to \code{factorial} will enter here}~
+    (assign env (op compiled-procedure-env) (reg proc))
+    (assign env
+            (op extend-environment)
+            (const (n))
+            (reg argl)
+            (reg env))
+  ~\textrm{;; begin actual procedure body}~
+    (save continue)
+    (save env)
+  ~\textrm{;; compute \code{(= n 1)}}~
+    (assign proc
+            (op lookup-variable-value)
+            (const =)
+            (reg env))
+    (assign val (const 1))
+    (assign argl (op list) (reg val))
+    (assign val
+            (op lookup-variable-value)
+            (const n)
+            (reg env))
+    (assign argl (op cons) (reg val) (reg argl))
+    (test (op primitive-procedure?) (reg proc))
+    (branch (label primitive-branch17))
+  compiled-branch16
+    (assign continue (label after-call15))
+    (assign val (op compiled-procedure-entry) (reg proc))
+    (goto (reg val))
+  primitive-branch17
+    (assign val
+            (op apply-primitive-procedure)
+            (reg proc)
+            (reg argl))
+  after-call15   ~\textrm{; \code{val} now contains result of \code{(= n 1)}}~
+    (restore env)
+    (restore continue)
+    (test (op false?) (reg val))
+    (branch (label false-branch4))
+  true-branch5  ~\textrm{; return 1}~
+    (assign val (const 1))
+    (goto (reg continue))
+  false-branch4
+  ~\textrm{;; compute and return \code{(* (factorial (- n 1)) n)}}~
+    (assign proc
+            (op lookup-variable-value)
+            (const *)
+            (reg env))
+    (save continue)
+    (save proc)   ~\textrm{; save \code{*}}~ procedure
+    (assign val
+            (op lookup-variable-value)
+            (const n)
+            (reg env))
+    (assign argl (op list) (reg val))
+    (save argl)   ~\textrm{; save partial argument list for \code{*}}~
+  ~\textrm{;; compute \code{(factorial (- n 1))}, which is the other argument for \code{*}}~
+    (assign proc
+            (op lookup-variable-value)
+            (const factorial)
+            (reg env))
+    (save proc)  ~\textrm{; save \code{factorial} procedure}~
+  ~\textrm{;; compute \code{(- n 1)}, which is the argument for \code{factorial}}~
+    (assign proc
+            (op lookup-variable-value)
+            (const -)
+            (reg env))
+    (assign val (const 1))
+    (assign argl (op list) (reg val))
+    (assign val
+            (op lookup-variable-value)
+            (const n)
+            (reg env))
+    (assign argl (op cons) (reg val) (reg argl))
+    (test (op primitive-procedure?) (reg proc))
+    (branch (label primitive-branch8))
+  compiled-branch7
+    (assign continue (label after-call6))
+    (assign val (op compiled-procedure-entry) (reg proc))
+    (goto (reg val))
+  primitive-branch8
+    (assign val
+            (op apply-primitive-procedure)
+            (reg proc)
+            (reg argl))
+  after-call6   ~\textrm{; \code{val} now contains result of \code{(- n 1)}}~
+    (assign argl (op list) (reg val))
+    (restore proc) ~\textrm{; restore \code{factorial}}~
+  ~\textrm{;; apply \code{factorial}}~
+    (test (op primitive-procedure?) (reg proc))
+    (branch (label primitive-branch11))
+  compiled-branch10
+    (assign continue (label after-call9))
+    (assign val (op compiled-procedure-entry) (reg proc))
+    (goto (reg val))
+  primitive-branch11
+    (assign val
+            (op apply-primitive-procedure)
+            (reg proc)
+            (reg argl))
+  after-call9      ~\textrm{; \code{val} now contains result of \code{(factorial (- n 1))}}~
+    (restore argl) ~\textrm{; restore partial argument list for \code{*}}~
+    (assign argl (op cons) (reg val) (reg argl))
+    (restore proc) ~\textrm{; restore \code{*}}~
+    (restore continue)
+  ~\textrm{;; apply \code{*} and return its value}~
+    (test (op primitive-procedure?) (reg proc))
+    (branch (label primitive-branch14))
+  compiled-branch13
+  ~\textrm{;; note that a compound procedure here is called tail-recursively}~
+    (assign val (op compiled-procedure-entry) (reg proc))
+    (goto (reg val))
+  primitive-branch14
+    (assign val
+            (op apply-primitive-procedure)
+            (reg proc)
+            (reg argl))
+    (goto (reg continue))
+  after-call12
+  after-if3
+  after-lambda1
+  ~\textrm{;; assign the procedure to the variable \code{factorial}}~
+    (perform (op define-variable!)
+             (const factorial)
+             (reg val)
+             (reg env))
+    (assign val (const ok))
+  \end{smallscheme}
+\end{codeFigure}
 
 \begin{quote}
 \heading{\phantomsection\label{Exercise 5.35}Exercise 5.35:} What expression was compiled to
 produce the code shown in \link{Figure 5.18}?
 \end{quote}
 
-\begin{quote}
-\heading{\phantomsection\label{Figure 5.18}Figure 5.18:} \( \downarrow \) An example of compiler output.  See
-\link{Exercise 5.35}.
-
-\begin{smallscheme}
-(assign val
-        (op make-compiled-procedure)
-        (label entry16)
-        (reg env))
-  (goto (label after-lambda15))
-entry16
-  (assign env (op compiled-procedure-env) (reg proc))
-  (assign env
-          (op extend-environment)
-          (const (x))
-          (reg argl)
-          (reg env))
-  (assign proc
-          (op lookup-variable-value)
-          (const +)
-          (reg env))
-  (save continue)
-  (save proc)
-  (save env)
-  (assign proc
-          (op lookup-variable-value)
-          (const g)
-          (reg env))
-  (save proc)
-  (assign proc
-          (op lookup-variable-value)
-          (const +)
-          (reg env))
-  (assign val (const 2))
-  (assign argl (op list) (reg val))
+% figure 5.18
+\begin{codeFigure}{An example of compiler output. See \link{Exercise 5.35}.}
+  \begin{smallscheme}
   (assign val
-          (op lookup-variable-value)
-          (const x)
+          (op make-compiled-procedure)
+          (label entry16)
           (reg env))
-  (assign argl (op cons) (reg val) (reg argl))
-  (test (op primitive-procedure?) (reg proc))
-  (branch (label primitive-branch19))
-compiled-branch18
-  (assign continue (label after-call17))
-  (assign val (op compiled-procedure-entry) (reg proc))
-  (goto (reg val))
-primitive-branch19
-  (assign val
-          (op apply-primitive-procedure)
-          (reg proc)
-          (reg argl))
-after-call17
-  (assign argl (op list) (reg val))
-  (restore proc)
-  (test (op primitive-procedure?) (reg proc))
-  (branch (label primitive-branch22))
-compiled-branch21
-  (assign continue (label after-call20))
-  (assign val (op compiled-procedure-entry) (reg proc))
-  (goto (reg val))
-primitive-branch22
-  (assign val
-          (op apply-primitive-procedure)
-          (reg proc)
-          (reg argl))
-after-call20
-  (assign argl (op list) (reg val))
-  (restore env)
-  (assign val
-          (op lookup-variable-value)
-          (const x)
-          (reg env))
-  (assign argl (op cons) (reg val) (reg argl))
-  (restore proc)
-  (restore continue)
-  (test (op primitive-procedure?) (reg proc))
-  (branch (label primitive-branch25))
-compiled-branch24
-  (assign val
-          (op compiled-procedure-entry)
-          (reg proc))
-  (goto (reg val))
-primitive-branch25
-  (assign val
-          (op apply-primitive-procedure)
-          (reg proc)
-          (reg argl))
-  (goto (reg continue))
-after-call23
-after-lambda15
-  (perform (op define-variable!)
-           (const f)
-           (reg val)
-           (reg env))
-  (assign val (const ok))
-\end{smallscheme}
-
-\end{quote}
+    (goto (label after-lambda15))
+  entry16
+    (assign env (op compiled-procedure-env) (reg proc))
+    (assign env
+            (op extend-environment)
+            (const (x))
+            (reg argl)
+            (reg env))
+    (assign proc
+            (op lookup-variable-value)
+            (const +)
+            (reg env))
+    (save continue)
+    (save proc)
+    (save env)
+    (assign proc
+            (op lookup-variable-value)
+            (const g)
+            (reg env))
+    (save proc)
+    (assign proc
+            (op lookup-variable-value)
+            (const +)
+            (reg env))
+    (assign val (const 2))
+    (assign argl (op list) (reg val))
+    (assign val
+            (op lookup-variable-value)
+            (const x)
+            (reg env))
+    (assign argl (op cons) (reg val) (reg argl))
+    (test (op primitive-procedure?) (reg proc))
+    (branch (label primitive-branch19))
+  compiled-branch18
+    (assign continue (label after-call17))
+    (assign val (op compiled-procedure-entry) (reg proc))
+    (goto (reg val))
+  primitive-branch19
+    (assign val
+            (op apply-primitive-procedure)
+            (reg proc)
+            (reg argl))
+  after-call17
+    (assign argl (op list) (reg val))
+    (restore proc)
+    (test (op primitive-procedure?) (reg proc))
+    (branch (label primitive-branch22))
+  compiled-branch21
+    (assign continue (label after-call20))
+    (assign val (op compiled-procedure-entry) (reg proc))
+    (goto (reg val))
+  primitive-branch22
+    (assign val
+            (op apply-primitive-procedure)
+            (reg proc)
+            (reg argl))
+  after-call20
+    (assign argl (op list) (reg val))
+    (restore env)
+    (assign val
+            (op lookup-variable-value)
+            (const x)
+            (reg env))
+    (assign argl (op cons) (reg val) (reg argl))
+    (restore proc)
+    (restore continue)
+    (test (op primitive-procedure?) (reg proc))
+    (branch (label primitive-branch25))
+  compiled-branch24
+    (assign val
+            (op compiled-procedure-entry)
+            (reg proc))
+    (goto (reg val))
+  primitive-branch25
+    (assign val
+            (op apply-primitive-procedure)
+            (reg proc)
+            (reg argl))
+    (goto (reg continue))
+  after-call23
+  after-lambda15
+    (perform (op define-variable!)
+             (const f)
+             (reg val)
+             (reg env))
+    (assign val (const ok))
+  \end{smallscheme}
+\end{codeFigure}
 
 \begin{quote}
 \heading{\phantomsection\label{Exercise 5.36}Exercise 5.36:} What order of evaluation does our

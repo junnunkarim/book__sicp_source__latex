@@ -2,20 +2,20 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="422.53149"
-   height="168.129"
+   width="430"
+   height="180"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.3.1 r9886"
-   sodipodi:docname="Fig2.19a.svg"
-   style="display:inline">
+   inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
+   sodipodi:docname="figure_2.19a.svg"
+   style="display:inline"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -25,21 +25,24 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="221.00545"
-     inkscape:cy="90.75805"
+     inkscape:zoom="2.8"
+     inkscape:cx="223.57143"
+     inkscape:cy="74.285714"
      inkscape:document-units="px"
-     inkscape:current-layer="layer2"
-     showgrid="false"
+     inkscape:current-layer="layer3"
+     showgrid="true"
      inkscape:window-width="1920"
-     inkscape:window-height="1004"
+     inkscape:window-height="1080"
      inkscape:window-x="0"
-     inkscape:window-y="24"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      fit-margin-top="1"
      fit-margin-left="1"
      fit-margin-right="1"
-     fit-margin-bottom="1">
+     fit-margin-bottom="1"
+     inkscape:showpageshadow="2"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1">
     <inkscape:grid
        type="xygrid"
        id="grid2985"
@@ -47,8 +50,11 @@
        visible="true"
        enabled="true"
        snapvisiblegridlinesonly="true"
-       originx="-98.734252px"
-       originy="-786.945px" />
+       originx="-95"
+       originy="-780"
+       spacingy="1"
+       spacingx="1"
+       units="px" />
   </sodipodi:namedview>
   <metadata
      id="metadata_2.19">
@@ -111,9 +117,9 @@
      id="layer2"
      inkscape:label="Lines"
      style="display:inline"
-     transform="translate(-98.734252,-97.288183)">
+     transform="translate(-94.999999,-90.343176)">
     <rect
-       style="fill:#e8e8e8;fill-opacity:1;stroke:#000000;stroke-width:0.53149605;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       style="fill:#e8e8e8;fill-opacity:1;stroke:#000000;stroke-width:0.531496;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect3796"
        width="360"
        height="30"
@@ -122,31 +128,31 @@
        rx="3.5433071"
        ry="3.5433071" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.53149605;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 130,137.36218 -30,0"
+       style="fill:none;stroke:#000000;stroke-width:0.531496;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 130,137.36218 H 100"
        id="path3799"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.53149605;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 100,192.36218 420,0"
+       style="fill:none;stroke:#000000;stroke-width:0.531496;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 100,192.36218 H 520"
        id="path3819"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.53149605;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 100,237.36218 420,0"
+       style="fill:none;stroke:#000000;stroke-width:0.531496;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 100,237.36218 H 520"
        id="path3819-0"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.53149605;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 310,192.36218 0,45"
+       style="fill:none;stroke:#000000;stroke-width:0.531496;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 310,192.36218 v 45"
        id="path3839"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.53149605;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline"
-       d="m 520,137.36218 -30,0"
+       style="display:inline;fill:none;stroke:#000000;stroke-width:0.531496;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 520,137.36218 H 490"
        id="path3799-2"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
@@ -156,80 +162,82 @@
      id="layer3"
      inkscape:label="Text"
      style="display:inline"
-     transform="translate(-98.734252,-97.288183)">
+     transform="translate(-94.999999,-90.343176)">
     <text
        xml:space="preserve"
-       style="font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Sans"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0%;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
        x="310"
        y="141.07648"
-       id="text3000"
-       sodipodi:linespacing="125%"><tspan
+       id="text3000"><tspan
          sodipodi:role="line"
          id="tspan3002"
          x="310"
-         y="141.07648">add-complex  sub-complex  mul-complex  div-complex</tspan></text>
+         y="141.07648"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">add-complex  sub-complex  mul-complex  div-complex</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Libertinus Sans;-inkscape-font-specification:Libertinus Sans"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0%;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
        x="310"
        y="107.36218"
-       id="text3004"
-       sodipodi:linespacing="125%"><tspan
+       id="text3004"><tspan
          sodipodi:role="line"
          id="tspan3006"
          x="310"
-         y="107.36218">Programs that use complex numbers</tspan></text>
+         y="107.36218"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Programs that use complex numbers</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Libertinus Sans;-inkscape-font-specification:Libertinus Sans"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0%;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
        x="310.35715"
        y="176.35202"
-       id="text3008"
-       sodipodi:linespacing="125%"><tspan
+       id="text3008"><tspan
          sodipodi:role="line"
          id="tspan3010"
          x="310.35715"
-         y="176.35202">Complex-arithmetic package</tspan></text>
+         y="176.35202"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Complex-arithmetic package</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Libertinus Sans;-inkscape-font-specification:Libertinus Sans"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0%;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
        x="220.28572"
        y="212.36218"
-       id="text3012"
-       sodipodi:linespacing="125%"><tspan
+       id="text3012"><tspan
          sodipodi:role="line"
          id="tspan3014"
          x="220.28572"
-         y="212.36218">Rectangular</tspan><tspan
+         y="212.36218"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Rectangular</tspan><tspan
          sodipodi:role="line"
          x="220.28572"
-         y="228.61218"
-         id="tspan3016">representation</tspan></text>
+         y="227.36218"
+         id="tspan3016"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">representation</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Libertinus Sans;-inkscape-font-specification:Libertinus Sans"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0%;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
        x="399.71429"
        y="211.29076"
-       id="text3018"
-       sodipodi:linespacing="125%"><tspan
+       id="text3018"><tspan
          sodipodi:role="line"
          id="tspan3020"
          x="399.71429"
-         y="211.29076">Polar</tspan><tspan
+         y="211.29076"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Polar</tspan><tspan
          sodipodi:role="line"
          x="399.71429"
-         y="227.54076"
-         id="tspan3022">representation</tspan></text>
+         y="226.29076"
+         id="tspan3022"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">representation</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Libertinus Sans;-inkscape-font-specification:Libertinus Sans"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0%;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
        x="310"
        y="261.36218"
-       id="text3024"
-       sodipodi:linespacing="125%"><tspan
+       id="text3024"><tspan
          sodipodi:role="line"
          id="tspan3026"
          x="310"
-         y="261.36218">List structure and primitive machine arithmetic</tspan></text>
+         y="261.36218"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">List structure and primitive machine arithmetic</tspan></text>
   </g>
 </svg>

@@ -1,0 +1,26 @@
+% --- figure ---
+% --------------
+%
+% figure counting: <chapter_count>.<figure_count>
+% e.g. 1.1, 2.12 etc.
+\counterwithin{figure}{chapter}
+% label format -> Figure 1.1, Figure 2.12 etc.
+\labelformat{figure}{Figure~#1}
+
+% list of figures, gap before title
+\setlength{\cftbeforeloftitleskip}{-2\baselineskip} 
+
+% caption style
+\captionsetup{
+  font=footnotesize,
+  labelfont=bf,
+  labelformat=simple,
+  labelsep=newline,
+  justification=raggedright,
+  singlelinecheck=false
+}
+
+% list of figures, title style
+\renewcommand{\cftloftitlefont}{\sffamily\Large\bfseries}
+%
+% --------------

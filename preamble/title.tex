@@ -1,0 +1,63 @@
+% --- title formats ---
+% ---------------------
+%
+% package: titlesec
+%
+% label - chapter number
+% title - chapter title
+%
+% \titleformat{⟨command⟩}
+%   [⟨shape⟩]
+%   {⟨format⟩} % format applied to the whole title (label and text)
+%   {⟨label⟩}
+%   {⟨sep⟩} % vertical separation between label and title body (when shape is "display")
+%   {⟨before-code⟩} % before title body
+%   [⟨after-code⟩]
+%
+% chapters with numbers
+\newcommand{\chapterNumberFont}{%
+  \fontsize{8em}{0em}%
+  \selectfont%
+}
+
+\titleformat{\chapter}
+  [display]
+  {\filleft\sffamily\bfseries}
+  {%
+    \color{DeepGray}%
+    \mdseries%
+    \chapterNumberFont%
+    \oldstylenums{\thechapter}%
+  }
+  {1ex} 
+  {\color{DeepGray}\Large}
+  [\color{DeepGray}\titlerule]
+
+% chapters without numbers
+\titleformat{name=\chapter, numberless}
+  [display]
+  {\filright\sffamily\bfseries}
+  {}
+  {1ex}
+  {\color{DeepGray}\Large}
+  [\color{DeepGray}\titlerule]
+
+\titleformat{\section}
+  {\filright\Large\sffamily\bfseries}
+  {\color{MediumGray}\thesection}
+  {1ex}
+  {}
+
+\titleformat{\subsection}
+  {\filright\large\sffamily\bfseries}
+  {\color{MediumGray}\thesubsection}
+  {1ex}
+  {}
+
+\titleformat{\subsubsection}
+  {\filright\sffamily\bfseries}
+  {\color{LightGray}\thesubsubsection}
+  {1ex}
+  {}
+%
+% ---------------------

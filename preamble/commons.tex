@@ -1,0 +1,214 @@
+% --- colors ---
+% --------------
+%
+\definecolor{DeepGray}{HTML}{464646}
+\definecolor{MediumGray}{HTML}{686868}
+\definecolor{LightGray}{HTML}{8B8B8B}
+
+\definecolor{LinkRed}{HTML}{80171F}
+
+% code colors
+\definecolor{SchemeLight}{HTML}{686868}
+\definecolor{SchemeSteel}{HTML}{888888}
+\definecolor{SchemeDark}{HTML}{262626}
+\definecolor{SchemeBlue}{HTML}{4172A3}
+\definecolor{SchemeGreen}{HTML}{487818}
+\definecolor{SchemeBrown}{HTML}{A07040}
+\definecolor{SchemeRed}{HTML}{AD4D3A}
+\definecolor{SchemeViolet}{HTML}{7040A0}
+%
+% --------------
+
+% used in index
+\def\customDotFill{%
+  \leavevmode
+  \nobreak
+  \cleaders \hbox to .44em{\hss.\hss}\hskip 1em plus1fill
+  \nobreak
+\kern 0pt}
+
+% e.g. MIT etc.
+\newcommand{\acronym}[1]{#1}
+\newcommand{\uppersc}[1]{{\fontspec[Letters=UppercaseSmallCaps]{Libertinus
+Serif}#1}}
+\newcommand{\newterm}[1]{\index{#1}\emph{#1}}
+\newcommand{\var}[1]{\textsl{#1}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\link}[1]{\hyperref[#1]{#1}}
+\newcommand{\heading}[1]{{\sffamily\bfseries #1}}
+\newcommand{\dark}{\color{SchemeDark}}
+\newcommand{\mono}[1]{\hbox{\ttfamily\scriptsize #1}}
+\newcommand{\monoit}[1]{\hbox{\ttfamily\itshape\scriptsize #1}}
+
+\newenvironment{example}
+  {\verbatim\small}
+  {\endverbatim}
+
+\newenvironment{smallexample}
+  {\verbatim\footnotesize}
+  {\endverbatim}
+
+% package: listings
+\lstnewenvironment{scheme}[1][]
+{\lstset{basicstyle=\ttfamily\small\color{SchemeLight},#1}}
+{}
+
+\lstnewenvironment{smallscheme}[1][]
+{\lstset{basicstyle=\ttfamily\footnotesize\color{SchemeLight},#1}}
+{}
+
+\newenvironment{exercises}{%
+  \small
+  \Needspace{6\baselineskip}
+  \vspace{1ex}
+  \begin{flushright}
+    \hfill%
+    \textbf{\textsf{EXERCISES}}%
+    \vspace{-1ex}%
+    \newline%
+    \rule{0.5\textwidth}{0.2pt}%
+  \end{flushright}
+  \everypar{\setlength{\parindent}{2em}\everypar{}}
+  % no page break after first horizontal rule
+}{%
+  % no page break before last horizontal rule
+  \par\nobreak
+  \noindent
+  \makebox[\textwidth][c]{\rule{0.5\textwidth}{0.2pt}}
+  \par
+}
+
+\NewDocumentEnvironment{imageFigure}{m}{
+  \begin{figure}[htbp]
+  \begin{flushleft}
+}{
+    \caption{#1}%
+    \phantomsection%
+    \label{Figure \thefigure}
+  \end{flushleft}
+  \end{figure}
+}
+
+\NewDocumentEnvironment{codeFigure}{m}{
+  \begin{flushleft}
+    \vspace{2ex}
+    \captionof{figure}{\( \downarrow \) #1}%
+    \phantomsection%
+    \label{Figure \thefigure}
+}{
+  \end{flushleft}
+}
+
+\NewDocumentCommand{\fancyQuoteMark}{O{0,0} m}{%
+  \begin{picture}(0,0)(0,0)
+    \put(#1){\makebox(0,0){\scalebox{3}{\textcolor{LightGray}{#2}}}}
+  \end{picture}%
+}
+
+% #1 -> author name, #2 -> work name, #3 -> extra
+\NewDocumentEnvironment{fancyQuote}{O{} O{} O{}}{%
+  \def\fqAuthor{#1}%
+  \def\fqWork{#2}%
+  \def\fqExtra{#3}%
+
+  \vspace{1ex}
+  \noindent
+  \begin{list}{}{%
+    \setlength{\leftmargin}{0.1\textwidth}%
+    \setlength{\rightmargin}{0.1\textwidth}%
+  }%
+  \item[]%
+  \fancyQuoteMark[-15,-5]{``}%
+  \color{DeepGray}%
+  % \sffamily%
+  \footnotesize%
+  \begingroup%
+    \itshape%
+}{%
+  \endgroup\par
+  \makebox[0pt][l]{%
+    \hspace{0.8\textwidth}%
+    \fancyQuoteMark[15,15]{''}%
+  }%
+  \ifx\fqAuthor%
+    \empty%
+  \else%
+    \hfill\rule{0.65\linewidth}{0.2pt}\par
+    \hfill
+    \begin{minipage}[t]{0.65\linewidth}%
+      \scriptsize 
+      --- \textsc{\fqAuthor}%
+      \tiny 
+      % check if fqWork is empty or not
+      \ifx\fqWork%
+        \empty%
+      \else%
+        \newline\emph{\fqWork}%
+      \fi%
+      % check if fqExtra is empty or not
+      \ifx\fqExtra%
+        \empty%
+      \else%
+        ,\ (\fqExtra)%
+      \fi%
+    \end{minipage}%
+  \fi
+  \par
+  \vspace{1ex}
+  \end{list}
+}
+
+% #1 -> quoted content
+% #2 -> author name
+% #3 -> work name
+% #4 -> extra
+\newcommand{\chapterQuote}[4]{
+  \vspace{-15pt}%
+  \vspace{-1ex}%
+  \begin{fancyQuote}[#2][#3][#4]%
+    #1%
+  \end{fancyQuote}%
+  \vspace{-1ex}%
+  \vspace{20pt}%
+}
+
+% 1st quote
+% ---------
+% #1 -> quoted content
+% #2 -> author name
+% #3 -> work name
+% #4 -> extra
+%
+% 2nd quote
+% ---------
+% #5 -> quoted content
+% #6 -> author name
+% #7 -> work name
+% #8 -> extra
+\NewDocumentCommand{\chapterDoubleQuote}{m m m m m m m m}{
+  \vspace{-15pt}%
+  \vspace{-1ex}%
+  \begin{fancyQuote}[#2][#3][#4]
+    #1%
+  \end{fancyQuote}%
+
+  \begin{fancyQuote}[#6][#7][#8]
+    #5%
+  \end{fancyQuote}%
+  \vspace{-1ex}%
+  \vspace{20pt}%
+}
+
+% #1 -> quoted content
+% #2 -> author name
+% #3 -> work name
+% #4 -> extra
+\newcommand{\elegantQuote}[4]{
+  \begin{fancyQuote}[#2][#3][#4]%
+    #1%
+  \end{fancyQuote}%
+}
+
+% measure font height using sample string
+\newlength{\headerHeight}
+\settoheight{\headerHeight}{ABCgjpqy}

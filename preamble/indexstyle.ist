@@ -1,0 +1,7 @@
+headings_flag 1
+heading_prefix "{\\large\\bfseries\\sffamily "
+heading_suffix "}\\nopagebreak\n\\vspace{0.8em}\n"
+
+delim_0 "\\customDotFill~"
+delim_1 "\\customDotFill~"
+delim_2 "\\customDotFill~"

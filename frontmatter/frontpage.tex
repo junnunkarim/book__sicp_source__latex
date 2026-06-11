@@ -1,3 +1,51 @@
-\includepdf[scale=0.92]{assets/coverpage.pdf}
+\begin{titlepage}
+  \vspace*{\fill}  % stretch above
 
-\pagebreak
+  \newsavebox{\imagebox}
+  \sbox{\imagebox}{
+    \includegraphics[width=0.45\textwidth]{assets/bookwheel.jpg}
+  }
+
+  \noindent
+  \textbf{
+    {\huge
+      Structure and Interpretation\newline
+      \textit{of} Computer Programs
+    }
+  }
+
+  \vspace{1em}
+
+  \begin{flushleft}
+    \begin{minipage}[c]{0.45\textwidth}
+      \usebox{\imagebox}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c][\ht\imagebox][c]{0.50\textwidth}
+      \vspace{4em}
+
+      {\large
+        \textcolor{LinkRed}{
+          \MakeUppercase{Second edition}
+        }
+      }
+
+      \vspace{4em}
+      \vfill
+
+      {\Large
+        Harold Abelson and\newline
+        Gerald Jay Sussman\newline
+        with Julie Sussman\newline
+      }
+
+      \vspace{1em}
+
+      {\large
+        foreword by Alan J. Perlis\newline
+      }
+    \end{minipage}
+  \end{flushleft}
+
+  \vspace*{\fill}  % stretch below
+\end{titlepage}

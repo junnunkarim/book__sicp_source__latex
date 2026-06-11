@@ -1,0 +1,65 @@
+\let\currentChapter\leftmark
+\let\currentSection\rightmark
+% if currentSection is empty, use currentChapter
+\makeatletter
+\newcommand{\currentSectionOrChapter}{%
+  % expand "rightmark" and store expanded result in "x"
+  \begingroup\protected@edef\x{\rightmark}%
+  \ifx\x\@empty
+  \endgroup\leftmark
+  \else
+  \endgroup\rightmark
+  \fi
+}
+\makeatother
+
+\newcommand{\headerStyle}{\itshape\small}
+
+\newcommand{\headerPage}{\headerStyle\thepage}
+\newcommand{\headerChapterName}{\headerStyle\currentChapter}
+\newcommand{\headerSectionName}{\headerStyle\currentSectionOrChapter}
+
+\pagestyle{fancy}
+
+\fancyhf{} % clear all header/footer styles
+
+\renewcommand{\headrulewidth}{0.0pt}
+\renewcommand{\chaptermark}[1]{%
+  \markboth{\ifnum\value{chapter}>0 \chaptername\ \thechapter.\ \fi #1}{}%
+}
+\renewcommand{\sectionmark}[1]{%
+  \markright{\ifnum\value{section}>0 \thesection.\ \fi #1}{}%
+}
+
+% even pages
+\fancyhead[LE]{\headerPage}
+\fancyhead[RE]{\headerChapterName}
+% odd pages
+\fancyhead[RO]{\headerStyle \thepage}
+\fancyhead[LO]{\headerSectionName}
+
+% for chapter pages
+\fancypagestyle{plain}{
+  \fancyhf{} % clear all header and footer fields
+  \renewcommand{\headrulewidth}{0pt} % remove header line
+  \renewcommand{\footrulewidth}{0pt}  % remove footer line
+}
+
+% no header/footer in empty pages
+\makeatletter
+\renewcommand*{\cleardoublepage}{%
+  \clearpage
+  \if@twoside
+    \ifodd\c@page
+    \else
+      \hbox{}
+      \thispagestyle{empty}
+      \newpage
+      \if@twocolumn
+        \hbox{}
+        \newpage
+      \fi
+    \fi
+  \fi
+}
+\makeatother

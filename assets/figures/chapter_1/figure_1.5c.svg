@@ -2,12 +2,12 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="351.27396"
-   height="219.23442"
+   width="365"
+   height="230.00003"
    id="svg2"
    version="1.1"
-   inkscape:version="1.1 (c4e8f9ed74, 2021-05-24)"
-   sodipodi:docname="Fig1.5c.svg"
+   inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
+   sodipodi:docname="figure_1.5c.svg"
    style="display:inline"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -27,7 +27,7 @@
        style="overflow:visible">
       <path
          id="path3954"
-         d="m 5.77,0 -8.65,5 0,-10 8.65,5 z"
+         d="M 5.77,0 -2.88,5 V -5 Z"
          style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(-0.8,0,0,-0.8,4.8,0)"
          inkscape:connector-curvature="0" />
@@ -41,7 +41,7 @@
        style="overflow:visible">
       <path
          id="path3963"
-         d="m 5.77,0 -8.65,5 0,-10 8.65,5 z"
+         d="M 5.77,0 -2.88,5 V -5 Z"
          style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(0.8,0,0,0.8,-4.8,0)"
          inkscape:connector-curvature="0" />
@@ -55,7 +55,7 @@
        style="overflow:visible">
       <path
          id="path3966"
-         d="m 5.77,0 -8.65,5 0,-10 8.65,5 z"
+         d="M 5.77,0 -2.88,5 V -5 Z"
          style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(0.4,0,0,0.4,-1.8,0)"
          inkscape:connector-curvature="0" />
@@ -70,7 +70,7 @@
       <path
          inkscape:connector-curvature="0"
          id="path3954-0"
-         d="m 5.77,0 -8.65,5 0,-10 8.65,5 z"
+         d="M 5.77,0 -2.88,5 V -5 Z"
          style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(-0.8,0,0,-0.8,4.8,0)" />
     </marker>
@@ -84,7 +84,7 @@
       <path
          inkscape:connector-curvature="0"
          id="path3954-9"
-         d="m 5.77,0 -8.65,5 0,-10 8.65,5 z"
+         d="M 5.77,0 -2.88,5 V -5 Z"
          style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(-0.8,0,0,-0.8,4.8,0)" />
     </marker>
@@ -98,7 +98,7 @@
       <path
          inkscape:connector-curvature="0"
          id="path3954-1"
-         d="m 5.77,0 -8.65,5 0,-10 8.65,5 z"
+         d="M 5.77,0 -2.88,5 V -5 Z"
          style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(-0.8,0,0,-0.8,4.8,0)" />
     </marker>
@@ -112,7 +112,7 @@
       <path
          inkscape:connector-curvature="0"
          id="path3954-5"
-         d="m 5.77,0 -8.65,5 0,-10 8.65,5 z"
+         d="M 5.77,0 -2.88,5 V -5 Z"
          style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(-0.8,0,0,-0.8,4.8,0)" />
     </marker>
@@ -126,7 +126,7 @@
       <path
          inkscape:connector-curvature="0"
          id="path3954-7"
-         d="m 5.77,0 -8.65,5 0,-10 8.65,5 z"
+         d="M 5.77,0 -2.88,5 V -5 Z"
          style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(-0.8,0,0,-0.8,4.8,0)" />
     </marker>
@@ -140,7 +140,7 @@
       <path
          inkscape:connector-curvature="0"
          id="path3954-13"
-         d="m 5.77,0 -8.65,5 0,-10 8.65,5 z"
+         d="M 5.77,0 -2.88,5 V -5 Z"
          style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(-0.8,0,0,-0.8,4.8,0)" />
     </marker>
@@ -154,7 +154,7 @@
       <path
          inkscape:connector-curvature="0"
          id="path3954-96"
-         d="m 5.77,0 -8.65,5 0,-10 8.65,5 z"
+         d="M 5.77,0 -2.88,5 V -5 Z"
          style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(-0.8,0,0,-0.8,4.8,0)" />
     </marker>
@@ -168,7 +168,7 @@
       <path
          inkscape:connector-curvature="0"
          id="path3954-75"
-         d="m 5.77,0 -8.65,5 0,-10 8.65,5 z"
+         d="M 5.77,0 -2.88,5 V -5 Z"
          style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(-0.8,0,0,-0.8,4.8,0)" />
     </marker>
@@ -182,7 +182,7 @@
       <path
          inkscape:connector-curvature="0"
          id="path3954-3"
-         d="m 5.77,0 -8.65,5 0,-10 8.65,5 z"
+         d="M 5.77,0 -2.88,5 V -5 Z"
          style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(-0.8,0,0,-0.8,4.8,0)" />
     </marker>
@@ -196,7 +196,7 @@
       <path
          inkscape:connector-curvature="0"
          id="path3954-39"
-         d="m 5.77,0 -8.65,5 0,-10 8.65,5 z"
+         d="M 5.77,0 -2.88,5 V -5 Z"
          style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(-0.8,0,0,-0.8,4.8,0)" />
     </marker>
@@ -210,7 +210,7 @@
       <path
          inkscape:connector-curvature="0"
          id="path3954-6"
-         d="m 5.77,0 -8.65,5 0,-10 8.65,5 z"
+         d="M 5.77,0 -2.88,5 V -5 Z"
          style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(-0.8,0,0,-0.8,4.8,0)" />
     </marker>
@@ -224,7 +224,7 @@
       <path
          inkscape:connector-curvature="0"
          id="path3954-53"
-         d="m 5.77,0 -8.65,5 0,-10 8.65,5 z"
+         d="M 5.77,0 -2.88,5 V -5 Z"
          style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(-0.8,0,0,-0.8,4.8,0)" />
     </marker>
@@ -237,24 +237,28 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8284271"
-     inkscape:cx="260.2153"
-     inkscape:cy="95.81297"
+     inkscape:cx="187.73685"
+     inkscape:cy="101.6466"
      inkscape:document-units="px"
-     inkscape:current-layer="layer4"
-     showgrid="false"
-     inkscape:window-width="1920"
-     inkscape:window-height="987"
+     inkscape:current-layer="layer2"
+     showgrid="true"
+     inkscape:window-width="1900"
+     inkscape:window-height="1060"
      inkscape:window-x="0"
-     inkscape:window-y="70"
-     inkscape:window-maximized="1"
-     inkscape:pagecheckerboard="0">
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:showpageshadow="2"
+     inkscape:deskcolor="#d1d1d1">
     <inkscape:grid
        type="xygrid"
        id="grid4204"
-       originx="843.49721"
-       originy="-791.3839"
+       originx="850"
+       originy="-785"
        spacingx="1"
-       spacingy="1" />
+       spacingy="1"
+       units="px"
+       visible="true" />
   </sodipodi:namedview>
   <metadata
      id="metadata_1.5">
@@ -310,10 +314,10 @@
      id="layer2"
      inkscape:label="Text"
      style="display:inline"
-     transform="translate(843.49721,-41.743855)">
+     transform="translate(849.99999,-35.35992)">
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:Inconsolata;fill:#000000;fill-opacity:1;stroke:none;-inkscape-font-specification:'Inconsolata, Normal';font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none"
        x="-647.25177"
        y="50.624893"
        id="text24254"><tspan
@@ -321,10 +325,10 @@
          id="tspan24252"
          x="-647.25177"
          y="50.624893"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:Inconsolata;-inkscape-font-specification:'Inconsolata, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">fib 5</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">fib 5</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:Inconsolata;display:inline;fill:#000000;fill-opacity:1;stroke:none;-inkscape-font-specification:'Inconsolata, Normal';font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        x="-737.16821"
        y="90.087479"
        id="text24254-3"><tspan
@@ -332,10 +336,10 @@
          id="tspan24252-6"
          x="-737.16821"
          y="90.087479"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:Inconsolata;-inkscape-font-specification:'Inconsolata, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">fib 4</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">fib 4</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:Inconsolata;display:inline;fill:#000000;fill-opacity:1;stroke:none;-inkscape-font-specification:'Inconsolata, Normal';font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        x="-690.95184"
        y="131.51813"
        id="text24254-3-7"><tspan
@@ -343,10 +347,10 @@
          id="tspan24252-6-5"
          x="-690.95184"
          y="131.51813"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:Inconsolata;-inkscape-font-specification:'Inconsolata, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">fib 2</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">fib 2</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:Inconsolata;display:inline;fill:#000000;fill-opacity:1;stroke:none;-inkscape-font-specification:'Inconsolata, Normal';font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        x="-596.45551"
        y="131.51813"
        id="text24254-3-7-1"><tspan
@@ -354,10 +358,10 @@
          id="tspan24252-6-5-2"
          x="-596.45551"
          y="131.51813"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:Inconsolata;-inkscape-font-specification:'Inconsolata, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">fib 2</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">fib 2</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:Inconsolata;display:inline;fill:#000000;fill-opacity:1;stroke:none;-inkscape-font-specification:'Inconsolata, Normal';font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        x="-524.92218"
        y="131.51813"
        id="text24254-3-7-1-7"><tspan
@@ -365,10 +369,10 @@
          id="tspan24252-6-5-2-0"
          x="-524.92218"
          y="131.51813"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:Inconsolata;-inkscape-font-specification:'Inconsolata, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">fib 1</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">fib 1</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:Inconsolata;display:inline;fill:#000000;fill-opacity:1;stroke:none;-inkscape-font-specification:'Inconsolata, Normal';font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        x="-815.89618"
        y="173.0733"
        id="text24254-3-7-1-6"><tspan
@@ -376,10 +380,10 @@
          id="tspan24252-6-5-2-06"
          x="-815.89618"
          y="173.0733"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:Inconsolata;-inkscape-font-specification:'Inconsolata, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">fib 2</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">fib 2</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:Inconsolata;display:inline;fill:#000000;fill-opacity:1;stroke:none;-inkscape-font-specification:'Inconsolata, Normal';font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        x="-758.7793"
        y="173.0733"
        id="text24254-3-7-1-7-2"><tspan
@@ -387,10 +391,10 @@
          id="tspan24252-6-5-2-0-6"
          x="-758.7793"
          y="173.0733"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:Inconsolata;-inkscape-font-specification:'Inconsolata, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">fib 1</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">fib 1</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:Inconsolata;display:inline;fill:#000000;fill-opacity:1;stroke:none;-inkscape-font-specification:'Inconsolata, Normal';font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        x="-712.74445"
        y="173.0733"
        id="text24254-3-7-1-7-9"><tspan
@@ -398,10 +402,10 @@
          id="tspan24252-6-5-2-0-3"
          x="-712.74445"
          y="173.0733"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:Inconsolata;-inkscape-font-specification:'Inconsolata, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">fib 1</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">fib 1</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:Inconsolata;display:inline;fill:#000000;fill-opacity:1;stroke:none;-inkscape-font-specification:'Inconsolata, Normal';font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        x="-668.41675"
        y="173.0733"
        id="text24254-3-7-1-7-9-1"><tspan
@@ -409,10 +413,10 @@
          id="tspan24252-6-5-2-0-3-8"
          x="-668.41675"
          y="173.0733"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:Inconsolata;-inkscape-font-specification:'Inconsolata, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">fib 0</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">fib 0</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:Inconsolata;display:inline;fill:#000000;fill-opacity:1;stroke:none;-inkscape-font-specification:'Inconsolata, Normal';font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        x="-621.59546"
        y="173.0733"
        id="text24254-3-7-1-7-9-7"><tspan
@@ -420,10 +424,10 @@
          id="tspan24252-6-5-2-0-3-9"
          x="-621.59546"
          y="173.0733"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:Inconsolata;-inkscape-font-specification:'Inconsolata, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">fib 1</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">fib 1</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:Inconsolata;display:inline;fill:#000000;fill-opacity:1;stroke:none;-inkscape-font-specification:'Inconsolata, Normal';font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        x="-571.74359"
        y="173.0733"
        id="text24254-3-7-1-7-9-1-2"><tspan
@@ -431,10 +435,10 @@
          id="tspan24252-6-5-2-0-3-8-0"
          x="-571.74359"
          y="173.0733"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:Inconsolata;-inkscape-font-specification:'Inconsolata, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">fib 0</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">fib 0</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:Inconsolata;display:inline;fill:#000000;fill-opacity:1;stroke:none;-inkscape-font-specification:'Inconsolata, Normal';font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        x="-786.50903"
        y="131.51813"
        id="text24254-3-3"><tspan
@@ -442,10 +446,10 @@
          id="tspan24252-6-56"
          x="-786.50903"
          y="131.51813"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:Inconsolata;-inkscape-font-specification:'Inconsolata, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">fib 3</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">fib 3</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:Inconsolata;display:inline;fill:#000000;fill-opacity:1;stroke:none;-inkscape-font-specification:'Inconsolata, Normal';font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        x="-561.28668"
        y="90.087479"
        id="text24254-3-3-2"><tspan
@@ -453,14 +457,14 @@
          id="tspan24252-6-56-9"
          x="-561.28668"
          y="90.087479"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:Inconsolata;-inkscape-font-specification:'Inconsolata, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">fib 3</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">fib 3</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="Lines"
      style="display:inline"
-     transform="translate(843.49721,-41.743855)">
+     transform="translate(849.99999,-35.35992)">
     <path
        style="fill:none;stroke:#000000;stroke-width:0.566929;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m -799.385,160.7982 c 4.60351,-13.8105 20.91743,-11.50875 27.82268,-23.01738 6.90513,11.50863 23.01739,9.20688 25.31913,23.01738"
@@ -550,7 +554,7 @@
      id="layer4"
      inkscape:label="Arrows"
      style="display:inline"
-     transform="translate(843.49721,-41.743855)">
+     transform="translate(849.99999,-35.35992)">
     <path
        style="display:inline;fill:none;stroke:#000000;stroke-width:0.493694;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:0.493694, 1.48108;stroke-dashoffset:0;stroke-opacity:1"
        d="m -655.94947,47.004837 c 0,0 -59.72179,12.654006 -78.95447,23.221897 -19.23267,10.567895 -25.13751,21.267626 -37.15504,32.510666 -9.59272,8.97449 -19.81744,17.48464 -27.86626,27.86627 -8.26288,10.65773 -13.14394,27.47991 -20.66313,38.93479 -7.51919,11.45487 -17.67651,17.54242 -20.49191,30.7309 -3.90332,18.28468 -2.96659,44.12161 6.32217,55.73256 3.86844,4.83553 13.72166,3.84288 18.57753,0 16.21547,-12.83275 2.3651,-60.16466 14.25534,-60.37693 12.64314,-0.22571 -2.50159,47.49235 13.61093,60.37693 4.23179,3.384 11.83141,3.12866 16.25533,0 9.38406,-6.63655 10.33159,-24.24682 11.48898,-32.51065 1.15739,-8.26383 0.49796,-11.06492 -1.1,-16.25535 -3.43115,-11.14495 -15.26759,-18.77907 -17.67773,-30.18845 -1.61018,-7.62245 -4.95295,-21.4971 2.64438,-23.22191 5.32548,-1.20903 8.7756,5.38497 9.93314,9.28877 1.97295,12.54782 5.41567,23.89695 8.96656,34.83285 2.24645,6.97393 3.21223,14.67073 8.96657,18.25534 3.28506,2.0464 8.35975,2.09977 11.61095,0 6.25292,-4.03842 8.43716,-19.91589 9.28877,-29.86629 0.66007,-7.71244 2.96221,-16.07049 0,-23.2219 -4.18922,-10.11361 -19.03271,-13.10827 -23.22192,-23.22189 -2.07353,-5.00599 -2.42319,-11.40894 0,-16.25535 2.3222,-4.64437 13.93315,-9.28874 30.18849,-9.28874 8.65429,0 18.67205,4.24915 23.2219,11.61094 2.44169,3.95075 1.49969,9.53756 0,13.93315 -3.15803,9.2562 -15.56105,13.73381 -17.93315,23.22189 -4.18908,16.75574 -4.54785,39.94063 8.64439,51.08819 4.1387,3.49724 12.00381,3.35919 16.25533,0 16.23156,-12.8248 3.27931,-60.37696 14.35532,-60.37696 8.58793,0 2.06628,20.89972 3.691,32.13518 1.37119,9.48221 3.58418,22.60576 12.14214,28.24178 3.71781,2.44844 9.44813,3.02189 13.35486,0 7.76961,-6.00985 8.62638,-17.03219 10.389,-26.28799 2.1257,-11.16239 2.90248,-23.10293 0,-34.08897 -4.09309,-15.49258 -12.65355,-30.23314 -23.74386,-41.79941 -10.10811,-10.54192 -37.15503,-8.61691 -37.15503,-23.2219 0,-18.577516 48.76598,-4.644374 65.02131,-20.899707 16.25533,16.255333 65.02132,0 65.02132,20.899707 0,13.83373 -15.48645,15.73647 -27.86628,23.2219 -12.55778,7.59301 -24.83633,20.78372 -28.34446,37.15504 -2.42674,11.32476 -3.6054,23.25614 -2,34.74554 1.47885,10.58373 1.83393,24.08551 10.545,30.27579 4.11786,2.92624 10.8312,3.26551 15.15508,0 19.04906,-14.3865 1.21637,-60.37696 16.87792,-60.37696 13.91395,0 1.84552,46.30337 18.27712,58.37696 4.36645,3.20837 11.97252,4.32275 16.25532,0 5.11099,-5.15866 7.95793,-13.61555 9.28877,-21.22191 1.73809,-9.93398 1.17572,-20.61665 -2,-30.18847 -3.77487,-11.3777 -19.23012,-18.20502 -19.54409,-30.18847 -0.28014,-10.69214 5.1159,-18.07899 12.57752,-18.57752 8.28106,-0.55328 16.17158,5.32291 16.57752,18.57752 0.48013,15.67687 4.70229,32.45403 13.28875,41.79941 3.66598,3.99 13.05446,4.37195 16.25534,0 7.98037,-10.90003 11.38026,-30.28453 9.28876,-46.44379 -1.82314,-14.08587 -20.58163,-20.13085 -27.5441,-32.510656 -2.39982,-4.267063 -1.78187,-9.961619 -4.64438,-13.933142 -4.52603,-6.279529 -11.64014,-10.499453 -18.57752,-13.933141 -20.38711,-10.090698 -65.66569,-18.577514 -65.66569,-18.577514"
@@ -559,7 +563,7 @@
        sodipodi:nodetypes="szassssasaasaasccassaassaaaaassasaaascsssaassasaasassssaaac" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:sans-serif;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;display:inline;fill:#000000;fill-opacity:1;stroke:none;-inkscape-font-specification:'NewComputerModern10, Normal';font-stretch:normal;font-variant:normal;font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
        x="-837.95923"
        y="215.29732"
        id="text24254-3-7-1-7-9-7-2"><tspan
@@ -567,10 +571,10 @@
          id="tspan24252-6-5-2-0-3-9-8"
          x="-837.95923"
          y="215.29732"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:Inconsolata;-inkscape-font-specification:Inconsolata">fib 1</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">fib 1</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:sans-serif;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;display:inline;fill:#000000;fill-opacity:1;stroke:none;-inkscape-font-specification:'NewComputerModern10, Normal';font-stretch:normal;font-variant:normal;font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
        x="-793.63165"
        y="215.29732"
        id="text24254-3-7-1-7-9-1-2-9"><tspan
@@ -578,10 +582,10 @@
          id="tspan24252-6-5-2-0-3-8-0-7"
          x="-793.63165"
          y="215.29732"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:Inconsolata;-inkscape-font-specification:Inconsolata">fib 0</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">fib 0</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:sans-serif;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;display:inline;fill:#000000;fill-opacity:1;stroke:none;-inkscape-font-specification:'NewComputerModern10, Normal';font-stretch:normal;font-variant:normal;font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
        x="-657.38385"
        y="202.45338"
        id="text24254-3-7-1-7-9-1-2-9-3"><tspan
@@ -589,10 +593,10 @@
          id="tspan24252-6-5-2-0-3-8-0-7-6"
          x="-657.38385"
          y="202.45338"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:Inconsolata;-inkscape-font-specification:Inconsolata">0</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">0</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:sans-serif;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;display:inline;fill:#000000;fill-opacity:1;stroke:none;-inkscape-font-specification:'NewComputerModern10, Normal';font-stretch:normal;font-variant:normal;font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
        x="-560.71063"
        y="202.45338"
        id="text24254-3-7-1-7-9-1-2-9-3-5"><tspan
@@ -600,10 +604,10 @@
          id="tspan24252-6-5-2-0-3-8-0-7-6-0"
          x="-560.71063"
          y="202.45338"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:Inconsolata;-inkscape-font-specification:Inconsolata">0</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">0</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:sans-serif;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;display:inline;fill:#000000;fill-opacity:1;stroke:none;-inkscape-font-specification:'NewComputerModern10, Normal';font-stretch:normal;font-variant:normal;font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
        x="-782.59869"
        y="244.2578"
        id="text24254-3-7-1-7-9-1-2-9-3-9"><tspan
@@ -611,10 +615,10 @@
          id="tspan24252-6-5-2-0-3-8-0-7-6-3"
          x="-782.59869"
          y="244.2578"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:Inconsolata;-inkscape-font-specification:Inconsolata">0</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">0</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:sans-serif;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;display:inline;fill:#000000;fill-opacity:1;stroke:none;-inkscape-font-specification:'NewComputerModern10, Normal';font-stretch:normal;font-variant:normal;font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
        x="-610.73297"
        y="202.42038"
        id="text24254-3-7-1-7-9-1-2-9-3-1"><tspan
@@ -622,10 +626,10 @@
          id="tspan24252-6-5-2-0-3-8-0-7-6-2"
          x="-610.73297"
          y="202.42038"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:Inconsolata;-inkscape-font-specification:Inconsolata">1</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">1</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:sans-serif;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;display:inline;fill:#000000;fill-opacity:1;stroke:none;-inkscape-font-specification:'NewComputerModern10, Normal';font-stretch:normal;font-variant:normal;font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
        x="-514.05975"
        y="160.72018"
        id="text24254-3-7-1-7-9-1-2-9-3-1-8"><tspan
@@ -633,10 +637,10 @@
          id="tspan24252-6-5-2-0-3-8-0-7-6-2-4"
          x="-514.05975"
          y="160.72018"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:Inconsolata;-inkscape-font-specification:Inconsolata">1</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">1</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:sans-serif;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;display:inline;fill:#000000;fill-opacity:1;stroke:none;-inkscape-font-specification:'NewComputerModern10, Normal';font-stretch:normal;font-variant:normal;font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
        x="-701.88196"
        y="202.42038"
        id="text24254-3-7-1-7-9-1-2-9-3-1-4"><tspan
@@ -644,10 +648,10 @@
          id="tspan24252-6-5-2-0-3-8-0-7-6-2-7"
          x="-701.88196"
          y="202.42038"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:Inconsolata;-inkscape-font-specification:Inconsolata">1</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">1</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:sans-serif;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;display:inline;fill:#000000;fill-opacity:1;stroke:none;-inkscape-font-specification:'NewComputerModern10, Normal';font-stretch:normal;font-variant:normal;font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
        x="-827.09674"
        y="244.22479"
        id="text24254-3-7-1-7-9-1-2-9-3-1-1"><tspan
@@ -655,7 +659,7 @@
          id="tspan24252-6-5-2-0-3-8-0-7-6-2-9"
          x="-827.09674"
          y="244.22479"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:Inconsolata;-inkscape-font-specification:Inconsolata">1</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">1</tspan></text>
     <path
        style="display:inline;fill:none;stroke:#000000;stroke-width:0.493694;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:0.493694, 11.8487;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#EmptyTriangleInL)"
        d="m -653.47406,46.498881 c -6.17624,1.422442 -5.94585,1.378289 -5.94585,1.378289"
@@ -722,7 +726,7 @@
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:sans-serif;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;display:inline;fill:#000000;fill-opacity:1;stroke:none;-inkscape-font-specification:'NewComputerModern10, Normal';font-stretch:normal;font-variant:normal;font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
        x="-747.91687"
        y="202.42038"
        id="text114"><tspan
@@ -730,6 +734,6 @@
          id="tspan112"
          x="-747.91687"
          y="202.42038"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:Inconsolata;-inkscape-font-specification:Inconsolata">1</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures ;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">1</tspan></text>
   </g>
 </svg>

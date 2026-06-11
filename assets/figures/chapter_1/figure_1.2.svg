@@ -2,19 +2,19 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="372.34161"
-   height="201.24001"
+   width="260"
+   height="220"
    id="svg3165"
    version="1.1"
-   inkscape:version="0.48.3.1 r9886"
-   sodipodi:docname="Fig1.2.svg">
+   inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
+   sodipodi:docname="figure_1.2.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <defs
      id="defs3167" />
   <sodipodi:namedview
@@ -25,16 +25,34 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="290.71429"
-     inkscape:cy="84.47299"
+     inkscape:cx="291.42857"
+     inkscape:cy="93.928571"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
-     showgrid="false"
+     showgrid="true"
      inkscape:window-width="1920"
-     inkscape:window-height="1004"
+     inkscape:window-height="1080"
      inkscape:window-x="0"
-     inkscape:window-y="24"
-     inkscape:window-maximized="1" />
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:showpageshadow="2"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0"
+       originy="10"
+       spacingx="1"
+       spacingy="1"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="5"
+       enabled="true"
+       visible="true" />
+  </sodipodi:namedview>
   <metadata
      id="metadata3170">
     <rdf:RDF>
@@ -51,45 +69,54 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-85.714287,-78.755322)">
+     transform="translate(-85.714287,-68.755322)">
     <text
        xml:space="preserve"
-       style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata"
-       x="85.714287"
-       y="95.219322"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.917px;line-height:0%;font-family:NewComputerModern10;-inkscape-font-specification:Inconsolata;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.993085"
+       x="86.439026"
+       y="92.75293"
        id="text3173"
-       sodipodi:linespacing="125%"><tspan
+       inkscape:label="text3173"
+       transform="scale(0.99161558,1.0084553)"><tspan
          sodipodi:role="line"
          id="tspan3175"
-         x="85.714287"
-         y="95.219322">             sqrt</tspan><tspan
+         x="86.439026"
+         y="92.75293"
+         style="font-size:23.8341px;line-height:1.25;stroke-width:0.993085">             sqrt</tspan><tspan
          sodipodi:role="line"
-         x="85.714287"
-         y="125.21932"
-         id="tspan3177">              |</tspan><tspan
+         x="86.439026"
+         y="122.54556"
+         id="tspan3177"
+         style="font-size:23.8341px;line-height:1.25;stroke-width:0.993085">               |</tspan><tspan
          sodipodi:role="line"
-         x="85.714287"
-         y="155.21933"
-         id="tspan3179">          sqrt-iter</tspan><tspan
+         x="86.439026"
+         y="152.33818"
+         id="tspan3179"
+         style="font-size:23.8341px;line-height:1.25;stroke-width:0.993085">          sqrt-iter</tspan><tspan
          sodipodi:role="line"
-         x="85.714287"
-         y="185.21933"
-         id="tspan3181">          /       \</tspan><tspan
+         x="86.439026"
+         y="182.13081"
+         id="tspan3181"
+         style="font-size:23.8341px;line-height:1.25;stroke-width:0.993085">         /          \</tspan><tspan
          sodipodi:role="line"
-         x="85.714287"
-         y="215.21933"
-         id="tspan3183">  good-enough    improve</tspan><tspan
+         x="86.439026"
+         y="211.92343"
+         id="tspan3183"
+         style="font-size:23.8341px;line-height:1.25;stroke-width:0.993085"> good-enough  improve</tspan><tspan
          sodipodi:role="line"
-         x="85.714287"
-         y="245.21933"
-         id="tspan3185">    /     \          \</tspan><tspan
+         x="86.439026"
+         y="241.71606"
+         id="tspan3185"
+         style="font-size:23.8341px;line-height:1.25;stroke-width:0.993085">      /     \         \</tspan><tspan
          sodipodi:role="line"
-         x="85.714287"
-         y="275.21933"
-         id="tspan3187">square    abs      average</tspan><tspan
+         x="86.439026"
+         y="271.5087"
+         id="tspan3187"
+         style="font-size:23.8341px;line-height:1.25;stroke-width:0.993085"> square    abs    average</tspan><tspan
          sodipodi:role="line"
-         x="85.714287"
-         y="305.21933"
-         id="tspan3189" /></text>
+         x="86.439026"
+         y="282.9118"
+         id="tspan3189"
+         style="font-size:23.8341px;line-height:1.25;stroke-width:0.993085" /></text>
   </g>
 </svg>

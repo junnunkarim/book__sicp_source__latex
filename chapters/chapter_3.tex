@@ -1,18 +1,17 @@
 \chapter{Modularity, Objects, and State}
 \label{Chapter 3}
 
-% \vspace{0.5em}
-
-\begin{quote}
-Mεταβάλλον ὰναπαύεται\\
-(Even while it changes, it stands still.)\\
----Heraclitus
-\end{quote}
-
-\begin{quote}
-Plus \c{c}a change, plus c'est la m\^{e}me chose.\\
----Alphonse Karr
-\end{quote}
+\chapterDoubleQuote{%
+    Mεταβάλλον ὰναπαύεται\newline
+    (Even while it changes, it stands still.)
+  }%
+  {Heraclitus}%
+  {}{}%
+  {%
+    Plus \c{c}a change, plus c'est la m\^{e}me chose.
+  }%
+  {Alphonse Karr}%
+  {}{}%
 
 % \vspace{1.0em}
 
@@ -1059,33 +1058,10 @@ because the first frame in the sequence (frame II) contains a binding of
 \code{x} to 7.  With respect to environment A, the binding of \code{x} to 7 in
 frame II is said to \newterm{shadow} the binding of \code{x} to 3 in frame I.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.1}
-\centering
-\begin{comment}
-\heading{Figure 3.1:} A simple environment structure.
-
-\begin{example}
-           +--------+
-           |      I |
-           | x: 3   |
-           | y: 5   |
-           +--------+
-              ^  ^
-              |  |
-            C |  | D
-+---------+   |  |   +----------+
-|      II |   |  |   |      III |
-| z: 6    +---+  +---+ m: 1     |
-| x: 7    |          | y: 2     |
-+---------+          +----------+
-\end{example}
-\end{comment}
-\includegraphics[width=48mm]{assets/figures/chapter_3/figure_3.1.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 3.1:} A simple environment structure.
-\end{figure}
+% figure 3.1
+\begin{imageFigure}{A simple environment structure.}
+  \includegraphics[width=48mm]{assets/figures/chapter_3/figure_3.1.pdf}
+\end{imageFigure}
 
 The environment is crucial to the evaluation process, because it determines the
 context in which an expression should be evaluated.  Indeed, one could say that
@@ -1177,36 +1153,14 @@ produce the procedure. A new binding, which associates the procedure object
 with the symbol \code{square}, has been added to the global frame.  In general,
 \code{define} creates definitions by adding bindings to frames.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.2}
-\centering
-\begin{comment}
-\heading{Figure 3.2:} Environment structure produced by
-evaluating \code{(define (square x) (* x x))} in the global environment.
-
-\begin{example}
-           +----------------------+
-           | other variables      |
-global --->|                      |
-env        | square: --+          |
-           +-----------|----------+
-                       |       ^
-(define (square x)     |       |
-  (* x x))             V       |
-                   .---.---.   |
-                   | O | O-+---+
-                   `-|-^---'
-                     |
-                     V
-                   parameters: x
-                   body: (* x x)
-\end{example}
-\end{comment}
-\includegraphics[width=49mm]{assets/figures/chapter_3/figure_3.2b.pdf}
-\begin{quote}
-\heading{Figure 3.2:} Environment structure produced by evaluating \\ \code{(define (square x) (* x x))} in the global environment.
-\end{quote}
-\end{figure}
+% figure 3.2
+\begin{imageFigure}
+  {%
+    Environment structure produced by evaluating \\
+    \code{(define (square x) (* x x))} in the global environment.
+  }%
+  \includegraphics[width=49mm]{assets/figures/chapter_3/figure_3.2b.pdf}
+\end{imageFigure}
 
 Now that we have seen how procedures are created, we can describe how
 procedures are applied.  The environment model specifies: To apply a procedure
@@ -1227,36 +1181,14 @@ the environment that is indicated as part of the \code{square} procedure
 object.  Within E1, we evaluate the body of the procedure, \code{(* x x)}.
 Since the value of \code{x} in E1 is 5, the result is \code{(* 5 5)}, or 25.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.3}
-\centering
-\begin{comment}
-\heading{Figure 3.3:} Environment created by evaluating
-\code{(square 5)} in the global environment.
-
-\begin{example}
-          +------------------------------------+
-          | other variables                    |
-global -->|                                    |
-env       | square: --+                        |
-          +-----------|---------------------+--+
-                      |       ^             ^
-(square 5)            |       |             |
-                      V       |             |
-                  .---.---.   |         +---+--+
-                  | O | O-+---+   E1 -->| x: 5 |
-                  `-|-^---'             +------+
-                    |
-                    V
-                  parameters: x
-                  body: (* x x)
-\end{example}
-\end{comment}
-\includegraphics[width=78mm]{assets/figures/chapter_3/figure_3.3b.pdf}
-\begin{quote}
-\heading{Figure 3.3:} Environment created by evaluating \code{(square 5)} in the global environment.
-\end{quote}
-\end{figure}
+% figure 3.3
+\begin{imageFigure}
+  {%
+    Environment created by evaluating \code{(square 5)} in the global
+    environment.
+  }%
+  \includegraphics[width=78mm]{assets/figures/chapter_3/figure_3.3b.pdf}
+\end{imageFigure}
 
 The environment model of procedure application can be summarized by two rules:
 
@@ -1325,37 +1257,10 @@ shows the three procedure objects created by evaluating the definitions of
 Each procedure object consists of some code, together with a pointer to the
 global environment.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.4}
-\centering
-\begin{comment}
-\heading{Figure 3.4:} Procedure objects in the global frame.
-
-\begin{example}
-          +--------------------------------------------+
-          | sum-of-squares:                            |
-global -->| square:                                    |
-env       | f: --+                                     |
-          +------|--------------+--------------+-------+
-                 |     ^        |     ^        |     ^
-                 |     |        |     |        |     |
-                 V     |        V     |        V     |
-             .---.---. |    .---.---. |    .---.---. |
-             | O | O-+-+    | O | O-+-+    | O | O-+-+
-             `-|-^---'      `-|-^---'      `-|-^---'
-               |              |              |
-               V              V              V
-   parameters: a          parameters: x  parameters: x, y
-   body: (sum-of-squares  body: (* x x)  body: (+ (square x)
-           (+ a 1)                                (square y))
-           (* a 2))
-\end{example}
-\end{comment}
-\includegraphics[width=106mm]{assets/figures/chapter_3/figure_3.4a.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 3.4:} Procedure objects in the global frame.
-\end{figure}
+% figure 3.4
+\begin{imageFigure}{Procedure objects in the global frame.}
+  \includegraphics[width=106mm]{assets/figures/chapter_3/figure_3.4a.pdf}
+\end{imageFigure}
 
 In \link{Figure 3.5} we see the environment structure created by evaluating the
 expression \code{(f 5)}.  The call to \code{f} creates a new environment E1
@@ -1391,33 +1296,14 @@ second call to \code{square} creates another environment, E4, in which
 \code{x}, the formal parameter of \code{square}, is bound to 10.  And within E4
 we must evaluate \code{(* x x)}.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.5}
-\centering
-\begin{comment}
-\heading{Figure 3.5:} Environments created by evaluating
-\code{(f 5)} using the procedures in \link{Figure 3.4}.
-
-\begin{example}
-          +-----------------------------------------------------+
-global -->|                                                     |
-env       +-----------------------------------------------------+
-            ^              ^                ^               ^
-(f 5)       |              |                |               |
-        +------+       +-------+        +------+        +-------+
-  E1 -->| a: 5 |  E2 ->| x: 6  |  E3 -->| x: 6 |  E4 -->| x: 10 |
-        |      |       | y: 10 |        |      |        |       |
-        +------+       +-------+        +------+        +-------+
-   (sum-of-squares   (+ (square x)       (* x x)         (* x x)
-     (+ a 1)            (square u))
-     (+ a 2))
-\end{example}
-\end{comment}
-\includegraphics[width=100mm]{assets/figures/chapter_3/figure_3.5a.pdf}
-\begin{quote}
-\heading{Figure 3.5:} Environments created by evaluating \code{(f 5)} using the procedures in \link{Figure 3.4}.
-\end{quote}
-\end{figure}
+% figure 3.5
+\begin{imageFigure}
+  {%
+    Environments created by evaluating \code{(f 5)} using the procedures in
+    \link{Figure 3.4}.
+  }%
+  \includegraphics[width=100mm]{assets/figures/chapter_3/figure_3.5a.pdf}
+\end{imageFigure}
 
 The important point to observe is that each call to \code{square} creates a new
 environment containing a binding for \code{x}.  We can see here how the
@@ -1503,74 +1389,17 @@ contains a pointer to the global environment.  So far, this is no different
 from the examples we have already seen, except that the body of the procedure
 is itself a λ-expression.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.6}
-\centering
-\begin{comment}
-\begin{quote}
-\heading{Figure 3.6:} Result of defining \code{make\-/withdraw} in the global environment.
+% figure 3.6
+\begin{imageFigure}
+  {Result of defining \code{make\-/withdraw} in the global environment.}
+  \includegraphics[width=91mm]{assets/figures/chapter_3/figure_3.6b.pdf}
+\end{imageFigure}
 
-\begin{example}
-          +---------------------------+
-global -->| make-withdraw: --+        |
-env       +------------------|--------+
-                             |      ^
-                             V      |
-                         .---.---.  |
-                         | O | O-+--+
-                         `-|-^---'
-                           |
-                           V
-         parameters: balance
-         body: (lambda (amount)
-                 (if (>= balance amount)
-                     (begin (set! balance
-                                  (- balance amount))
-                            balance)
-                     "Insufficient funds"))
-\end{example}
-\end{quote}
-\end{comment}
-\includegraphics[width=91mm]{assets/figures/chapter_3/figure_3.6b.pdf}
-\begin{quote}
-\heading{Figure 3.6:} Result of defining \code{make\-/withdraw} in the global environment.
-\end{quote}
-\end{figure}
-
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.7}
-\centering
-\begin{comment}
-\heading{Figure 3.7:} Result of evaluating \code{(define W1 (make\-/withdraw 100))}.
-
-\begin{example}
-          +-----------------------------------------------+
-          | make-withdraw: -----------------------+       |
-global -->|                                       |       |
-          | W1: --+                               |       |
-          +-------|-------------------------------|-------+
-                  |                ^              |     ^
-                  |                |              V     |
-                  |        +-------+------+   .---.---. |
-                  |  E1 -->| balance: 100 |   | O | O-+-+
-                  |        +--------------+   `-|-^---'
-                  V                ^            |
-              .---.---.            |            V
-            +-+-O | O-+------------+    parameters: balance
-            | `---^---'                 body: ...
-            V
-    parameters: amount
-    body: (if (>= balance amount)
-              (begin (set! balance (- balance amount))
-                     balance)
-              "Insufficient funds")
-\end{example}
-\end{comment}
-\includegraphics[width=100mm]{assets/figures/chapter_3/figure_3.7a.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 3.7:} Result of evaluating \code{(define W1 (make\-/withdraw 100))}. 
-\end{figure}
+% figure 3.7
+\begin{imageFigure}
+  {Result of evaluating \code{(define W1 (make\-/withdraw 100))}.}
+  \includegraphics[width=100mm]{assets/figures/chapter_3/figure_3.7a.pdf}
+\end{imageFigure}
 
 The interesting part of the computation happens when we apply the procedure
 \code{make\-/withdraw} to an argument:
@@ -1591,41 +1420,11 @@ The resulting procedure object is the value returned by the call to
 since the \code{define} itself is being evaluated in the global environment.
 \link{Figure 3.7} shows the resulting environment structure.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.8}
-\centering
-\begin{comment}
-\heading{Figure 3.8:} Environments created by applying the procedure object \code{W1}.
-
-\begin{example}
-          +---------------------------------------------------+
-          | make-withdraw: ...                                |
-global -->|                                                   |
-env       | W1: --+                                           |
-          +-------|-------------------------------------------+
-                  |               ^
-                  |               |
-                  |       +-------+------+ Here is the balance
-                  | E1 -->| balance: 100 | that will be changed
-                  |       +--------------+ by the set!.
-                  V               ^   ^
-              .---.---.           |   +----+
-              | O | O-+-----------+        |
-              `-|-^---'             +------+-----+
-                |                   | amount: 50 |
-                V                   +------------+
-      parameters: amount   (if (>= balance amount)
-      body: ...                (begin (set! balance
-                                            (- balance amount))
-                                      balance)
-                               "Insufficient funds")
-\end{example}
-\end{comment}
-\includegraphics[width=99mm]{assets/figures/chapter_3/figure_3.8c.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 3.8:} Environments created by applying the procedure object \code{W1}. 
-\end{figure}
+% figure 3.8
+\begin{imageFigure}
+  {Environments created by applying the procedure object \code{W1}.}
+  \includegraphics[width=99mm]{assets/figures/chapter_3/figure_3.8c.pdf}
+\end{imageFigure}
 
 \enlargethispage{\baselineskip}
 
@@ -1657,38 +1456,10 @@ expression being evaluated references both \code{amount} and \code{balance}.
 \code{balance} will be found by following the enclosing-environment pointer to
 E1.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.9}
-\centering
-\begin{comment}
-\heading{Figure 3.9:} Environments after the call to \code{W1}.
-
-\begin{example}
-           +------------------------------------+
-           | make-withdraw: ...                 |
-global --->|                                    |
-env        | W1: --+                            |
-           +-------|----------------------------+
-                   |                   ^
-                   |                   |
-                   |            +------+------+
-                   |     E1 --->| balance: 50 |
-                   |            +-------------+
-                   V                   ^
-               .---.---.               |
-               | O | O-+---------------+
-               `-|-^---'
-                 |
-                 V
-          parameters: amount
-          body: ...
-\end{example}
-\end{comment}
-\includegraphics[width=96mm]{assets/figures/chapter_3/figure_3.9a.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 3.9:} Environments after the call to \code{W1}.
-\end{figure}
+% figure 3.9
+\begin{imageFigure}{Environments after the call to \code{W1}.}
+  \includegraphics[width=96mm]{assets/figures/chapter_3/figure_3.9a.pdf}
+\end{imageFigure}
 
 \enlargethispage{\baselineskip}
 
@@ -1711,38 +1482,11 @@ another call to \code{make\-/withdraw}:
 (define W2 (make-withdraw 100))
 \end{scheme}
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.10}
-\centering
-\begin{comment}
-\heading{Figure 3.10:} Using \code{(define W2 (make\-/withdraw 100))} to create a second object.
-
-\begin{example}
-         +-------------------------------------------------+
-         | make-withdraw: ...                              |
-global ->| W2: ---------------------------+                |
-env      | W1: --+                        |                |
-         +-------|------------------------|----------------+
-                 |              ^         |              ^
-                 |              |         |              |
-                 |       +------+------+  |       +------+-------+
-                 |  E1 ->| balance: 50 |  |  E2 ->| balance: 100 |
-                 |       +-------------+  |       +--------------+
-                 V              ^         V              ^
-             .---.---.          |     .---.---.          |
-             | O | O-+----------+     | O | O-+----------+
-             `-|-^---'                `-|-^---'
-               | +----------------------+
-               V V
-        parameters: amount
-        body: ...
-\end{example}
-\end{comment}
-\includegraphics[width=108mm]{assets/figures/chapter_3/figure_3.10a.pdf}
-\begin{quote}
-\heading{Figure 3.10:} Using \code{(define W2 (make\-/withdraw 100))} to create a second object.
-\end{quote}
-\end{figure}
+% figure 3.10
+\begin{imageFigure}
+  {Using \code{(define W2 (make\-/withdraw 100))} to create a second object.}
+  \includegraphics[width=108mm]{assets/figures/chapter_3/figure_3.10a.pdf}
+\end{imageFigure}
 
 This produces the environment structure of \link{Figure 3.10}, which shows that
 \code{W2} is a procedure object, that is, a pair with some code and an
@@ -1849,43 +1593,10 @@ environment is E1.  Similarly, \code{improve} and \code{sqrt\-/iter} were define
 as procedures in E1.  For conciseness, \link{Figure 3.11} shows only the
 procedure object for \code{good\-/enough?}.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.11}
-\centering
-\begin{comment}
-\heading{Figure 3.11:} \code{sqrt} procedure with internal definitions.
-
-\begin{example}
-          +--------------------------------------------------+
-global -->| sqrt: --+                                        |
-env       |         |                                        |
-          +---------|----------------------------------------+
-                    V       ^                   ^
-                .---.---.   |                   |
-     +----------+-O | O-+---+        +----------+------------+
-     |          `---^---'            | x: 2                  |
-     V                         E1 -->| good-enough?: -+      |
-parameters: x                        | improve: ...   |      |
-body: (define good-enough? ...)      | sqrt-iter: ... |      |
-      (define improve ...)           +----------------|------+
-      (define sqrt-iter ...)          ^  ^            |     ^
-      (sqrt-iter 1.0)                 |  |            V     |
-                            +---------++ |        .---.---. |
-                      E2 -->| guess: 1 | |        | O | O-+-+
-                            +----------+ |        `-|-^---'
-                      call to sqrt-iter  |          |
-                                         |          V
-                               +---------++    parameters: guess
-                         E3 -->| guess: 1 |    body: (< (abs ...)
-                               +----------+             ...)
-                         call to good-enough?
-\end{example}
-\end{comment}
-\includegraphics[width=107mm]{assets/figures/chapter_3/figure_3.11a.pdf}
-\begin{quote}
-\heading{Figure 3.11:} \code{sqrt} procedure with internal definitions.
-\end{quote}
-\end{figure}
+% figure 3.11
+\begin{imageFigure}{\code{sqrt} procedure with internal definitions.}
+  \includegraphics[width=107mm]{assets/figures/chapter_3/figure_3.11a.pdf}
+\end{imageFigure}
 
 After the local procedures were defined, the expression \code{(sqrt\-/iter 1.0)}
 was evaluated, still in environment E1.  So the procedure object bound to
@@ -2043,153 +1754,36 @@ bound to the original lists of \link{Figure 3.12}.  The variable \code{z} is now
 bound to a new pair created by the \code{cons} operation; the list to which
 \code{x} is bound is unchanged.
 
-\begin{figure}[tp]
-\phantomsection\label{Figure 3.12}
-\centering
-\begin{comment}
-\heading{Figure 3.12:} Lists \code{x}: \code{((a b) c d)} and \code{y}: \code{(e f)}.
-
-\begin{example}
-     +---+---+     +---+---+     +---+---+
-x -->| * | *-+---->| * | *-+---->| * | / |
-     +-|-+---+     +-|-+---+     +-|-+---+
-       |             V             V
-       |           +---+         +---+
-       |           | c |         | d |
-       |           +---+         +---+
-       |           +---+---+     +---+---+
-       +---------->| * | *-+---->| * | / |
-                   +-|-+---+     +-|-+---+
-                     V             V
-                   +---+         +---+
-                   | a |         | b |
-                   +---+         +---+
-                   +---+---+     +---+---+
-              y -->| * | *-+---->| * | / |
-                   +-|-+---+     +-|-+---+
-                     V             V
-                   +---+         +---+
-                   | e |         | f |
-                   +---+         +---+
-\end{example}
-\end{comment}
-\includegraphics[width=72mm]{assets/figures/chapter_3/figure_3.12b.pdf}
-\begin{quote}
-\heading{Figure 3.12:} Lists \code{x}: \code{((a b) c d)} and \code{y}: \code{(e f)}.
-\end{quote}
-\end{figure}
+% figure 3.12
+\begin{imageFigure}
+  {Lists \code{x}: \code{((a b) c d)} and \code{y}: \code{(e f)}.}
+  \includegraphics[width=72mm]{assets/figures/chapter_3/figure_3.12b.pdf}
+\end{imageFigure}
 
 \enlargethispage{\baselineskip}
 
-\begin{figure}[bp]
-\phantomsection\label{Figure 3.13}
-\centering
-\begin{comment}
-\heading{Figure 3.13:} Effect of \code{(set\-/car! x y)} on the lists in \link{Figure 3.12}.
+% figure 3.13
+\begin{imageFigure}
+  {Effect of \code{(set\-/car! x y)} on the lists in \link{Figure 3.12}.}
+  \includegraphics[width=72mm]{assets/figures/chapter_3/figure_3.13b.pdf}
+\end{imageFigure}
 
-\begin{example}
-     +---+---+     +---+---+     +---+---+
-x -->| * | *-+---->| * | *-+---->| * | / |
-     +-|-+---+     +-|-+---+     +-|-+---+
-       |             V             V
-       |           +---+         +---+
-       |           | c |         | d |
-       |           +---+         +---+
-       |           +---+---+     +---+---+
-       |           | * | *-+---->| * | / |
-       |           +-|-+---+     +-|-+---+
-       |             V             V
-       |           +---+         +---+
-       |           | a |         | b |
-       |           +---+         +---+
-       +---------->+---+---+     +---+---+
-                   | * | *-+---->| * | / |
-              y -->+-|-+---+     +-|-+---+
-                     V             V
-                   +---+         +---+
-                   | e |         | f |
-                   +---+         +---+
-\end{example}
-\end{comment}
-\includegraphics[width=72mm]{assets/figures/chapter_3/figure_3.13b.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 3.13:} Effect of \code{(set\-/car! x y)} on the lists in \link{Figure 3.12}. 
-\end{figure}
-
-\begin{figure}[tp]
-\phantomsection\label{Figure 3.14}
-\centering
-\begin{comment}
-\heading{Figure 3.14:} Effect of \code{(define z (cons y (cdr x)))} on the lists in \link{Figure 3.12}.
-
-\begin{example}
-     +---+---+     +---+---+     +---+---+
-x -->| * | *-+---->| * | *-+---->| * | / |
-     +-|-+---+ +-->+-|-+---+     +-|-+---+
-       |       |     V             V
-       |       |   +---+         +---+
-       |       |   | c |         | d |
-       |       |   +---+         +---+
-       |       |   +---+---+     +---+---+
-       +-------+-->| * | *-+---->| * | / |
-               |   +-|-+---+     +-|-+---+
-     +---+---+ |     V             V
-z -->| * | *-+-+   +---+         +---+
-     +-|-+---+     | a |         | b |
-       |           +---+         +---+
-       +---------->+---+---+     +---+---+
-                   | * | *-+---->| * | / |
-              y -->+-|-+---+     +-|-+---+
-                     V             V
-                   +---+         +---+
-                   | e |         | f |
-                   +---+         +---+
-\end{example}
-\end{comment}
-\includegraphics[width=72mm]{assets/figures/chapter_3/figure_3.14b.pdf}
-\begin{quote}
-\heading{Figure 3.14:} Effect of \code{(define z (cons y (cdr x)))} on the lists in \link{Figure 3.12}.
-\end{quote}
-\end{figure}
+% figure 3.14
+\begin{imageFigure}
+  {%
+    Effect of \code{(define z (cons y (cdr x)))} on the lists in
+    \link{Figure 3.12}.
+  }%
+  \includegraphics[width=72mm]{assets/figures/chapter_3/figure_3.14b.pdf}
+\end{imageFigure}
 
 \enlargethispage{\baselineskip}
 
-\begin{figure}[bp]
-\phantomsection\label{Figure 3.15}
-\centering
-\begin{comment}
-\heading{Figure 3.15:} Effect of \code{(set\-/cdr! x y)} on the lists in \link{Figure 3.12}.
-
-\begin{example}
-     +---+---+     +---+---+     +---+---+
-x -->| * | * |     | * | *-+---->| * | / |
-     +-|-+-|-+     +-|-+---+     +-|-+---+
-       |   |         V             V
-       |   |       +---+         +---+
-       |   |       | c |         | d |
-       |   |       +---+         +---+
-       |   |       +---+---+     +---+---+
-       +---+------>| * | *-+---->| * | / |
-           |       +-|-+---+     +-|-+---+
-           |         V             V
-           |       +---+         +---+
-           |       | a |         | b |
-           |       +---+         +---+
-           +------>+---+---+     +---+---+
-                   | * | *-+---->| * | / |
-              y -->+-|-+---+     +-|-+---+
-                     V             V
-                   +---+         +---+
-                   | e |         | f |
-                   +---+         +---+
-\end{example}
-\end{comment}
-\includegraphics[width=72mm]{assets/figures/chapter_3/figure_3.15b.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 3.15:} Effect of \code{(set\-/cdr! x y)} on the lists in \link{Figure 3.12}. 
-\end{figure}
+% figure 3.15
+\begin{imageFigure}
+  {Effect of \code{(set\-/cdr! x y)} on the lists in \link{Figure 3.12}.}
+  \includegraphics[width=72mm]{assets/figures/chapter_3/figure_3.15b.pdf}
+\end{imageFigure}
 
 The \code{set\-/cdr!} operation is similar to \code{set\-/car!}.  The only
 difference is that the \code{cdr} pointer of the pair, rather than the
@@ -2352,60 +1946,17 @@ no way to mutate a symbol, this sharing is undetectable.  Note also that the
 sharing is what enables us to compare symbols using \code{eq?}, which simply
 checks equality of pointers.}
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.16}
-\centering
-\begin{comment}
-\heading{Figure 3.16:} The list \code{z1} formed by \code{(cons x x)}.
+% figure 3.16
+\begin{imageFigure}
+  {The list \code{z1} formed by \code{(cons x x)}.}
+  \includegraphics[width=46mm]{assets/figures/chapter_3/figure_3.16b.pdf}
+\end{imageFigure}
 
-\begin{example}
-      +---+---+
-z1 -->| * | * |
-      +-|-+-|-+
-        V   V
-      +---+---+     +---+---+
- x -->| * | *-+---->| * | / |
-      +-|-+---+     +-|-+---+
-        V             V
-      +---+         +---+
-      | a |         | b |
-      +---+         +---+
-\end{example}
-\end{comment}
-\includegraphics[width=46mm]{assets/figures/chapter_3/figure_3.16b.pdf}
-\begin{quote}
-\heading{Figure 3.16:} The list \code{z1} formed by \code{(cons x x)}.
-\end{quote}
-\end{figure}
-
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.17}
-\centering
-\begin{comment}
-\begin{quote}
-\heading{Figure 3.17:} The list \code{z2} formed by \code{(cons (list 'a 'b) (list 'a 'b))}.
-
-\begin{example}
-      +---+---+     +---+---+     +---+---+
-z2 -->| * | *-+---->| * | *-+---->| * | / |
-      +-|-+---+     +-|-+---+     +-|-+---+
-        |             V             V
-        |           +---+         +---+
-        |           | a |         | b |
-        |           +---+         +---+
-        |             ^             ^
-        |             |             |
-        |           +-|-+---+     +-|-+---+
-        +---------->| * | *-+---->| * | / |
-                    +---+---+     +---+---+
-\end{example}
-\end{quote}
-\end{comment}
-\includegraphics[width=71mm]{assets/figures/chapter_3/figure_3.17b.pdf}
-\begin{quote}
-\heading{Figure 3.17:} The list \code{z2} formed by \code{(cons (list 'a 'b) (list 'a 'b))}.
-\end{quote}
-\end{figure}
+% figure 3.17
+\begin{imageFigure}
+  {The list \code{z2} formed by \code{(cons (list 'a 'b) (list 'a 'b))}.}
+  \includegraphics[width=71mm]{assets/figures/chapter_3/figure_3.17b.pdf}
+\end{imageFigure}
 
 When thought of as a list, \code{z1} and \code{z2} both represent ``the same''
 list, \code{((a b) a b)}.  In general, sharing is completely undetectable if we
@@ -2600,28 +2151,11 @@ the items \code{a} and \code{b} are inserted.  Then \code{a} is removed,
 always removed in the order in which they are inserted, a queue is sometimes
 called a \newterm{FIFO} (first in, first out) buffer.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.18}
-\centering
-\begin{comment}
-\heading{Figure 3.18:} Queue operations.
-
-\begin{example}
-Operation                Resulting Queue
-(define q (make-queue))
-(insert-queue! q 'a)     a
-(insert-queue! q 'b)     a b
-(delete-queue! q)        b
-(insert-queue! q 'c)     b c
-(insert-queue! q 'd)     b c d
-(delete-queue! q)        c d
-\end{example}
-\end{comment}
-\includegraphics[width=70mm]{assets/figures/chapter_3/figure_3.18a.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 3.18:} Queue operations.
-\end{figure}
+% figure 3.18
+\begin{imageFigure}
+  {Queue operations.}
+  \includegraphics[width=70mm]{assets/figures/chapter_3/figure_3.18a.pdf}
+\end{imageFigure}
 
 In terms of data abstraction, we can regard a queue as defined by the following
 set of operations:
@@ -2685,35 +2219,11 @@ can use \code{cons} to combine the two pointers.  Thus, the queue itself will
 be the \code{cons} of the two pointers.  \link{Figure 3.19} illustrates this
 representation.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.19}
-\centering
-\begin{comment}
-\begin{quote}
-\heading{Figure 3.19:} Implementation of a queue as a list with front and rear pointers.
-
-\begin{example}
-       +---+---+
-  q -->| * | *-+-------------------+
-       +-|-+---+                   |
-         |                         |
-         | front-ptr               | rear-ptr
-         V                         V
-     +---+---+    +---+---+    +---+---+
-     | * | *-+--->| * | *-+--->| * | / |
-     +-|-+---+    +-|-+---+    +-|-+---+
-       V            V            V
-     +---+        +---+        +---+
-     | a |        | b |        | c |
-     +---+        +---+        +---+
-\end{example}
-\end{quote}
-\end{comment}
-\includegraphics[width=69mm]{assets/figures/chapter_3/figure_3.19b.pdf}
-\begin{quote}
-\heading{Figure 3.19:} Implementation of a queue as a list with front and rear pointers.
-\end{quote}
-\end{figure}
+% figure 3.19
+\begin{imageFigure}
+  {Implementation of a queue as a list with front and rear pointers.}
+  \includegraphics[width=69mm]{assets/figures/chapter_3/figure_3.19b.pdf}
+\end{imageFigure}
 
 To define the queue operations we use the following procedures, which enable us
 to select and to modify the front and rear pointers of a queue:
@@ -2755,33 +2265,14 @@ pair indicated by the front pointer:
       (car (front-ptr queue))))
 \end{scheme}
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.20}
-\centering
-\begin{comment}
-\heading{Figure 3.20:} Result of using \code{(insert\-/queue! q 'd)} on the queue of \link{Figure 3.19}.
-
-\begin{example}
-       +---+---+
-  q -->| * | *-+--------------------------------+
-       +-|-+---+                                |
-         |                                      |
-         | front-ptr                            | rear-ptr
-         V                                      V
-     +---+---+    +---+---+    +---+---+    +---+---+
-     | * | *-+--->| * | *-+--->| * | *-+--->| * | / |
-     +-|-+---+    +-|-+---+    +-|-+---+    +-|-+---+
-       V            V            V            V
-     +---+        +---+        +---+        +---+
-     | a |        | b |        | c |        | d |
-     +---+        +---+        +---+        +---+
-\end{example}
-\end{comment}
-\includegraphics[width=88mm]{assets/figures/chapter_3/figure_3.20b.pdf}
-\begin{quote}
-\heading{Figure 3.20:} Result of using \code{(insert\-/queue! q 'd)} on the queue of \link{Figure 3.19}.
-\end{quote}
-\end{figure}
+% figure 3.20
+\begin{imageFigure}
+  {%
+    Result of using \code{(insert\-/queue! q 'd)} on the queue of
+    \link{Figure 3.19}.
+  }%
+  \includegraphics[width=88mm]{assets/figures/chapter_3/figure_3.20b.pdf}
+\end{imageFigure}
 
 \noindent
 To insert an item in a queue, we follow the method whose result is indicated in
@@ -2804,33 +2295,14 @@ also set the rear pointer to the new pair.
            queue))))
 \end{scheme}
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.21}
-\centering
-\begin{comment}
-\heading{Figure 3.21:} Result of using \code{(delete\-/queue!  q)} on the queue of \link{Figure 3.20}.
-
-\begin{example}
-       +---+---+
-  q -->| * | *-+--------------------------------+
-       +-|-+---+                                |
-         +------------+                         |
-            front-ptr |                         | rear-ptr
-                      V                         V
-     +---+---+    +---+---+    +---+---+    +---+---+
-     | * | *-+--->| * | *-+--->| * | *-+--->| * | / |
-     +-|-+---+    +-|-+---+    +-|-+---+    +-|-+---+
-       V            V            V            V
-     +---+        +---+        +---+        +---+
-     | a |        | b |        | c |        | d |
-     +---+        +---+        +---+        +---+
-\end{example}
-\end{comment}
-\includegraphics[width=88mm]{assets/figures/chapter_3/figure_3.21b.pdf}
-\begin{quote}
-\heading{Figure 3.21:} Result of using \code{(delete\-/queue!  q)} on the queue of \link{Figure 3.20}.
-\end{quote}
-\end{figure}
+% figure 3.21
+\begin{imageFigure}
+  {%
+    Result of using \code{(delete\-/queue!  q)} on the queue of
+    \link{Figure 3.20}.
+  }%
+  \includegraphics[width=88mm]{assets/figures/chapter_3/figure_3.21b.pdf}
+\end{imageFigure}
 
 \noindent
 To delete the item at the front of the queue, we merely modify the front
@@ -2922,33 +2394,11 @@ programming in \link{Section 2.4.3}, we made extensive use of two-dimensional
 tables, in which information is stored and retrieved using two keys.  Here we
 see how to build tables as mutable list structures.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.22}
-\centering
-\begin{comment}
-\heading{Figure 3.22:} A table represented as a headed list.
-
-\begin{example}
- +---+---+    +---+---+    +---+---+    +---+---+
- | * | *-+--->| * | *-+--->| * | *-+--->| * | / |
- +-|-+---+    +-|-+---+    +-|-+---+    +-|-+---+
-   |            |            |            |
-   V            V            V            V
-+---------+   +---+---+   +---+---+   +---+---+
-| *table* |   | * | * |   | * | * |   | * | * |
-+---------+   +-|-+-|-+   +-|-+-|-+   +-|-+-|-+
-                |   |       |   |       |   |
-                V   V       V   V       V   V
-             +---+ +---+ +---+ +---+ +---+ +---+
-             | a | | 1 | | b | | 2 | | c | | 3 |
-             +---+ +---+ +---+ +---+ +---+ +---+
-\end{example}
-\end{comment}
-\includegraphics[width=81mm]{assets/figures/chapter_3/figure_3.22c.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 3.22:} A table represented as a headed list.
-\end{figure}
+% figure 3.22
+\begin{imageFigure}
+  {A table represented as a headed list.}
+  \includegraphics[width=81mm]{assets/figures/chapter_3/figure_3.22c.pdf}
+\end{imageFigure}
 
 We first consider a one-dimensional table, in which each value is stored under
 a single key.  We implement the table as a list of records, each of which is
@@ -3058,50 +2508,11 @@ Then we use the second key to identify the record within the subtable.
         false)))
 \end{scheme}
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.23}
-\centering
-\begin{comment}
-\heading{Figure 3.23:} A two-dimensional table.
-
-\begin{example}
-table
-  |
-  V
-+---+---+   +---+---+   +---+---+
-| * | *-+-->| * | *-+-->| * | / |
-+-|-+---+   +-|-+---+   +-|-+---+
-  V           |           V
-+-------+     |         +---+---+   +---+---+   +---+---+
-|*table*|     |         | * | *-+-->| * | *-+-->| * | / |
-+-------+     |         +-|-+---+   +-|-+---+   +-|-+---+
-              |           V           V           V
-              |       +-------+     +---+---+   +---+---+
-              |       |letters|     | * | * |   | * | * |
-              |       +-------+     +-|-+-|-+   +-|-+-|-+
-              |                       V   V       V   V
-              |                    +---+ +---+ +---+ +---+
-              |                    | a | | 97| | b | | 98|
-              |                    +---+ +---+ +---+ +---+
-              V
-            +---+---+   +---+---+   +---+---+   +---+---+
-            | * | *-+-->| * | *-+-->| * | *-+-->| * | / |
-            +-|-+---+   +-|-+---+   +-|-+---+   +-|-+---+
-              V           V           V           V
-          +------+      +---+---+   +---+---+   +---+---+
-          | math |      | * | * |   | * | * |   | * | * |
-          +------+      +-|-+-|-+   +-|-+-|-+   +-|-+-|-+
-                          V   V       V   V       V   V
-                       +---+ +---+ +---+ +---+ +---+ +---+
-                       | + | | 43| | - | | 45| | * | | 42|
-                       +---+ +---+ +---+ +---+ +---+ +---+
-\end{example}
-\end{comment}
-\includegraphics[width=103mm]{assets/figures/chapter_3/figure_3.23a.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 3.23:} A two-dimensional table.
-\end{figure}
+% figure 3.23
+\begin{imageFigure}
+  {A two-dimensional table.}
+  \includegraphics[width=103mm]{assets/figures/chapter_3/figure_3.23a.pdf}
+\end{imageFigure}
 
 To insert a new item under a pair of keys, we use \code{assoc} to see if there
 is a subtable stored under the first key.  If not, we build a new subtable
@@ -3308,26 +2719,11 @@ output signal to a value that is the \newterm{logical or} of the inputs.  That
 is, the output will become 1 if at least one of the input signals is 1;
 otherwise the output will become 0.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.24}
-\centering
-\begin{comment}
-\heading{Figure 3.24:} Primitive functions in the digital logic simulator.
-
-\begin{example}
-               __          ___
-  |\        --|  \       --\  \
---| >o--      |   )--       )  >--
-  |/        --|__/       --/__/
-
-Inverter    And-gate     Or-gate
-\end{example}
-\end{comment}
-\includegraphics[width=74mm]{assets/figures/chapter_3/figure_3.24b.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 3.24:} Primitive functions in the digital logic simulator. 
-\end{figure}
+% figure 3.24
+\begin{imageFigure}
+  {Primitive functions in the digital logic simulator.}
+  \includegraphics[width=74mm]{assets/figures/chapter_3/figure_3.24b.pdf}
+\end{imageFigure}
 
 We can connect primitive functions together to construct more complex
 functions.  To accomplish this we wire the outputs of some function boxes to
@@ -3339,33 +2735,11 @@ become 1 whenever A and B are both 1.  We can see from the figure that, because
 of the delays involved, the outputs may be generated at different times.  Many
 of the difficulties in the design of digital circuits arise from this fact.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.25}
-\centering
-\begin{comment}
-\heading{Figure 3.25:} A half-adder circuit.
-
-\begin{example}
-    +--------------------------------------+
-    |         ____                         |
-A --------*---\   \ D               ___    |
-    |     |    >   >---------------|   \   |
-    |  +--|---/___/                |    )----- S
-    |  |  |              |\  E  +--|___/   |
-    |  |  |           +--| >o---+          |
-    |  |  |    ___    |  |/                |
-    |  |  +---|   \   |                    |
-    |  |      |    )--*----------------------- C
-B -----*------|___/                        |
-    |                                      |
-    +--------------------------------------+
-\end{example}
-\end{comment}
-\includegraphics[width=72mm]{assets/figures/chapter_3/figure_3.25c.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 3.25:} A half-adder circuit.
-\end{figure}
+% figure 3.25
+\begin{imageFigure}
+  {A half-adder circuit.}
+  \includegraphics[width=72mm]{assets/figures/chapter_3/figure_3.25c.pdf}
+\end{imageFigure}
 
 We will now build a program for modeling the digital logic circuits we wish to
 study.  The program will construct computational objects modeling the wires,
@@ -3437,29 +2811,11 @@ bit to be propagated to the left.} We can construct a full-adder as follows:
     'ok))
 \end{scheme}
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.26}
-\centering
-\begin{comment}
-\heading{Figure 3.26:} A full-adder circuit.
-
-\begin{example}
-    +----------------------------------+
-    |              +-------+           |
-A -----------------+ half- +-------------- SUM
-    |  +-------+   | adder |   ____    |
-B -----+ half- +---+       +---\   \   |
-    |  | adder |   +-------+    >or >----- Cout
-C -----+       +---------------/___/   |
-    |  +-------+                       |
-    +----------------------------------+
-\end{example}
-\end{comment}
-\includegraphics[width=74mm]{assets/figures/chapter_3/figure_3.26a.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 3.26:} A full-adder circuit.
-\end{figure}
+% figure 3.26
+\begin{imageFigure}
+  {A full-adder circuit.}
+  \includegraphics[width=74mm]{assets/figures/chapter_3/figure_3.26a.pdf}
+\end{imageFigure}
 
 \noindent
 Having defined \code{full\-/adder} as a procedure, we can now use it as a
@@ -3581,32 +2937,11 @@ ripple-carry adder, expressed in terms of the delays for and-gates, or-gates,
 and inverters?
 \end{quote}
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.27}
-\centering
-\begin{comment}
-\heading{Figure 3.27:} A ripple-carry adder for \( n \)-bit numbers.
-
-\begin{example}
-   :                                              :   :
-   : A_1 B_1   C_1   A_2 B_2   C_2   A_3 B_3   C_3:   : A_n B_n C_n=0
-   :  |   |   +---+   |   |   +---+   |   |   +-----  :  |   |   +-
-   |  |   |   |   |   |   |   |   |   |   |   |   :   :  |   |   |
-   : ++---+---++  |  ++---+---++  |  ++---+---++  :   : ++---+---++
-   : |   FA    |  |  |   FA    |  |  |   FA    |  :   : |   FA    |
-   : +--+---+--+  |  +--+---+--+  |  +--+---+--+  :   : +--+---+--+
-   :    |   |     |     |   |     |     |   |     :   :    |   |
-C ------+   |     +-----+   |     +-----+   |     :  ------+   |
-   :        |       C_1     |       C_2     |     :   :C_(n-1) |
-   :        |               |               |     :   :        |
-           S_1             S_2             S_3                S_n
-\end{example}
-\end{comment}
-\includegraphics[width=96mm]{assets/figures/chapter_3/figure_3.27a.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 3.27:} A ripple-carry adder for \( n \)-bit numbers.
-\end{figure}
+% figure 3.27
+\begin{imageFigure}
+  {A ripple-carry adder for \( n \)-bit numbers.}
+  \includegraphics[width=96mm]{assets/figures/chapter_3/figure_3.27a.pdf}
+\end{imageFigure}
 
 \subsubsection*{Representing wires}
 
@@ -4060,31 +3395,11 @@ multiplier box constrains to be the product of \( {m1} \) and \( {m2} \), is lin
 the \( p \) terminal of another multiplier box, whose \( {m2} \) is connected to a
 constant 5 and whose \( {m1} \) is connected to one of the terms in a sum.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.28}
-\centering
-\begin{comment}
-\begin{quote}
-\heading{Figure 3.28:} The relation \( 9C = 5(F - 32) \) expressed as a constraint network.
-
-\begin{example}
-       +---------+     +---------+   v   +---------+
-C -----+ m1      |  u  |      m1 +-------+ a1      |
-       |    *  p +-----+ p  *    |       |    *  s +---- F
-    +--+ m2      |     |      m2 +--+ +--+ a2      |
-    |  +---------+     +---------+  | |  +---------+
-  w |                              x| |y
-    |    +-----+        +-----+     | |     +-----+
-    +----+  9  |        |  5  +-----+ +-----+  32 |
-         +-----+        +-----+             +-----+
-\end{example}
-\end{quote}
-\end{comment}
-\includegraphics[width=87mm]{assets/figures/chapter_3/figure_3.28.pdf}
-\begin{quote}
-\heading{Figure 3.28:} The relation \( 9C = 5(F - 32) \) expressed as a constraint network.
-\end{quote}
-\end{figure}
+% figure 3.28
+\begin{imageFigure}
+  {The relation \( 9C = 5(F - 32) \) expressed as a constraint network.}
+  \includegraphics[width=87mm]{assets/figures/chapter_3/figure_3.28.pdf}
+\end{imageFigure}
 
 Computation by such a network proceeds as follows: When a connector is given a
 value (by the user or by a constraint box to which it is linked), it awakens
@@ -4750,47 +4065,14 @@ withdrawals execute this statement concurrently, then the two withdrawals might
 interleave the order in which they access \code{balance} and set it to the new
 value.
 
-\begin{figure}[tp]
-\phantomsection\label{Figure 3.29}
-\centering
-\begin{comment}
-\heading{Figure 3.29:} Timing diagram showing how interleaving the order of events
-in two banking withdrawals can lead to an incorrect final balance.
-
-\begin{example}
- |           Peter              Bank              Paul
- |                              ____
- |                             /    \
- |             .--------------| \$100 |-------------.
- |             |               \____/              |
- |             V                                   V
- |  .----------------------.            .----------------------.
- |  | Access balance: \$100 |            | Access balance: \$100 |
- |  `----------+-----------'            `----------+-----------'
- |             V                                   V
- |  .----------------------.            .----------------------.
- |  | new value: 100-10=90 |            | new value: 100-25=75 |
- |  `----------+-----------'            `----------+-----------'
- |             V                                   |
- |  .----------------------.                       |
- |  | set! balance to \$90  |                       |
- |  `----------+-----------'    ____               |
- |             |               /    \              |
- |             `------------->| \$ 90 |             V
- |                             \____/   .----------------------.
- |                                      | new value: 100-25=75 |
- |                              ____    `----------+-----------'
- |                             /    \              |
- |                            | \$ 90 |<------------'
- V                             \____/
-time
-\end{example}
-\end{comment}
-\includegraphics[width=109mm]{assets/figures/chapter_3/figure_3.29b.pdf}
-\begin{quote}
-\heading{Figure 3.29:} Timing diagram showing how interleaving the order of events in two banking withdrawals can lead to an incorrect final balance.
-\end{quote}
-\end{figure}
+% figure 3.29
+\begin{imageFigure}
+  {%
+    Timing diagram showing how interleaving the order of events in two banking
+    withdrawals can lead to an incorrect final balance.
+  }%
+  \includegraphics[width=109mm]{assets/figures/chapter_3/figure_3.29b.pdf}
+\end{imageFigure}
 
 The timing diagram in \link{Figure 3.29} depicts an order of events where
 \code{balance} starts at 100, Peter withdraws 10, Paul withdraws 25, and yet
@@ -4857,40 +4139,14 @@ access and update the amount in Paul's wallet).  But there should be no problem
 permitting Paul's deposit to his private account to proceed concurrently with
 Peter's withdrawal from the shared account.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.30}
-\centering
-\begin{comment}
-\heading{Figure 3.30:} Concurrent deposits and withdrawals from a joint account
-in Bank1 and a private account in Bank2.
-
-\begin{example}
- |    Peter          Bank1          Paul           Bank2
- |    ____           ____           ____           ____
- |   /    \         /    \         /    \         /    \
- |  |  \$7  |--. .--| \$100 |       |  \$5  |--. .--| \$300 |
- |   \____/   V V   \____/         \____/   V V   \____/
- |           +---+                         +---+
- |           | W |                         | D |
- |    ____   ++-++   ____           ____   ++-++   ____
- |   /    \   | |   /    \         /    \   | |   /    \
- |  | \$17  |<-' `->| \$90  |--. .--|  \$0  |<-' `->| \$305 |
- |   \____/         \____/   V V   \____/         \____/
- |                          +---+
- |                          | W |
- |    ____           ____   ++-++   ____           ____
- |   /    \         /    \   | |   /    \         /    \
- |  | \$17  |       | \$65  |<-' `->| \$25  |       | \$305 |
- |   \____/         \____/         \____/         \____/
- V
-time
-\end{example}
-\end{comment}
-\includegraphics[width=94mm]{assets/figures/chapter_3/figure_3.30b.pdf}
-\begin{quote}
-\heading{Figure 3.30:} Concurrent deposits and withdrawals from a joint \mbox{account} in Bank1 and a private account in Bank2.
-\end{quote}
-\end{figure}
+% figure 3.30
+\begin{imageFigure}
+  {%
+    Concurrent deposits and withdrawals from a joint \mbox{account} in Bank1
+    and a private account in Bank2.
+  }%
+  \includegraphics[width=94mm]{assets/figures/chapter_3/figure_3.30b.pdf}
+\end{imageFigure}
 
 A less stringent restriction on concurrency would ensure that a concurrent
 system produces the same result as if the processes had run sequentially in
@@ -6275,34 +5531,11 @@ filter is fed to another sieve box.  Then the original first element is
 Thus, not only is the stream infinite, but the signal processor is also
 infinite, because the sieve contains a sieve within it.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.31}
-\centering
-\begin{comment}
-\heading{Figure 3.31:} The prime sieve viewed as a signal-processing system.
-
-\begin{example}
-  +---------------------------------------------------------------+
-  | sieve                                                         |
-  |                                                               |
-  |        __/|                                        |\__       |
-  |     __/car|........................................|   \__    |
-  |   _/      |           :                            |      \_  |
-----><_       |           V                            |  cons _>---->
-  |    \__    |    +------------+    +------------+    |    __/   |
-  |       \cdr|--->| filter:    |    | sieve      |--->| __/      |
-  |          \|    |            |--->|            |    |/         |
-  |                | not        |    |            |               |
-  |                | divisible? |    |            |               |
-  |                +------------+    +------------+               |
-  +---------------------------------------------------------------+
-\end{example}
-\end{comment}
-\includegraphics[width=111mm]{assets/figures/chapter_3/figure_3.31.pdf}
-\begin{quote}
-\heading{Figure 3.31:} The prime sieve viewed as a signal-processing system.
-\end{quote}
-\end{figure}
+% figure 3.31
+\begin{imageFigure}
+  {The prime sieve viewed as a signal-processing system.}
+  \includegraphics[width=111mm]{assets/figures/chapter_3/figure_3.31.pdf}
+\end{imageFigure}
 
 \subsubsection*{Defining streams implicitly}
 
@@ -7339,30 +6572,11 @@ The self-reference in the definition of \code{int} is reflected in the figure
 by the feedback loop that connects the output of the adder to one of the
 inputs.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.32}
-\centering
-\begin{comment}
-\heading{Figure 3.32:} The \code{integral} procedure viewed as a signal-processing system.
-
-\begin{example}
-                             initial-value
-                                  |
-       +-----------+              |   |\__
-input  |           |      |\__    +-->|   \_  integral
------->| scale: dt +----->|   \_      |cons_>--*------->
-       |           |      | add_>---->| __/    |
-       +-----------+  +-->| __/       |/       |
-                      |   |/                   |
-                      |                        |
-                      +------------------------+
-\end{example}
-\end{comment}
-\includegraphics[width=102mm]{assets/figures/chapter_3/figure_3.32.pdf}
-\begin{quote}
-\heading{Figure 3.32:} The \code{integral} procedure viewed as a signal-processing system.
-\end{quote}
-\end{figure}
+% figure 3.32
+\begin{imageFigure}
+  {The \code{integral} procedure viewed as a signal-processing system.}
+  \includegraphics[width=102mm]{assets/figures/chapter_3/figure_3.32.pdf}
+\end{imageFigure}
 
 \begin{quote}
 \heading{\phantomsection\label{Exercise 3.73}Exercise 3.73:} We can model electrical circuits
@@ -7373,42 +6587,11 @@ The voltage response \( v \) of the circuit to an injected current \( i \) is
 determined by the formula in \link{Figure 3.33}, whose structure is shown by the
 accompanying signal-flow diagram.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.33}
-\centering
-\begin{comment}
-\heading{Figure 3.33:} An RC circuit and the associated signal-flow diagram.
-
-\begin{example}
-  +        v        -
-
- ->----'\/\/\,---| |---
-  i       R         C
-
-
-                  / t
-               1  |
- v  =  v   +  --- |  i dt  +  R i
-        0      C  |
-                  / 0
-
-         +--------------+
-     +-->|   scale: R   |---------------------+   |\_
-     |   +--------------+                     |   |  \_
-     |                                        +-->|    \   v
-  i  |   +--------------+     +------------+      | add >--->
- ----+-->|  scale: 1/C  |---->|  integral  |----->|   _/
-         +--------------+     +------------+      | _/
-                                    |             |/
-				   v
-				    0
-\end{example}
-\end{comment}
-\includegraphics[width=94mm]{assets/figures/chapter_3/figure_3.33.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 3.33:} An RC circuit and the associated signal-flow diagram. 
-\end{figure}
+% figure 3.33
+\begin{imageFigure}
+  {An RC circuit and the associated signal-flow diagram.}
+  \includegraphics[width=94mm]{assets/figures/chapter_3/figure_3.33.pdf}
+\end{imageFigure}
 
 Write a procedure \code{RC} that models this circuit.  \code{RC} should take as
 inputs the values of \( R \), \( C \), and \( dt \) and should return a procedure
@@ -7537,28 +6720,11 @@ models would have to be formulated so that the inputs to any signal-processing
 component would be fully evaluated before the output could be produced.  This
 would outlaw loops.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.34}
-\centering
-\begin{comment}
-\heading{Figure 3.34:} An ``analog computer circuit'' that solves the equation \( dy\! / dt = f(y) \).
-
-\begin{example}
-                            y_0
-                             |
-                             V
-    +----------+  dy   +----------+     y
-+-->|  map: f  +------>| integral +--*----->
-|   +----------+       +----------+  |
-|                                    |
-+------------------------------------+
-\end{example}
-\end{comment}
-\includegraphics[width=67mm]{assets/figures/chapter_3/figure_3.34.pdf}
-\begin{quote}
-\heading{Figure 3.34:} An ``analog computer circuit'' that solves the equation \( dy / dt = f(y) \).
-\end{quote}
-\end{figure}
+% figure 3.34
+\begin{imageFigure}
+  {An ``analog computer circuit'' that solves the equation \( dy / dt = f(y) \).}
+  \includegraphics[width=67mm]{assets/figures/chapter_3/figure_3.34.pdf}
+\end{imageFigure}
 
 Unfortunately, stream models of systems with loops may require uses of
 \code{delay} beyond the ``hidden'' \code{delay} supplied by \code{cons\-/stream}.
@@ -7666,34 +6832,14 @@ expects the \code{integrand} as a delayed argument and hence can be used in the
 \code{solve} procedure shown above.
 \end{quote}
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.35}
-\centering
-\begin{comment}
-\heading{Figure 3.35:} Signal-flow diagram for the solution to a second-order linear differential equation.
-
-\begin{example}
-               dy_0                y_0
-                |                   |
-                V                   V
-   ddy     +----------+    dy  +----------+    y
-+--------->| integral +-----*--+ integral +--*--->
-|          +----------+     |  +----------+  |
-|                           |                |
-|            +----------+   |                |
-|     __/|<--+ scale: a |<--+                |
-|   _/   |   +----------+                    |
-+--<_add |                                   |
-     \__ |   +----------+                    |
-        \|<--+ scale: b |<-------------------+
-             +----------+
-\end{example}
-\end{comment}
-\includegraphics[width=91mm]{assets/figures/chapter_3/figure_3.35a.pdf}
-\begin{quote}
-\heading{Figure 3.35:} Signal-flow diagram for the solution to a second-order linear differential equation.
-\end{quote}
-\end{figure}
+% figure 3.35
+\begin{imageFigure}
+  {%
+    Signal-flow diagram for the solution to a second-order linear differential
+    equation.
+  }%
+  \includegraphics[width=91mm]{assets/figures/chapter_3/figure_3.35a.pdf}
+\end{imageFigure}
 
 \begin{quote}
 \heading{\phantomsection\label{Exercise 3.78}Exercise 3.78:} Consider the problem of designing
@@ -7728,31 +6874,11 @@ second-order differential equations \( d^2\!y / dt^2 =
 f(dy / dt, y) \).
 \end{quote}
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.36}
-\centering
-\begin{comment}
-\heading{Figure 3.36:} A series RLC circuit.
-
-\begin{example}
-              + v_R -
-        i_R
-     +--->----'\/\/\,--------+
-     |                       |  i_L
-    \|/          R          \|/
-  +  |  i_C                  |_   +
-    -+-                       _)
-v_C -+- C                     _)  v_L
-     |                        _)
-  -  |                       |    -
-     +-----------------------+
-\end{example}
-\end{comment}
-\includegraphics[width=60mm]{assets/figures/chapter_3/figure_3.36.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 3.36:} A series RLC circuit.
-\end{figure}
+% figure 3.36
+\begin{imageFigure}
+  {A series RLC circuit.}
+  \includegraphics[width=60mm]{assets/figures/chapter_3/figure_3.36.pdf}
+\end{imageFigure}
 
 \begin{quote}
 \heading{\phantomsection\label{Exercise 3.80}Exercise 3.80:} A \newterm{series RLC circuit}
@@ -7818,43 +6944,11 @@ The signal-flow diagram representing this system of differential equations is
 shown in \link{Figure 3.37}.
 \end{quote}
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.37}
-\centering
-\begin{comment}
-\heading{Figure 3.37:} A signal-flow diagram for the solution to a series RLC circuit.
-
-\begin{example}
-                 +-------------+
-+----------------+  scale: l/L |<--+
-|                +-------------+   |
-|                                  |
-|                +-------------+   |  v_C
-|       dv_C +-->|   integral  +---*------>
-|            |   +-------------+
-|            |        ^
-|            |        | v_(C_0)
-|            |
-|            |   +-------------+
-|            +---+ scale: -l/C |<--+
-|                +-------------+   |
-|  |\__                            |
-+->|   \_  di_L  +-------------+   |  i_L
-   | add_>------>|   integral  +---*------>
-+->| __/         +-------------+   |
-|  |/                 ^            |
-|                     | i_(L_0)    |
-|                                  |
-|                +-------------+   |
-+----------------+ scale: -R/L |<--+
-                 +-------------+
-\end{example}
-\end{comment}
-\includegraphics[width=68mm]{assets/figures/chapter_3/figure_3.37a.pdf}
-\begin{quote}
-\heading{Figure 3.37:} A signal-flow diagram for the solution to a series RLC circuit.
-\end{quote}
-\end{figure}
+% figure 3.37
+\begin{imageFigure}
+  {A signal-flow diagram for the solution to a series RLC circuit.}
+  \includegraphics[width=68mm]{assets/figures/chapter_3/figure_3.37a.pdf}
+\end{imageFigure}
 
 \begin{quote}
 Write a procedure \code{RLC} that takes as arguments the parameters \( R \),
@@ -8130,25 +7224,11 @@ joint bank account by merging Peter's stream of transaction requests with
 Paul's stream of requests and feeding the result to the bank-account stream
 process, as shown in \link{Figure 3.38}.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 3.38}
-\centering
-\begin{comment}
-\heading{Figure 3.38:} A joint bank account, modeled by merging two streams of transaction requests.
-
-\begin{example}
-Peter's requests   +---------+     +---------+
------------------->|         |     |         |
-Paul's requests    |  merge  |---->| bank    |---->
------------------->|         |     | account |
-                   +---------+     +---------+
-\end{example}
-\end{comment}
-\includegraphics[width=88mm]{assets/figures/chapter_3/figure_3.38.pdf}
-\begin{quote}
-\heading{Figure 3.38:} A joint bank account, modeled by merging two streams of transaction requests.
-\end{quote}
-\end{figure}
+% figure 3.38
+\begin{imageFigure}
+  {A joint bank account, modeled by merging two streams of transaction requests.}
+  \includegraphics[width=88mm]{assets/figures/chapter_3/figure_3.38.pdf}
+\end{imageFigure}
 
 The trouble with this formulation is in the notion of \newterm{merge}.  It will
 not do to merge the two streams by simply taking alternately one request from

@@ -1,23 +1,22 @@
 \chapter{Building Abstractions with Procedures}
 \label{Chapter 1}
 
-\begin{quote}
-The acts of the mind, wherein it exerts its power over simple ideas, are
-chiefly these three: 1. Combining several simple ideas into one compound one,
-and thus all complex ideas are made.  2. The second is bringing two ideas,
-whether simple or complex, together, and setting them by one another so as to
-take a view of them at once, without uniting them into one, by which it gets
-all its ideas of relations.  3.  The third is separating them from all other
-ideas that accompany them in their real existence: this is called abstraction,
-and thus all its general ideas are made.
-
----John Locke, \emph{An Essay Concerning Human Understanding} (1690)
-\end{quote}
-
-% \vspace{1.0em}
+\chapterQuote{%
+    The acts of the mind, wherein it exerts its power over simple ideas, are
+    chiefly these three: (1) Combining several simple ideas into one compound one,
+    and thus all complex ideas are made. (2) The second is bringing two ideas,
+    whether simple or complex, together, and setting them by one another so as to
+    take a view of them at once, without uniting them into one, by which it gets
+    all its ideas of relations. (3) The third is separating them from all other
+    ideas that accompany them in their real existence: this is called abstraction,
+    and thus all its general ideas are made.%
+  }
+  {John Locke}
+  {An Essay Concerning Human Understanding, Chapter XII, Book II}
+  {1690}
 
 \noindent
-\lettrine[findent=1pt]{W}{e are about to study} the idea of a \newterm{computational process}.
+\lettrine{W}{e are about to study} the idea of a \newterm{computational process}.
 Computational processes are abstract beings that inhabit computers.  As they
 evolve, processes manipulate other abstract things called \newterm{data}.  The
 evolution of a process is directed by a pattern of rules called a
@@ -466,30 +465,9 @@ technique for dealing with hierarchical, treelike objects.  In fact, the
 ``percolate values upward'' form of the evaluation rule is an example of a
 general kind of process known as \newterm{tree accumulation}.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 1.1}
-\centering
-\begin{comment}
-\heading{Figure 1.1:} Tree representation, showing the value of each subcombination.
-
-\begin{example}
-   390
-   /|\____________
-  / |             \
- *  26            15
-    /|\           /|\
-   / | \         // \\
-  +  2  24      / | | \
-        /|\    +  3 5  7
-       / | \
-      *  4  6
-\end{example}
-\end{comment}
-\includegraphics[width=31mm]{assets/figures/chapter_1/figure_1.1g.pdf}
-\begin{quote}
-\heading{Figure 1.1:} Tree representation, showing the value of each subcombination.
-\end{quote}
-\end{figure}
+\begin{imageFigure}{Tree representation, showing the value of each subcombination.}
+  \includegraphics[width=31mm]{assets/figures/chapter_1/figure_1.1g.pdf}
+\end{imageFigure}
 
 Next, observe that the repeated application of the first step brings us to the
 point where we need to evaluate, not combinations, but primitive expressions
@@ -1042,7 +1020,7 @@ or alternatively as
 (define (>= x y) (not (< x y)))
 \end{scheme}
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 1.1}Exercise 1.1:} Below is a sequence of expressions.
 What is the result printed by the interpreter in response to each expression?
 Assume that the sequence is to be evaluated in the order in which it is
@@ -1079,9 +1057,7 @@ presented.
          (else -1))
    (+ a 1))
 \end{scheme}
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.2}Exercise 1.2:} Translate the following expression
 into prefix form:
 \begin{comment}
@@ -1096,15 +1072,11 @@ into prefix form:
 
 $${5 + 4 + (2 - (3 - (6 + {4\over5})))\over3(6 - 2)(2 - 7)}.$$
 
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.3}Exercise 1.3:} Define a procedure that takes three
 numbers as arguments and returns the sum of the squares of the two larger
 numbers.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.4}Exercise 1.4:} Observe that our model of
 evaluation allows for combinations whose operators are compound expressions.
 Use this observation to describe the behavior of the following procedure:
@@ -1113,9 +1085,7 @@ Use this observation to describe the behavior of the following procedure:
 (define (a-plus-abs-b a b)
   ((if (> b 0) + -) a b))
 \end{scheme}
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.5}Exercise 1.5:} Ben Bitdiddle has invented a test
 to determine whether the interpreter he is faced with is using
 applicative-order evaluation or normal-order evaluation.  He defines the
@@ -1140,7 +1110,7 @@ rule for the special form \code{if} is the same whether the interpreter is
 using normal or applicative order: The predicate expression is evaluated first,
 and the result determines whether to evaluate the consequent or the alternative
 expression.)
-\end{quote}
+\end{exercises}
 
 \subsection{Example: Square Roots by Newton's Method}
 \label{Section 1.1.7}
@@ -1321,7 +1291,7 @@ who are worried about the efficiency issues involved in using procedure calls
 to implement iteration should note the remarks on ``tail recursion'' in
 \link{Section 1.2.1}.}
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 1.6}Exercise 1.6:} Alyssa P. Hacker doesn't see why
 \code{if} needs to be provided as a special form.  ``Why can't I just define it
 as an ordinary procedure in terms of \code{cond}?'' she asks.  Alyssa's friend
@@ -1354,9 +1324,7 @@ Delighted, Alyssa uses \code{new\-/if} to rewrite the square-root program:
 
 What happens when Alyssa attempts to use this to compute square roots?
 Explain.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.7}Exercise 1.7:} The \code{good\-/enough?} test used
 in computing square roots will not be very effective for finding the square
 roots of very small numbers.  Also, in real computers, arithmetic operations
@@ -1367,9 +1335,7 @@ strategy for implementing \code{good\-/enough?} is to watch how \code{guess}
 changes from one iteration to the next and to stop when the change is a very
 small fraction of the guess.  Design a square-root procedure that uses this
 kind of end test.  Does this work better for small and large numbers?
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.8}Exercise 1.8:} Newton's method for cube roots is
 based on the fact that if \( y \) is an approximation to the cube root of \( x \),
 then a better approximation is given by the value
@@ -1390,7 +1356,7 @@ Use this formula to implement a cube-root procedure analogous to the
 square-root procedure.  (In \link{Section 1.3.4} we will see how to implement
 Newton's method in general as an abstraction of these square-root and cube-root
 procedures.)
-\end{quote}
+\end{exercises}
 
 \subsection{Procedures as Black-Box Abstractions}
 \label{Section 1.1.8}
@@ -1411,27 +1377,9 @@ procedure.  The entire \code{sqrt} program can be viewed as a cluster of
 procedures (shown in \link{Figure 1.2}) that mirrors the decomposition of the
 problem into subproblems.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 1.2}
-\centering
-\begin{comment}
-\heading{Figure 1.2:} Procedural decomposition of the \code{sqrt} program.
-
-\begin{example}
-                       sqrt
-                        |
-                    sqrt-iter
-                    /       \
-            good-enough    improve
-              /     \          \
-          square    abs      average
-\end{example}
-\end{comment}
-\includegraphics[width=44mm]{assets/figures/chapter_1/figure_1.2.pdf}
-\begin{quote}
-\heading{Figure 1.2:} Procedural decomposition of the \code{sqrt} program.
-\end{quote}
-\end{figure}
+\begin{imageFigure}{Procedural decomposition of the \code{sqrt} program.}
+  \includegraphics[width=44mm]{assets/figures/chapter_1/figure_1.2.pdf}
+\end{imageFigure}
 
 The importance of this decomposition strategy is not simply that one is
 dividing the program into parts.  After all, we could take any large program
@@ -1716,32 +1664,9 @@ observation translates directly into a procedure:
 We can use the substitution model of \link{Section 1.1.5} to watch this
 procedure in action computing 6!, as shown in \link{Figure 1.3}.
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 1.3}
-\centering
-\begin{comment}
-\heading{Figure 1.3:} A linear recursive process for computing 6!.
-
-\begin{example}
-(factorial 6)        ----------------
-(* 6 (factorial 5))                   \
-(* 6 (* 5 (factorial 4)))               \
-(* 6 (* 5 (* 4 (factorial 3))))           \
-(* 6 (* 5 (* 4 (* 3 (factorial 2)))))       \
-(* 6 (* 5 (* 4 (* 3 (* 2 (factorial 1))))))  |
-(* 6 (* 5 (* 4 (* 3 (* 2 1)))))             /
-(* 6 (* 5 (* 4 (* 3 2))))                 /
-(* 6 (* 5 (* 4 6)))                     /
-(* 6 (* 5 24))                        /
-(* 6 120)                           /
-720          <---------------------
-\end{example}
-\end{comment}
-\includegraphics[width=82mm]{assets/figures/chapter_1/figure_1.3c.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 1.3:} A linear recursive process for computing 6!.
-\end{figure}
+\begin{imageFigure}{A linear recursive process for computing 6!.}
+  \includegraphics[width=82mm]{assets/figures/chapter_1/figure_1.3c.pdf}
+\end{imageFigure}
 
 Now let's take a different perspective on computing factorials.  We could
 describe a rule for computing \( n! \) by specifying that we first multiply 1 by
@@ -1762,29 +1687,9 @@ exceeds \( n \).
 
 \enlargethispage{\baselineskip}
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 1.4}
-\centering
-\begin{comment}
-\heading{Figure 1.4:} A linear iterative process for computing 6!.
-
-\begin{example}
-(factorial 6)   -----.
-(fact-iter   1 1 6)  |
-(fact-iter   1 2 6)  |
-(fact-iter   2 3 6)  |
-(fact-iter   6 4 6)  |
-(fact-iter  24 5 6)  |
-(fact-iter 120 6 6)  |
-(fact-iter 720 7 6)  V
-720
-\end{example}
-\end{comment}
-\includegraphics[width=36mm]{assets/figures/chapter_1/figure_1.4c.pdf}
-\par\bigskip
-\noindent
-\heading{Figure 1.4:} A linear iterative process for computing 6!.
-\end{figure}
+\begin{imageFigure}{A linear iterative process for computing 6!.}
+  \includegraphics[width=36mm]{assets/figures/chapter_1/figure_1.4c.pdf}
+\end{imageFigure}
 
 Once again, we can recast our description as a procedure for computing
 factorials:\footnote{In a real program we would probably use the block
@@ -1904,7 +1809,7 @@ Scheme.  Steele later showed how tail recursion is a consequence of the natural
 way to compile procedure calls (\link{Steele 1977}).  The \acronym{IEEE} standard for
 Scheme requires that Scheme implementations be tail-recursive.}
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 1.9}Exercise 1.9:} Each of the following two
 procedures defines a method for adding two positive integers in terms of the
 procedures \code{inc}, which increments its argument by 1, and \code{dec},
@@ -1920,9 +1825,7 @@ which decrements its argument by 1.
 Using the substitution model, illustrate the process generated by each
 procedure in evaluating \code{(+ 4 5)}.  Are these processes iterative or
 recursive?
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.10}Exercise 1.10:} The following procedure computes
 a mathematical function called Ackermann's function.
 
@@ -1955,7 +1858,7 @@ defined above:
 Give concise mathematical definitions for the functions computed by the
 procedures \code{f}, \code{g}, and \code{h} for positive integer values of
 \( n \).  For example, \code{(k n)} computes \( 5n^2 \).
-\end{quote}
+\end{exercises}
 
 \subsection{Tree Recursion}
 \label{Section 1.2.2}
@@ -2041,39 +1944,9 @@ is the \newterm{golden ratio}, which satisfies the equation
 $$\varphi^2 = \varphi + 1. $$
 
 
-\begin{figure}[tb]
-\phantomsection\label{Figure 1.5}
-\centering
-\begin{comment}
-\heading{Figure 1.5:} The tree-recursive process generated in computing \code{(fib 5)}.
-
-\begin{example}
-
-                   ..<............ fib5   <..........
-                ...     ___________/  \___________   .
-             ...       /       . .....            \    .
-           ..       fib4     .        . . . .     fib3  .
-         ..     ____/. \____  ..             .  __/  \__  .
-       ..      /  . .  ..   \    .        ..   /  . .   \   .
-     ..     fib3 .       .  fib2 .        . fib2 .   .  fib1 .
-   ..      / . \  .     .   /  \  .      .  /  \ ...  .  |  .
- ..       / . . \   .  .   /  . \   .  .   / .  \   .  . 1 .
-.      fib2 . . fib1.  .fib1 .  fib0 . .fib1. . fib0 .  .  .
-.      /  \  . . |  .  . |  .  . |   . . |   . . |   .   .>
-V     /  . \   . 1  .  . 1  .  . 0  .  . 1  .  . 0  ..
-.  fib1 .. fib0..  .   .   .   .   .   V   .   ..  .
-.   |  .  . |  . .>     .>.     . .    ..>.      .>
-.   1 .   . 0  .
- .   .     .  .
-  .>.       ..
-
-\end{example}
-\end{comment}
-\includegraphics[width=90mm]{assets/figures/chapter_1/figure_1.5c.pdf}
-\begin{quote}
-\heading{Figure 1.5:} The tree-recursive process generated in computing \code{(fib 5)}.
-\end{quote}
-\end{figure}
+\begin{imageFigure}{The tree-recursive process generated in computing \code{(fib 5)}}
+  \includegraphics[width=90mm]{assets/figures/chapter_1/figure_1.5c.pdf}
+\end{imageFigure}
 
 \noindent
 Thus, the process uses a number of steps that grows exponentially with the
@@ -2247,7 +2120,7 @@ transform processes that require an exponential number of steps (such as
 \code{count\-/change}) into processes whose space and time requirements grow
 linearly with the input.  See \link{Exercise 3.27}.}
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 1.11}Exercise 1.11:} A function \( f \) is defined by
 the rule that
 
@@ -2261,9 +2134,7 @@ $$
 
 Write a procedure that computes \( f \) by means of a recursive process.  Write a procedure that
 computes \( f \) by means of an iterative process.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.12}Exercise 1.12:} The following pattern of numbers
 is called \newterm{Pascal's triangle}.
 
@@ -2289,15 +2160,13 @@ the works of the twelfth-century Persian poet and mathematician Omar Khayyam,
 and in the works of the twelfth-century Hindu mathematician Bh\'ascara
 \'Ach\'arya.} Write a procedure that computes elements of Pascal's triangle by
 means of a recursive process.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.13}Exercise 1.13:} Prove that Fib(\( n \)) is
 the closest integer to \( \varphi^n / \sqrt{5} \), where \( \varphi = (1 +
 \sqrt{5}) / 2 \).  Hint: Let \( \psi = (1 - \sqrt{5}) / 2 \).
 Use induction and the definition of the Fibonacci numbers (see \link{Section 1.2.2})
 to prove that \( \text{Fib}(n) = (\varphi^n - \psi^n) / \sqrt{5} \).
-\end{quote}
+\end{exercises}
 
 \subsection{Orders of Growth}
 \label{Section 1.2.3}
@@ -2362,14 +2231,12 @@ the resource utilization by a constant factor.  In the remainder of
 so that doubling the problem size increases the resource requirement by a
 constant amount.
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 1.14}Exercise 1.14:} Draw the tree illustrating the
 process generated by the \code{count\-/change} procedure of \link{Section 1.2.2}
 in making change for 11 cents.  What are the orders of growth of the space and
 number of steps used by this process as the amount to be changed increases?
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.15}Exercise 1.15:} The sine of an angle (specified
 in radians) can be computed by making use of the approximation
 \mbox{\( \sin x \approx x \)} if \( x \) is sufficiently small, and the trigonometric
@@ -2413,7 +2280,7 @@ What is the order of growth in space and number of steps (as a function of
 \code{(sine a)} is evaluated?
 
 \end{enumerate}
-\end{quote}
+\end{exercises}
 
 \subsection{Exponentiation}
 \label{Section 1.2.4}
@@ -2564,7 +2431,7 @@ iterative algorithm is ancient.  It appears in the \textit{Chandah-sutra} by
 4.6.3, for a full discussion and analysis of this and other methods of
 exponentiation.}
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 1.16}Exercise 1.16:} Design a procedure that evolves
 an iterative exponentiation process that uses successive squaring and uses a
 logarithmic number of steps, as does \code{fast\-/expt}.  (Hint: Using the
@@ -2576,9 +2443,7 @@ is unchanged from state to state.  At the beginning of the process
 end of the process.  In general, the technique of defining an
 \newterm{invariant quantity} that remains unchanged from state to state is a
 powerful way to think about the design of iterative algorithms.)
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.17}Exercise 1.17:} The exponentiation algorithms in
 this section are based on performing exponentiation by means of repeated
 multiplication.  In a similar way, one can perform integer multiplication by
@@ -2598,9 +2463,7 @@ we include, together with addition, operations \code{double}, which doubles an
 integer, and \code{halve}, which divides an (even) integer by 2.  Using these,
 design a multiplication procedure analogous to \code{fast\-/expt} that uses a
 logarithmic number of steps.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.18}Exercise 1.18:} Using the results of
 \link{Exercise 1.16} and \link{Exercise 1.17}, devise a procedure that generates
 an iterative process for multiplying two integers in terms of adding, doubling,
@@ -2609,11 +2472,9 @@ which is sometimes known as the ``Russian peasant method'' of multiplication,
 is ancient.  Examples of its use are found in the Rhind Papyrus, one of the two
 oldest mathematical documents in existence, written about 1700 \acronym{B.C.}
 (and copied from an even older document) by an Egyptian scribe named A\( \! \)'h-mose.}
-\end{quote}
 
 \enlargethispage{\baselineskip}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.19}Exercise 1.19:} There is a clever algorithm for
 computing the Fibonacci numbers in a logarithmic number of steps.  Recall the
 transformation of the state variables \( a \) and \( b \) in the \code{fib\-/iter}
@@ -2652,7 +2513,7 @@ us by Joe Stoy, based on an example in \link{Kaldewaij 1990}.}
                         q
                         (- count 1)))))
 \end{scheme}
-\end{quote}
+\end{exercises}
 
 \subsection{Greatest Common Divisors}
 \label{Section 1.2.5}
@@ -2761,7 +2622,7 @@ the process takes \( k \) steps, then we must have \( n \ge {\rm Fib}(k)
 grows as the logarithm (to the base \( \varphi \)) of \( n \).  Hence, the order of
 growth is \( \Theta(\log n) \).
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 1.20}Exercise 1.20:} The process that a procedure
 generates is of course dependent on the rules used by the interpreter.  As an
 example, consider the iterative \code{gcd} procedure given above.  Suppose we
@@ -2772,7 +2633,7 @@ order), illustrate the process generated in evaluating \code{(gcd 206 40)} and
 indicate the \code{remainder} operations that are actually performed.  How many
 \code{remainder} operations are actually performed in the normal-order
 evaluation of \code{(gcd 206 40)}?  In the applicative-order evaluation?
-\end{quote}
+\end{exercises}
 
 \subsection{Example: Testing for Primality}
 \label{Section 1.2.6}
@@ -2974,13 +2835,11 @@ epitome of a topic in ``pure'' mathematics to be studied only for its own sake,
 now turns out to have important practical applications to cryptography,
 electronic funds transfer, and information retrieval.}
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 1.21}Exercise 1.21:} Use the \code{smallest\-/divisor}
 procedure to find the smallest divisor of each of the following numbers: 199,
 1999, 19999.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.22}Exercise 1.22:} Most Lisp implementations include
 a primitive called \code{runtime} that returns an integer that specifies the
 amount of time the system has been running (measured, for example, in
@@ -3013,9 +2872,7 @@ primes around 1000.  Do your timing data bear this out?  How well do the data
 for 100,000 and 1,000,000 support the \( \Theta(\sqrt{n}) \) prediction?  Is your
 result compatible with the notion that programs on your machine run in time
 proportional to the number of steps required for the computation?
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.23}Exercise 1.23:} The \code{smallest\-/divisor}
 procedure shown at the start of this section does lots of needless testing:
 After it checks to see if the number is divisible by 2 there is no point in
@@ -3031,9 +2888,7 @@ returns its input plus 2.  Modify the \code{smallest\-/divisor} procedure to use
 you should expect it to run about twice as fast.  Is this expectation
 confirmed?  If not, what is the observed ratio of the speeds of the two
 algorithms, and how do you explain the fact that it is different from 2?
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.24}Exercise 1.24:} Modify the
 \code{timed\-/prime\-/test} procedure of \link{Exercise 1.22} to use
 \code{fast\-/prime?} (the Fermat method), and test each of the 12 primes you
@@ -3041,9 +2896,7 @@ found in that exercise.  Since the Fermat test has \( \Theta(\log n) \)
 growth, how would you expect the time to test primes near 1,000,000 to
 compare with the time needed to test primes near 1000?  Do your data bear this
 out?  Can you explain any discrepancy you find?
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.25}Exercise 1.25:} Alyssa P. Hacker complains that
 we went to a lot of extra work in writing \code{expmod}.  After all, she says,
 since we already know how to compute exponentials, we could have simply written
@@ -3055,9 +2908,7 @@ since we already know how to compute exponentials, we could have simply written
 
 Is she correct?  Would this procedure serve as well for our fast prime tester?
 Explain.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.26}Exercise 1.26:} Louis Reasoner is having great
 difficulty doing \link{Exercise 1.24}.  His \code{fast\-/prime?} test seems to run
 more slowly than his \code{prime?} test.  Louis calls his friend Eva Lu Ator
@@ -3082,17 +2933,13 @@ calling \code{square}:
 Eva.  ``By writing the procedure like that, you have transformed the
 \( \Theta(\log n) \) process into a \( \Theta(n) \) process.''
 Explain.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.27}Exercise 1.27:} Demonstrate that the Carmichael
 numbers listed in \link{Footnote 1.47} really do fool the Fermat test.  That is,
 write a procedure that takes an integer \( n \) and tests whether \( a^n \) is
 congruent to \( a \) modulo \( n \) for every \( a < n \), and try your procedure
 on the given Carmichael numbers.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.28}Exercise 1.28:} One variant of the Fermat test
 that cannot be fooled is called the \newterm{Miller-Rabin test} (\link{Miller 1976};
 \link{Rabin 1980}).  This starts from an alternate form of Fermat's Little Theorem,
@@ -3114,10 +2961,10 @@ is not prime, then, for at least half the numbers \( a < n \), computing
 to \code{fermat\-/test}.  Check your procedure by testing various known primes
 and non-primes.  Hint: One convenient way to make \code{expmod} signal is to
 have it return 0.
-\end{quote}
+\end{exercises}
 
 \vspace{0.5em}
-\section{Formulating Abstractions\\ with Higher-Order Procedures}
+\section{Formulating Abstractions with Higher-Order Procedures}
 \label{Section 1.3}
 
 We have seen that procedures are, in effect, abstractions that describe
@@ -3372,7 +3219,7 @@ for small values of \( dx \).  We can express this directly as a procedure:
 \noindent
 (The exact value of the integral of \code{cube} between 0 and 1 is 1/4.)
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 1.29}Exercise 1.29:} Simpson's Rule is a more accurate
 method of numerical integration than the method illustrated above.  Using
 Simpson's Rule, the integral of a function \( f \) between \( a \) and \( b \) is
@@ -3397,9 +3244,7 @@ accuracy of the approximation.)  Define a procedure that takes as arguments
 using Simpson's Rule.  Use your procedure to integrate \code{cube} between 0
 and 1 (with \( n = 100 \) and \( n = 1000 \)), and compare the results to those of
 the \code{integral} procedure shown above.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.30}Exercise 1.30:} The \code{sum} procedure above
 generates a linear recursion.  The procedure can be rewritten so that the sum
 is performed iteratively.  Show how to do this by filling in the missing
@@ -3413,9 +3258,7 @@ expressions in the following definition:
         (iter ~\( \dark \langle \)~??~\( \dark \rangle \)~ ~\( \dark \langle \)~??~\( \dark \rangle \)~)))
   (iter ~\( \dark \langle \)~??~\( \dark \rangle \)~ ~\( \dark \langle \)~??~\( \dark \rangle \)~))
 \end{scheme}
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.31}Exercise 1.31:} \begin{enumerate}[a.]
 
 \item
@@ -3455,9 +3298,7 @@ generates an iterative process.  If it generates an iterative process, write
 one that generates a recursive process.
 
 \end{enumerate}
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.32}Exercise 1.32:} \begin{enumerate}[a.]
 
 \item
@@ -3483,9 +3324,7 @@ that generates an iterative process.  If it generates an iterative process,
 write one that generates a recursive process.
 
 \end{enumerate}
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.33}Exercise 1.33:} You can obtain an even more
 general version of \code{accumulate} (\link{Exercise 1.32}) by introducing the
 notion of a \newterm{filter} on the terms to be combined.  That is, combine
@@ -3507,7 +3346,7 @@ prime to \( n \) (i.e., all positive integers \( i < n \) such that
 \( \textsc{gcd}(i, n) = 1 \)).
 
 \end{enumerate}
-\end{quote}
+\end{exercises}
 
 \subsection{Constructing Procedures Using \code{lambda}}
 \label{Section 1.3.2}
@@ -3796,7 +3635,7 @@ presented in this chapter.  The subtleties do not arise with internal
 definitions of procedures, however.  We will return to this issue in
 \link{Section 4.1.6}, after we learn more about evaluation.}
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 1.34}Exercise 1.34:} Suppose we define the procedure
 
 \begin{scheme}
@@ -3814,7 +3653,7 @@ Then we have
 
 What happens if we (perversely) ask the interpreter to evaluate the combination
 \code{(f f)}?  Explain.
-\end{quote}
+\end{exercises}
 
 \subsection{Procedures as General Methods}
 \label{Section 1.3.3}
@@ -4039,14 +3878,12 @@ original square-root procedure of \link{Section 1.1.7}.  This approach of
 averaging successive approximations to a solution, a technique that we call
 \newterm{average damping}, often aids the convergence of fixed-point searches.
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 1.35}Exercise 1.35:} Show that the golden ratio
 \( \varphi \) (\link{Section 1.2.2}) is a fixed point of the transformation
 \( x \mapsto 1 + 1 / x \), and use this fact to compute \( \varphi \) by means
 of the \code{fixed\-/point} procedure.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.36}Exercise 1.36:} Modify \code{fixed\-/point} so that
 it prints the sequence of approximations it generates, using the \code{newline}
 and \code{display} primitives shown in \link{Exercise 1.22}.  Then find a
@@ -4056,9 +3893,7 @@ procedure, which computes natural logarithms.)  Compare the number of steps
 this takes with and without average damping.  (Note that you cannot start
 \code{fixed\-/point} with a guess of 1, as this would cause division by
 \( \log(1) = 0 \).)
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.37}Exercise 1.37:} \begin{enumerate}[a.]
 
 \item
@@ -4123,9 +3958,7 @@ that generates an iterative process.  If it generates an iterative process,
 write one that generates a recursive process.
 
 \end{enumerate}
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.38}Exercise 1.38:} In 1737, the Swiss mathematician
 Leonhard Euler published a memoir \textit{De Fractionibus Continuis}, which
 included a continued fraction expansion for \( e - 2 \), where \( e \) is the base
@@ -4133,9 +3966,7 @@ of the natural logarithms.  In this fraction, the \( N_i \) are all 1, and
 the \( D_i \) are successively 1, 2, 1, 1, 4, 1, 1, 6, 1, 1, 8, \( \dots \).
 Write a program that uses your \code{cont\-/frac} procedure from \link{Exercise 1.37}
 to approximate \( e \), based on Euler's expansion.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.39}Exercise 1.39:} A continued fraction
 representation of the tangent function was published in 1770 by the German
 mathematician J.H. Lambert:
@@ -4159,7 +3990,7 @@ $$ {\tan x} = \cfrac{x}{1 - \cfrac{x^2}{3 - \cfrac{x^2}{5 - \dots}}}\,, $$
 where \( x \) is in radians.  Define a procedure \code{(tan\-/cf x k)} that
 computes an approximation to the tangent function based on Lambert's formula.
 \code{k} specifies the number of terms to compute, as in \link{Exercise 1.37}.
-\end{quote}
+\end{exercises}
 
 \subsection{Procedures as Returned Values}
 \label{Section 1.3.4}
@@ -4436,7 +4267,7 @@ even while the procedure is not executing.  In the Scheme implementation we
 will study in \link{Section 4.1}, these variables are stored in the procedure's
 environment.}
 
-\begin{quote}
+\begin{exercises}
 \heading{\phantomsection\label{Exercise 1.40}Exercise 1.40:} Define a procedure \code{cubic}
 that can be used together with the \code{newtons\-/method} procedure in
 expressions of the form
@@ -4447,9 +4278,7 @@ expressions of the form
 
 \noindent
 to approximate zeros of the cubic \( x^3 + ax^2 + bx + c \).
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.41}Exercise 1.41:} Define a procedure \code{double}
 that takes a procedure of one argument as argument and returns a procedure that
 applies the original procedure twice.  For example, if \code{inc} is a
@@ -4459,9 +4288,7 @@ procedure that adds 2.  What value is returned by
 \begin{scheme}
 (((double (double double)) inc) 5)
 \end{scheme}
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.42}Exercise 1.42:} Let \( f \) and \( g \) be two
 one-argument functions.  The \newterm{composition} \( f \) after \( g \) is defined
 to be the function \( x \mapsto f(g(x)) \).  Define a procedure
@@ -4472,9 +4299,7 @@ procedure that adds 1 to its argument,
 ((compose square inc) 6)
 ~\textit{49}~
 \end{scheme}
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.43}Exercise 1.43:} If \( f \) is a numerical function
 and \( n \) is a positive integer, then we can form the \( n^{\mathrm{th}} \) repeated
 application of \( f \), which is defined to be the function whose value at \( x \)
@@ -4493,9 +4318,7 @@ procedure should be able to be used as follows:
 \end{scheme}
 
 Hint: You may find it convenient to use \code{compose} from \link{Exercise 1.42}.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.44}Exercise 1.44:} The idea of \newterm{smoothing} a
 function is an important concept in signal processing.  If \( f \) is a function
 and \( dx \) is some small number, then the smoothed version of \( f \) is the
@@ -4507,9 +4330,7 @@ repeatedly smooth a function (that is, smooth the smoothed function, and so on)
 to obtain the \newterm{\textit{n}-fold smoothed function}.  Show how to generate
 the \textit{n}-fold smoothed function of any given function using \code{smooth} and
 \code{repeated} from \link{Exercise 1.43}.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.45}Exercise 1.45:} We saw in \link{Section 1.3.3}
 that attempting to compute square roots by naively finding a fixed point of
 \( y \mapsto x / y \) does not converge, and that this can be fixed by average
@@ -4525,9 +4346,7 @@ Use this to implement a simple procedure for computing
 \( n^{\mathrm{th}} \) roots using \code{fixed\-/point}, \code{average\-/damp}, and the
 \code{repeated} procedure of \link{Exercise 1.43}.  Assume that any arithmetic
 operations you need are available as primitives.
-\end{quote}
 
-\begin{quote}
 \heading{\phantomsection\label{Exercise 1.46}Exercise 1.46:} Several of the numerical methods
 described in this chapter are instances of an extremely general computational
 strategy known as \newterm{iterative improvement}.  Iterative improvement says
@@ -4541,4 +4360,4 @@ guess as argument and keeps improving the guess until it is good enough.
 Rewrite the \code{sqrt} procedure of \link{Section 1.1.7} and the
 \code{fixed\-/point} procedure of \link{Section 1.3.3} in terms of
 \code{iterative\-/improve}.
-\end{quote}
+\end{exercises}

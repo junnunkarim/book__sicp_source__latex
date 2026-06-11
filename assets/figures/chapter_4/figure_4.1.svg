@@ -2,19 +2,19 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="388.39911"
-   height="164.48775"
+   width="395"
+   height="170"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.3.1 r9886"
-   sodipodi:docname="Fig4.1.svg">
+   inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
+   sodipodi:docname="figure_4.1.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <defs
      id="defs4">
     <marker
@@ -40,7 +40,7 @@
        style="overflow:visible">
       <path
          id="path3887"
-         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
          style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(0.4,0,0,0.4,4,0)"
          inkscape:connector-curvature="0" />
@@ -54,7 +54,7 @@
        style="overflow:visible">
       <path
          id="path3881"
-         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
          style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(0.8,0,0,0.8,10,0)"
          inkscape:connector-curvature="0" />
@@ -68,7 +68,7 @@
        style="overflow:visible">
       <path
          id="path3884"
-         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
          style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(-0.8,0,0,-0.8,-10,0)"
          inkscape:connector-curvature="0" />
@@ -81,22 +81,29 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="190.53278"
-     inkscape:cy="84.291925"
+     inkscape:zoom="2.8"
+     inkscape:cx="209.28571"
+     inkscape:cy="72.5"
      inkscape:document-units="px"
      inkscape:current-layer="layer3"
-     showgrid="false"
+     showgrid="true"
      inkscape:window-width="1920"
-     inkscape:window-height="1004"
+     inkscape:window-height="1080"
      inkscape:window-x="0"
-     inkscape:window-y="24"
-     inkscape:window-maximized="1">
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:showpageshadow="2"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1">
     <inkscape:grid
        type="xygrid"
        id="grid2985"
-       originx="-55.208px"
-       originy="-832.75613px" />
+       originx="-50"
+       originy="-830"
+       spacingy="1"
+       spacingx="1"
+       units="px"
+       visible="true" />
   </sodipodi:namedview>
   <metadata
      id="metadata_4.1">
@@ -147,21 +154,18 @@
      id="layer2"
      inkscape:label="Lines"
      style="display:inline"
-     transform="translate(-55.208,-55.118304)">
-    <path
-       sodipodi:type="arc"
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+     transform="translate(-50,-52.3622)">
+    <circle
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="path3768"
-       sodipodi:cx="245"
-       sodipodi:cy="137.36218"
-       sodipodi:rx="75"
-       sodipodi:ry="75"
-       d="m 320,137.36218 c 0,41.42136 -33.57864,75 -75,75 -41.42136,0 -75,-33.57864 -75,-75 0,-41.421354 33.57864,-74.999997 75,-74.999997 41.42136,0 75,33.578643 75,74.999997 z" />
+       cx="245"
+       cy="137.36218"
+       r="75" />
     <path
        id="path3770-3-3"
        transform="matrix(1,0,0,-1,0,277.22437)"
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dashoffset:0;display:inline"
-       d="m 320,139.86218 c 0,20.71068 -16.78932,37.5 -37.5,37.5 -20.71068,0 -34.5,-14.49999 -37.5,-37.5 l 0,0 m 0,1e-5 c -3,-23 -16.78932,-37.5 -37.5,-37.5 -20.71068,0 -37.5,16.78932 -37.5,37.5 l 0,0"
+       style="display:inline;fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 320,139.86218 c 0,20.71068 -16.78932,37.5 -37.5,37.5 -20.71068,0 -34.5,-14.49999 -37.5,-37.5 v 0 m 0,1e-5 c -3,-23 -16.78932,-37.5 -37.5,-37.5 -20.71068,0 -37.5,16.78932 -37.5,37.5 v 0"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscccscc" />
     <path
@@ -171,90 +175,90 @@
        inkscape:connector-curvature="0" />
     <path
        sodipodi:type="arc"
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker-start:url(#Arrow2Lstart);marker-end:none;display:inline"
+       style="display:inline;fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#Arrow2Lstart);marker-end:none"
        id="path3768-5"
        sodipodi:cx="245"
        sodipodi:cy="137.36218"
        sodipodi:rx="115"
        sodipodi:ry="115"
-       d="m 163.68272,218.67946 c -44.91029,-44.91029 -44.91029,-117.72426 0,-162.634556"
+       d="m 163.68272,218.67946 a 115,115 0 0 1 0,-162.634556"
        sodipodi:start="2.3561945"
        sodipodi:end="3.9269908"
-       sodipodi:open="true" />
+       sodipodi:open="true"
+       sodipodi:arc-type="arc" />
     <path
        sodipodi:type="arc"
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker-start:url(#Arrow2Lstart);display:inline"
+       style="display:inline;fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#Arrow2Lstart)"
        id="path3768-5-2"
        sodipodi:cx="245"
        sodipodi:cy="137.36218"
        sodipodi:rx="115"
        sodipodi:ry="115"
-       d="m 326.31728,56.044899 c 44.91029,44.910291 44.91029,117.724261 0,162.634561 0,0 0,0 0,0"
+       d="M 326.31728,56.044899 A 115,115 0 0 1 360,137.36218 115,115 0 0 1 326.31728,218.67946"
        sodipodi:start="5.4977871"
-       sodipodi:end="7.0685835"
-       sodipodi:open="true" />
+       sodipodi:end="0.78539819"
+       sodipodi:open="true"
+       sodipodi:arc-type="arc" />
   </g>
   <g
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="Text"
      style="display:inline"
-     transform="translate(-55.208,-55.118304)">
+     transform="translate(-50,-52.3622)">
     <text
        xml:space="preserve"
-       style="font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:Inconsolata;-inkscape-font-specification:Sans"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0%;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        x="207.32143"
        y="140.71933"
-       id="text3813"
-       sodipodi:linespacing="125%"><tspan
+       id="text3813"><tspan
          sodipodi:role="line"
          id="tspan3815"
          x="207.32143"
-         y="140.71933">Eval</tspan></text>
+         y="140.71933"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Eval</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:Inconsolata;-inkscape-font-specification:Sans"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0%;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        x="282.32141"
        y="140.71933"
-       id="text3817"
-       sodipodi:linespacing="125%"><tspan
+       id="text3817"><tspan
          sodipodi:role="line"
          id="tspan3819"
          x="282.32141"
-         y="140.71933">Apply</tspan></text>
+         y="140.71933"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Apply</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:129.99999523%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:Libertinus Sans;-inkscape-font-specification:Libertinus Sans"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0%;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        x="55"
        y="133.71931"
-       id="text5250"
-       sodipodi:linespacing="130%"><tspan
+       id="text5250"><tspan
          sodipodi:role="line"
          id="tspan5252"
          x="55"
          y="133.71931"
-         style="line-height:129.99999523%">Procedure,</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:130%;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Procedure,</tspan><tspan
          sodipodi:role="line"
          x="55"
-         y="150.61931"
+         y="149.31932"
          id="tspan5254"
-         style="line-height:129.99999523%">Arguments</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:130%;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Arguments</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:129.99999523%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:Libertinus Sans;-inkscape-font-specification:Libertinus Sans"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0%;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        x="375"
        y="133.79077"
-       id="text5256"
-       sodipodi:linespacing="130%"><tspan
+       id="text5256"><tspan
          sodipodi:role="line"
          id="tspan5258"
          x="375"
          y="133.79077"
-         style="line-height:129.99999523%">Expression,</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:130%;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Expression,</tspan><tspan
          sodipodi:role="line"
          x="375"
-         y="150.69077"
+         y="149.39078"
          id="tspan5260"
-         style="line-height:129.99999523%">Environment</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:130%;font-family:NewComputerModern10;-inkscape-font-specification:'NewComputerModern10, Normal';font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Environment</tspan></text>
   </g>
 </svg>
