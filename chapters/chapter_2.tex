@@ -206,7 +206,7 @@ for manipulating rational numbers.
 
 
 
-\subsection{Example: Arithmetic Operations\\ for Rational Numbers}
+\subsection{Example: Arithmetic Operations for Rational Numbers}
 \label{Section 2.1.1}
 
 Suppose we want to do arithmetic with rational numbers.  We want to be able to
@@ -222,16 +222,18 @@ available as procedures:
 \begin{itemize}
 
 \item
-\( \hbox{\tt(make-rat}\;\langle{n}\rangle\;\langle{d}\kern0.06em\rangle\hbox{\tt)} \) returns the rational number whose numerator is the integer \( \langle{n}\rangle \) and whose denominator is the integer
-\( \langle{d}\kern0.06em\rangle \).
+\( \text{\texttt{(make-rat}}\; \langle n \rangle \; \langle d \rangle \text{\texttt{)}} \)
+returns the rational number whose numerator is the integer
+\( \langle n \rangle \) and whose denominator is the integer
+\( \langle d \rangle \).
 
 \item
-\( \hbox{\tt(numer}\;\;\langle{x}\rangle\hbox{\tt)} \) returns the numerator of the rational number
-\( \langle{x}\rangle \).
+\( \text{\texttt{(numer}}\;\; \langle x \rangle \text{\texttt{)}} \) returns
+the numerator of the rational number \( \langle x \rangle \).
 
 \item
-\( \hbox{\tt(denom}\;\;\langle{x}\rangle\hbox{\tt)} \) returns the denominator of the rational number
-\( \langle{x}\rangle \).
+\( \text{\texttt{(denom}}\;\; \langle x \rangle \text{\texttt{)}} \) returns
+the denominator of the rational number \( \langle x \rangle \).
 
 \end{itemize}
 
@@ -266,11 +268,11 @@ d_1   d_2
 \end{example}
 \end{comment}
 \begin{align*}
-  {n_1 \over d_1} + {n_2 \over d_2} 	&= {n_1 d_2 + n_2 d_1 \over d_1 d_2}, \\
-  {n_1 \over d_1} - {n_2 \over d_2} 	&= {n_1 d_2 - n_2 d_1 \over d_1 d_2}, \\
-  {n_1 \over d_1} \cdot {n_2 \over d_2}	&= {n_1 n_2 \over d_1 d_2}, \\
-  {n_1 / d_1} \over {n_2 / d_2} 	&= {n_1 d_2 \over d_1 n_2}, \\
-  {n_1 \over d_1} 			&= {n_2 \over d_2} \quad
+  \frac{n_1}{d_1} + \frac{n_2}{d_2} 	&= \frac{n_1 d_2 + n_2 d_1}{d_1 d_2}, \\
+  \frac{n_1}{d_1} - \frac{n_2}{d_2} 	&= \frac{n_1 d_2 - n_2 d_1}{d_1 d_2}, \\
+  \frac{n_1}{d_1} \cdot \frac{n_2}{d_2}	&= \frac{n_1 n_2}{d_1 d_2}, \\
+  \frac{{n_1 / d_1}}{{n_2 / d_2}} 	&= \frac{n_1 d_2}{d_1 n_2}, \\
+  \frac{n_1}{d_1} 			&= \frac{n_2}{d_2} \quad
 						{\rm\ if\ and\ only\ if\quad}
 						n_1 d_2 = n_2 d_1.
 \end{align*}
@@ -595,7 +597,11 @@ if \code{x} is \code{(make\-/rat n d)}, then
 
 \end{comment}
 
-$$ {\hbox{\tt(numer x)} \over \hbox{\tt(denom x)}} = {{\tt n} \over {\tt d}}\,.  $$
+\[
+\frac{\texttt{(numer x)}}{\texttt{(denom x)}}
+=
+\frac{\texttt{n}}{\texttt{d}}\,.
+\]
 
 In fact, this is the only condition \code{make\-/rat}, \code{numer}, and
 \code{denom} must fulfill in order to form a suitable basis for a
@@ -746,7 +752,7 @@ R_p = -------------
 
 \end{comment}
 
-$$ R_p = {1 \over 1 / R_1 + 1 / R_2}.  $$
+$$ R_p = \frac{1}{1 / R_1 + 1 / R_2}.  $$
 
 Resistance values are usually known only up to some tolerance guaranteed by the
 manufacturer of the resistor.  For example, if you buy a resistor labeled ``6.8
@@ -892,7 +898,7 @@ R_1 + R_2
 
 \end{comment}
 
-$$ R_1 R_2 \over R_1 + R_2 $$
+$$ \frac{R_1 R_2}{R_1 + R_2} $$
 
 \noindent
 and
@@ -906,7 +912,7 @@ and
 
 \end{comment}
 
-$$ {1 \over 1 / R_1 + 1 / R_2}. $$
+$$ \frac{1}{1 / R_1 + 1 / R_2}. $$
 
 He has written the following two programs, each of which computes the
 parallel-resistors formula differently:
@@ -2255,8 +2261,8 @@ of \code{accumulate\-/n}:
 \end{scheme}
 
 \heading{\phantomsection\label{Exercise 2.37}Exercise 2.37:}
-Suppose we represent vectors \( \hbox{\bf v} = (v_i) \) as sequences of numbers, and
-matrices \( \hbox{\bf m} = (m_{i\!j}) \) as sequences of vectors (the rows of the
+Suppose we represent vectors \( \mathbf{v} = (v_i) \) as sequences of numbers, and
+matrices \( \mathbf{m} = (m_{ij}) \) as sequences of vectors (the rows of the
 matrix).  For example, the matrix
 \begin{comment}
 
@@ -2307,13 +2313,13 @@ any book on matrix algebra) are the following:
 
 $$
 \begin{array}{rl}
-	\hbox{\tt (dot-product v w)} 		& {\rm returns\;the\;sum\;} \Sigma_i v_i w_i; \\
-	\hbox{\tt (matrix-*-vector m v)} 	& {\rm returns\;the\;vector\;} \hbox{\bf t},  \\
-		& {\rm where\;} t_i = \Sigma_{\kern-0.1em j} m_{i\!j} v_{\kern-0.1em j};      \\
-	\hbox{\tt (matrix-*-matrix m n)} 	& {\rm returns\;the\;matrix\;} \hbox{\bf p},  \\
-		& {\rm where\;} p_{i\!j} = \Sigma_k m_{ik} n_{k\!j};                          \\
-	\hbox{\tt (transpose m)} 		& {\rm returns\;the\;matrix\;} \hbox{\bf n},  \\
-		& {\rm where\;} n_{i\!j} = m_{\kern-0.1em ji}.
+	\text{\texttt{(dot-product v w)}} 		& \text{returns the sum } \sum_i v_i w_i; \\
+	\text{\texttt{(matrix-*-vector m v)}} 	& \text{returns the vector } \mathbf{t},  \\
+		& \text{where } t_i = \sum_j m_{ij} v_j;      \\
+	\text{\texttt{(matrix-*-matrix m n)}} 	& \text{returns the matrix } \mathbf{p},  \\
+		& \text{where } p_{ij} = \sum_k m_{ik} n_{kj};                          \\
+	\text{\texttt{(transpose m)}} 		& \text{returns the matrix } \mathbf{n},  \\
+		& \text{where } n_{ij} = m_{ji}.
 \end{array}
 $$
 
@@ -2403,23 +2409,16 @@ i + j | 3 5 5 7 7 7 11
 
 \end{comment}
 
-$$\vbox{
-\offinterlineskip
-\halign{
-\strut \hfil \quad #\quad \hfil & \vrule
-	\hfil \quad #\quad \hfil &
-	\hfil \quad #\quad \hfil &
-	\hfil \quad #\quad \hfil &
-	\hfil \quad #\quad \hfil &
-	\hfil \quad #\quad \hfil &
-	\hfil \quad #\quad \hfil &
-	\hfil \quad #\quad \hfil \cr
-
-$i$ 	& 2 & 3 & 4 & 4 & 5 & 6 & 6 \cr
-$j$ 	& 1 & 2 & 1 & 3 & 2 & 1 & 5 \cr
-\noalign{\hrule}
-$i + j$	& 3 & 5 & 5 & 7 & 7 & 7 & 11 \cr}
-}$$
+\[
+\renewcommand{\arraystretch}{1.4}  % row height
+\setlength{\arraycolsep}{10pt}     % space between columns
+\begin{array}{c|ccccccc}
+i & 2 & 3 & 4 & 4 & 5 & 6 & 6 \\
+j & 1 & 2 & 1 & 3 & 2 & 1 & 5 \\
+\hline
+i + j & 3 & 5 & 5 & 7 & 7 & 7 & 11
+\end{array}
+\]
 
 A natural way to organize this computation is to generate the sequence of all
 ordered pairs of positive integers less than or equal to \( n \), filter to
@@ -2950,7 +2949,7 @@ corresponding selectors \code{origin\-/frame}, \code{edge1\-/frame}, and
 We will use coordinates in the unit square \( (0 \le x, y \le 1) \) to specify
 images.  With each frame, we associate a \newterm{frame coordinate map}, which
 will be used to shift and scale images to fit the frame.  The map transforms
-the unit square into the frame by mapping the vector \( \hbox{\bf v} = (x, y) \) to
+the unit square into the frame by mapping the vector \( \mathbf{v} = (x, y) \) to
 the vector sum
 \begin{comment}
 
@@ -2998,7 +2997,7 @@ returns the same vector as
 \end{scheme}
 
 \begin{exercises}
-\heading{\phantomsection\label{Exercise 2.46}Exercise 2.46:} A two-dimensional vector \( \hbox{\bf v} \)
+\heading{\phantomsection\label{Exercise 2.46}Exercise 2.46:} A two-dimensional vector \( \mathbf{v} \)
 running from the origin to a point can be represented as a pair consisting of
 an \( x \)-coordinate and a \( y \)-coordinate.  Implement a data abstraction for
 vectors by giving a constructor \code{make\-/vect} and corresponding selectors
@@ -3410,15 +3409,15 @@ Now we can distinguish between symbols and their values:
 Quotation also allows us to type in compound objects, using the conventional
 printed representation for lists:\footnote{Strictly, our use of the quotation
 mark violates the general rule that all compound expressions in our language
-should be delimited by parentheses and look like lists.  We can recover this
+should be delimited by parentheses and look like lists. We can recover this
 consistency by introducing a special form \code{quote}, which serves the same
-purpose as the quotation mark.  Thus, we would type \code{(quote a)} instead of
+purpose as the quotation mark. Thus, we would type \code{(quote a)} instead of
 \code{'a}, and we would type \code{(quote (a b c))} instead of \code{'(a b c)}.
-This is precisely how the interpreter works.  The quotation mark is just a
+This is precisely how the interpreter works. The quotation mark is just a
 single-character abbreviation for wrapping the next complete expression with
-\code{quote} to form \( \hbox{\ttfamily(quote}\;\langle\kern0.06em\hbox{\ttfamily\slshape expression}\kern0.08em\rangle\hbox{\ttfamily)} \).  This is
+\code{quote} to form \( \text{\texttt{(quote}}\; \langle \text{\texttt{\textsl{expression}}} \rangle \text{\texttt{)}} \). This is
 important because it maintains the principle that any expression seen by the
-interpreter can be manipulated as a data object.  For instance, we could
+interpreter can be manipulated as a data object. For instance, we could
 construct the expression \code{(car '(a b c))}, which is the same as \code{(car
 (quote (a b c)))}, by evaluating \code{(list 'car (list 'quote '(a b c)))}.}
 
@@ -3577,23 +3576,27 @@ d(uv)     / dv \     / du \
 \end{comment}
 
 $$
-{{\it dc} \over {\it dx}} 		= 0,
-	\quad {\rm for\ } c\ {\rm a\ constant\ or\ a\ variable\ different\ from\ } x,
+\frac{{\it dc}}{{\it dx}} = 0,
+\quad {\rm for\ } c\ {\rm a\ constant\ or\ a\ variable\ different\ from\ } x,
 $$
 
 
 $$
-{{\it dx} \over {\it dx}} 		= 1,
+\frac{{\it dx}}{{\it dx}} = 1,
 $$
 
 
 $$
-{{\it d\,(u + v\,)} \over {\it dx}} 	= {{\it du} \over {\it dx}} + {{\it dv} \over {\it dx}},
+\frac{{\it d\,(u + v\,)}}{{\it dx}}
+=
+\frac{{\it du}}{{\it dx}} + \frac{{\it dv}}{{\it dx}},
 $$
 
 
 $$
-{{\it d\,(uv\,)} \over {\it dx}} 	= u {{\it dv} \over {\it dx}} + v {{\it du} \over {\it dx}}.
+\frac{{\it d\,(uv\,)}}{{\it dx}}
+=
+u \frac{{\it dv}}{{\it dx}} + v \frac{{\it du}}{{\it dx}}.
 $$
 
 \noindent
@@ -3763,7 +3766,7 @@ d(xy)
 
 \end{comment}
 
-$$ {{\it d\,(xy\,)} \over {\it dx}} = x \cdot 0 + 1 \cdot y, $$
+$$ \frac{{\it d\,(xy\,)}}{{\it dx}} = x \cdot 0 + 1 \cdot y, $$
 
 \noindent
 but we would like the program to know that \( x \cdot 0 = 0 \), \( 1 \cdot y = y \),
@@ -3843,7 +3846,7 @@ d(u^n)            du
 
 \end{comment}
 
-$$ {{\it d\,(u^n\,)} \over {\it dx}} = nu^{n-1} {{\it du} \over {\it dx}} $$
+$$ \frac{{\it d\,(u^n\,)}}{{\it dx}} = nu^{n-1} \frac{{\it du}}{{\it dx}} $$
 
 \noindent
 by adding a new clause to the \code{deriv} program and defining appropriate
@@ -4883,12 +4886,10 @@ Imaginary-part(z_1 + z_2) = Imaginary-part(z_1) + Imaginary-part(z_2)
 \end{comment}
 
 $$
-\begin{array}{r@{{}={}}l}
-  \hbox{Real-part} (z_1 + z_2)\; 	&
-	\hbox{ Real-part} (z_1)\; + \hbox{ Real-part} (z_2), \\
-  \hbox{Imaginary-part} (z_1 + z_2)\; 	&
-	\hbox{ Imaginary-part} (z_1)\; + \hbox{ Imaginary-part} (z_2).
-\end{array}
+\begin{aligned}
+  \text{Real-part} (z_1 + z_2) &= \text{Real-part} (z_1) + \text{Real-part} (z_2), \\
+  \text{Imaginary-part} (z_1 + z_2) &= \text{Imaginary-part} (z_1) + \text{Imaginary-part} (z_2).
+\end{aligned}
 $$
 
 
@@ -4913,14 +4914,11 @@ Angle(z_1 * z_2) = Angle(z_1) + Angle(z_2)
 \end{comment}
 
 $$
-\begin{array}{r@{{}={}}l}
-	\hbox{Magnitude} (z_1 \cdot z_2)\; 	&
-		\hbox{ Magnitude} (z_1)\; \cdot \hbox{ Magnitude} (z_2), \\
-	\hbox{Angle} (z_1 \cdot z_2)\; 		&
-		\hbox{ Angle} (z_1)\; + \hbox{ Angle} (z_2).
-\end{array}
+\begin{aligned}
+	\text{Magnitude} (z_1 \cdot z_2) &= \text{Magnitude} (z_1) \cdot \text{Magnitude} (z_2), \\
+	\text{Angle} (z_1 \cdot z_2) &= \text{Angle} (z_1) + \text{Angle} (z_2).
+\end{aligned}
 $$
-
 
 \noindent
 Thus, there are two different representations for complex numbers, which are
@@ -5319,13 +5317,13 @@ To implement this plan, assume that we have two procedures, \code{put} and
 \begin{itemize}
 
 \item
-\( \hbox{\tt(put}\;\langle \)\var{op}\( \kern0.1em\rangle\;\langle \)\var{type}\( \kern0.08em\rangle\;\langle \)\var{item}\( \kern0.08em\rangle\hbox{\tt)} \) installs the \( \langle \)\var{item}\( \kern0.08em\rangle \) in the table, indexed by the
-\( \langle \)\var{op}\( \kern0.1em\rangle \) and the \( \langle \)\var{type}\( \kern0.08em\rangle \).
+\( \text{\texttt{(put}}\; \langle \text{\var{op}} \rangle \; \langle \text{\var{type}} \rangle \; \langle \text{\var{item}} \rangle \text{\texttt{)}} \) installs the \( \langle \text{\var{item}} \rangle \) in the table, indexed by the
+\( \langle \text{\var{op}} \rangle \) and the \( \langle \text{\var{type}} \rangle \).
 
 \item
-\( \hbox{\tt(get}\;\langle \)\var{op}\( \kern0.1em\rangle\;\langle \)\var{type}\( \kern0.08em\rangle\hbox{\tt)} \) looks up the
-\( \langle \)\var{op}\( \kern0.08em\rangle \), \( \langle \)\var{type}\( \kern0.08em\rangle \) entry in the table and
-returns the item found there.  If no item is found, \code{get} returns false.
+\( \text{\texttt{(get}}\; \langle \text{\var{op}} \rangle \; \langle \text{\var{type}} \rangle \text{\texttt{)}} \) looks up the
+\( \langle \text{\var{op}} \rangle \), \( \langle \text{\var{type}} \rangle \) entry in the table and
+returns the item found there. If no item is found, \code{get} returns false.
 
 \end{itemize}
 
@@ -6561,7 +6559,7 @@ polynomials of different coefficient types, such as
 
 \end{comment}
 
-$$ [3x^2 + (2 + 3i)x + 7] \cdot \! \left[ x^4 + {2\over3} x^2 + (5 + 3i) \right]\!. $$
+$$ [3x^2 + (2 + 3i)x + 7] \cdot \! \left[ x^4 + \frac{2}{3} x^2 + (5 + 3i) \right]\!. $$
 
 Because we installed the polynomial addition and multiplication procedures
 \code{add\-/poly} and \code{mul\-/poly} in the generic arithmetic system as the
@@ -6734,7 +6732,7 @@ x^2 - 1
 
 \end{comment}
 
-$$ {x^5 - 1 \over x^2 - 1} = x^3 + x, \hbox{  remainder  } x - 1. $$
+$$ \frac{x^5 - 1}{x^2 - 1} = x^3 + x, \text{ remainder } x - 1. $$
 
 Division can be performed via long division.  That is, divide the highest-order
 term of the dividend by the highest-order term of the divisor.  The result is
@@ -6834,7 +6832,7 @@ x^3 - 1
 
 \end{comment}
 
-$$ {x + 1 \over x^3 - 1}\,. $$
+$$ \frac{x + 1}{x^3 - 1}\,. $$
 
 The system should be able to add, subtract, multiply, and divide rational
 functions, and to perform such computations as
@@ -6848,8 +6846,9 @@ x^3 - 1   x^2 - 1    x^4 + x^3 - x - 1
 
 \end{comment}
 
-$$ {x + 1 \over x^3 - 1} + {x \over x^2 - 1} =
-	{x^3 + 2x^2 + 3x + 1 \over x^4 + x^3 - x - 1}\,. $$
+$$ \frac{x + 1}{x^3 - 1} + \frac{x}{x^2 - 1}
+=
+\frac{x^3 + 2x^2 + 3x + 1}{x^4 + x^3 - x - 1}\,. $$
 
 \noindent
 (Here the sum has been simplified by removing common factors.  Ordinary ``cross

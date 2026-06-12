@@ -37,8 +37,21 @@ Serif}#1}}
 \newcommand{\link}[1]{\hyperref[#1]{#1}}
 \newcommand{\heading}[1]{{\sffamily\bfseries #1}}
 \newcommand{\dark}{\color{SchemeDark}}
-\newcommand{\mono}[1]{\hbox{\ttfamily\scriptsize #1}}
-\newcommand{\monoit}[1]{\hbox{\ttfamily\itshape\scriptsize #1}}
+
+\newcommand{\mono}[1]{%
+  \ifmmode%
+    \text{\ttfamily\scriptsize #1}%
+  \else%
+    {\ttfamily\scriptsize #1}%
+  \fi%
+}
+\newcommand{\monoit}[1]{%
+  \ifmmode%
+    \text{\ttfamily\itshape\scriptsize #1}%
+  \else%
+    {\ttfamily\itshape\scriptsize #1}%
+  \fi%
+}
 
 \newenvironment{example}
   {\verbatim\small}
@@ -49,52 +62,65 @@ Serif}#1}}
   {\endverbatim}
 
 % package: listings
-\lstnewenvironment{scheme}[1][]
-{\lstset{basicstyle=\ttfamily\small\color{SchemeLight},#1}}
-{}
+\lstnewenvironment{scheme}[1][]{%
+  \lstset{%
+    basicstyle=\ttfamily\small\color{SchemeLight},%
+    #1%
+  }%
+}{}
 
-\lstnewenvironment{smallscheme}[1][]
-{\lstset{basicstyle=\ttfamily\footnotesize\color{SchemeLight},#1}}
-{}
+\lstnewenvironment{smallscheme}[1][]{%
+  \lstset{%
+    basicstyle=\ttfamily\footnotesize\color{SchemeLight},
+    #1%
+  }%
+}{}
 
 \newenvironment{exercises}{%
-  \small
-  \Needspace{6\baselineskip}
-  \vspace{1ex}
-  \begin{flushright}
+  \small%
+  \Needspace{6\baselineskip}%
+  \vspace{2ex}%
+  \begin{flushright}%
     \hfill%
     \textbf{\textsf{EXERCISES}}%
     \vspace{-1ex}%
     \newline%
     \rule{0.5\textwidth}{0.2pt}%
-  \end{flushright}
-  \everypar{\setlength{\parindent}{2em}\everypar{}}
+  \end{flushright}%
   % no page break after first horizontal rule
+  \vspace{1ex}%
+  % every paragraph should not have indent
+  \setlength{\parindent}{0pt}%
 }{%
   % no page break before last horizontal rule
-  \par\nobreak
-  \noindent
-  \makebox[\textwidth][c]{\rule{0.5\textwidth}{0.2pt}}
-  \par
+  % \par\nobreak%
+  % \noindent%
+  % \makebox[\textwidth][c]{\rule{0.5\textwidth}{0.2pt}}%
+  \newpage%
 }
 
+% --- figure ---
+% --------------
+%
 \NewDocumentEnvironment{imageFigure}{m}{
-  \begin{figure}[htbp]
-  \begin{flushleft}
+  \begin{figure}[htbp]%
+    \begin{center}%
 }{
+    \end{center}%
     \caption{#1}%
     \phantomsection%
-    \label{Figure \thefigure}
-  \end{flushleft}
+    \label{Figure \thefigure}%
   \end{figure}
 }
 
 \NewDocumentEnvironment{codeFigure}{m}{
   \begin{flushleft}
     \vspace{2ex}
+    \needspace{3\baselineskip}
     \captionof{figure}{\( \downarrow \) #1}%
     \phantomsection%
     \label{Figure \thefigure}
+    \nopagebreak
 }{
   \end{flushleft}
 }
@@ -104,7 +130,12 @@ Serif}#1}}
     \put(#1){\makebox(0,0){\scalebox{3}{\textcolor{LightGray}{#2}}}}
   \end{picture}%
 }
+%
+% --------------
 
+% --- quotes ---
+% --------------
+%
 % #1 -> author name, #2 -> work name, #3 -> extra
 \NewDocumentEnvironment{fancyQuote}{O{} O{} O{}}{%
   \def\fqAuthor{#1}%
@@ -208,7 +239,9 @@ Serif}#1}}
     #1%
   \end{fancyQuote}%
 }
+%
+% --------------
 
-% measure font height using sample string
+% measure header font height using sample string
 \newlength{\headerHeight}
 \settoheight{\headerHeight}{ABCgjpqy}

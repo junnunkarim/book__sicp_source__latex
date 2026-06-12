@@ -1,51 +1,35 @@
 \begin{titlepage}
-  \vspace*{\fill}  % stretch above
+\newgeometry{margin=20mm}
+\vspace*{\fill}
+\begin{center}
+  
+  \textbf{%
+    {\huge%
+      Structure and Interpretation\\
+      \textit{of} Computer Programs%
+    }%
+  }%
+  
+  \vspace{4mm}
+  
+  \includegraphics[width=0.45\textwidth]{assets/bookwheel.jpg}
 
-  \newsavebox{\imagebox}
-  \sbox{\imagebox}{
-    \includegraphics[width=0.45\textwidth]{assets/bookwheel.jpg}
-  }
-
-  \noindent
-  \textbf{
-    {\huge
-      Structure and Interpretation\newline
-      \textit{of} Computer Programs
-    }
-  }
+  \vspace{2mm}
+  
+  {\Large\sffamily\textcolor{LinkRed}{second edition}}\\
+  {\small\sffamily version 202606 (community)\par}
 
   \vspace{1em}
 
-  \begin{flushleft}
-    \begin{minipage}[c]{0.45\textwidth}
-      \usebox{\imagebox}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[c][\ht\imagebox][c]{0.50\textwidth}
-      \vspace{4em}
-
-      {\large
-        \textcolor{LinkRed}{
-          \MakeUppercase{Second edition}
-        }
-      }
-
-      \vspace{4em}
-      \vfill
-
-      {\Large
-        Harold Abelson and\newline
-        Gerald Jay Sussman\newline
-        with Julie Sussman\newline
-      }
-
-      \vspace{1em}
-
-      {\large
-        foreword by Alan J. Perlis\newline
-      }
-    \end{minipage}
-  \end{flushleft}
-
-  \vspace*{\fill}  % stretch below
+  \Large
+  Harold Abelson and\\
+  Gerald Jay Sussman\\
+  with Julie Sussman\\
+  \vspace{0.5em}
+  \large
+  foreword by Alan J. Perlis
+  
+\end{center}
+\vspace*{\fill}
+\restoregeometry
 \end{titlepage}

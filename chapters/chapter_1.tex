@@ -592,12 +592,12 @@ The general form of a procedure definition is
 \end{scheme}
 
 \noindent
-The \( \langle\hbox{\sl name}\kern0.08em\rangle \) is a symbol to be associated with the procedure definition in
+The \( \langle \text{\textsl{name}} \rangle \) is a symbol to be associated with the procedure definition in
 the environment.\footnote{Throughout this book, we will describe the general
 syntax of expressions by using italic symbols delimited by angle
 brackets---e.g., \( \langle \)\var{name}\( \kern0.08em\rangle \)---to denote the ``slots'' in the expression to be
-filled in when such an expression is actually used.} The \( \langle\hbox{\sl formal parameters}\kern0.08em\rangle \) are the names used within the body of the procedure to refer to
-the corresponding arguments of the procedure.  The \( \langle\hbox{\sl body}\kern0.08em\rangle \) is an
+filled in when such an expression is actually used.} The \( \langle \text{\textsl{formal parameters}} \rangle \) are the names used within the body of the procedure to refer to
+the corresponding arguments of the procedure.  The \( \langle \text{\textsl{body}} \rangle \) is an
 expression that will yield the value of the procedure application when the
 formal parameters are replaced by the actual arguments to which the procedure
 is applied.\footnote{More generally, the body of the procedure can be a
@@ -968,7 +968,7 @@ predicates.  The three most frequently used are these:
 \begin{itemize}
 
 \item
-\( \hbox{\tt(and }\langle{e_1}\rangle\;\;\dots\;\;\langle{e_n}\rangle\hbox{\tt)} \)
+\( \text{\texttt{(and }} \langle e_1 \rangle \dots \langle e_n \rangle \text{\texttt{)}} \)
 
 The interpreter evaluates the expressions \( \langle{e}\kern0.08em\rangle \) one at a time, in
 left-to-right order.  If any \( \langle{e}\kern0.08em\rangle \) evaluates to false, the value of the
@@ -977,7 +977,7 @@ evaluated.  If all \( \langle{e}\kern0.08em\rangle \)'s evaluate to true values,
 \code{and} expression is the value of the last one.
 
 \item
-\( \hbox{\tt(or }\langle{e_1}\rangle\;\;\dots\;\;\langle{e_n}\rangle\hbox{\tt)} \)
+\( \text{\texttt{(or }} \langle e_1 \rangle \dots \langle e_n \rangle \text{\texttt{)}} \)
 
 The interpreter evaluates the expressions \( \langle{e}\kern0.08em\rangle \) one at a time, in
 left-to-right order.  If any \( \langle{e}\kern0.08em\rangle \) evaluates to a true value, that value is
@@ -986,7 +986,7 @@ returned as the value of the \code{or} expression, and the rest of the
 of the \code{or} expression is false.
 
 \item
-\( \hbox{\tt(not }\langle{e}\rangle\hbox{\tt)} \)
+\( \text{\texttt{(not }} \langle e \rangle \text{\texttt{)}} \)
 
 The value of a \code{not} expression is true when the expression \( \langle{e}\kern0.08em\rangle \)
 evaluates to false, and false otherwise.
@@ -1070,7 +1070,7 @@ into prefix form:
 
 \end{comment}
 
-$${5 + 4 + (2 - (3 - (6 + {4\over5})))\over3(6 - 2)(2 - 7)}.$$
+$$\frac{5 + 4 + (2 - (3 - (6 + \frac{4}{5})))}{3(6 - 2)(2 - 7)}.$$
 
 
 \heading{\phantomsection\label{Exercise 1.3}Exercise 1.3:} Define a procedure that takes three
@@ -1349,7 +1349,7 @@ x/y^2 + 2y
 
 \end{comment}
 
-$${{x / y^2} + 2y \over 3}.$$
+$$\frac{{x / y^2} + 2y}{3}.$$
 
 \noindent
 Use this formula to implement a cube-root procedure analogous to the
@@ -1664,6 +1664,7 @@ observation translates directly into a procedure:
 We can use the substitution model of \link{Section 1.1.5} to watch this
 procedure in action computing 6!, as shown in \link{Figure 1.3}.
 
+% figure 1.3
 \begin{imageFigure}{A linear recursive process for computing 6!.}
   \includegraphics[width=82mm]{assets/figures/chapter_1/figure_1.3c.pdf}
 \end{imageFigure}
@@ -1685,11 +1686,7 @@ counter ~\( \dark \gets \)~ counter + 1
 and stipulating that \( n! \) is the value of the product when the counter
 exceeds \( n \).
 
-\enlargethispage{\baselineskip}
-
-\begin{imageFigure}{A linear iterative process for computing 6!.}
-  \includegraphics[width=36mm]{assets/figures/chapter_1/figure_1.4c.pdf}
-\end{imageFigure}
+% \enlargethispage{\baselineskip}
 
 Once again, we can recast our description as a procedure for computing
 factorials:\footnote{In a real program we would probably use the block
@@ -1723,6 +1720,11 @@ about at once.}
 \noindent
 As before, we can use the substitution model to visualize the process of
 computing 6!, as shown in \link{Figure 1.4}.
+
+% figure 1.4
+\begin{imageFigure}{A linear iterative process for computing 6!.}
+  \includegraphics[width=36mm]{assets/figures/chapter_1/figure_1.4c.pdf}
+\end{imageFigure}
 
 Compare the two processes.  From one point of view, they seem hardly different
 at all.  Both compute the same mathematical function on the same domain, and
@@ -1929,7 +1931,7 @@ to \( \varphi^n / \sqrt{5} \), where
 
 \end{comment}
 
-$$\varphi = {1 + \sqrt{5}\over2} \approx 1.6180 $$
+$$\varphi = \frac{1 + \sqrt{5}}{2} \approx 1.6180 $$
 
 \noindent
 is the \newterm{golden ratio}, which satisfies the equation
@@ -2251,7 +2253,7 @@ sin x = 3 sin --- - 4 sin^3 ---
 
 \end{comment}
 
-$$\sin x = 3\sin {x\over3} - 4\sin^3 {x\over3} $$
+$$\sin x = 3\sin \frac{x}{3} - 4\sin^3 \frac{x}{3} $$
 
 \noindent
 to reduce the size of the argument of sin.  (For purposes of this
@@ -3046,12 +3048,12 @@ The third computes the sum of a sequence of terms in the series
 
 \end{comment}
 
-$$ {1\over1\cdot 3} +  {1\over5\cdot 7} + {1\over9\cdot 11} + \dots, $$
+$$ \frac{1}{1\cdot 3} +  \frac{1}{5\cdot 7} + \frac{1}{9\cdot 11} + \dots, $$
 
 \noindent
 which converges to \( \pi / 8 \) (very slowly):\footnote{This series, usually
 written in the equivalent form
-\( {\pi\over4} = 1 - {1\over3} + {1\over5} - {1\over7} + \dots \),
+\( \frac{\pi}{4} = 1 - \frac{1}{3} + \frac{1}{5} - \frac{1}{7} + \dots \),
 is due to Leibniz.  We'll see how to use this as the basis for some
 fancy numerical tricks in \link{Section 3.5.3}.}
 
@@ -3195,9 +3197,9 @@ formula
 
 \end{comment}
 
-$${\int_a^b \!\!\! f} = {\left[\;f\! \left(a + {dx \over 2}\right)
-		+ f\! \left(a + dx + {dx \over 2}\right)
-		+ f\! \left(a + 2dx + {dx \over 2}\right) + \,\dots \;\right]\! dx} $$
+$${\int_a^b \!\!\! f} = {\left[\;f\! \left(a + \frac{dx}{2}\right)
+		+ f\! \left(a + dx + \frac{dx}{2}\right)
+		+ f\! \left(a + 2dx + \frac{dx}{2}\right) + \,\dots \;\right]\! dx} $$
 
 \noindent
 for small values of \( dx \).  We can express this directly as a procedure:
@@ -3234,7 +3236,7 @@ h
 
 \end{comment}
 
-$$ {h\over 3}(y_0 + 4y_1 + 2y_2 + 4y_3 + 2y_4 + \dots + 2y_{n-2} + 4y_{n-1} + y_n), $$
+$$ \frac{h}{3}(y_0 + 4y_1 + 2y_2 + 4y_3 + 2y_4 + \dots + 2y_{n-2} + 4y_{n-1} + y_n), $$
 
 \noindent
 where \( h = (b - a) / n \), for some even integer \( n \), and
@@ -3289,8 +3291,10 @@ pi   2 * 4 * 4 * 6 * 6 * 8 ...
 
 \end{comment}
 
-$$ {\pi\over 4} = {2\cdot 4\cdot 4\cdot 6\cdot 6\cdot 8\cdots\over
-		   3\cdot 3\cdot 5\cdot 5\cdot 7\cdot 7\cdots}\,. $$
+$$ \frac{\pi}{4}
+=
+\frac{2\cdot 4\cdot 4\cdot 6\cdot 6\cdot 8\cdots}%
+{3\cdot 3\cdot 5\cdot 5\cdot 7\cdot 7\cdots}\,. $$
 
 \item
 If your \code{product} procedure generates a recursive process, write one that
@@ -3855,10 +3859,10 @@ One way to control such oscillations is to prevent the guesses from changing so
 much.  Since the answer is always between our guess \( y \) and \( x / y \), we
 can make a new guess that is not as far from \( y \) as \( x / y \) by averaging
 \( y \) with \( x / y \), so that the next guess after \( y \) is
-\( {1\over2}(y + x / y) \)
+\( \frac{1}{2}(y + x / y) \)
 instead of \( x / y \).  The process of making such a sequence of
 guesses is simply the process of looking for a fixed point of
-\( y \mapsto {1\over2}(y + x / y) \):
+\( y \mapsto \frac{1}{2}(y + x / y) \):
 
 \begin{scheme}
 (define (sqrt x)
@@ -3867,7 +3871,7 @@ guesses is simply the process of looking for a fixed point of
 \end{scheme}
 
 \noindent
-(Note that \( y = {1\over2}(y + x / y) \) is a simple transformation of the
+(Note that \( y = \frac{1}{2}(y + x / y) \) is a simple transformation of the
 equation \( y = x / y; \) to derive it, add \( y \) to both sides of the
 equation and divide by 2.)
 
@@ -4082,7 +4086,7 @@ f(x) = x - -----
 
 \end{comment}
 
-$$ {f(x) = x} - {g(x)\over Dg(x)} $$
+$$ {f(x) = x} - \frac{g(x)}{Dg(x)} $$
 
 \noindent
 and \( Dg(x) \) is the derivative of \( g \) evaluated at \( x \).  Newton's
@@ -4117,7 +4121,7 @@ Dg(x) = ----------------
 
 \end{comment}
 
-$$ {Dg(x)} = {g(x + {\it dx}) - g(x) \over {\it dx}}\,. $$
+$$ {Dg(x)} = \frac{g(x + {\it dx}) - g(x)}{{\it dx}}\,. $$
 
 \noindent
 Thus, we can express the idea of derivative (taking \( dx \) to be, say,
