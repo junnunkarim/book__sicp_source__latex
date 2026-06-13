@@ -1,14 +1,39 @@
 \input{preamble/packages}
-\input{preamble/commons}
 
-\input{preamble/layout}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% colors
+% ------
+%
+\definecolor{DeepGray}{HTML}{464646}
+\definecolor{MediumGray}{HTML}{686868}
+\definecolor{LightGray}{HTML}{8B8B8B}
+
+\definecolor{LinkRed}{HTML}{80171F}
+
+% code colors
+\definecolor{SchemeLight}{HTML}{686868}
+\definecolor{SchemeSteel}{HTML}{888888}
+\definecolor{SchemeDark}{HTML}{262626}
+\definecolor{SchemeBlue}{HTML}{4172A3}
+\definecolor{SchemeGreen}{HTML}{487818}
+\definecolor{SchemeBrown}{HTML}{A07040}
+\definecolor{SchemeRed}{HTML}{AD4D3A}
+\definecolor{SchemeViolet}{HTML}{7040A0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{preamble/components}
 \input{preamble/header}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % multi-language
 \setdefaultlanguage[variant=american]{english}
 \setotherlanguages{greek}
 
-% from package: hyperref
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % customize link colors
 \hypersetup{
   pdfauthor={Harold Abelson, Gerald Jay Sussman, Julie Sussman},
@@ -19,31 +44,48 @@
   urlcolor=LinkRed,
 }
 
-% lettrine - oversized initial letter
-% package: lettrine
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% vertical spacing between paragraphs
+\setlength{\parskip}{0.2\baselineskip plus 0.1ex minus 0.1ex}
+
+% make space after all punctuation identical to the space between words in the
+% middle of a sentence.
+\frenchspacing
+
+% 3 -> upto subsubsection
+% depth level up to which section headings are automatically numbered.
+\setcounter{secnumdepth}{3}
+% depth level up to which toc content is displayed.
+\setcounter{tocdepth}{3}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% lettrine -> drop letter at the start of paragraph
 \renewcommand{\LettrineFontHook}{\color{MediumGray}}
 \LettrineRealHeighttrue
 % indentation of paragraphs around lettrine
 \setlength{\DefaultFindent}{1pt}
 \setlength{\DefaultNindent}{0em}
 
-% vertical spacing between paragraphs
-\setlength{\parskip}{0.2\baselineskip plus 0.1ex minus 0.1ex}
-% \setlength{\parindent}{2em}
-
-% make space after all punctuation identical to the space between words in the
-% middle of a sentence.
-\frenchspacing
-
-% depth level up to which section headings are automatically numbered.
-\setcounter{secnumdepth}{3} % 3 -> upto subsubsection
-% depth level up to which toc content is displayed
-\setcounter{tocdepth}{3} % 3 -> upto subsubsection
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \input{preamble/title}
 \input{preamble/toc}
 \input{preamble/figure}
+\input{preamble/quotes}
 \input{preamble/syntaxhighlight}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% footnote style
+\renewcommand*{\footnoterule}{%
+  \kern -3pt
+  {\color{MediumGray}\hrule width 0.6\textwidth height 0.4pt}
+  \kern 2.6pt
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % index style
 \idxlayout{%

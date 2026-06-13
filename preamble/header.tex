@@ -1,3 +1,7 @@
+% --- title formats ---
+% ---------------------
+%
+% package: fancyhdr
 \let\currentChapter\leftmark
 \let\currentSection\rightmark
 % if currentSection is empty, use currentChapter
@@ -21,7 +25,8 @@
 
 \pagestyle{fancy}
 
-\fancyhf{} % clear all header/footer styles
+% clear all header/footer styles
+\fancyhf{}
 
 \renewcommand{\headrulewidth}{0.0pt}
 \renewcommand{\chaptermark}[1]{%

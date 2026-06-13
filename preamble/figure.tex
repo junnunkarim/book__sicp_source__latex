@@ -7,7 +7,9 @@
 % label format -> Figure 1.1, Figure 2.12 etc.
 \labelformat{figure}{Figure~#1}
 
-% list of figures, gap before title
+% "list of figures", title style
+\renewcommand{\cftloftitlefont}{\sffamily\Large\bfseries}
+% "list of figures", gap before title
 \setlength{\cftbeforeloftitleskip}{-2\baselineskip} 
 
 % caption style
@@ -20,7 +22,25 @@
   singlelinecheck=false
 }
 
-% list of figures, title style
-\renewcommand{\cftloftitlefont}{\sffamily\Large\bfseries}
-%
-% --------------
+\NewDocumentEnvironment{imageFigure}{m}{
+  \begin{figure}[htbp]%
+    \begin{center}%
+}{
+    \end{center}%
+    \caption{#1}%
+    \phantomsection%
+    \label{Figure \thefigure}%
+  \end{figure}
+}
+
+\NewDocumentEnvironment{codeFigure}{m}{
+  \begin{flushleft}
+    \vspace{2ex}
+    \needspace{3\baselineskip}
+    \captionof{figure}{\( \downarrow \) #1}%
+    \phantomsection%
+    \label{Figure \thefigure}
+    \nopagebreak
+}{
+  \end{flushleft}
+}

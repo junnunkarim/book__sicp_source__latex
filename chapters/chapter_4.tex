@@ -77,10 +77,10 @@ the language, performs the actions required to evaluate that expression.
 It is no exaggeration to regard this as the most fundamental idea in
 programming:
 
-\begin{quote}
+\begin{niceQuote}
 The evaluator, which determines the meaning of expressions in a programming
 language, is just another program.
-\end{quote}
+\end{niceQuote}
 
 \noindent
 To appreciate this point is to change our images of ourselves as programmers.
@@ -335,17 +335,19 @@ application.
 \noindent
 Here is the definition of \code{eval}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (eval exp env)
   (cond ((self-evaluating? exp) exp)
-        ((variable? exp) (lookup-variable-value exp env))
+        ((variable? exp) (lookup-variable-value exp
+                                                env))
         ((quoted? exp) (text-of-quotation exp))
         ((assignment? exp) (eval-assignment exp env))
         ((definition? exp) (eval-definition exp env))
         ((if? exp) (eval-if exp env))
-        ((lambda? exp) (make-procedure (lambda-parameters exp)
-                                       (lambda-body exp)
-                                       env))
+        ((lambda? exp)
+          (make-procedure (lambda-parameters exp)
+                          (lambda-body exp)
+                          env))
         ((begin? exp)
          (eval-sequence (begin-actions exp) env))
         ((cond? exp) (eval (cond->if exp) env))
@@ -354,7 +356,7 @@ Here is the definition of \code{eval}:
                 (list-of-values (operands exp) env)))
         (else
          (error "Unknown expression type: EVAL" exp))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 For clarity, \code{eval} has been implemented as a case analysis using
@@ -378,10 +380,11 @@ carried by the procedure to include a frame that binds the parameters of the
 procedure to the arguments to which the procedure is to be applied.  Here is
 the definition of \code{apply}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (apply procedure arguments)
   (cond ((primitive-procedure? procedure)
-         (apply-primitive-procedure procedure arguments))
+         (apply-primitive-procedure procedure
+                                    arguments))
         ((compound-procedure? procedure)
          (eval-sequence
            (procedure-body procedure)
@@ -392,7 +395,7 @@ the definition of \code{apply}:
         (else
          (error
           "Unknown procedure type: APPLY" procedure))))
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection*{Procedure arguments}
 
@@ -409,13 +412,13 @@ thus could be written in a language that doesn't have higher-order procedures),
 even though the language that it supports will include higher-order
 procedures.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (list-of-values exps env)
   (if (no-operands? exps)
       '()
       (cons (eval (first-operand exps) env)
             (list-of-values (rest-operands exps) env))))
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection*{Conditionals}
 
@@ -423,12 +426,12 @@ procedures.}
 given environment.  If the result is true, \code{eval\-/if} evaluates the
 consequent, otherwise it evaluates the alternative:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (eval-if exp env)
   (if (true? (eval (if-predicate exp) env))
       (eval (if-consequent exp) env)
       (eval (if-alternative exp) env)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The use of \code{true?} in \code{eval\-/if} highlights the issue of the
@@ -450,14 +453,14 @@ expressions in a \code{begin} expression.  It takes as arguments a sequence of
 expressions and an environment, and evaluates the expressions in the order in
 which they occur.  The value returned is the value of the final expression.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (eval-sequence exps env)
   (cond ((last-exp? exps)
          (eval (first-exp exps) env))
         (else
          (eval (first-exp exps) env)
          (eval-sequence (rest-exps exps) env))))
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection*{Assignments and definitions}
 
@@ -466,13 +469,14 @@ to find the value to be assigned and transmits the variable and the resulting
 value to \code{set\-/variable\-/value!} to be installed in the designated
 environment.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (eval-assignment exp env)
   (set-variable-value! (assignment-variable exp)
-                       (eval (assignment-value exp) env)
+                       (eval (assignment-value exp)
+                             env)
                        env)
   'ok)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Definitions of variables are handled in a similar manner.\footnote{This
@@ -480,13 +484,13 @@ implementation of \code{define} ignores a subtle issue in the handling of
 internal definitions, although it works correctly in most cases.  We will see
 what the problem is and how to solve it in \link{Section 4.1.6}.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (eval-definition exp env)
   (define-variable! (definition-variable exp)
                     (eval (definition-value exp) env)
                     env)
   'ok)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We have chosen here to return the symbol \code{ok} as the value of an
@@ -494,8 +498,8 @@ assignment or a definition.\footnote{As we said when we introduced
 \code{define} and \code{set!}, these values are implementation-dependent in
 Scheme---that is, the implementor can choose what value to return.}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 4.1}Exercise 4.1:} Notice that we cannot tell whether
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 4.1}Exercise 4.1:} Notice that we cannot tell whether
 the metacircular evaluator evaluates operands from left to right or from right
 to left.  Its evaluation order is inherited from the underlying Lisp: If the
 arguments to \code{cons} in \code{list\-/of\-/values} are evaluated from left to
@@ -506,7 +510,7 @@ and if the arguments to \code{cons} are evaluated from right to left, then
 Write a version of \code{list\-/of\-/values} that evaluates operands from left to
 right regardless of the order of evaluation in the underlying Lisp.  Also write
 a version of \code{list\-/of\-/values} that evaluates operands from right to left.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Representing Expressions}
 \label{Section 4.1.2}
@@ -531,19 +535,19 @@ Here is the specification of the syntax of our language:
 \item
 The only self-evaluating items are numbers and strings:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (self-evaluating? exp)
   (cond ((number? exp) true)
         ((string? exp) true)
         (else false)))
-\end{scheme}
+\end{codeBlock}
 
 \item
 Variables are represented by symbols:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (variable? exp) (symbol? exp))
-\end{scheme}
+\end{codeBlock}
 
 \item
 Quotations have the form \code{(quote \( \langle \)\var{text\-/of\-/quotation}\( \rangle \))}:\footnote{As
@@ -552,58 +556,59 @@ list beginning with \code{quote}, even if the expression is typed with the
 quotation mark.  For example, the expression \code{'a} would be seen by the
 evaluator as \code{(quote a)}.  See \link{Exercise 2.55}.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (quoted? exp) (tagged-list? exp 'quote))
 (define (text-of-quotation exp) (cadr exp))
-\end{scheme}
+\end{codeBlock}
 
 \code{quoted?} is defined in terms of the procedure \code{tagged\-/list?}, which
 identifies lists beginning with a designated symbol:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (tagged-list? exp tag)
   (if (pair? exp)
       (eq? (car exp) tag)
       false))
-\end{scheme}
+\end{codeBlock}
 
 \item
 Assignments have the form \code{(set! \( \langle \)\var{var}\( \rangle \)
 \( \langle \)\var{value}\( \rangle \))}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (assignment? exp) (tagged-list? exp 'set!))
 (define (assignment-variable exp) (cadr exp))
 (define (assignment-value exp) (caddr exp))
-\end{scheme}
+\end{codeBlock}
 
 \item
 Definitions have the form
 
-\begin{scheme}
-(define ~\( \dark \langle \)~~\var{\dark var}~~\( \dark \rangle \)~ ~\( \dark \langle \)~~\var{\dark value}~~\( \dark \rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(define ~\(\langle \)~~\var{var}~~\(\rangle \)~ ~\(\langle \)~~\var{value}~~\(\rangle \)~)
+\end{codeBlock}
 
 \noindent
 or the form
 
-\begin{scheme}
-(define (~\( \dark \langle \)~~\var{\dark var}~~\( \dark \rangle \)~ ~\( \dark \langle \)~~\var{\dark parameter}~~\( \dark _{\mono{1}}\rangle \)~ ~\( \dots \)~ ~\( \dark \langle \)~~\var{\dark parameter}~~\( \dark _{\monoit{n}}\rangle \)~)
-  ~\( \dark \langle \)~~\var{\dark body}~~\( \dark \rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(define (~\(\langle \)~~\var{var}~~\(\rangle \)~ ~\(\langle \)~~\var{parameter}~~\(_{\mono{1}}\rangle \)~ ~\( \dots \)~ ~\(\langle \)~~\var{parameter}~~\(_{\monoItalic{n}}\rangle \)~)
+  ~\(\langle \)~~\var{body}~~\(\rangle \)~)
+\end{codeBlock}
 
 The latter form (standard procedure definition) is syntactic sugar for
 
-\begin{scheme}
-(define ~\( \dark \langle \)~~\var{\dark var}~~\( \dark \rangle \)~
-  (lambda (~\( \dark \langle \)~~\var{\dark parameter}~~\( \dark _{\mono{1}}\rangle \)~ ~\( \dots \)~ ~\( \dark \langle \)~~\var{\dark parameter}~~\( \dark _{\monoit{n}}\rangle \)~)
-    ~\( \dark \langle \)~~\var{\dark body}~~\( \dark \rangle \)~))
-\end{scheme}
+\begin{codeBlock}
+(define ~\(\langle \)~~\var{var}~~\(\rangle \)~
+  (lambda (~\(\langle \)~~\var{parameter}~~\(_{\mono{1}}\rangle \)~ ~\( \dots \)~ ~\(\langle \)~~\var{parameter}~~\(_{\monoItalic{n}}\rangle \)~)
+    ~\(\langle \)~~\var{body}~~\(\rangle \)~))
+\end{codeBlock}
 
 The corresponding syntax procedures are the following:
 
-\begin{scheme}
-(define (definition? exp) (tagged-list? exp 'define))
+\begin{codeBlock}
+(define (definition? exp) (tagged-list? exp
+                                        'define))
 (define (definition-variable exp)
   (if (symbol? (cadr exp))
       (cadr exp)
@@ -613,24 +618,24 @@ The corresponding syntax procedures are the following:
       (caddr exp)
       (make-lambda (cdadr exp)     ~\textrm{; formal parameters}~
                    (cddr exp))))   ~\textrm{; body}~
-\end{scheme}
+\end{codeBlock}
 
 \item
 \code{lambda} expressions are lists that begin with the symbol \code{lambda}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (lambda? exp) (tagged-list? exp 'lambda))
 (define (lambda-parameters exp) (cadr exp))
 (define (lambda-body exp) (cddr exp))
-\end{scheme}
+\end{codeBlock}
 
 We also provide a constructor for \code{lambda} expressions, which is used by
 \code{definition\-/value}, above:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-lambda parameters body)
   (cons 'lambda (cons parameters body)))
-\end{scheme}
+\end{codeBlock}
 
 \item
 Conditionals begin with \code{if} and have a predicate, a consequent, and an
@@ -641,7 +646,7 @@ Scheme; we have chosen here to make it false.  We will support the use of the
 variables \code{true} and \code{false} in expressions to be evaluated by
 binding them in the global environment.  See \link{Section 4.1.4}.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (if? exp) (tagged-list? exp 'if))
 (define (if-predicate exp) (cadr exp))
 (define (if-consequent exp) (caddr exp))
@@ -649,16 +654,16 @@ binding them in the global environment.  See \link{Section 4.1.4}.}
   (if (not (null? (cdddr exp)))
       (cadddr exp)
       'false))
-\end{scheme}
+\end{codeBlock}
 
 We also provide a constructor for \code{if} expressions, to be used by
 \code{cond\-/>if} to transform \code{cond} expressions into \code{if}
 expressions:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-if predicate consequent alternative)
   (list 'if predicate consequent alternative))
-\end{scheme}
+\end{codeBlock}
 
 \item
 \code{begin} packages a sequence of expressions into a single expression.  We
@@ -671,39 +676,39 @@ abstraction.  They are introduced as mnemonic names for the basic list
 operations in order to make it easier to understand the explicit-control
 evaluator in \link{Section 5.4}.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (begin? exp) (tagged-list? exp 'begin))
 (define (begin-actions exp) (cdr exp))
 (define (last-exp? seq) (null? (cdr seq)))
 (define (first-exp seq) (car seq))
 (define (rest-exps seq) (cdr seq))
-\end{scheme}
+\end{codeBlock}
 
 We also include a constructor \code{sequence\-/>exp} (for use by \code{cond\-/>if})
 that transforms a sequence into a single expression, using \code{begin} if
 necessary:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sequence->exp seq)
   (cond ((null? seq) seq)
         ((last-exp? seq) (first-exp seq))
         (else (make-begin seq))))
 (define (make-begin seq) (cons 'begin seq))
-\end{scheme}
+\end{codeBlock}
 
 \item
 A procedure application is any compound expression that is not one of the above
 expression types.  The \code{car} of the expression is the operator, and the
 \code{cdr} is the list of operands:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (application? exp) (pair? exp))
 (define (operator exp) (car exp))
 (define (operands exp) (cdr exp))
 (define (no-operands? ops) (null? ops))
 (define (first-operand ops) (car ops))
 (define (rest-operands ops) (cdr ops))
-\end{scheme}
+\end{codeBlock}
 
 \end{itemize}
 
@@ -715,23 +720,23 @@ example is \code{cond}, which can be implemented as a nest of \code{if}
 expressions.  For example, we can reduce the problem of evaluating the
 expression
 
-\begin{scheme}
+\begin{codeBlock}
 (cond ((> x 0) x)
       ((= x 0) (display 'zero) 0)
       (else (- x)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 to the problem of evaluating the following expression involving \code{if} and
 \code{begin} expressions:
 
-\begin{scheme}
+\begin{codeBlock}
 (if (> x 0)
     x
     (if (= x 0)
         (begin (display 'zero) 0)
         (- x)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Implementing the evaluation of \code{cond} in this way simplifies the evaluator
@@ -747,7 +752,7 @@ value of a \code{cond} expression when all the predicates are false and there
 is no \code{else} clause is unspecified in Scheme; we have chosen here to make
 it false.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (cond? exp) (tagged-list? exp 'cond))
 (define (cond-clauses exp) (cdr exp))
 (define (cond-else-clause? clause)
@@ -763,12 +768,14 @@ it false.}
         (if (cond-else-clause? first)
             (if (null? rest)
                 (sequence->exp (cond-actions first))
-                (error "ELSE clause isn't last: COND->IF"
-                       clauses))
+                (error
+                  "ELSE clause isn't last: COND->IF"
+                  clauses))
             (make-if (cond-predicate first)
-                     (sequence->exp (cond-actions first))
+                     (sequence->exp
+                       (cond-actions first))
                      (expand-clauses rest))))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Expressions (such as \code{cond}) that we choose to implement as syntactic
@@ -783,8 +790,8 @@ name-conflict problems.  There has been much research on mechanisms for macro
 definition that do not cause these difficulties.  See, for example, \link{Kohlbecker 1986},
 \link{Clinger and Rees 1991}, and \link{Hanson 1991}.}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 4.2}Exercise 4.2:} Louis Reasoner plans to reorder the
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 4.2}Exercise 4.2:} Louis Reasoner plans to reorder the
 \code{cond} clauses in \code{eval} so that the clause for procedure
 applications appears before the clause for assignments.  He argues that this
 will make the interpreter more efficient: Since programs usually contain more
@@ -809,13 +816,13 @@ factorial 3)} and instead of \code{(+ 1 2)} we will have to write \code{(call +
 
 \end{enumerate}
 
-\heading{\phantomsection\label{Exercise 4.3}Exercise 4.3:} Rewrite \code{eval} so that the
+\exerciseHeading{\phantomsection\label{Exercise 4.3}Exercise 4.3:} Rewrite \code{eval} so that the
 dispatch is done in data-directed style.  Compare this with the data-directed
 differentiation procedure of \link{Exercise 2.73}.  (You may use the \code{car}
 of a compound expression as the type of the expression, as is appropriate for
 the syntax implemented in this section.)
 
-\heading{\phantomsection\label{Exercise 4.4}Exercise 4.4:} Recall the definitions of the
+\exerciseHeading{\phantomsection\label{Exercise 4.4}Exercise 4.4:} Recall the definitions of the
 special forms \code{and} and \code{or} from \link{Chapter 1}:
 
 \begin{itemize}
@@ -840,55 +847,55 @@ defining appropriate syntax procedures and evaluation procedures
 \code{eval\-/and} and \code{eval\-/or}.  Alternatively, show how to implement
 \code{and} and \code{or} as derived expressions.
 
-\heading{\phantomsection\label{Exercise 4.5}Exercise 4.5:} Scheme allows an additional syntax
+\exerciseHeading{\phantomsection\label{Exercise 4.5}Exercise 4.5:} Scheme allows an additional syntax
 for \code{cond} clauses, \code{(\( \langle \)\var{test}\( \rangle \) => \( \langle \)\var{recipient}\( \rangle \))}.  If
 \( \langle \)\var{test}\( \kern0.08em\rangle \) evaluates to a true value, then \( \langle \)\var{recipient}\( \kern0.08em\rangle \) is evaluated.
 Its value must be a procedure of one argument; this procedure is then invoked
 on the value of the \( \langle \)\var{test}\( \kern0.08em\rangle \), and the result is returned as the value of
 the \code{cond} expression.  For example
 
-\begin{scheme}
+\begin{codeBlock}
 (cond ((assoc 'b '((a 1) (b 2))) => cadr)
       (else false))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 returns 2.  Modify the handling of \code{cond} so that it supports this
 extended syntax.
 
-\heading{\phantomsection\label{Exercise 4.6}Exercise 4.6:} \code{let} expressions are derived
+\exerciseHeading{\phantomsection\label{Exercise 4.6}Exercise 4.6:} \code{let} expressions are derived
 expressions, because
 
-\begin{scheme}
-(let ((~\( \dark \langle \)~~\var{\dark var}~~\( \dark _{\mono{1}}\rangle \)~ ~\( \dark \langle \)~~\var{\dark exp}~~\( \dark _{\mono{1}}\rangle \)~) ~\( \dots \)~ (~\( \dark \langle \)~~\var{\dark var}~~\( \dark _{\monoit{n}}\rangle \)~ ~\( \dark \langle \)~~\var{\dark exp}~~\( \dark _{\monoit{n}}\rangle \)~))
-  ~\( \dark \langle \)~~\var{\dark body}~~\( \dark \rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(let ((~\(\langle \)~~\var{var}~~\(_{\mono{1}}\rangle \)~ ~\(\langle \)~~\var{exp}~~\(_{\mono{1}}\rangle \)~) ~\( \dots \)~ (~\(\langle \)~~\var{var}~~\(_{\monoItalic{n}}\rangle \)~ ~\(\langle \)~~\var{exp}~~\(_{\monoItalic{n}}\rangle \)~))
+  ~\(\langle \)~~\var{body}~~\(\rangle \)~)
+\end{codeBlock}
 
 \noindent
 is equivalent to
 
-\begin{scheme}
-((lambda (~\( \dark \langle \)~~\var{\dark var}~~\( \dark _{\mono{1}}\rangle \)~ ~\( \dots \)~ ~\( \dark \langle \)~~\var{\dark var}~~\( \dark _{\monoit{n}}\rangle \)~)
-   ~\( \dark \langle \)~~\var{\dark body}~~\( \dark \rangle \)~)
- ~\( \dark \langle \)~~\var{\dark exp}~~\( \dark _{\mono{1}}\rangle \)~
+\begin{codeBlock}
+((lambda (~\(\langle \)~~\var{var}~~\(_{\mono{1}}\rangle \)~ ~\( \dots \)~ ~\(\langle \)~~\var{var}~~\(_{\monoItalic{n}}\rangle \)~)
+   ~\(\langle \)~~\var{body}~~\(\rangle \)~)
+ ~\(\langle \)~~\var{exp}~~\(_{\mono{1}}\rangle \)~
  ~\( \dots \)~
- ~\( \dark \langle \)~~\var{\dark exp}~~\( \dark _{\monoit{n}}\rangle \)~)
-\end{scheme}
+ ~\(\langle \)~~\var{exp}~~\(_{\monoItalic{n}}\rangle \)~)
+\end{codeBlock}
 
 Implement a syntactic transformation \code{let\-/>combination} that reduces
 evaluating \code{let} expressions to evaluating combinations of the type shown
 above, and add the appropriate clause to \code{eval} to handle \code{let}
 expressions.
 
-\heading{\phantomsection\label{Exercise 4.7}Exercise 4.7:} \code{let*} is similar to
+\exerciseHeading{\phantomsection\label{Exercise 4.7}Exercise 4.7:} \code{let*} is similar to
 \code{let}, except that the bindings of the \code{let*} variables are performed
 sequentially from left to right, and each binding is made in an environment in
 which all of the preceding bindings are visible.  For example
 
-\begin{scheme}
+\begin{codeBlock}
 (let* ((x 3)  (y (+ x 2))  (z (+ x y 5)))
   (* x z))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 returns 39.  Explain how a \code{let*} expression can be rewritten as a set of
@@ -897,19 +904,19 @@ that performs this transformation.  If we have already implemented \code{let}
 (\link{Exercise 4.6}) and we want to extend the evaluator to handle \code{let*},
 is it sufficient to add a clause to \code{eval} whose action is
 
-\begin{scheme}
+\begin{codeBlock}
 (eval (let*->nested-lets exp) env)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 or must we explicitly expand \code{let*} in terms of non-derived expressions?
 
-\heading{\phantomsection\label{Exercise 4.8}Exercise 4.8:} ``Named \code{let}'' is a variant
+\exerciseHeading{\phantomsection\label{Exercise 4.8}Exercise 4.8:} ``Named \code{let}'' is a variant
 of \code{let} that has the form
 
-\begin{scheme}
-(let ~\( \dark \langle \)~~\var{\dark var}~~\( \dark \rangle \)~ ~\( \dark \langle \)~~\var{\dark bindings}~~\( \dark \rangle \)~ ~\( \dark \langle \)~~\var{\dark body}~~\( \dark \rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(let ~\(\langle \)~~\var{var}~~\(\rangle \)~ ~\(\langle \)~~\var{bindings}~~\(\rangle \)~ ~\(\langle \)~~\var{body}~~\(\rangle \)~)
+\end{codeBlock}
 
 The \( \langle \)\var{bindings}\( \kern0.08em\rangle \) and \( \langle \)\var{body}\( \kern0.08em\rangle \) are just as in ordinary \code{let},
 except that \( \langle \)\var{var}\( \kern0.08em\rangle \) is bound within \( \langle \)\var{body}\( \kern0.08em\rangle \) to a procedure whose body
@@ -918,7 +925,7 @@ Thus, one can repeatedly execute the \( \langle \)\var{body}\( \kern0.08em\rangl
 named \( \langle \)\var{var}\( \kern0.08em\rangle \).  For example, the iterative Fibonacci procedure
 (\link{Section 1.2.2}) can be rewritten using named \code{let} as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 
 (define (fib n)
   (let fib-iter ((a 1)
@@ -927,12 +934,12 @@ named \( \langle \)\var{var}\( \kern0.08em\rangle \).  For example, the iterativ
     (if (= count 0)
         b
         (fib-iter (+ a b) a (- count 1)))))
-\end{scheme}
+\end{codeBlock}
 
 Modify \code{let\-/>combination} of \link{Exercise 4.6} to also support named
 \code{let}.
 
-\heading{\phantomsection\label{Exercise 4.9}Exercise 4.9:} Many languages support a variety of
+\exerciseHeading{\phantomsection\label{Exercise 4.9}Exercise 4.9:} Many languages support a variety of
 iteration constructs, such as \code{do}, \code{for}, \code{while}, and
 \code{until}.  In Scheme, iterative processes can be expressed in terms of
 ordinary procedure calls, so special iteration constructs provide no essential
@@ -940,12 +947,12 @@ gain in computational power.  On the other hand, such constructs are often
 convenient.  Design some iteration constructs, give examples of their use, and
 show how to implement them as derived expressions.
 
-\heading{\phantomsection\label{Exercise 4.10}Exercise 4.10:} By using data abstraction, we
+\exerciseHeading{\phantomsection\label{Exercise 4.10}Exercise 4.10:} By using data abstraction, we
 were able to write an \code{eval} procedure that is independent of the
 particular syntax of the language to be evaluated.  To illustrate this, design
 and implement a new syntax for Scheme by modifying the procedures in this
 section, without changing \code{eval} or \code{apply}.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Evaluator Data Structures}
 \label{Section 4.1.3}
@@ -961,10 +968,10 @@ and false.
 For conditionals, we accept anything to be true that is not the explicit
 \code{false} object.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (true? x)  (not (eq? x false)))
 (define (false? x) (eq? x false))
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection*{Representing procedures}
 
@@ -995,7 +1002,7 @@ These mechanisms for handling primitives are further described in
 Compound procedures are constructed from parameters, procedure bodies, and
 environments using the constructor \code{make\-/procedure}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-procedure parameters body env)
   (list 'procedure parameters body env))
 (define (compound-procedure? p)
@@ -1003,7 +1010,7 @@ environments using the constructor \code{make\-/procedure}:
 (define (procedure-parameters p) (cadr p))
 (define (procedure-body p) (caddr p))
 (define (procedure-environment p) (cadddr p))
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection*{Operations on Environments}
 
@@ -1048,11 +1055,11 @@ To implement these operations we represent an environment as a list of frames.
 The enclosing environment of an environment is the \code{cdr} of the list.  The
 empty environment is simply the empty list.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (enclosing-environment env) (cdr env))
 (define (first-frame env) (car env))
 (define the-empty-environment '())
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Each frame of an environment is represented as a pair of lists: a list of the
@@ -1063,7 +1070,7 @@ code: \code{set\-/variable\-/value!} and \code{define\-/variable!} use
 frame procedures is to make the environment-manipulation procedures easy to
 read.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-frame variables values)
   (cons variables values))
 (define (frame-variables frame) (car frame))
@@ -1071,7 +1078,7 @@ read.}
 (define (add-binding-to-frame! var val frame)
   (set-car! frame (cons var (car frame)))
   (set-cdr! frame (cons val (cdr frame))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 To extend an environment by a new frame that associates variables with values,
@@ -1079,14 +1086,18 @@ we make a frame consisting of the list of variables and the list of values, and
 we adjoin this to the environment.  We signal an error if the number of
 variables does not match the number of values.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (extend-environment vars vals base-env)
   (if (= (length vars) (length vals))
       (cons (make-frame vars vals) base-env)
       (if (< (length vars) (length vals))
-          (error "Too many arguments supplied" vars vals)
-          (error "Too few arguments supplied" vars vals))))
-\end{scheme}
+          (error "Too many arguments supplied"
+                 vars
+                 vals)
+          (error "Too few arguments supplied"
+                 vars
+                 vals))))
+\end{codeBlock}
 
 \noindent
 To look up a variable in an environment, we scan the list of variables in the
@@ -1095,7 +1106,7 @@ element in the list of values.  If we do not find the variable in the current
 frame, we search the enclosing environment, and so on.  If we reach the empty
 environment, we signal an ``unbound variable'' error.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (lookup-variable-value var env)
   (define (env-loop env)
     (define (scan vars vals)
@@ -1109,14 +1120,14 @@ environment, we signal an ``unbound variable'' error.
           (scan (frame-variables frame)
                 (frame-values frame)))))
   (env-loop env))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 To set a variable to a new value in a specified environment, we scan for the
 variable, just as in \code{lookup\-/variable\-/value}, and change the corresponding
 value when we find it.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (set-variable-value! var val env)
   (define (env-loop env)
     (define (scan vars vals)
@@ -1130,14 +1141,14 @@ value when we find it.
           (scan (frame-variables frame)
                 (frame-values frame)))))
   (env-loop env))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 To define a variable, we search the first frame for a binding for the variable,
 and change the binding if it exists (just as in \code{set\-/variable\-/value!}).
 If no such binding exists, we adjoin one to the first frame.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (define-variable! var val env)
   (let ((frame (first-frame env)))
     (define (scan vars vals)
@@ -1146,7 +1157,7 @@ If no such binding exists, we adjoin one to the first frame.
             ((eq? var (car vars)) (set-car! vals val))
             (else (scan (cdr vars) (cdr vals)))))
     (scan (frame-variables frame) (frame-values frame))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The method described here is only one of many plausible ways to represent
@@ -1164,20 +1175,20 @@ an approach is referred to as \newterm{deep binding}.)  One way to avoid this
 inefficiency is to make use of a strategy called \newterm{lexical addressing},
 which will be discussed in \link{Section 5.5.6}.}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 4.11}Exercise 4.11:} Instead of representing a frame
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 4.11}Exercise 4.11:} Instead of representing a frame
 as a pair of lists, we can represent a frame as a list of bindings, where each
 binding is a name-value pair.  Rewrite the environment operations to use this
 alternative representation.
 
-\heading{\phantomsection\label{Exercise 4.12}Exercise 4.12:} The procedures
+\exerciseHeading{\phantomsection\label{Exercise 4.12}Exercise 4.12:} The procedures
 \code{set\-/variable\-/value!}, \code{define\-/variable!} and
 \code{lookup\-/variable\-/value} can be expressed in terms of more abstract
 procedures for traversing the environment structure.  Define abstractions that
 capture the common patterns and redefine the three procedures in terms of these
 abstractions.
 
-\heading{\phantomsection\label{Exercise 4.13}Exercise 4.13:} Scheme allows us to create new
+\exerciseHeading{\phantomsection\label{Exercise 4.13}Exercise 4.13:} Scheme allows us to create new
 bindings for variables by means of \code{define}, but provides no way to get
 rid of bindings.  Implement for the evaluator a special form
 \code{make\-/unbound!} that removes the binding of a given symbol from the
@@ -1185,7 +1196,7 @@ environment in which the \code{make\-/unbound!} expression is evaluated.  This
 problem is not completely specified.  For example, should we remove only the
 binding in the first frame of the environment?  Complete the specification and
 justify any choices you make.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Running the Evaluator as a Program}
 \label{Section 4.1.4}
@@ -1210,7 +1221,7 @@ can appear in the expressions we will be evaluating.  The global environment
 also includes bindings for the symbols \code{true} and \code{false}, so that
 they can be used as variables in expressions to be evaluated.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (setup-environment)
   (let ([initial-env (extend-environment
                        (primitive-procedure-names)
@@ -1220,7 +1231,7 @@ they can be used as variables in expressions to be evaluated.
     (define-variable! 'false false initial-env)
     initial-env))
 (define the-global-environment (setup-environment))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 It does not matter how we represent the primitive procedure objects, so long as
@@ -1230,11 +1241,11 @@ chosen to represent a primitive procedure as a list beginning with the symbol
 \code{primitive} and containing a procedure in the underlying Lisp that
 implements that primitive.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (primitive-procedure? proc)
   (tagged-list? proc 'primitive))
 (define (primitive-implementation proc) (cadr proc))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{setup\-/environment} will get the primitive names and implementation
@@ -1246,19 +1257,19 @@ metacircular evaluator implements Scheme itself.  Thus, for example, we could
 put \code{(list 'first car)} or \code{(list 'square (lambda (x) (* x x)))} in
 the list of \code{primitive\-/procedures}.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define primitive-procedures
   (list (list 'car car)
         (list 'cdr cdr)
         (list 'cons cons)
         (list 'null? null?)
-        ~\( \dark \langle \)~~\var{\dark more primitives}~~\( \dark \rangle \)~ ))
+        ~\(\langle \)~~\var{more primitives}~~\(\rangle \)~ ))
 (define (primitive-procedure-names)
   (map car primitive-procedures))
 (define (primitive-procedure-objects)
   (map (lambda (proc) (list 'primitive (cadr proc)))
        primitive-procedures))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 To apply a primitive procedure, we simply apply the implementation procedure to
@@ -1273,21 +1284,19 @@ primitive.  One way around this is to rename the metacircular \code{apply} to
 avoid conflict with the name of the primitive procedure.  We have assumed
 instead that we have saved a reference to the underlying \code{apply} by doing
 
-\begin{smallscheme}
+\begin{compactCodeBlock}
 (define apply-in-underlying-scheme apply)
-\end{smallscheme}
+\end{compactCodeBlock}
 
 \noindent
 before defining the metacircular \code{apply}.  This allows us to access the
 original version of \code{apply} under a different name.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (apply-primitive-procedure proc args)
   (apply-in-underlying-scheme
    (primitive-implementation proc) args))
-\end{scheme}
-
-\enlargethispage{\baselineskip}
+\end{codeBlock}
 
 \noindent
 For convenience in running the metacircular evaluator, we provide a
@@ -1303,7 +1312,7 @@ next complete expression that is typed.  For example, if the user types
 \code{read} returns a two-element list containing the symbol \code{quote} and
 the symbol \code{x}.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define input-prompt  ";;; M-Eval input:")
 (define output-prompt ";;; M-Eval value:")
 (define (driver-loop)
@@ -1317,14 +1326,14 @@ the symbol \code{x}.}
   (newline) (newline) (display string) (newline))
 (define (announce-output string)
   (newline) (display string) (newline))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We use a special printing procedure, \code{user\-/print}, to avoid printing the
 environment part of a compound procedure, which may be a very long list (or may
 even contain cycles).
 
-\begin{scheme}
+\begin{codeBlock}
 (define (user-print object)
   (if (compound-procedure? object)
       (display (list 'compound-procedure
@@ -1332,13 +1341,13 @@ even contain cycles).
                      (procedure-body object)
                      '<procedure-env>))
       (display object)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Now all we need to do to run the evaluator is to initialize the global
 environment and start the driver loop.  Here is a sample interaction:
 
-\begin{scheme}
+\begin{codeBlock}
 (define the-global-environment (setup-environment))
 (driver-loop)
 
@@ -1353,16 +1362,16 @@ environment and start the driver loop.  Here is a sample interaction:
 (append '(a b c) '(d e f))
 ~\textit{;;; M-Eval value:}~
 ~\textit{(a b c d e f)}~
-\end{scheme}
+\end{codeBlock}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 4.14}Exercise 4.14:} Eva Lu Ator and Louis Reasoner
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 4.14}Exercise 4.14:} Eva Lu Ator and Louis Reasoner
 are each experimenting with the metacircular evaluator.  Eva types in the
 definition of \code{map}, and runs some test programs that use it.  They work
 fine.  Louis, in contrast, has installed the system version of \code{map} as a
 primitive for the metacircular evaluator.  When he tries it, things go terribly
 wrong.  Explain why Louis's \code{map} fails even though Eva's works.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Data as Programs}
 \label{Section 4.1.5}
@@ -1372,10 +1381,10 @@ might be helpful.  One operational view of the meaning of a program is that a
 program is a description of an abstract (perhaps infinitely large) machine.
 For example, consider the familiar program to compute factorials:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (factorial n)
   (if (= n 1) 1 (* (factorial (- n 1)) n)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We may regard this program as the description of a machine containing parts
@@ -1466,16 +1475,16 @@ we saw earlier is not identical to the metacircular \code{apply}, because it
 uses actual Scheme procedures rather than the procedure objects we constructed
 in \link{Section 4.1.3} and \link{Section 4.1.4}.} Thus,
 
-\begin{scheme}
+\begin{codeBlock}
 (eval '(* 5 5) user-initial-environment)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 and
 
-\begin{scheme}
+\begin{codeBlock}
 (eval (cons '* (list 5 5)) user-initial-environment)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 will both return 25.\footnote{The \acronym{MIT} implementation of Scheme
@@ -1483,8 +1492,8 @@ includes \code{eval}, as well as a symbol \code{user\-/initial\-/environment} th
 is bound to the initial environment in which the user's input expressions are
 evaluated.}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 4.15}Exercise 4.15:} Given a one-argument procedure
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 4.15}Exercise 4.15:} Given a one-argument procedure
 \code{p} and an object \code{a}, \code{p} is said to ``halt'' on \code{a} if
 evaluating the expression \code{(p a)} returns a value (as opposed to
 terminating with an error message or running forever).  Show that it is
@@ -1493,11 +1502,11 @@ impossible to write a procedure \code{halts?} that correctly determines whether
 the following reasoning: If you had such a procedure \code{halts?}, you could
 implement the following program:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (run-forever) (run-forever))
 (define (try p)
   (if (halts? p p) (run-forever) 'halted))
-\end{scheme}
+\end{codeBlock}
 
 Now consider evaluating the expression \code{(try try)} and show that any
 possible outcome (either halting or running forever) violates the intended
@@ -1507,7 +1516,7 @@ is given a procedure object, notice that this reasoning still applies even if
 This is Turing's celebrated \newterm{Halting Theorem}, which gave the first
 clear example of a \newterm{non-computable} problem, i.e., a well-posed task
 that cannot be carried out as a computational procedure.}
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Internal Definitions}
 \label{Section 4.1.6}
@@ -1523,12 +1532,12 @@ not be the best way to define local variables.
 
 Consider a procedure with internal definitions, such as
 
-\begin{scheme}
+\begin{codeBlock}
 (define (f x)
   (define (even? n) (if (= n 0) true  (odd?  (- n 1))))
   (define (odd? n)  (if (= n 0) false (even? (- n 1))))
-  ~\( \dark \langle \)~~\var{\dark rest of body of \code{f}}~~\( \dark \rangle \)~)
-\end{scheme}
+  ~\(\langle \)~~\var{rest of body of \code{f}}~~\(\rangle \)~)
+\end{codeBlock}
 
 \noindent
 Our intention here is that the name \code{odd?} in the body of the procedure
@@ -1574,24 +1583,24 @@ eliminate all the internal definitions in the body.  The internally defined
 variables will be created with a \code{let} and then set to their values by
 assignment.  For example, the procedure
 
-\begin{scheme}
-(lambda ~\( \dark \langle \)~~\var{\dark vars}~~\( \dark \rangle \)~
-  (define u ~\( \dark \langle \)~~\var{\dark e1}~~\( \dark \rangle \)~)
-  (define v ~\( \dark \langle \)~~\var{\dark e2}~~\( \dark \rangle \)~)
-  ~\( \dark \langle \)~~\var{\dark e3}~~\( \dark \rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(lambda ~\(\langle \)~~\var{vars}~~\(\rangle \)~
+  (define u ~\(\langle \)~~\var{e1}~~\(\rangle \)~)
+  (define v ~\(\langle \)~~\var{e2}~~\(\rangle \)~)
+  ~\(\langle \)~~\var{e3}~~\(\rangle \)~)
+\end{codeBlock}
 
 \noindent
 would be transformed into
 
-\begin{scheme}
-(lambda ~\( \dark \langle \)~~\var{\dark vars}~~\( \dark \rangle \)~
+\begin{codeBlock}
+(lambda ~\(\langle \)~~\var{vars}~~\(\rangle \)~
   (let ((u '*unassigned*)
         (v '*unassigned*))
-    (set! u ~\( \dark \langle \)~~\var{\dark e1}~~\( \dark \rangle \)~)
-    (set! v ~\( \dark \langle \)~~\var{\dark e2}~~\( \dark \rangle \)~)
-    ~\( \dark \langle \)~~\var{\dark e3}~~\( \dark \rangle \)~))
-\end{scheme}
+    (set! u ~\(\langle \)~~\var{e1}~~\(\rangle \)~)
+    (set! v ~\(\langle \)~~\var{e2}~~\(\rangle \)~)
+    ~\(\langle \)~~\var{e3}~~\(\rangle \)~))
+\end{codeBlock}
 
 \noindent
 where \code{*unassigned*} is a special symbol that causes looking up a variable
@@ -1608,8 +1617,8 @@ enforce it.  Some Scheme implementations, including \acronym{MIT} Scheme, use
 the transformation shown above.  Thus, some programs that don't obey this
 restriction will in fact run in such implementations.}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 4.16}Exercise 4.16:} In this exercise we implement the
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 4.16}Exercise 4.16:} In this exercise we implement the
 method just described for interpreting internal definitions.  We assume that
 the evaluator supports \code{let} (see \link{Exercise 4.6}).
 
@@ -1631,7 +1640,7 @@ Which place is better?  Why?
 
 \end{enumerate}
 
-\heading{\phantomsection\label{Exercise 4.17}Exercise 4.17:} Draw diagrams of the environment
+\exerciseHeading{\phantomsection\label{Exercise 4.17}Exercise 4.17:} Draw diagrams of the environment
 in effect when evaluating the expression \( \langle \)\var{e3}\( \kern0.1em\rangle \) in the procedure in the
 text, comparing how this will be structured when definitions are interpreted
 sequentially with how it will be structured if definitions are scanned out as
@@ -1641,46 +1650,44 @@ behavior of a correct program.  Design a way to make the interpreter implement
 the ``simultaneous'' scope rule for internal definitions without constructing
 the extra frame.
 
-\heading{\phantomsection\label{Exercise 4.18}Exercise 4.18:} Consider an alternative strategy
+\exerciseHeading{\phantomsection\label{Exercise 4.18}Exercise 4.18:} Consider an alternative strategy
 for scanning out definitions that translates the example in the text to
 
-\begin{scheme}
-(lambda ~\( \dark \langle \)~~\var{\dark vars}~~\( \dark \rangle \)~
+\begin{codeBlock}
+(lambda ~\(\langle \)~~\var{vars}~~\(\rangle \)~
   (let ((u '*unassigned*) (v '*unassigned*))
-    (let ((a ~\( \dark \langle \)~~\var{\dark e1}~~\( \dark \rangle \)~) (b ~\( \dark \langle \)~~\var{\dark e2}~~\( \dark \rangle \)~))
+    (let ((a ~\(\langle \)~~\var{e1}~~\(\rangle \)~) (b ~\(\langle \)~~\var{e2}~~\(\rangle \)~))
       (set! u a)
       (set! v b))
-    ~\( \dark \langle \)~~\var{\dark e3}~~\( \dark \rangle \)~))
-\end{scheme}
+    ~\(\langle \)~~\var{e3}~~\(\rangle \)~))
+\end{codeBlock}
 
 Here \code{a} and \code{b} are meant to represent new variable names, created
 by the interpreter, that do not appear in the user's program.  Consider the
 \code{solve} procedure from \link{Section 3.5.4}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (solve f y0 dt)
   (define  y (integral (delay dy) y0 dt))
   (define dy (stream-map f y))
   y)
-\end{scheme}
+\end{codeBlock}
 
 Will this procedure work if internal definitions are scanned out as shown in
 this exercise?  What if they are scanned out as shown in the text?  Explain.
 
-\heading{\phantomsection\label{Exercise 4.19}Exercise 4.19:} Ben Bitdiddle, Alyssa P. Hacker,
+\exerciseHeading{\phantomsection\label{Exercise 4.19}Exercise 4.19:} Ben Bitdiddle, Alyssa P. Hacker,
 and Eva Lu Ator are arguing about the desired result of evaluating the
 expression
 
-\enlargethispage{\baselineskip}
-
-\begin{scheme}
+\begin{codeBlock}
 (let ((a 1))
   (define (f x)
     (define b (+ a x))
     (define a 5)
     (+ a b))
   (f 10))
-\end{scheme}
+\end{codeBlock}
 
 Ben asserts that the result should be obtained using the sequential rule for
 \code{define}: \code{b} is defined to be 11, then \code{a} is defined to be 5,
@@ -1703,7 +1710,7 @@ Eva requires.  In the absence of such a mechanism, it is better to generate an
 error in the difficult cases of simultaneous definitions (Alyssa's notion) than
 to produce an incorrect answer (as Ben would have it).}
 
-\heading{\phantomsection\label{Exercise 4.20}Exercise 4.20:} Because internal definitions look
+\exerciseHeading{\phantomsection\label{Exercise 4.20}Exercise 4.20:} Because internal definitions look
 sequential but are actually simultaneous, some people prefer to avoid them
 entirely, and use the special form \code{letrec} instead.  \code{letrec} looks
 like \code{let}, so it is not surprising that the variables it binds are bound
@@ -1711,22 +1718,22 @@ simultaneously and have the same scope as each other.  The sample procedure
 \code{f} above can be written without internal definitions, but with exactly
 the same meaning, as
 
-\begin{scheme}
+\begin{codeBlock}
 (define (f x)
   (letrec
     ((even? (lambda (n)
               (if (= n 0) true  (odd?  (- n 1)))))
      (odd?  (lambda (n)
               (if (= n 0) false (even? (- n 1))))))
-    ~\( \dark \langle \)~~\var{\dark rest of body of \code{f}}~~\( \dark \rangle \)~))
-\end{scheme}
+    ~\(\langle \)~~\var{rest of body of \code{f}}~~\(\rangle \)~))
+\end{codeBlock}
 
 \code{letrec} expressions, which have the form
 
-\begin{scheme}
-(letrec ((~\( \dark \langle \)~~\var{\dark var}~~\( \dark _{\mono{1}}\rangle \)~ ~\( \dark \langle \)~~\var{\dark exp}~~\( \dark _{\mono{1}}\rangle \)~) ~\( \dots \)~ (~\( \dark \langle \)~~\var{\dark var}~~\( \dark _{\monoit{n}}\rangle \)~ ~\( \dark \langle \)~~\var{\dark exp}~~\( \dark _{\monoit{n}}\rangle \)~))
-  ~\( \dark \langle \)~~\var{\dark body}~~\( \dark \rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(letrec ((~\(\langle \)~~\var{var}~~\(_{\mono{1}}\rangle \)~ ~\(\langle \)~~\var{exp}~~\(_{\mono{1}}\rangle \)~) ~\( \dots \)~ (~\(\langle \)~~\var{var}~~\(_{\monoItalic{n}}\rangle \)~ ~\(\langle \)~~\var{exp}~~\(_{\monoItalic{n}}\rangle \)~))
+  ~\(\langle \)~~\var{body}~~\(\rangle \)~)
+\end{codeBlock}
 
 \noindent
 are a variation on \code{let} in which the expressions
@@ -1736,12 +1743,12 @@ that includes all the \code{letrec} bindings.  This permits recursion in the
 bindings, such as the mutual recursion of \code{even?} and \code{odd?} in the
 example above, or the evaluation of 10 factorial with
 
-\begin{scheme}
+\begin{codeBlock}
 (letrec
   ((fact (lambda (n)
            (if (= n 1) 1 (* n (fact (- n 1)))))))
   (fact 10))
-\end{scheme}
+\end{codeBlock}
 
 \begin{enumerate}[a.]
 
@@ -1764,11 +1771,11 @@ environment diagram for the same evaluation, but with \code{let} in place of
 
 \end{enumerate}
 
-\heading{\phantomsection\label{Exercise 4.21}Exercise 4.21:} Amazingly, Louis's intuition in
-\link{Exercise 4.20} is correct.  It is indeed possible to specify recursive
-procedures without using \code{letrec} (or even \code{define}), although the
-method for accomplishing this is much more subtle than Louis imagined.  The
-following expression computes 10 factorial by applying a recursive factorial
+\exerciseHeading{\phantomsection\label{Exercise 4.21}Exercise 4.21:} Amazingly,
+Louis's intuition in \link{Exercise 4.20} is correct. It is indeed possible to
+specify recursive procedures without using \code{letrec} (or even \code{define}),
+although the method for accomplishing this is much more subtle than Louis imagined.
+The following expression computes 10 factorial by applying a recursive factorial
 procedure:\footnote{This example illustrates a programming trick for
 formulating recursive procedures without using \code{define}.  The most general
 trick of this sort is the \( Y \) \newterm{operator}, which can be used to give a
@@ -1776,12 +1783,14 @@ trick of this sort is the \( Y \) \newterm{operator}, which can be used to give 
 details on the λ-calculus, and \link{Gabriel 1988} for an exposition of the
 \( Y \) operator in Scheme.)}
 
-\begin{scheme}
+\begin{codeBlock}
 ((lambda (n)
    ((lambda (fact) (fact fact n))
-    (lambda (ft k) (if (= k 1) 1 (* k (ft ft (- k 1)))))))
+    (lambda (ft k) (if (= k 1)
+                       1
+                       (* k (ft ft (- k 1)))))))
  10)
-\end{scheme}
+\end{codeBlock}
 
 \begin{enumerate}[a.]
 
@@ -1793,28 +1802,28 @@ Devise an analogous expression for computing Fibonacci numbers.
 Consider the following procedure, which includes mutually recursive internal
 definitions:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (f x)
   (define (even? n)
     (if (= n 0) true  (odd?  (- n 1))))
   (define (odd? n)
     (if (= n 0) false (even? (- n 1))))
   (even? x))
-\end{scheme}
+\end{codeBlock}
 
 Fill in the missing expressions to complete an alternative definition of
 \code{f}, which uses neither internal definitions nor \code{letrec}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (f x)
   ((lambda (even? odd?) (even? even? odd? x))
    (lambda (ev? od? n)
-     (if (= n 0) true (od? ~\( \dark \langle \)~??~\( \dark \rangle \)~ ~\( \dark \langle \)~??~\( \dark \rangle \)~ ~\( \dark \langle \)~??~\( \dark \rangle \)~)))
+     (if (= n 0) true (od? ~\(\langle \)~??~\(\rangle \)~ ~\(\langle \)~??~\(\rangle \)~ ~\(\langle \)~??~\(\rangle \)~)))
    (lambda (ev? od? n)
-     (if (= n 0) false (ev? ~\( \dark \langle \)~??~\( \dark \rangle \)~ ~\( \dark \langle \)~??~\( \dark \rangle \)~ ~\( \dark \langle \)~??~\( \dark \rangle \)~)))))
-\end{scheme}
+     (if (= n 0) false (ev? ~\(\langle \)~??~\(\rangle \)~ ~\(\langle \)~??~\(\rangle \)~ ~\(\langle \)~??~\(\rangle \)~)))))
+\end{codeBlock}
 \end{enumerate}
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Separating Syntactic Analysis from Execution}
 \label{Section 4.1.7}
@@ -1825,10 +1834,10 @@ Thus if a program is executed many times, its syntax is analyzed many times.
 Consider, for example, evaluating \code{(factorial 4)} using the following
 definition of \code{factorial}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (factorial n)
   (if (= n 1) 1 (* (factorial (- n 1)) n)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Each time \code{factorial} is called, the evaluator must determine that the
@@ -1857,9 +1866,9 @@ execution procedure may be called many times.
 
 With the separation into analysis and execution, \code{eval} now becomes
 
-\begin{scheme}
+\begin{codeBlock}
 (define (eval exp env) ((analyze exp) env))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The result of calling \code{analyze} is the execution procedure to be applied
@@ -1867,43 +1876,44 @@ to the environment.  The \code{analyze} procedure is the same case analysis as
 performed by the original \code{eval} of \link{Section 4.1.1}, except that the
 procedures to which we dispatch perform only analysis, not full evaluation:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (analyze exp)
-  (cond ((self-evaluating? exp) (analyze-self-evaluating exp))
+  (cond ((self-evaluating? exp)
+          (analyze-self-evaluating exp))
         ((quoted? exp) (analyze-quoted exp))
         ((variable? exp) (analyze-variable exp))
         ((assignment? exp) (analyze-assignment exp))
         ((definition? exp) (analyze-definition exp))
         ((if? exp) (analyze-if exp))
         ((lambda? exp) (analyze-lambda exp))
-        ((begin? exp) (analyze-sequence (begin-actions exp)))
+        ((begin? exp)
+          (analyze-sequence (begin-actions exp)))
         ((cond? exp) (analyze (cond->if exp)))
         ((application? exp) (analyze-application exp))
-        (else (error "Unknown expression type: ANALYZE" exp))))
-\end{scheme}
-
-\enlargethispage{\baselineskip}
+        (else
+          (error "Unknown expression type: ANALYZE" exp))))
+\end{codeBlock}
 
 \noindent
 Here is the simplest syntactic analysis procedure, which handles
 self-evaluating expressions.  It returns an execution procedure that ignores
 its environment argument and just returns the expression:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (analyze-self-evaluating exp)
   (lambda (env) exp))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 For a quoted expression, we can gain a little efficiency by extracting the text
 of the quotation only once, in the analysis phase, rather than in the execution
 phase.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (analyze-quoted exp)
   (let ((qval (text-of-quotation exp)))
     (lambda (env) qval)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Looking up a variable value must still be done in the execution phase, since
@@ -1914,10 +1924,10 @@ the position in the environment structure where the value of the variable will
 be found, thus obviating the need to scan the environment for the entry that
 matches the variable.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (analyze-variable exp)
   (lambda (env) (lookup-variable-value exp env)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{analyze\-/assignment} also must defer actually setting the variable until
@@ -1927,7 +1937,7 @@ analysis is a major gain in efficiency, because the \code{assignment\-/value}
 expression will now be analyzed only once.  The same holds true for
 definitions.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (analyze-assignment exp)
   (let ((var (assignment-variable exp))
         (vproc (analyze (assignment-value exp))))
@@ -1940,13 +1950,13 @@ definitions.
     (lambda (env)
       (define-variable! var (vproc env) env)
       'ok)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 For \code{if} expressions, we extract and analyze the predicate, consequent,
 and alternative at analysis time.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (analyze-if exp)
   (let ((pproc (analyze (if-predicate exp)))
         (cproc (analyze (if-consequent exp)))
@@ -1954,19 +1964,19 @@ and alternative at analysis time.
     (lambda (env) (if (true? (pproc env))
                       (cproc env)
                       (aproc env)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Analyzing a \code{lambda} expression also achieves a major gain in efficiency:
 We analyze the \code{lambda} body only once, even though procedures resulting
 from evaluation of the \code{lambda} may be applied many times.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (analyze-lambda exp)
   (let ((vars (lambda-parameters exp))
         (bproc (analyze-sequence (lambda-body exp))))
     (lambda (env) (make-procedure vars bproc env))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Analysis of a sequence of expressions (as in a \code{begin} or the body of a
@@ -1977,19 +1987,21 @@ procedures are combined to produce an execution procedure that takes an
 environment as argument and sequentially calls each individual execution
 procedure with the environment as argument.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (analyze-sequence exps)
   (define (sequentially proc1 proc2)
     (lambda (env) (proc1 env) (proc2 env)))
   (define (loop first-proc rest-procs)
     (if (null? rest-procs)
         first-proc
-        (loop (sequentially first-proc (car rest-procs))
+        (loop (sequentially first-proc
+                            (car rest-procs))
               (cdr rest-procs))))
   (let ((procs (map analyze exps)))
-    (if (null? procs) (error "Empty sequence: ANALYZE"))
+    (if (null? procs)
+      (error "Empty sequence: ANALYZE"))
     (loop (car procs) (cdr procs))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 To analyze an application, we analyze the operator and operands and construct
@@ -2002,7 +2014,7 @@ procedure body for a compound procedure has already been analyzed, so there is
 no need to do further analysis.  Instead, we just call the execution procedure
 for the body on the extended environment.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (analyze-application exp)
   (let ((fproc (analyze (operator exp)))
         (aprocs (map analyze (operands exp))))
@@ -2023,24 +2035,24 @@ for the body on the extended environment.
         (else
          (error "Unknown procedure type: EXECUTE-APPLICATION"
                 proc))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Our new evaluator uses the same data structures, syntax procedures, and
 run-time support procedures as in sections \link{Section 4.1.2}, \link{Section 4.1.3}, and
 \link{Section 4.1.4}.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 4.22}Exercise 4.22:} Extend the evaluator in this
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 4.22}Exercise 4.22:} Extend the evaluator in this
 section to support the special form \code{let}.  (See \link{Exercise 4.6}.)
 
-\heading{\phantomsection\label{Exercise 4.23}Exercise 4.23:} Alyssa P. Hacker doesn't
+\exerciseHeading{\phantomsection\label{Exercise 4.23}Exercise 4.23:} Alyssa P. Hacker doesn't
 understand why \code{analyze\-/sequence} needs to be so complicated.  All the
 other analysis procedures are straightforward transformations of the
 corresponding evaluation procedures (or \code{eval} clauses) in
 \link{Section 4.1.1}.  She expected \code{analyze\-/sequence} to look like this:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (analyze-sequence exps)
   (define (execute-sequence procs env)
     (cond ((null? (cdr procs))
@@ -2053,7 +2065,7 @@ corresponding evaluation procedures (or \code{eval} clauses) in
         (error "Empty sequence: ANALYZE"))
     (lambda (env)
       (execute-sequence procs env))))
-\end{scheme}
+\end{codeBlock}
 
 Eva Lu Ator explains to Alyssa that the version in the text does more of the
 work of evaluating a sequence at analysis time.  Alyssa's sequence-execution
@@ -2069,11 +2081,11 @@ program do?  What about the execution procedure produced by the program in the
 text above?  How do the two versions compare for a sequence with two
 expressions?
 
-\heading{\phantomsection\label{Exercise 4.24}Exercise 4.24:} Design and carry out some
+\exerciseHeading{\phantomsection\label{Exercise 4.24}Exercise 4.24:} Design and carry out some
 experiments to compare the speed of the original metacircular evaluator with
 the version in this section.  Use your results to estimate the fraction of time
 that is spent in analysis versus execution for various procedures.
-\end{exercises}
+\end{exerciseGroup}
 
 \section{Variations on a Scheme - Lazy Evaluation}
 \label{Section 4.2}
@@ -2118,9 +2130,9 @@ semantics of languages, independent of any particular evaluation strategy.  But
 this is not a hard-and-fast distinction, and the two terminologies are often
 used interchangeably.}  Consider the procedure
 
-\begin{scheme}
+\begin{codeBlock}
 (define (try a b) (if (= a 0) 1 b))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Evaluating \code{(try 0 (/ 1 0))} generates an error in Scheme.  With lazy
@@ -2130,19 +2142,19 @@ because the argument \code{(/ 1 0)} would never be evaluated.
 An example that exploits lazy evaluation is the definition of a procedure
 \code{unless}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (unless condition usual-value exceptional-value)
   (if condition exceptional-value usual-value))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 that can be used in expressions such as
 
-\begin{scheme}
+\begin{codeBlock}
 (unless (= b 0)
         (/ a b)
         (begin (display "exception: returning 0") 0))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This won't work in an applicative-order language because both the usual value
@@ -2176,22 +2188,22 @@ a list without knowing the values of the individual elements in the list.  We
 will exploit this idea in \link{Section 4.2.3} to implement the streams of
 \link{Chapter 3} as lists formed of non-strict \code{cons} pairs.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 4.25}Exercise 4.25:} Suppose that (in ordinary
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 4.25}Exercise 4.25:} Suppose that (in ordinary
 applicative-order Scheme) we define \code{unless} as shown above and then
 define \code{factorial} in terms of \code{unless} as
 
-\begin{scheme}
+\begin{codeBlock}
 (define (factorial n)
   (unless (= n 1)
           (* n (factorial (- n 1)))
           1))
-\end{scheme}
+\end{codeBlock}
 
 What happens if we attempt to evaluate \code{(factorial 5)}?  Will our
 definitions work in a normal-order language?
 
-\heading{\phantomsection\label{Exercise 4.26}Exercise 4.26:} Ben Bitdiddle and Alyssa
+\exerciseHeading{\phantomsection\label{Exercise 4.26}Exercise 4.26:} Ben Bitdiddle and Alyssa
 P. Hacker disagree over the importance of lazy evaluation for implementing
 things such as \code{unless}.  Ben points out that it's possible to implement
 \code{unless} in applicative order as a special form.  Alyssa counters that, if
@@ -2201,7 +2213,7 @@ both sides of the argument.  Show how to implement \code{unless} as a derived
 expression (like \code{cond} or \code{let}), and give an example of a situation
 where it might be useful to have \code{unless} available as a procedure, rather
 than as a special form.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{An Interpreter with Lazy Evaluation}
 \label{Section 4.2.2}
@@ -2258,12 +2270,12 @@ is in the handling of procedure applications in \code{eval} and \code{apply}.
 
 The \code{application?} clause of \code{eval} becomes
 
-\begin{scheme}
+\begin{codeBlock}
 ((application? exp)
  (apply (actual-value (operator exp) env)
         (operands exp)
         env))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This is almost the same as the \code{application?} clause of \code{eval} in
@@ -2276,10 +2288,10 @@ its type (primitive versus compound) and apply it.
 
 Whenever we need the actual value of an expression, we use
 
-\begin{scheme}
+\begin{codeBlock}
 (define (actual-value exp env)
   (force-it (eval exp env)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 instead of just \code{eval}, so that if the expression's value is a thunk, it
@@ -2292,7 +2304,7 @@ we evaluate all the arguments before applying the primitive; for compound
 procedures (which are non-strict) we delay all the arguments before applying
 the procedure.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (apply procedure arguments env)
   (cond ((primitive-procedure? procedure)
          (apply-primitive-procedure
@@ -2307,7 +2319,7 @@ the procedure.
            (procedure-environment procedure))))
         (else (error "Unknown procedure type: APPLY"
                      procedure))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The procedures that process the arguments are just like \code{list\-/of\-/values}
@@ -2315,7 +2327,7 @@ from \link{Section 4.1.1}, except that \code{list\-/of\-/delayed\-/args} delays 
 arguments instead of evaluating them, and \code{list\-/of\-/arg\-/values} uses
 \code{actual\-/value} instead of \code{eval}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (list-of-arg-values exps env)
   (if (no-operands? exps)
       '()
@@ -2330,19 +2342,19 @@ arguments instead of evaluating them, and \code{list\-/of\-/arg\-/values} uses
                       env)
             (list-of-delayed-args (rest-operands exps)
                                   env))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The other place we must change the evaluator is in the handling of \code{if},
 where we must use \code{actual\-/value} instead of \code{eval} to get the value
 of the predicate expression before testing whether it is true or false:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (eval-if exp env)
   (if (true? (actual-value (if-predicate exp) env))
       (eval (if-consequent exp) env)
       (eval (if-alternative exp) env)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Finally, we must change the \code{driver\-/loop} procedure (\link{Section 4.1.4})
@@ -2351,7 +2363,7 @@ is propagated back to the read-eval-print loop, it will be forced before being
 printed.  We also change the prompts to indicate that this is the lazy
 evaluator:
 
-\begin{scheme}
+\begin{codeBlock}
 (define input-prompt  ";;; L-Eval input:")
 (define output-prompt ";;; L-Eval value:")
 (define (driver-loop)
@@ -2363,14 +2375,14 @@ evaluator:
       (announce-output output-prompt)
       (user-print output)))
   (driver-loop))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 With these changes made, we can start the evaluator and test it.  The
 successful evaluation of the \code{try} expression discussed in
 \link{Section 4.2.1} indicates that the interpreter is performing lazy evaluation:
 
-\begin{scheme}
+\begin{codeBlock}
 (define the-global-environment (setup-environment))
 (driver-loop)
 ~\textit{;;; L-Eval input:}~
@@ -2381,7 +2393,7 @@ successful evaluation of the \code{try} expression discussed in
 (try 0 (/ 1 0))
 ~\textit{;;; L-Eval value:}~
 ~\textit{1}~
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection*{Representing thunks}
 
@@ -2394,26 +2406,26 @@ thunk and evaluate the expression in the environment.  We use
 expression is itself a thunk, we will force that, and so on, until we reach
 something that is not a thunk:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (force-it obj)
   (if (thunk? obj)
       (actual-value (thunk-exp obj) (thunk-env obj))
       obj))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 One easy way to package an expression with an environment is to make a list
 containing the expression and the environment.  Thus, we create a thunk as
 follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (delay-it exp env)
   (list 'thunk exp env))
 (define (thunk? obj)
   (tagged-list? obj 'thunk))
 (define (thunk-exp thunk) (cadr  thunk))
 (define (thunk-env thunk) (caddr thunk))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Actually, what we want for our interpreter is not quite this, but rather thunks
@@ -2433,7 +2445,7 @@ objects of \link{Section 3.5.1} to be garbage-collected, by having
 procedure \code{proc} (which includes the environment in which the \code{delay}
 was evaluated) after storing its value.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (evaluated-thunk? obj)
   (tagged-list? obj 'evaluated-thunk))
 (define (thunk-value evaluated-thunk)
@@ -2450,68 +2462,68 @@ was evaluated) after storing its value.}
            result))
         ((evaluated-thunk? obj) (thunk-value obj))
         (else obj)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Notice that the same \code{delay\-/it} procedure works both with and without
 memoization.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 4.27}Exercise 4.27:} Suppose we type in the following
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 4.27}Exercise 4.27:} Suppose we type in the following
 definitions to the lazy evaluator:
 
-\begin{scheme}
+\begin{codeBlock}
 (define count 0)
 (define (id x) (set! count (+ count 1)) x)
-\end{scheme}
+\end{codeBlock}
 
 Give the missing values in the following sequence of interactions, and explain
 your answers.\footnote{This exercise demonstrates that the interaction between
 lazy evaluation and side effects can be very confusing.  This is just what you
 might expect from the discussion in \link{Chapter 3}.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define w (id (id 10)))
 ~\textit{;;; L-Eval input:}~
 count
 ~\textit{;;; L-Eval value:}~
-~\( \dark \langle \)~~\var{\dark response}~~\( \dark \rangle \)~
+~\(\langle \)~~\var{response}~~\(\rangle \)~
 ~\textit{;;; L-Eval input:}~
 w
 ~\textit{;;; L-Eval value:}~
-~\( \dark \langle \)~~\var{\dark response}~~\( \dark \rangle \)~
+~\(\langle \)~~\var{response}~~\(\rangle \)~
 ~\textit{;;; L-Eval input:}~
 count
 ~\textit{;;; L-Eval value:}~
-~\( \dark \langle \)~~\var{\dark response}~~\( \dark \rangle \)~
-\end{scheme}
+~\(\langle \)~~\var{response}~~\(\rangle \)~
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 4.28}Exercise 4.28:} \code{eval} uses
+\exerciseHeading{\phantomsection\label{Exercise 4.28}Exercise 4.28:} \code{eval} uses
 \code{actual\-/value} rather than \code{eval} to evaluate the operator before
 passing it to \code{apply}, in order to force the value of the operator.  Give
 an example that demonstrates the need for this forcing.
 
 \noindent
-\heading{\phantomsection\label{Exercise 4.29}Exercise 4.29:} Exhibit a program that you would
+\exerciseHeading{\phantomsection\label{Exercise 4.29}Exercise 4.29:} Exhibit a program that you would
 expect to run much more slowly without memoization than with memoization.
 Also, consider the following interaction, where the \code{id} procedure is
 defined as in \link{Exercise 4.27} and \code{count} starts at 0:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (square x) (* x x))
 ~\textit{;;; L-Eval input:}~
 (square (id 10))
 ~\textit{;;; L-Eval value:}~
-~\( \dark \langle \)~~\var{\dark response}~~\( \dark \rangle \)~
+~\(\langle \)~~\var{response}~~\(\rangle \)~
 ~\textit{;;; L-Eval input:}~
 count
 ~\textit{;;; L-Eval value:}~
-~\( \dark \langle \)~~\var{\dark response}~~\( \dark \rangle \)~
-\end{scheme}
+~\(\langle \)~~\var{response}~~\(\rangle \)~
+\end{codeBlock}
 
 Give the responses both when the evaluator memoizes and when it does not.
 
-\heading{\phantomsection\label{Exercise 4.30}Exercise 4.30:} Cy D. Fect, a reformed C
+\exerciseHeading{\phantomsection\label{Exercise 4.30}Exercise 4.30:} Cy D. Fect, a reformed C
 programmer, is worried that some side effects may never take place, because the
 lazy evaluator doesn't force the expressions in a sequence.  Since the value of
 an expression in a sequence other than the last one is not used (the expression
@@ -2522,12 +2534,12 @@ evaluating sequences, we must force all expressions in the sequence except the
 final one.  He proposes to modify \code{eval\-/sequence} from \link{Section 4.1.1}
 to use \code{actual\-/value} rather than \code{eval}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (eval-sequence exps env)
   (cond ((last-exp? exps) (eval (first-exp exps) env))
         (else (actual-value (first-exp exps) env)
               (eval-sequence (rest-exps exps) env))))
-\end{scheme}
+\end{codeBlock}
 
 \begin{enumerate}[a.]
 
@@ -2536,18 +2548,18 @@ Ben Bitdiddle thinks Cy is wrong.  He shows Cy the \code{for\-/each} procedure
 described in \link{Exercise 2.23}, which gives an important example of a
 sequence with side effects:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (for-each proc items)
   (if (null? items)
       'done
       (begin (proc (car items))
              (for-each proc (cdr items)))))
-\end{scheme}
+\end{codeBlock}
 
 He claims that the evaluator in the text (with the original
 \code{eval\-/sequence}) handles this correctly:
 
-\begin{scheme}
+\begin{codeBlock}
 ~\textit{;;; L-Eval input:}~
 (for-each (lambda (x) (newline) (display x))
           (list 57 321 88))
@@ -2556,7 +2568,7 @@ He claims that the evaluator in the text (with the original
 ~\textit{88}~
 ~\textit{;;; L-Eval value:}~
 ~\textit{done}~
-\end{scheme}
+\end{codeBlock}
 
 Explain why Ben is right about the behavior of \code{for\-/each}.
 
@@ -2566,7 +2578,7 @@ that's not the kind of program he was thinking about when he proposed his
 change to \code{eval\-/sequence}.  He defines the following two procedures in the
 lazy evaluator:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (p1 x)
   (set! x (cons x '(2)))
   x)
@@ -2575,7 +2587,7 @@ lazy evaluator:
     e
     x)
   (p (set! x (cons x '(2)))))
-\end{scheme}
+\end{codeBlock}
 
 What are the values of \code{(p1 1)} and \code{(p2 1)} with the original
 \code{eval\-/sequence}?  What would the values be with Cy's proposed change to
@@ -2591,7 +2603,7 @@ like Cy's approach, the approach in the text, or some other approach?
 
 \end{enumerate}
 
-\heading{\phantomsection\label{Exercise 4.31}Exercise 4.31:} The approach taken in this
+\exerciseHeading{\phantomsection\label{Exercise 4.31}Exercise 4.31:} The approach taken in this
 section is somewhat unpleasant, because it makes an incompatible change to
 Scheme.  It might be nicer to implement lazy evaluation as an
 \newterm{upward-compatible extension}, that is, so that ordinary Scheme
@@ -2600,10 +2612,10 @@ procedure declarations to let the user control whether or not arguments are to
 be delayed.  While we're at it, we may as well also give the user the choice
 between delaying with and without memoization.  For example, the definition
 
-\begin{scheme}
+\begin{codeBlock}
 (define (f a (b lazy) c (d lazy-memo))
   ~\( \dots \)~)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 would define \code{f} to be a procedure of four arguments, where the first and
@@ -2618,7 +2630,7 @@ to handle the new syntax for \code{define}.  You must also arrange for
 \code{eval} or \code{apply} to determine when arguments are to be delayed, and
 to force or delay arguments accordingly, and you must arrange for forcing to
 memoize or not, as appropriate.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Streams as Lazy Lists}
 \label{Section 4.2.3}
@@ -2651,11 +2663,11 @@ loop.  If we had originally included \code{cons}, \code{car}, and \code{cdr} as
 primitives in the global environment, they will be redefined.  (Also see
 \link{Exercise 4.33} and \link{Exercise 4.34}.)}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (cons x y) (lambda (m) (m x y)))
 (define (car z) (z (lambda (p q) p)))
 (define (cdr z) (z (lambda (p q) q)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 In terms of these basic operations, the standard definitions of the list
@@ -2663,7 +2675,7 @@ operations will work with infinite lists (streams) as well as finite ones, and
 the stream operations can be implemented as list operations.  Here are some
 examples:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (list-ref items n)
   (if (= n 0)
       (car items)
@@ -2685,7 +2697,7 @@ examples:
 (list-ref integers 17)
 ~\textit{;;; L-Eval value:}~
 ~\textit{18}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Note that these lazy lists are even lazier than the streams of \link{Chapter 3}:
@@ -2705,7 +2717,7 @@ evaluation, all arguments to procedures are delayed uniformly.  For instance,
 we can implement procedures to integrate lists and solve differential equations
 as we originally intended in \link{Section 3.5.4}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (integral integrand initial-value dt)
   (define int
     (cons initial-value
@@ -2719,20 +2731,20 @@ as we originally intended in \link{Section 3.5.4}:
 (list-ref (solve (lambda (x) x) 1 0.001) 1000)
 ~\textit{;;; L-Eval value:}~
 ~\textit{2.716924}~
-\end{scheme}
+\end{codeBlock}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 4.32}Exercise 4.32:} Give some examples that
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 4.32}Exercise 4.32:} Give some examples that
 illustrate the difference between the streams of \link{Chapter 3} and the
 ``lazier'' lazy lists described in this section.  How can you take advantage of
 this extra laziness?
 
-\heading{\phantomsection\label{Exercise 4.33}Exercise 4.33:} Ben Bitdiddle tests the lazy list
+\exerciseHeading{\phantomsection\label{Exercise 4.33}Exercise 4.33:} Ben Bitdiddle tests the lazy list
 implementation given above by evaluating the expression:
 
-\begin{scheme}
+\begin{codeBlock}
 (car '(a b c))
-\end{scheme}
+\end{codeBlock}
 
 To his surprise, this produces an error.  After some thought, he realizes that
 the ``lists'' obtained by reading in quoted expressions are different from the
@@ -2740,12 +2752,12 @@ lists manipulated by the new definitions of \code{cons}, \code{car}, and
 \code{cdr}.  Modify the evaluator's treatment of quoted expressions so that
 quoted lists typed at the driver loop will produce true lazy lists.
 
-\heading{\phantomsection\label{Exercise 4.34}Exercise 4.34:} Modify the driver loop for the
+\exerciseHeading{\phantomsection\label{Exercise 4.34}Exercise 4.34:} Modify the driver loop for the
 evaluator so that lazy pairs and lists will print in some reasonable way.
 (What are you going to do about infinite lists?)  You may also need to modify
 the representation of lazy pairs so that the evaluator can identify them in
 order to print them.
-\end{exercises}
+\end{exerciseGroup}
 
 \section{Variations on a Scheme - Nondeterministic Computing}
 \label{Section 4.3}
@@ -2767,20 +2779,18 @@ actually generate the entire sequence of pairs first as in \link{Chapter 2}, or
 interleave the generating and filtering as in \link{Chapter 3}, is immaterial to
 the essential image of how the computation is organized.
 
-\enlargethispage{\baselineskip}
-
 The nondeterministic approach evokes a different image.  Imagine simply that we
 choose (in some way) a number from the first list and a number from the second
 list and require (using some mechanism) that their sum be prime.  This is
 expressed by following procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (prime-sum-pair list1 list2)
   (let ((a (an-element-of list1))
         (b (an-element-of list2)))
     (require (prime? (+ a b)))
     (list a b)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 It might seem as if this procedure merely restates the problem, rather than
@@ -2826,13 +2836,13 @@ The nondeterministic program evaluator implemented below is called the
 \code{amb} evaluator driver loop (along with definitions of \code{prime?},
 \code{an\-/element\-/of}, and \code{require}) and run the procedure as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 ~\textit{;;; Amb-Eval input:}~
 (prime-sum-pair '(1 3 5 8) '(20 35 110))
 ~\textit{;;; Starting a new problem}~
 ~\textit{;;; Amb-Eval value:}~
 ~\textit{(3 20)}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The value returned was obtained after the evaluator repeatedly chose elements
@@ -2854,24 +2864,24 @@ called \code{amb}.\footnote{The idea of \code{amb} for nondeterministic
 programming was first described in 1961 by John McCarthy (see \link{McCarthy 1963}).}
 The expression
 
-\begin{scheme}
-(amb ~\( \dark \langle \)~~\var{\dark e}~~\( \dark _{\mono{1}}\rangle \)~ ~\( \dark \langle \)~~\var{\dark e}~~\( \dark _{\mono{2}}\rangle \)~ ~\( \dots \)~ ~\( \dark \langle \)~~\var{\dark e}~~\( \dark _{\monoit{n}}\rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(amb ~\(\langle \)~~\var{e}~~\(_{\mono{1}}\rangle \)~ ~\(\langle \)~~\var{e}~~\(_{\mono{2}}\rangle \)~ ~\( \dots \)~ ~\(\langle \)~~\var{e}~~\(_{\monoItalic{n}}\rangle \)~)
+\end{codeBlock}
 
 \noindent
 returns the value of one of the \( n \) expressions \( \langle \)\( e_i \)\( \rangle \)
 ``ambiguously.''  For example, the expression
 
-\begin{scheme}
+\begin{codeBlock}
 (list (amb 1 2 3) (amb 'a 'b))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 can have six possible values:
 
-\begin{scheme}
+\begin{codeBlock}
 ~\code{(1 a)}~ ~\code{(1 b)}~ ~\code{(2 a)}~ ~\code{(2 b)}~ ~\code{(3 a)}~ ~\code{(3 b)}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{amb} with a single choice produces an ordinary (single) value.
@@ -2883,19 +2893,19 @@ computation aborts and no value is produced.  Using this idea, we can express
 the requirement that a particular predicate expression \code{p} must be true as
 follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (require p) (if (not p) (amb)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 With \code{amb} and \code{require}, we can implement the \code{an\-/element\-/of}
 procedure used above:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (an-element-of items)
   (require (not (null? items)))
   (amb (car items) (an-element-of (cdr items))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{an\-/element\-/of} fails if the list is empty.  Otherwise it ambiguously
@@ -2905,10 +2915,10 @@ of the list.
 We can also express infinite ranges of choices.  The following procedure
 potentially returns any integer greater than or equal to some given \( n \):
 
-\begin{scheme}
+\begin{codeBlock}
 (define (an-integer-starting-from n)
   (amb n (an-integer-starting-from (+ n 1))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This is like the stream procedure \code{integers\-/starting\-/from} described in
@@ -3007,7 +3017,7 @@ the symbol \code{try\-/again}.  If any expression except \code{try\-/again} is
 given, the interpreter will start a new problem, discarding the unexplored
 alternatives in the previous problem.  Here is a sample interaction:
 
-\begin{scheme}
+\begin{codeBlock}
 ~\textit{;;; Amb-Eval input:}~
 (prime-sum-pair '(1 3 5 8) '(20 35 110))
 ~\textit{;;; Starting a new problem}~
@@ -3034,25 +3044,25 @@ try-again
 ~\textit{;;; Starting a new problem}~
 ~\textit{;;; Amb-Eval value:}~
 ~\textit{(30 11)}~
-\end{scheme}
+\end{codeBlock}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 4.35}Exercise 4.35:} Write a procedure
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 4.35}Exercise 4.35:} Write a procedure
 \code{an\-/integer\-/between} that returns an integer between two given bounds.
 This can be used to implement a procedure that finds Pythagorean triples, i.e.,
 triples of integers \( (i, j, k) \) between the given bounds such that
 \( i \le j \) and \( i^2 + j^2 = k^2 \), as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (a-pythagorean-triple-between low high)
   (let ((i (an-integer-between low high)))
     (let ((j (an-integer-between i high)))
       (let ((k (an-integer-between j high)))
         (require (= (+ (* i i) (* j j)) (* k k)))
         (list i j k)))))
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 4.36}Exercise 4.36:} \link{Exercise 3.69} discussed how
+\exerciseHeading{\phantomsection\label{Exercise 4.36}Exercise 4.36:} \link{Exercise 3.69} discussed how
 to generate the stream of \emph{all} Pythagorean triples, with no upper bound
 on the size of the integers to be searched.  Explain why simply replacing
 \code{an\-/integer\-/between} by \code{an\-/integer\-/starting\-/from} in the procedure
@@ -3061,12 +3071,12 @@ triples.  Write a procedure that actually will accomplish this.  (That is,
 write a procedure for which repeatedly typing \code{try\-/again} would in
 principle eventually generate all Pythagorean triples.)
 
-\heading{\phantomsection\label{Exercise 4.37}Exercise 4.37:} Ben Bitdiddle claims that the
+\exerciseHeading{\phantomsection\label{Exercise 4.37}Exercise 4.37:} Ben Bitdiddle claims that the
 following method for generating Pythagorean triples is more efficient than the
 one in \link{Exercise 4.35}.  Is he correct?  (Hint: Consider the number of
 possibilities that must be explored.)
 
-\begin{scheme}
+\begin{codeBlock}
 (define (a-pythagorean-triple-between low high)
   (let ((i (an-integer-between low high))
         (hsq (* high high)))
@@ -3076,8 +3086,8 @@ possibilities that must be explored.)
         (let ((k (sqrt ksq)))
           (require (integer? k))
           (list i j k))))))
-\end{scheme}
-\end{exercises}
+\end{codeBlock}
+\end{exerciseGroup}
 
 \subsection{Examples of Nondeterministic Programs}
 \label{Section 4.3.2}
@@ -3093,14 +3103,14 @@ abstraction.
 The following puzzle (taken from \link{Dinesman 1968}) is typical of a large class of
 simple logic puzzles:
 
-\begin{quote}
+\begin{niceQuote}
 Baker, Cooper, Fletcher, Miller, and Smith live on different floors of an
-apartment house that contains only five floors.  Baker does not live on the top
-floor.  Cooper does not live on the bottom floor.  Fletcher does not live on
-either the top or the bottom floor.  Miller lives on a higher floor than does
-Cooper.  Smith does not live on a floor adjacent to Fletcher's.  Fletcher does
-not live on a floor adjacent to Cooper's.  Where does everyone live?
-\end{quote}
+apartment house that contains only five floors. Baker does not live on the top
+floor. Cooper does not live on the bottom floor. Fletcher does not live on
+either the top or the bottom floor. Miller lives on a higher floor than does
+Cooper. Smith does not live on a floor adjacent to Fletcher's. Fletcher does
+not live on a floor adjacent to Cooper's. Where does everyone live?
+\end{niceQuote}
 
 \noindent
 We can determine who lives on each floor in a straightforward way by
@@ -3108,19 +3118,19 @@ enumerating all the possibilities and imposing the given
 restrictions:\footnote{Our program uses the following procedure to determine if
 the elements of a list are distinct:
 
-\begin{smallscheme}
+\begin{compactCodeBlock}
 (define (distinct? items)
   (cond ((null? items) true)
         ((null? (cdr items)) true)
         ((member (car items) (cdr items)) false)
         (else (distinct? (cdr items)))))
-\end{smallscheme}
+\end{compactCodeBlock}
 
 \noindent
 \code{member} is like \code{memq} except that it uses \code{equal?} instead
 of \code{eq?} to test for equality.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (multiple-dwelling)
   (let ((baker    (amb 1 2 3 4 5)) (cooper (amb 1 2 3 4 5))
         (fletcher (amb 1 2 3 4 5)) (miller (amb 1 2 3 4 5))
@@ -3137,31 +3147,31 @@ of \code{eq?} to test for equality.}
     (list (list 'baker baker)       (list 'cooper cooper)
           (list 'fletcher fletcher) (list 'miller miller)
           (list 'smith smith))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Evaluating the expression \code{(multiple\-/dwelling)} produces the result
 
-\begin{scheme}
+\begin{codeBlock}
 ((baker 3) (cooper 2) (fletcher 4) (miller 5) (smith 1))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Although this simple procedure works, it is very slow.  \link{Exercise 4.39} and
 \link{Exercise 4.40} discuss some possible improvements.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 4.38}Exercise 4.38:} Modify the multiple-dwelling
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 4.38}Exercise 4.38:} Modify the multiple-dwelling
 procedure to omit the requirement that Smith and Fletcher do not live on
 adjacent floors.  How many solutions are there to this modified puzzle?
 
-\heading{\phantomsection\label{Exercise 4.39}Exercise 4.39:} Does the order of the
+\exerciseHeading{\phantomsection\label{Exercise 4.39}Exercise 4.39:} Does the order of the
 restrictions in the multiple-dwelling procedure affect the answer? Does it
 affect the time to find an answer?  If you think it matters, demonstrate a
 faster program obtained from the given one by reordering the restrictions.  If
 you think it does not matter, argue your case.
 
-\heading{\phantomsection\label{Exercise 4.40}Exercise 4.40:} In the multiple dwelling problem,
+\exerciseHeading{\phantomsection\label{Exercise 4.40}Exercise 4.40:} In the multiple dwelling problem,
 how many sets of assignments are there of people to floors, both before and
 after the requirement that floor assignments be distinct?  It is very
 inefficient to generate all possible assignments of people to floors and then
@@ -3173,10 +3183,10 @@ problem based upon generating only those possibilities that are not already
 ruled out by previous restrictions.  (Hint: This will require a nest of
 \code{let} expressions.)
 
-\heading{\phantomsection\label{Exercise 4.41}Exercise 4.41:} Write an ordinary Scheme program
+\exerciseHeading{\phantomsection\label{Exercise 4.41}Exercise 4.41:} Write an ordinary Scheme program
 to solve the multiple dwelling puzzle.
 
-\heading{\phantomsection\label{Exercise 4.42}Exercise 4.42:} Solve the following ``Liars''
+\exerciseHeading{\phantomsection\label{Exercise 4.42}Exercise 4.42:} Solve the following ``Liars''
 puzzle (from \link{Phillips 1934}):
 
 Five schoolgirls sat for an examination.  Their parents---so they
@@ -3206,7 +3216,7 @@ Mary: ``I was fourth.  Top place was taken by Betty.''
 
 What in fact was the order in which the five girls were placed?
 
-\heading{\phantomsection\label{Exercise 4.43}Exercise 4.43:} Use the \code{amb} evaluator to
+\exerciseHeading{\phantomsection\label{Exercise 4.43}Exercise 4.43:} Use the \code{amb} evaluator to
 solve the following puzzle:\footnote{This is taken from a booklet called
 ``Problematical Recreations,'' published in the 1960s by Litton Industries,
 where it is attributed to the \textit{Kansas State Engineer}.}
@@ -3223,10 +3233,10 @@ Try to write the program so that it runs efficiently (see \link{Exercise 4.40}).
 Also determine how many solutions there are if we are not told that Mary Ann's
 last name is Moore.
 
-\heading{\phantomsection\label{Exercise 4.44}Exercise 4.44:} \link{Exercise 2.42} described the
+\exerciseHeading{\phantomsection\label{Exercise 4.44}Exercise 4.44:} \link{Exercise 2.42} described the
 ``eight-queens puzzle'' of placing queens on a chessboard so that no two attack
 each other.  Write a nondeterministic program to solve this puzzle.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsubsection*{Parsing natural language}
 
@@ -3240,11 +3250,11 @@ lists that classify various words:\footnote{Here we use the convention that the
 first element of each list designates the part of speech for the rest of the
 words in the list.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define nouns '(noun student professor cat class))
 (define verbs '(verb studies lectures eats sleeps))
 (define articles '(article the a))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We also need a \newterm{grammar}, that is, a set of rules describing how
@@ -3253,10 +3263,10 @@ might stipulate that a sentence always consists of two pieces---a noun phrase
 followed by a verb---and that a noun phrase consists of an article followed by
 a noun.  With this grammar, the sentence ``The cat eats'' is parsed as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (sentence (noun-phrase (article the) (noun cat))
           (verb eats))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We can generate such a parse with a simple program that has separate procedures
@@ -3264,23 +3274,23 @@ for each of the grammatical rules.  To parse a sentence, we identify its two
 constituent pieces and return a list of these two elements, tagged with the
 symbol \code{sentence}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (parse-sentence)
   (list 'sentence
          (parse-noun-phrase)
          (parse-word verbs)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 A noun phrase, similarly, is parsed by finding an article followed by a
 noun:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (parse-noun-phrase)
   (list 'noun-phrase
         (parse-word articles)
         (parse-word nouns)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 At the lowest level, parsing boils down to repeatedly checking that the next
@@ -3294,40 +3304,40 @@ head of the list):\footnote{Notice that \code{parse\-/word} uses \code{set!} to
 modify the unparsed input list.  For this to work, our \code{amb} evaluator
 must undo the effects of \code{set!} operations when it backtracks.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (parse-word word-list)
   (require (not (null? *unparsed*)))
   (require (memq (car *unparsed*) (cdr word-list)))
   (let ((found-word (car *unparsed*)))
     (set! *unparsed* (cdr *unparsed*))
     (list (car word-list) found-word)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 To start the parsing, all we need to do is set \code{*unparsed*} to be the
 entire input, try to parse a sentence, and check that nothing is left over:
 
-\begin{scheme}
+\begin{codeBlock}
 (define *unparsed* '())
 (define (parse input)
   (set! *unparsed* input)
   (let ((sent (parse-sentence)))
     (require (null? *unparsed*)) sent))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We can now try the parser and verify that it works for our simple test
 sentence:
 
-\begin{scheme}
+\begin{codeBlock}
 ~\textit{;;; Amb-Eval input:}~
 (parse '(the cat eats))
 ~\textit{;;; Starting a new problem}~
 ~\textit{;;; Amb-Eval value:}~
-\end{scheme}
-\begin{smallscheme}
+\end{codeBlock}
+\begin{compactCodeBlock}
 ~\textit{(sentence (noun-phrase (article the) (noun cat)) (verb eats))}~
-\end{smallscheme}
+\end{compactCodeBlock}
 
 \noindent
 The \code{amb} evaluator is useful here because it is convenient to express the
@@ -3337,20 +3347,20 @@ where there are choices for how the units can be decomposed.
 
 Let's add to our grammar a list of prepositions:
 
-\begin{scheme}
+\begin{codeBlock}
 (define prepositions '(prep for to in by with))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 and define a prepositional phrase (e.g., ``for the cat'') to be a preposition
 followed by a noun phrase:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (parse-prepositional-phrase)
   (list 'prep-phrase
         (parse-word prepositions)
         (parse-noun-phrase)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Now we can define a sentence to be a noun phrase followed by a verb phrase,
@@ -3358,7 +3368,7 @@ where a verb phrase can be either a verb or a verb phrase extended by a
 prepositional phrase:\footnote{Observe that this definition is recursive---a
 verb may be followed by any number of prepositional phrases.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (parse-sentence)
   (list 'sentence (parse-noun-phrase) (parse-verb-phrase)))
 (define (parse-verb-phrase)
@@ -3369,7 +3379,7 @@ verb may be followed by any number of prepositional phrases.}
                 verb-phrase
                 (parse-prepositional-phrase)))))
   (maybe-extend (parse-word verbs)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 While we're at it, we can also elaborate the definition of noun phrases to
@@ -3378,7 +3388,7 @@ phrase, we'll now call a simple noun phrase, and a noun phrase will now be
 either a simple noun phrase or a noun phrase extended by a prepositional
 phrase:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (parse-simple-noun-phrase)
   (list 'simple-noun-phrase
         (parse-word articles)
@@ -3391,19 +3401,19 @@ phrase:
                 noun-phrase
                 (parse-prepositional-phrase)))))
   (maybe-extend (parse-simple-noun-phrase)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Our new grammar lets us parse more complex sentences.  For example
 
-\begin{scheme}
+\begin{codeBlock}
 (parse '(the student with the cat sleeps in the class))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 produces
 
-\begin{scheme}
+\begin{codeBlock}
 (sentence
  (noun-phrase
   (simple-noun-phrase (article the) (noun student))
@@ -3415,7 +3425,7 @@ produces
   (prep-phrase
    (prep in)
    (simple-noun-phrase (article the) (noun class)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Observe that a given input may have more than one legal parse.  In the sentence
@@ -3423,14 +3433,14 @@ Observe that a given input may have more than one legal parse.  In the sentence
 professor is lecturing with the cat, or that the student has the cat.  Our
 nondeterministic program finds both possibilities:
 
-\begin{scheme}
+\begin{codeBlock}
 (parse '(the professor lectures to the student with the cat))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 produces
 
-\begin{scheme}
+\begin{codeBlock}
 (sentence
  (simple-noun-phrase (article the) (noun professor))
  (verb-phrase
@@ -3442,12 +3452,12 @@ produces
   (prep-phrase
    (prep with)
    (simple-noun-phrase (article the) (noun cat)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Asking the evaluator to try again yields
 
-\begin{scheme}
+\begin{codeBlock}
 (sentence
  (simple-noun-phrase (article the) (noun professor))
  (verb-phrase
@@ -3459,37 +3469,37 @@ Asking the evaluator to try again yields
     (prep-phrase
      (prep with)
      (simple-noun-phrase (article the) (noun cat)))))))
-\end{scheme}
+\end{codeBlock}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 4.45}Exercise 4.45:} With the grammar given above, the
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 4.45}Exercise 4.45:} With the grammar given above, the
 following sentence can be parsed in five different ways: ``The professor
 lectures to the student in the class with the cat.''  Give the five parses and
 explain the differences in shades of meaning among them.
 
-\heading{\phantomsection\label{Exercise 4.46}Exercise 4.46:} The evaluators in
+\exerciseHeading{\phantomsection\label{Exercise 4.46}Exercise 4.46:} The evaluators in
 \link{Section 4.1} and \link{Section 4.2} do not determine what order operands are evaluated in.
 We will see that the \code{amb} evaluator evaluates them from left to right.
 Explain why our parsing program wouldn't work if the operands were evaluated in
 some other order.
 
-\heading{\phantomsection\label{Exercise 4.47}Exercise 4.47:} Louis Reasoner suggests that,
+\exerciseHeading{\phantomsection\label{Exercise 4.47}Exercise 4.47:} Louis Reasoner suggests that,
 since a verb phrase is either a verb or a verb phrase followed by a
 prepositional phrase, it would be much more straightforward to define the
 procedure \code{parse\-/verb\-/phrase} as follows (and similarly for noun phrases):
 
-\begin{scheme}
+\begin{codeBlock}
 (define (parse-verb-phrase)
   (amb (parse-word verbs)
        (list 'verb-phrase
              (parse-verb-phrase)
              (parse-prepositional-phrase))))
-\end{scheme}
+\end{codeBlock}
 
 Does this work?  Does the program's behavior change if we interchange the order
 of expressions in the \code{amb}?
 
-\heading{\phantomsection\label{Exercise 4.48}Exercise 4.48:} Extend the grammar given above to
+\exerciseHeading{\phantomsection\label{Exercise 4.48}Exercise 4.48:} Extend the grammar given above to
 handle more complex sentences.  For example, you could extend noun phrases and
 verb phrases to include adjectives and adverbs, or you could handle compound
 sentences.\footnote{This kind of grammar can become arbitrarily complex, but it
@@ -3501,7 +3511,7 @@ such as information-retrieval systems.  \link{Winston 1992} discusses computatio
 approaches to real language understanding and also the applications of simple
 grammars to command languages.}
 
-\heading{\phantomsection\label{Exercise 4.49}Exercise 4.49:} Alyssa P. Hacker is more
+\exerciseHeading{\phantomsection\label{Exercise 4.49}Exercise 4.49:} Alyssa P. Hacker is more
 interested in generating interesting sentences than in parsing them.  She
 reasons that by simply changing the procedure \code{parse\-/word} so that it
 ignores the ``input sentence'' and instead always succeeds and generates an
@@ -3513,7 +3523,7 @@ don't sample the possible sentences of this language in a very interesting way.
 In fact, the grammar is highly recursive in many places, and Alyssa's technique
 ``falls into'' one of these recursions and gets stuck.  See \link{Exercise 4.50}
 for a way to deal with this.}
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Implementing the \code{amb} Evaluator}
 \label{Section 4.3.3}
@@ -3580,8 +3590,6 @@ when the process finds a dead end, to undo the side effect before making a new
 choice.  This is accomplished by having the side-effect operation produce a
 failure continuation that undoes the side effect and propagates the failure.
 
-\enlargethispage{\baselineskip}
-
 In summary, failure continuations are constructed by
 
 \begin{itemize}
@@ -3639,18 +3647,18 @@ syntax procedures to recognize the \code{amb} special form:\footnote{We assume
 that the evaluator supports \code{let} (see \link{Exercise 4.22}), which we have
 used in our nondeterministic programs.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (amb? exp) (tagged-list? exp 'amb))
 (define (amb-choices exp) (cdr exp))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We must also add to the dispatch in \code{analyze} a clause that will recognize
 this special form and generate an appropriate execution procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 ((amb? exp) (analyze-amb exp))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The top-level procedure \code{ambeval} (similar to the version of \code{eval}
@@ -3658,10 +3666,10 @@ given in \link{Section 4.1.7}) analyzes the given expression and applies the
 resulting execution procedure to the given environment, together with two given
 continuations:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (ambeval exp env succeed fail)
   ((analyze exp) env succeed fail))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 A success continuation is a procedure of two arguments: the value just obtained
@@ -3669,22 +3677,22 @@ and another failure continuation to be used if that value leads to a subsequent
 failure. A failure continuation is a procedure of no arguments.  So the general
 form of an execution procedure is
 
-\begin{scheme}
+\begin{codeBlock}
 (lambda (env succeed fail)
   ~\textrm{;; \code{succeed} is \code{(lambda (value fail) \( \dots \))}}~
   ~\textrm{;; \code{fail} is \code{(lambda () \( \dots \))}}~
   ~\( \dots \)~)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 For example, executing
 
-\begin{scheme}
-(ambeval ~\( \dark \langle \)~~\var{\dark exp}~~\( \dark \rangle \)~
+\begin{codeBlock}
+(ambeval ~\(\langle \)~~\var{exp}~~\(\rangle \)~
          the-global-environment
          (lambda (value fail) value)
          (lambda () 'failed))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 will attempt to evaluate the given expression and will return either the
@@ -3706,7 +3714,7 @@ the same as those for the ordinary evaluator, except for the need to manage the
 continuations.  The execution procedures simply succeed with the value of the
 expression, passing along the failure continuation that was passed to them.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (analyze-self-evaluating exp)
   (lambda (env succeed fail)
     (succeed exp fail)))
@@ -3722,7 +3730,7 @@ expression, passing along the failure continuation that was passed to them.
         (bproc (analyze-sequence (lambda-body exp))))
     (lambda (env succeed fail)
       (succeed (make-procedure vars bproc env) fail))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Notice that looking up a variable always `succeeds.'  If
@@ -3740,7 +3748,7 @@ whether the predicate value is true and goes on to execute either the
 consequent or the alternative.  If the execution of \code{pproc} fails, the
 original failure continuation for the \code{if} expression is called.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (analyze-if exp)
   (let ((pproc (analyze (if-predicate exp)))
         (cproc (analyze (if-consequent exp)))
@@ -3755,7 +3763,7 @@ original failure continuation for the \code{if} expression is called.
                    (aproc env succeed fail2)))
              ~\textrm{;; failure continuation for evaluating the predicate}~
              fail))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Sequences are also handled in the same way as in the previous evaluator, except
@@ -3764,7 +3772,7 @@ for passing the continuations.  Namely, to sequentially execute \code{a} and
 then \code{b}, we call \code{a} with a success continuation that calls
 \code{b}.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (analyze-sequence exps)
   (define (sequentially a b)
     (lambda (env succeed fail)
@@ -3784,7 +3792,7 @@ then \code{b}, we call \code{a} with a success continuation that calls
     (if (null? procs)
         (error "Empty sequence: ANALYZE"))
     (loop (car procs) (cdr procs))))
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection*{Definitions and assignments}
 
@@ -3796,7 +3804,7 @@ environment, a success continuation, and the failure continuation.  If the
 execution of \code{vproc} succeeds, obtaining a value \code{val} for the
 defined variable, the variable is defined and the success is propagated:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (analyze-definition exp)
   (let ((var (definition-variable exp))
         (vproc (analyze (definition-value exp))))
@@ -3806,7 +3814,7 @@ defined variable, the variable is defined and the success is propagated:
                (define-variable! var val env)
                (succeed 'ok fail2))
              fail))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Assignments are more interesting.  This is the first place where we really use
@@ -3832,7 +3840,7 @@ failure continuation that will intercept a subsequent failure; whatever failure
 would otherwise have called \code{fail2} calls this procedure instead, to undo
 the assignment before actually calling \code{fail2}.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (analyze-assignment exp)
   (let ((var (assignment-variable exp))
         (vproc (analyze (assignment-value exp))))
@@ -3848,7 +3856,7 @@ the assignment before actually calling \code{fail2}.
                              var old-value env)
                             (fail2)))))
              fail))))
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection*{Procedure applications}
 
@@ -3859,7 +3867,7 @@ failure continuations as we evaluate the operands.  We use a procedure
 \code{get\-/args} to evaluate the list of operands, rather than a simple
 \code{map} as in the ordinary evaluator.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (analyze-application exp)
   (let ((fproc (analyze (operator exp)))
         (aprocs (map analyze (operands exp))))
@@ -3873,7 +3881,7 @@ failure continuations as we evaluate the operands.  We use a procedure
                             proc args succeed fail3))
                          fail2))
              fail))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 In \code{get\-/args}, notice how \code{cdr}-ing down the list of \code{aproc}
@@ -3884,7 +3892,7 @@ calls to \code{get\-/args} has a success continuation whose value is the
 \code{cons} of the newly obtained argument onto the list of accumulated
 arguments:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (get-args aprocs env succeed fail)
   (if (null? aprocs)
       (succeed '() fail)
@@ -3901,14 +3909,14 @@ arguments:
             (succeed (cons arg args) fail3))
           fail2))
        fail)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The actual procedure application, which is performed by
 \code{execute\-/appli\-/cation}, is accomplished in the same way as for the ordinary
 evaluator, except for the need to manage the continuations.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (execute-application proc args succeed fail)
   (cond ((primitive-procedure? proc)
          (succeed (apply-primitive-procedure proc args)
@@ -3924,7 +3932,7 @@ evaluator, except for the need to manage the continuations.
         (else
          (error "Unknown procedure type: EXECUTE-APPLICATION"
                 proc))))
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection*{Evaluating \code{amb} expressions}
 
@@ -3936,7 +3944,7 @@ all the possible values of the \code{amb} expression.  Each execution procedure
 is called with a failure continuation that will try the next one.  When there
 are no more alternatives to try, the entire \code{amb} expression fails.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (analyze-amb exp)
   (let ((cprocs (map analyze (amb-choices exp))))
     (lambda (env succeed fail)
@@ -3948,7 +3956,7 @@ are no more alternatives to try, the entire \code{amb} expression fails.
              succeed
              (lambda () (try-next (cdr choices))))))
       (try-next cprocs))))
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection*{Driver loop}
 
@@ -3974,7 +3982,7 @@ In this case, however, we have completed a successful evaluation, so we can
 invoke the ``failure'' alternative branch in order to search for additional
 successful evaluations.
 
-\begin{scheme}
+\begin{codeBlock}
 (define input-prompt  ";;; Amb-Eval input:")
 (define output-prompt ";;; Amb-Eval value:")
 
@@ -4004,7 +4012,7 @@ successful evaluations.
    (lambda ()
      (newline) (display ";;; There is no current problem")
      (driver-loop))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The initial call to \code{internal\-/loop} uses a \code{try\-/again} procedure that
@@ -4012,18 +4020,18 @@ complains that there is no current problem and restarts the driver loop.  This
 is the behavior that will happen if the user types \code{try\-/again} when there
 is no evaluation in progress.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 4.50}Exercise 4.50:} Implement a new special form
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 4.50}Exercise 4.50:} Implement a new special form
 \code{ramb} that is like \code{amb} except that it searches alternatives in a
 random order, rather than from left to right.  Show how this can help with
 Alyssa's problem in \link{Exercise 4.49}.
 
-\heading{\phantomsection\label{Exercise 4.51}Exercise 4.51:} Implement a new kind of
+\exerciseHeading{\phantomsection\label{Exercise 4.51}Exercise 4.51:} Implement a new kind of
 assignment called \code{permanent\-/set!} that is not undone upon failure.  For
 example, we can choose two distinct elements from a list and count the number
 of trials required to make a successful choice as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (define count 0)
 (let ((x (an-element-of '(a b c)))
       (y (an-element-of '(a b c))))
@@ -4037,19 +4045,19 @@ of trials required to make a successful choice as follows:
 try-again
 ~\textit{;;; Amb-Eval value:}~
 ~\textit{(a c 3)}~
-\end{scheme}
+\end{codeBlock}
 
 What values would have been displayed if we had used \code{set!} here
 rather than \code{permanent\-/set!} ?
 
-\heading{\phantomsection\label{Exercise 4.52}Exercise 4.52:} Implement a new construct called
+\exerciseHeading{\phantomsection\label{Exercise 4.52}Exercise 4.52:} Implement a new construct called
 \code{if\-/fail} that permits the user to catch the failure of an expression.
 \code{if\-/fail} takes two expressions.  It evaluates the first expression as
 usual and returns as usual if the evaluation succeeds.  If the evaluation
 fails, however, the value of the second expression is returned, as in the
 following example:
 
-\begin{scheme}
+\begin{codeBlock}
 ~\textit{;;; Amb-Eval input:}~
 (if-fail (let ((x (an-element-of '(1 3 5))))
            (require (even? x))
@@ -4067,13 +4075,13 @@ following example:
 ~\textit{;;; Starting a new problem}~
 ~\textit{;;; Amb-Eval value:}~
 ~\textit{8}~
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 4.53}Exercise 4.53:} With \code{permanent\-/set!} as
+\exerciseHeading{\phantomsection\label{Exercise 4.53}Exercise 4.53:} With \code{permanent\-/set!} as
 described in \link{Exercise 4.51} and \code{if\-/fail} as in
 \link{Exercise 4.52}, what will be the result of evaluating
 
-\begin{scheme}
+\begin{codeBlock}
 (let ((pairs '()))
   (if-fail
    (let ((p (prime-sum-pair '(1 3 5 8)
@@ -4081,45 +4089,45 @@ described in \link{Exercise 4.51} and \code{if\-/fail} as in
      (permanent-set! pairs (cons p pairs))
      (amb))
    pairs))
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 4.54}Exercise 4.54:} If we had not realized that
+\exerciseHeading{\phantomsection\label{Exercise 4.54}Exercise 4.54:} If we had not realized that
 \code{require} could be implemented as an ordinary procedure that uses
 \code{amb}, to be defined by the user as part of a nondeterministic program, we
 would have had to implement it as a special form.  This would require syntax
 procedures
 
-\begin{scheme}
+\begin{codeBlock}
 (define (require? exp)
   (tagged-list? exp 'require))
 (define (require-predicate exp)
   (cadr exp))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 and a new clause in the dispatch in \code{analyze}
 
-\begin{scheme}
+\begin{codeBlock}
 ((require? exp) (analyze-require exp))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 as well the procedure \code{analyze\-/require} that handles \code{require}
 expressions.  Complete the following definition of \code{analyze\-/require}.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (analyze-require exp)
   (let ((pproc (analyze (require-predicate exp))))
     (lambda (env succeed fail)
       (pproc env
              (lambda (pred-value fail2)
-               (if ~\( \dark \langle \)~??~\( \dark \rangle \)~
-                   ~\( \dark \langle \)~??~\( \dark \rangle \)~
+               (if ~\(\langle \)~??~\(\rangle \)~
+                   ~\(\langle \)~??~\(\rangle \)~
                    (succeed 'ok fail2)))
              fail))))
 
-\end{scheme}
-\end{exercises}
+\end{codeBlock}
+\end{exerciseGroup}
 
 
 \section{Logic Programming}
@@ -4195,11 +4203,11 @@ takes two lists as arguments and combines their elements to form a single list.
 In a procedural language such as Lisp, we could define \code{append} in terms
 of the basic list constructor \code{cons}, as we did in \link{Section 2.2.1}:
 
-\begin{scheme}
+\begin{codeBlock}
 
 (define (append x y)
   (if (null? x) y (cons (car x) (append (cdr x) y))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This procedure can be regarded as a translation into Lisp of the following two
@@ -4226,20 +4234,20 @@ rule corresponds to the \code{append} of \code{(cdr x)} and \code{y}.}
 \noindent
 Using the \code{append} procedure, we can answer questions such as
 
-\begin{quote}
+\begin{niceQuote}
 Find the \code{append} of \code{(a b)} and \code{(c d)}.
-\end{quote}
+\end{niceQuote}
 
 \noindent
 But the same two rules are also sufficient for answering the following sorts of
 questions, which the procedure can't answer:
 
-\begin{quote}
+\begin{niceQuote}
 Find a list \code{y} that \code{append}s with \code{(a b)} to produce \code{(a
 b c d)}.
 
 Find all \code{x} and \code{y} that \code{append} to form \code{(a b c d)}.
-\end{quote}
+\end{niceQuote}
 
 \noindent
 In a logic programming language, the programmer writes an \code{append}
@@ -4317,11 +4325,11 @@ The personnel data base for Microshaft contains \newterm{assertions} about
 company personnel.  Here is the information about Ben Bitdiddle, the resident
 computer wizard:
 
-\begin{scheme}
+\begin{codeBlock}
 (address (Bitdiddle Ben) (Slumerville (Ridge Road) 10))
 (job (Bitdiddle Ben) (computer wizard))
 (salary (Bitdiddle Ben) 60000)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Each assertion is a list (in this case a triple) whose elements can themselves
@@ -4331,7 +4339,7 @@ As resident wizard, Ben is in charge of the company's computer division, and he
 supervises two programmers and one technician.  Here is the information about
 them:
 
-\begin{scheme}
+\begin{codeBlock}
 (address (Hacker Alyssa P) (Cambridge (Mass Ave) 78))
 (job (Hacker Alyssa P) (computer programmer))
 (salary (Hacker Alyssa P) 40000)
@@ -4346,17 +4354,17 @@ them:
 (job (Tweakit Lem E) (computer technician))
 (salary (Tweakit Lem E) 25000)
 (supervisor (Tweakit Lem E) (Bitdiddle Ben))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 There is also a programmer trainee, who is supervised by Alyssa:
 
-\begin{scheme}
+\begin{codeBlock}
 (address (Reasoner Louis) (Slumerville (Pine Tree Road) 80))
 (job (Reasoner Louis) (computer programmer trainee))
 (salary (Reasoner Louis) 30000)
 (supervisor (Reasoner Louis) (Hacker Alyssa P))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 All of these people are in the computer division, as indicated by the word
@@ -4365,18 +4373,18 @@ All of these people are in the computer division, as indicated by the word
 Ben is a high-level employee.  His supervisor is the company's big wheel
 himself:
 
-\begin{scheme}
+\begin{codeBlock}
 (supervisor (Bitdiddle Ben) (Warbucks Oliver))
 (address (Warbucks Oliver) (Swellesley (Top Heap Road)))
 (job (Warbucks Oliver) (administration big wheel))
 (salary (Warbucks Oliver) 150000)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Besides the computer division supervised by Ben, the company has an accounting
 division, consisting of a chief accountant and his assistant:
 
-\begin{scheme}
+\begin{codeBlock}
 (address (Scrooge Eben) (Weston (Shady Lane) 10))
 (job (Scrooge Eben) (accounting chief accountant))
 (salary (Scrooge Eben) 75000)
@@ -4386,43 +4394,43 @@ division, consisting of a chief accountant and his assistant:
 (job (Cratchet Robert) (accounting scrivener))
 (salary (Cratchet Robert) 18000)
 (supervisor (Cratchet Robert) (Scrooge Eben))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 There is also a secretary for the big wheel:
 
-\begin{scheme}
+\begin{codeBlock}
 (address (Aull DeWitt) (Slumerville (Onion Square) 5))
 (job (Aull DeWitt) (administration secretary))
 (salary (Aull DeWitt) 25000)
 (supervisor (Aull DeWitt) (Warbucks Oliver))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The data base also contains assertions about which kinds of jobs can be done by
 people holding other kinds of jobs.  For instance, a computer wizard can do the
 jobs of both a computer programmer and a computer technician:
 
-\begin{scheme}
+\begin{codeBlock}
 (can-do-job (computer wizard) (computer programmer))
 (can-do-job (computer wizard) (computer technician))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 A computer programmer could fill in for a trainee:
 
-\begin{scheme}
+\begin{codeBlock}
 (can-do-job (computer programmer)
             (computer programmer trainee))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Also, as is well known,
 
-\begin{scheme}
+\begin{codeBlock}
 (can-do-job (administration secretary)
             (administration big wheel))
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection*{Simple queries}
 
@@ -4430,19 +4438,19 @@ The query language allows users to retrieve information from the data base by
 posing queries in response to the system's prompt.  For example, to find all
 computer programmers one can say
 
-\begin{scheme}
+\begin{codeBlock}
 ~\textit{;;; Query input:}~
 (job ?x (computer programmer))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The system will respond with the following items:
 
-\begin{scheme}
+\begin{codeBlock}
 ~\textit{;;; Query results:}~
 (job (Hacker Alyssa P) (computer programmer))
 (job (Fect Cy D) (computer programmer))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The input query specifies that we are looking for entries in the data base that
@@ -4459,9 +4467,9 @@ showing all entries in the data base that match the specified pattern.
 
 A pattern can have more than one variable.  For example, the query
 
-\begin{scheme}
+\begin{codeBlock}
 (address ?x ?y)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 will list all the employees' addresses.
@@ -4474,9 +4482,9 @@ The same pattern variable can appear more than once in a query, specifying that
 the same ``anything'' must appear in each position.  This is why variables have
 names.  For example,
 
-\begin{scheme}
+\begin{codeBlock}
 (supervisor ?x ?x)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 finds all people who supervise themselves (though there are no such assertions
@@ -4484,27 +4492,27 @@ in our sample data base).
 
 The query
 
-\begin{scheme}
+\begin{codeBlock}
 (job ?x (computer ?type))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 matches all job entries whose third item is a two-element list whose first item
 is \code{computer}:
 
-\begin{scheme}
+\begin{codeBlock}
 (job (Bitdiddle Ben) (computer wizard))
 (job (Hacker Alyssa P) (computer programmer))
 (job (Fect Cy D) (computer programmer))
 (job (Tweakit Lem E) (computer technician))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This same pattern does \emph{not} match
 
-\begin{scheme}
+\begin{codeBlock}
 (job (Reasoner Louis) (computer programmer trainee))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 because the third item in the entry is a list of three elements, and the
@@ -4513,38 +4521,38 @@ to change the pattern so that the third item could be any list beginning with
 \code{computer}, we could specify\footnote{This uses the dotted-tail notation
 introduced in \link{Exercise 2.20}.}
 
-\begin{scheme}
+\begin{codeBlock}
 (job ?x (computer . ?type))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 For example,
 
-\begin{scheme}
+\begin{codeBlock}
 (computer . ?type)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 matches the data
 
-\begin{scheme}
+\begin{codeBlock}
 (computer programmer trainee)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 with \code{?type} as the list \code{(programmer trainee)}.  It also
 matches the data
 
-\begin{scheme}
+\begin{codeBlock}
 (computer programmer)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 with \code{?type} as the list \code{(programmer)}, and matches the data
 
-\begin{scheme}
+\begin{codeBlock}
 (computer)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 with \code{?type} as the empty list \code{()}.
@@ -4571,8 +4579,8 @@ of whether that pattern is in the data base.  If so, the empty assignment,
 which assigns no values to variables, satisfies that pattern for that data
 base.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 4.55}Exercise 4.55:} Give simple queries that retrieve
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 4.55}Exercise 4.55:} Give simple queries that retrieve
 the following information from the data base:
 
 \begin{enumerate}
@@ -4587,7 +4595,7 @@ the names and jobs of all people in the accounting division;
 the names and addresses of all people who live in Slumerville.
 
 \end{enumerate}
-\end{exercises}
+\end{exerciseGroup}
 
 \subsubsection*{Compound queries}
 
@@ -4602,27 +4610,27 @@ built into the query language.)
 We can use \code{and} as follows to find the addresses of all the computer
 programmers:
 
-\begin{scheme}
+\begin{codeBlock}
 (and (job ?person (computer programmer))
      (address ?person ?where))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The resulting output is
 
-\begin{scheme}
+\begin{codeBlock}
 (and (job (Hacker Alyssa P) (computer programmer))
      (address (Hacker Alyssa P) (Cambridge (Mass Ave) 78)))
 (and (job (Fect Cy D) (computer programmer))
      (address (Fect Cy D) (Cambridge (Ames Street) 3)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 In general,
 
-\begin{scheme}
-(and ~\( \dark \langle \)~~\var{\dark query}~~\( \dark _{\mono{1}}\rangle \)~ ~\( \dark \langle \)~~\var{\dark query}~~\( \dark _{\mono{2}}\rangle \)~ ~\( \dots \)~ ~\( \dark \langle \)~~\var{\dark query}~~\( \dark _{\monoit{n}}\rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(and ~\(\langle \)~~\var{query}~~\(_{\mono{1}}\rangle \)~ ~\(\langle \)~~\var{query}~~\(_{\mono{2}}\rangle \)~ ~\( \dots \)~ ~\(\langle \)~~\var{query}~~\(_{\monoItalic{n}}\rangle \)~)
+\end{codeBlock}
 
 \noindent
 is satisfied by all sets of values for the pattern variables that
@@ -4635,15 +4643,15 @@ instantiations of the query with those values.
 Another means of constructing compound queries is through \code{or}.  For
 example,
 
-\begin{scheme}
+\begin{codeBlock}
 (or (supervisor ?x (Bitdiddle Ben))
     (supervisor ?x (Hacker Alyssa P)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 will find all employees supervised by Ben Bitdiddle or Alyssa P.  Hacker:
 
-\begin{scheme}
+\begin{codeBlock}
 (or (supervisor (Hacker Alyssa P) (Bitdiddle Ben))
     (supervisor (Hacker Alyssa P) (Hacker Alyssa P)))
 (or (supervisor (Fect Cy D) (Bitdiddle Ben))
@@ -4652,14 +4660,14 @@ will find all employees supervised by Ben Bitdiddle or Alyssa P.  Hacker:
     (supervisor (Tweakit Lem E) (Hacker Alyssa P)))
 (or (supervisor (Reasoner Louis) (Bitdiddle Ben))
     (supervisor (Reasoner Louis) (Hacker Alyssa P)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 In general,
 
-\begin{scheme}
-(or ~\( \dark \langle \)~~\var{\dark query}~~\( \dark _{\mono{1}}\rangle \)~ ~\( \dark \langle \)~~\var{\dark query}~~\( \dark _{\mono{2}}\rangle \)~ ~\( \dots \)~ ~\( \dark \langle \)~~\var{\dark query}~~\( \dark _{\monoit{n}}\rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(or ~\(\langle \)~~\var{query}~~\(_{\mono{1}}\rangle \)~ ~\(\langle \)~~\var{query}~~\(_{\mono{2}}\rangle \)~ ~\( \dots \)~ ~\(\langle \)~~\var{query}~~\(_{\monoItalic{n}}\rangle \)~)
+\end{codeBlock}
 
 \noindent
 is satisfied by all sets of values for the pattern variables that satisfy at
@@ -4667,18 +4675,18 @@ least one of \( \langle \)\var{query}\( _1\rangle \) \( \dots \) \( \langle \)\v
 
 Compound queries can also be formed with \code{not}. For example,
 
-\begin{scheme}
+\begin{codeBlock}
 (and (supervisor ?x (Bitdiddle Ben))
      (not (job ?x (computer programmer))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 finds all people supervised by Ben Bitdiddle who are not computer programmers.
 In general,
 
-\begin{scheme}
-(not ~\( \dark \langle \)~~\var{\dark query}~~\( \dark _{\mono{1}}\rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(not ~\(\langle \)~~\var{query}~~\(_{\mono{1}}\rangle \)~)
+\end{codeBlock}
 
 \noindent
 is satisfied by all assignments to the pattern variables that do not satisfy
@@ -4692,9 +4700,9 @@ is the first element of a pattern, it specifies that the next element is a Lisp
 predicate to be applied to the rest of the (instantiated) elements as
 arguments.  In general,
 
-\begin{scheme}
-(lisp-value ~\( \dark \langle \)~~\var{\dark predicate}~~\( \dark \rangle \)~ ~\( \dark \langle \)~~\var{\dark arg}~~\( \dark _{\mono{1}}\rangle \)~ ~\( \dots \)~ ~\( \dark \langle \)~~\var{\dark arg}~~\( \dark _{\monoit{n}}\rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(lisp-value ~\(\langle \)~~\var{predicate}~~\(\rangle \)~ ~\(\langle \)~~\var{arg}~~\(_{\mono{1}}\rangle \)~ ~\( \dots \)~ ~\(\langle \)~~\var{arg}~~\(_{\monoItalic{n}}\rangle \)~)
+\end{codeBlock}
 
 \noindent
 will be satisfied by assignments to the pattern variables for which the
@@ -4706,12 +4714,12 @@ particular, it should not be used to test equality (since that is what the
 matching in the query language is designed to do) or inequality (since that can
 be done with the \code{same} rule shown below).}
 
-\begin{scheme}
+\begin{codeBlock}
 (and (salary ?person ?amount) (lisp-value > ?amount 30000))
-\end{scheme}
+\end{codeBlock}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 4.56}Exercise 4.56:} Formulate compound queries that
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 4.56}Exercise 4.56:} Formulate compound queries that
 retrieve the following information:
 
 \begin{enumerate}[a.]
@@ -4729,7 +4737,7 @@ all people who are supervised by someone who is not in the computer division,
 together with the supervisor's name and job.
 
 \end{enumerate}
-\end{exercises}
+\end{exerciseGroup}
 
 \subsubsection*{Rules}
 
@@ -4737,12 +4745,12 @@ In addition to primitive queries and compound queries, the query language
 provides means for abstracting queries.  These are given by \newterm{rules}.
 The rule
 
-\begin{scheme}
+\begin{codeBlock}
 (rule (lives-near ?person-1 ?person-2)
       (and (address ?person-1 (?town . ?rest-1))
            (address ?person-2 (?town . ?rest-2))
            (not (same ?person-1 ?person-2))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 specifies that two people live near each other if they live in the same town.
@@ -4759,26 +4767,26 @@ of a query forces the same value to appear in both places, using different
 pattern variables does not force different values to appear.  (The values
 assigned to different pattern variables may be the same or different.)}
 
-\begin{scheme}
+\begin{codeBlock}
 (rule (same ?x ?x))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The following rule declares that a person is a ``wheel'' in an organization if
 he supervises someone who is in turn a supervisor:
 
-\begin{scheme}
+\begin{codeBlock}
 (rule (wheel ?person)
       (and (supervisor ?middle-manager ?person)
            (supervisor ?x ?middle-manager)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The general form of a rule is
 
-\begin{scheme}
-(rule ~\( \dark \langle \)~~\var{\dark conclusion}~~\( \dark \rangle \)~ ~\( \dark \langle \)~~\var{\dark body}~~\( \dark \rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(rule ~\(\langle \)~~\var{conclusion}~~\(\rangle \)~ ~\(\langle \)~~\var{body}~~\(\rangle \)~)
+\end{codeBlock}
 
 \noindent
 where \( \langle \)\var{conclusion}\( \rangle \) is a pattern and \( \langle \)\var{body}\( \rangle \) is any
@@ -4792,45 +4800,45 @@ satisfies a pattern if the instantiated pattern is in the data base.  But the
 pattern needn't be explicitly in the data base as an assertion.  It can be an
 implicit assertion implied by a rule.  For example, the query
 
-\begin{scheme}
+\begin{codeBlock}
 (lives-near ?x (Bitdiddle Ben))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 results in
 
-\begin{scheme}
+\begin{codeBlock}
 (lives-near (Reasoner Louis) (Bitdiddle Ben))
 (lives-near (Aull DeWitt) (Bitdiddle Ben))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 To find all computer programmers who live near Ben Bitdiddle, we can ask
 
-\begin{scheme}
+\begin{codeBlock}
 (and (job ?x (computer programmer))
      (lives-near ?x (Bitdiddle Ben)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 As in the case of compound procedures, rules can be used as parts of other
 rules (as we saw with the \code{lives\-/near} rule above) or even be defined
 recursively.  For instance, the rule
 
-\begin{scheme}
+\begin{codeBlock}
 (rule (outranked-by ?staff-person ?boss)
       (or (supervisor ?staff-person ?boss)
           (and (supervisor ?staff-person ?middle-manager)
                (outranked-by ?middle-manager ?boss))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 says that a staff person is outranked by a boss in the organization if the boss
 is the person's supervisor or (recursively) if the person's supervisor is
 outranked by the boss.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 4.57}Exercise 4.57:} Define a rule that says that
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 4.57}Exercise 4.57:} Define a rule that says that
 person 1 can replace person 2 if either person 1 does the same job as person 2
 or someone who does person 1's job can also do person 2's job, and if person 1
 and person 2 are not the same person. Using your rule, give queries that find
@@ -4847,29 +4855,29 @@ together with the two salaries.
 
 \end{enumerate}
 
-\heading{\phantomsection\label{Exercise 4.58}Exercise 4.58:} Define a rule that says that a
+\exerciseHeading{\phantomsection\label{Exercise 4.58}Exercise 4.58:} Define a rule that says that a
 person is a ``big shot'' in a division if the person works in the division but
 does not have a supervisor who works in the division.
 
-\heading{\phantomsection\label{Exercise 4.59}Exercise 4.59:} Ben Bitdiddle has missed one
+\exerciseHeading{\phantomsection\label{Exercise 4.59}Exercise 4.59:} Ben Bitdiddle has missed one
 meeting too many.  Fearing that his habit of forgetting meetings could cost him
 his job, Ben decides to do something about it.  He adds all the weekly meetings
 of the firm to the Microshaft data base by asserting the following:
 
-\begin{scheme}
+\begin{codeBlock}
 (meeting accounting (Monday 9am))
 (meeting administration (Monday 10am))
 (meeting computer (Wednesday 3pm))
 (meeting administration (Friday 1pm))
-\end{scheme}
+\end{codeBlock}
 
 Each of the above assertions is for a meeting of an entire division.  Ben also
 adds an entry for the company-wide meeting that spans all the divisions.  All
 of the company's employees attend this meeting.
 
-\begin{scheme}
+\begin{codeBlock}
 (meeting whole-company (Wednesday 4pm))
-\end{scheme}
+\end{codeBlock}
 
 \begin{enumerate}[a.]
 
@@ -4884,10 +4892,10 @@ that says that a person's meetings include all \code{whole\-/company} meetings
 plus all meetings of that person's division.  Fill in the body of Alyssa's
 rule.
 
-\begin{scheme}
+\begin{codeBlock}
 (rule (meeting-time ?person ?day-and-time)
-      ~\( \dark \langle \)~~\var{\dark rule-body}~~\( \dark \rangle \)~)
-\end{scheme}
+      ~\(\langle \)~~\var{rule-body}~~\(\rangle \)~)
+\end{codeBlock}
 
 \item
 Alyssa arrives at work on Wednesday morning and wonders what meetings she has
@@ -4896,32 +4904,32 @@ to find this out?
 
 \end{enumerate}
 
-\heading{\phantomsection\label{Exercise 4.60}Exercise 4.60:} By giving the query
+\exerciseHeading{\phantomsection\label{Exercise 4.60}Exercise 4.60:} By giving the query
 
-\begin{scheme}
+\begin{codeBlock}
 (lives-near ?person (Hacker Alyssa P))
-\end{scheme}
+\end{codeBlock}
 
 Alyssa P. Hacker is able to find people who live near her, with whom she can
 ride to work.  On the other hand, when she tries to find all pairs of people
 who live near each other by querying
 
-\begin{scheme}
+\begin{codeBlock}
 (lives-near ?person-1 ?person-2)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 she notices that each pair of people who live near each other is listed twice;
 for example,
 
-\begin{scheme}
+\begin{codeBlock}
 (lives-near (Hacker Alyssa P) (Fect Cy D))
 (lives-near (Fect Cy D) (Hacker Alyssa P))
-\end{scheme}
+\end{codeBlock}
 
 Why does this happen?  Is there a way to find a list of people who live near
 each other, in which each pair appears only once?  Explain.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsubsection*{Logic as programs}
 
@@ -4949,19 +4957,19 @@ For any \code{u}, \code{v}, \code{y}, and \code{z}, \code{(cons u v)} and
 \noindent
 To express this in our query language, we define two rules for a relation
 
-\begin{scheme}
+\begin{codeBlock}
 (append-to-form x y z)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 which we can interpret to mean ``\code{x} and \code{y} \code{append} to form
 \code{z}'':
 
-\begin{scheme}
+\begin{codeBlock}
 (rule (append-to-form () ?y ?y))
 (rule (append-to-form (?u . ?v) ?y (?u . ?z))
       (append-to-form ?v ?y ?z))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The first rule has no body, which means that the conclusion holds for any value
@@ -4971,30 +4979,30 @@ name the \code{car} and \code{cdr} of a list.
 Given these two rules, we can formulate queries that compute the \code{append}
 of two lists:
 
-\begin{scheme}
+\begin{codeBlock}
 ~\textit{;;; Query input:}~
 (append-to-form (a b) (c d) ?z)
 ~\textit{;;; Query results:}~
 (append-to-form (a b) (c d) (a b c d))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 What is more striking, we can use the same rules to ask the question ``Which
 list, when \code{append}ed to \code{(a b)}, yields \code{(a b c d)}?''  This is
 done as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 ~\textit{;;; Query input:}~
 (append-to-form (a b) ?y (a b c d))
 ~\textit{;;; Query results:}~
 (append-to-form (a b) (c d) (a b c d))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We can also ask for all pairs of lists that \code{append} to form \code{(a b c
 d)}:
 
-\begin{scheme}
+\begin{codeBlock}
 ~\textit{;;; Query input:}~
 (append-to-form ?x ?y (a b c d))
 ~\textit{;;; Query results:}~
@@ -5003,7 +5011,7 @@ d)}:
 (append-to-form (a b) (c d) (a b c d))
 (append-to-form (a b c) (d) (a b c d))
 (append-to-form (a b c d) () (a b c d))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The query system may seem to exhibit quite a bit of intelligence in using the
@@ -5013,35 +5021,35 @@ unraveling the rules.  Unfortunately, although the system works impressively in
 the \code{append} case, the general methods may break down in more complex
 cases, as we will see in \link{Section 4.4.3}.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 4.61}Exercise 4.61:} The following rules implement a
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 4.61}Exercise 4.61:} The following rules implement a
 \code{next\-/to} relation that finds adjacent elements of a list:
 
-\begin{scheme}
+\begin{codeBlock}
 (rule (?x next-to ?y in (?x ?y . ?u)))
 (rule (?x next-to ?y in (?v . ?z))
       (?x next-to ?y in ?z))
-\end{scheme}
+\end{codeBlock}
 
 What will the response be to the following queries?
 
-\begin{scheme}
+\begin{codeBlock}
 (?x next-to ?y in (1 (2 3) 4))
 (?x next-to  1 in (2 1 3 1))
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 4.62}Exercise 4.62:} Define rules to implement the
+\exerciseHeading{\phantomsection\label{Exercise 4.62}Exercise 4.62:} Define rules to implement the
 \code{last\-/pair} operation of \link{Exercise 2.17}, which returns a list
 containing the last element of a nonempty list.  Check your rules on queries
 such as \code{(last\-/pair (3) ?x)}, \code{(last\-/pair (1 2 3) ?x)} and
 \code{(last\-/pair (2 ?x) (3))}.  Do your rules work correctly on queries such as
 \code{(last\-/pair ?x (3))} ?
 
-\heading{\phantomsection\label{Exercise 4.63}Exercise 4.63:} The following data base (see
+\exerciseHeading{\phantomsection\label{Exercise 4.63}Exercise 4.63:} The following data base (see
 Genesis 4) traces the genealogy of the descendants of Ada back to Adam, by way
 of Cain:
 
-\begin{scheme}
+\begin{codeBlock}
 (son Adam Cain)
 (son Cain Enoch)
 (son Enoch Irad)
@@ -5051,7 +5059,7 @@ of Cain:
 (wife Lamech Ada)
 (son Ada Jabal)
 (son Ada Jubal)
-\end{scheme}
+\end{codeBlock}
 
 Formulate rules such as ``If \( S \) is the son of \( f \), and \( f \) is the son of
 \( G \), then \( S \) is the grandson of \( G \)'' and ``If \( W \) is the wife of
@@ -5060,7 +5068,7 @@ was supposedly more true in biblical times than today) that will enable the
 query system to find the grandson of Cain; the sons of Lamech; the grandsons of
 Methushael.  (See \link{Exercise 4.69} for some rules to deduce more complicated
 relationships.)
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{How the Query System Works}
 \label{Section 4.4.2}
@@ -5120,9 +5128,9 @@ will return the given frame augmented by a binding of \code{?x} to \code{a}.
 The pattern matcher is all the mechanism that is needed to process simple
 queries that don't involve rules.  For instance, to process the query
 
-\begin{scheme}
+\begin{codeBlock}
 (job ?x (computer programmer))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 we scan through all assertions in the data base and select those that match the
@@ -5177,18 +5185,18 @@ deal with compound queries.  The processing of compound queries makes use of
 the ability of our matcher to demand that a match be consistent with a
 specified frame.  For example, to handle the \code{and} of two queries, such as
 
-\begin{scheme}
+\begin{codeBlock}
 (and (can-do-job ?x (computer programmer trainee))
      (job ?person ?x))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 (informally, ``Find all people who can do the job of a computer programmer
 trainee''), we first find all entries that match the pattern
 
-\begin{scheme}
+\begin{codeBlock}
 (can-do-job ?x (computer programmer trainee))
-\end{scheme}
+\end{codeBlock}
 
 % figure 4.5
 \begin{imageFigure}
@@ -5203,9 +5211,9 @@ trainee''), we first find all entries that match the pattern
 This produces a stream of frames, each of which contains a binding for
 \code{?x}.  Then for each frame in the stream we find all entries that match
 
-\begin{scheme}
+\begin{codeBlock}
 (job ?person ?x)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 in a way that is consistent with the given binding for \code{?x}.  Each such
@@ -5247,9 +5255,9 @@ From the stream-of-frames viewpoint, the \code{not} of some query acts as a
 filter that removes all frames for which the query can be satisfied.  For
 instance, given the pattern
 
-\begin{scheme}
+\begin{codeBlock}
 (not (job ?x (computer programmer)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 we attempt, for each frame in the input stream, to produce extension frames
@@ -5259,10 +5267,10 @@ consisting of only those frames in which the binding for \code{?x} does not
 satisfy \code{(job ?x (computer programmer))}.  For example, in processing the
 query
 
-\begin{scheme}
+\begin{codeBlock}
 (and (supervisor ?x ?y)
      (not (job ?x (computer programmer))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 the first clause will generate frames with bindings for \code{?x} and
@@ -5311,33 +5319,33 @@ the unknown (the pattern variable).} For example, unifying \code{(?x ?x)} and
 \code{((a ?y c) (a b ?z))} may be thought of as specifying the simultaneous
 equations
 
-\begin{scheme}
+\begin{codeBlock}
 ?x  =  (a ?y c)
 ?x  =  (a b ?z)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 These equations imply that
 
-\begin{scheme}
+\begin{codeBlock}
 (a ?y c)  =  (a b ?z)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 which in turn implies that
 
-\begin{scheme}
+\begin{codeBlock}
  a  =  a,
 ?y  =  b,
  c  =  ?z,
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 and hence that
 
-\begin{scheme}
+\begin{codeBlock}
 ?x  =  (a b c)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 In a successful pattern match, all pattern variables become bound, and the
@@ -5372,9 +5380,9 @@ Unification is the key to the component of the query system that makes
 inferences from rules. To see how this is accomplished, consider processing a
 query that involves applying a rule, such as
 
-\begin{scheme}
+\begin{codeBlock}
 (lives-near ?x (Hacker Alyssa P))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 To process this query, we first use the ordinary pattern-match procedure
@@ -5384,12 +5392,12 @@ includes no direct assertions about who lives near whom.)  The next step is to
 attempt to unify the query pattern with the conclusion of each rule.  We find
 that the pattern unifies with the conclusion of the rule
 
-\begin{scheme}
+\begin{codeBlock}
 (rule (lives-near ?person-1 ?person-2)
       (and (address ?person-1 (?town . ?rest-1))
            (address ?person-2 (?town . ?rest-2))
            (not (same ?person-1 ?person-2))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 resulting in a frame specifying that \code{?person\-/2} is bound to \code{(Hacker
@@ -5501,13 +5509,13 @@ The driver also checks for the special command \code{assert!}, which signals
 that the input is not a query but rather an assertion or rule to be added to
 the data base.  For instance,
 
-\begin{scheme}
+\begin{codeBlock}
 (assert! (job (Bitdiddle Ben)
               (computer wizard)))
 (assert! (rule (wheel ?person)
                (and (supervisor ?middle-manager ?person)
                     (supervisor ?x ?middle-manager))))
-\end{scheme}
+\end{codeBlock}
 
 
 \subsection{Is Logic Programming Mathematical Logic?}
@@ -5529,16 +5537,16 @@ take advantage of this control structure.  For example, to find all of the
 supervisors of programmers we could formulate a query in either of two
 logically equivalent forms:
 
-\begin{scheme}
+\begin{codeBlock}
 (and (job ?x (computer programmer)) (supervisor ?x ?y))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 or
 
-\begin{scheme}
+\begin{codeBlock}
 (and (supervisor ?x ?y) (job ?x (computer programmer)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 If a company has many more supervisors than programmers (the usual case), it is
@@ -5594,31 +5602,31 @@ problems.  An extreme case of inefficiency occurs when the system falls into
 infinite loops in making deductions.  As a simple example, suppose we are
 setting up a data base of famous marriages, including
 
-\begin{scheme}
+\begin{codeBlock}
 (assert! (married Minnie Mickey))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 If we now ask
 
-\begin{scheme}
+\begin{codeBlock}
 (married Mickey ?who)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 we will get no response, because the system doesn't know that if \( A \) is
 married to \( B \), then \( B \) is married to \( A \).  So we assert the rule
 
-\begin{scheme}
+\begin{codeBlock}
 (assert! (rule (married ?x ?y) (married ?y ?x)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 and again query
 
-\begin{scheme}
+\begin{codeBlock}
 (married Mickey ?who)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Unfortunately, this will drive the system into an infinite loop, as follows:
@@ -5672,12 +5680,12 @@ suitably chosen function \( f \).}
 Another quirk in the query system concerns \code{not}.  Given the data base of
 \link{Section 4.4.1}, consider the following two queries:
 
-\begin{scheme}
+\begin{codeBlock}
 (and (supervisor ?x ?y)
      (not (job ?x (computer programmer))))
 (and (not (job ?x (computer programmer)))
      (supervisor ?x ?y))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 These two queries do not produce the same result.  The first query begins by
@@ -5718,64 +5726,64 @@ relevant information has been included in the data base.\footnote{A discussion
 and justification of this treatment of \code{not} can be found in the article
 by \link{Clark (1978)}.}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 4.64}Exercise 4.64:} Louis Reasoner mistakenly deletes
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 4.64}Exercise 4.64:} Louis Reasoner mistakenly deletes
 the \code{outranked\-/by} rule (\link{Section 4.4.1}) from the data base.  When he
 realizes this, he quickly reinstalls it.  Unfortunately, he makes a slight
 change in the rule, and types it in as
 
-\begin{scheme}
+\begin{codeBlock}
 (rule (outranked-by ?staff-person ?boss)
       (or (supervisor ?staff-person ?boss)
           (and (outranked-by ?middle-manager ?boss)
                (supervisor ?staff-person
                            ?middle-manager))))
-\end{scheme}
+\end{codeBlock}
 
 Just after Louis types this information into the system, DeWitt Aull comes by
 to find out who outranks Ben Bitdiddle. He issues the query
 
-\begin{scheme}
+\begin{codeBlock}
 (outranked-by (Bitdiddle Ben) ?who)
-\end{scheme}
+\end{codeBlock}
 
 After answering, the system goes into an infinite loop.  Explain why.
 
-\heading{\phantomsection\label{Exercise 4.65}Exercise 4.65:} Cy D. Fect, looking forward to
+\exerciseHeading{\phantomsection\label{Exercise 4.65}Exercise 4.65:} Cy D. Fect, looking forward to
 the day when he will rise in the organization, gives a query to find all the
 wheels (using the \code{wheel} rule of \link{Section 4.4.1}):
 
-\begin{scheme}
+\begin{codeBlock}
 (wheel ?who)
-\end{scheme}
+\end{codeBlock}
 
 To his surprise, the system responds
 
-\begin{scheme}
+\begin{codeBlock}
 ~\textit{;;; Query results:}~
 (wheel (Warbucks Oliver))
 (wheel (Bitdiddle Ben))
 (wheel (Warbucks Oliver))
 (wheel (Warbucks Oliver))
 (wheel (Warbucks Oliver))
-\end{scheme}
+\end{codeBlock}
 
 Why is Oliver Warbucks listed four times?
 
-\heading{\phantomsection\label{Exercise 4.66}Exercise 4.66:} Ben has been generalizing the
+\exerciseHeading{\phantomsection\label{Exercise 4.66}Exercise 4.66:} Ben has been generalizing the
 query system to provide statistics about the company.  For example, to find the
 total salaries of all the computer programmers one will be able to say
 
-\begin{scheme}
+\begin{codeBlock}
 (sum ?amount (and (job ?x (computer programmer))
                   (salary ?x ?amount)))
-\end{scheme}
+\end{codeBlock}
 
 In general, Ben's new system allows expressions of the form
 
-\begin{scheme}
-(accumulation-function ~\( \dark \langle \)~~\var{\dark variable}~~\( \dark \rangle \)~ ~\( \dark \langle \)~~\var{\dark query pattern}~~\( \dark \rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(accumulation-function ~\(\langle \)~~\var{variable}~~\(\rangle \)~ ~\(\langle \)~~\var{query pattern}~~\(\rangle \)~)
+\end{codeBlock}
 
 \noindent
 where \code{accumulation\-/function} can be things like \code{sum},
@@ -5792,7 +5800,7 @@ Cy walks by, still puzzling over the \code{wheel} query result in
 What has Ben just realized?  Outline a method he can use to salvage the
 situation.
 
-\heading{\phantomsection\label{Exercise 4.67}Exercise 4.67:} Devise a way to install a loop
+\exerciseHeading{\phantomsection\label{Exercise 4.67}Exercise 4.67:} Devise a way to install a loop
 detector in the query system so as to avoid the kinds of simple loops
 illustrated in the text and in \link{Exercise 4.64}.
 The general idea is that
@@ -5803,13 +5811,13 @@ this history, and how the check should be made.  (After you study the details
 of the query-system implementation in \link{Section 4.4.4}, you may want to
 modify the system to include your loop detector.)
 
-\heading{\phantomsection\label{Exercise 4.68}Exercise 4.68:} Define rules to implement the
+\exerciseHeading{\phantomsection\label{Exercise 4.68}Exercise 4.68:} Define rules to implement the
 \code{reverse} operation of \link{Exercise 2.18}, which returns a list
 containing the same elements as a given list in reverse order.  (Hint: Use
 \code{append\-/to\-/form}.)  Can your rules answer both \code{(reverse (1 2 3) ?x)}
 and \code{(reverse ?x (1 2 3))} ?
 
-\heading{\phantomsection\label{Exercise 4.69}Exercise 4.69:} Beginning with the data base and
+\exerciseHeading{\phantomsection\label{Exercise 4.69}Exercise 4.69:} Beginning with the data base and
 the rules you formulated in \link{Exercise 4.63}, devise a rule for adding
 ``greats'' to a grandson relationship. This should enable the system to deduce
 that Irad is the great-grandson of Adam, or that Jabal and Jubal are the
@@ -5820,7 +5828,7 @@ a rule that allows one to derive the relationship \code{((great .  ?rel) ?x
 ?y)}, where \code{?rel} is a list ending in \code{grandson}.)  Check your rules
 on queries such as \code{((great grandson) ?g ?ggs)} and \code{(?relationship
 Adam Irad)}.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Implementing the Query System}
 \label{Section 4.4.4}
@@ -5844,7 +5852,7 @@ of copies of the original query in which the variables are instantiated with
 values supplied by the stream of frames, and this final stream is printed at
 the terminal:
 
-\begin{scheme}
+\begin{codeBlock}
 (define input-prompt  ";;; Query input:")
 (define output-prompt ";;; Query results:")
 
@@ -5869,7 +5877,7 @@ the terminal:
                   (contract-question-mark v))))
              (qeval q (singleton-stream '()))))
            (query-driver-loop)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Here, as in the other evaluators in this chapter, we use an abstract syntax for
@@ -5893,7 +5901,7 @@ instantiated, since they could contain variables (for example, if \code{?x} in
 in turn bound to 5).  The action to take if a variable cannot be instantiated
 is given by a procedural argument to \code{instantiate}.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (instantiate exp frame unbound-var-handler)
   (define (copy exp)
     (cond ((var? exp)
@@ -5905,7 +5913,7 @@ is given by a procedural argument to \code{instantiate}.
            (cons (copy (car exp)) (copy (cdr exp))))
           (else exp)))
   (copy exp))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The procedures that manipulate bindings are defined in \link{Section 4.4.4.8}.
@@ -5921,13 +5929,13 @@ did in implementing generic operations in \link{Chapter 2}.  Any query that is
 not identified as a special form is assumed to be a simple query, to be
 processed by \code{simple\-/query}.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (qeval query frame-stream)
   (let ((qproc (get (type query) 'qeval)))
     (if qproc
         (qproc (contents query) frame-stream)
         (simple-query query frame-stream))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{type} and \code{contents}, defined in \link{Section 4.4.4.7}, implement
@@ -5940,7 +5948,7 @@ arguments a simple query (a pattern) together with a stream of frames, and it
 returns the stream formed by extending each frame by all data-base matches of
 the query.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (simple-query query-pattern frame-stream)
   (stream-flatmap
    (lambda (frame)
@@ -5948,7 +5956,7 @@ the query.
       (find-assertions query-pattern frame)
       (delay (apply-rules query-pattern frame))))
    frame-stream))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 For each frame in the input stream, we use \code{find\-/assertions}
@@ -5973,20 +5981,20 @@ extensions that satisfy the first query in the conjunction.  Then, using this
 as the new frame stream, it recursively applies \code{conjoin} to the rest of
 the queries.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (conjoin conjuncts frame-stream)
   (if (empty-conjunction? conjuncts)
       frame-stream
       (conjoin (rest-conjuncts conjuncts)
                (qeval (first-conjunct conjuncts) frame-stream))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The expression
 
-\begin{scheme}
+\begin{codeBlock}
 (put 'and 'qeval conjoin)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 sets up \code{qeval} to dispatch to \code{conjoin} when an \code{and} form is
@@ -5997,7 +6005,7 @@ output streams for the various disjuncts of the \code{or} are computed
 separately and merged using the \code{interleave\-/delayed} procedure from
 \link{Section 4.4.4.6}.  (See \link{Exercise 4.71} and \link{Exercise 4.72}.)
 
-\begin{scheme}
+\begin{codeBlock}
 (define (disjoin disjuncts frame-stream)
   (if (empty-disjunction? disjuncts)
       the-empty-stream
@@ -6005,7 +6013,7 @@ separately and merged using the \code{interleave\-/delayed} procedure from
        (qeval (first-disjunct disjuncts) frame-stream)
        (delay (disjoin (rest-disjuncts disjuncts) frame-stream)))))
 (put 'or 'qeval disjoin)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The predicates and selectors for the syntax of conjuncts and disjuncts are
@@ -6018,7 +6026,7 @@ attempt to extend each frame in the input stream to satisfy the query being
 negated, and we include a given frame in the output stream only if it cannot be
 extended.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (negate operands frame-stream)
   (stream-flatmap
    (lambda (frame)
@@ -6029,7 +6037,7 @@ extended.
          the-empty-stream))
    frame-stream))
 (put 'not 'qeval negate)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{lisp\-/value} is a filter similar to \code{not}.  Each frame in the stream
@@ -6037,7 +6045,7 @@ is used to instantiate the variables in the pattern, the indicated predicate is
 applied, and the frames for which the predicate returns false are filtered out
 of the input stream.  An error results if there are unbound pattern variables.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (lisp-value call frame-stream)
   (stream-flatmap
    (lambda (frame)
@@ -6051,7 +6059,7 @@ of the input stream.  An error results if there are unbound pattern variables.
          the-empty-stream))
    frame-stream))
 (put 'lisp-value 'qeval lisp-value)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{execute}, which applies the predicate to the arguments, must \code{eval}
@@ -6061,11 +6069,11 @@ expressions whose evaluation (in Lisp) will produce the arguments.  Note that
 \code{execute} is implemented using \code{eval} and \code{apply} from the
 underlying Lisp system.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (execute exp)
   (apply (eval (predicate exp) user-initial-environment)
          (args exp)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The \code{always\-/true} special form provides for a query that is always
@@ -6075,10 +6083,10 @@ all the frames in the input stream.  \code{always\-/true} is used by the
 that were defined without bodies (that is, rules whose conclusions are always
 satisfied).
 
-\begin{scheme}
+\begin{codeBlock}
 (define (always-true ignore frame-stream) frame-stream)
 (put 'always-true 'qeval always-true)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The selectors that define the syntax of \code{not} and \code{lisp\-/value} are
@@ -6099,26 +6107,26 @@ still work if we eliminated \code{fetch\-/assertions} and simply checked a strea
 of all assertions in the data base, but the computation would be less efficient
 because we would need to make many more calls to the matcher.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (find-assertions pattern frame)
   (stream-flatmap
    (lambda (datum) (check-an-assertion datum pattern frame))
    (fetch-assertions pattern frame)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{check\-/an\-/assertion} takes as arguments a pattern, a data object
 (assertion), and a frame and returns either a one-element stream containing the
 extended frame or \code{the\-/empty\-/stream} if the match fails.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (check-an-assertion assertion query-pat query-frame)
   (let ((match-result
          (pattern-match query-pat assertion query-frame)))
     (if (eq? match-result 'failed)
         the-empty-stream
         (singleton-stream match-result))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The basic pattern matcher returns either the symbol \code{failed} or an
@@ -6134,7 +6142,7 @@ frame; in this frame we then match the \code{cdr} of the pattern against the
 \code{cdr} of the data.  If none of these cases are applicable, the match fails
 and we return the symbol \code{failed}.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (pattern-match pat dat frame)
   (cond ((eq? frame 'failed) 'failed)
         ((equal? pat dat) frame)
@@ -6145,19 +6153,19 @@ and we return the symbol \code{failed}.
           (cdr dat)
           (pattern-match (car pat) (car dat) frame)))
         (else 'failed)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Here is the procedure that extends a frame by adding a new binding, if this is
 consistent with the bindings already in the frame:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (extend-if-consistent var dat frame)
   (let ((binding (binding-in-frame var frame)))
     (if binding
         (pattern-match (binding-value binding) dat frame)
         (extend var dat frame))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 If there is no binding for the variable in the frame, we simply add the binding
@@ -6218,12 +6226,12 @@ of extension frames by applying rules from the data base.
 applicable rules (selected by \code{fetch\-/rules}, \link{Section 4.4.4.5}) and
 combines the resulting streams of frames.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (apply-rules pattern frame)
   (stream-flatmap (lambda (rule)
                     (apply-a-rule rule pattern frame))
                   (fetch-rules pattern frame)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{apply\-/a\-/rule} applies rules using the method outlined in
@@ -6243,7 +6251,7 @@ the renaming approach we have chosen here is the most straightforward, even if
 not the most efficient.  (See \link{Exercise 4.79}.)  Here is the
 \code{apply\-/a\-/rule} procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (apply-a-rule rule query-pattern query-frame)
   (let ((clean-rule (rename-variables-in rule)))
     (let ((unify-result (unify-match query-pattern
@@ -6253,7 +6261,7 @@ not the most efficient.  (See \link{Exercise 4.79}.)  Here is the
           the-empty-stream
           (qeval (rule-body clean-rule)
                  (singleton-stream unify-result))))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The selectors \code{rule\-/body} and \code{conclusion} that extract parts of a
@@ -6267,7 +6275,7 @@ the rule to \code{?y\-/7}.  (\code{make\-/new\-/variable} and
 \code{new\-/rule\-/application\-/id} are included with the syntax procedures in
 \link{Section 4.4.4.7}.)
 
-\begin{scheme}
+\begin{codeBlock}
 (define (rename-variables-in rule)
   (let ((rule-application-id (new-rule-application-id)))
     (define (tree-walk exp)
@@ -6278,7 +6286,7 @@ the rule to \code{?y\-/7}.  (\code{make\-/new\-/variable} and
                    (tree-walk (cdr exp))))
             (else exp)))
     (tree-walk rule)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The unification algorithm is implemented as a procedure that takes as inputs
@@ -6289,7 +6297,7 @@ symmetrical---variables are allowed on both sides of the match.
 there is extra code (marked ``\code{***}'' below) to handle the case where the
 object on the right side of the match is a variable.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (unify-match p1 p2 frame)
   (cond ((eq? frame 'failed) 'failed)
         ((equal? p1 p2) frame)
@@ -6302,7 +6310,7 @@ object on the right side of the match is a variable.
                                    (car p2)
                                    frame)))
         (else 'failed)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 In unification, as in one-sided pattern matching, we want to accept a proposed
@@ -6340,51 +6348,23 @@ point.  The issues that arise here are similar to the issues of manipulating
 infinite series in mathematics.  For example, we know that 2 is the solution to
 the equation \( y = 1 + y / 2 \).  Beginning with the expression \( 1 + y / 2 \)
 and repeatedly substituting \( 1 + y / 2 \) for \( y \) gives
-\begin{comment}
-
-\begin{example}
-2 = y = 1 + y/2 = 1 + (1 + y/2)/2 = 1 + 1/2 + y/4 = ...
-\end{example}
-
-\end{comment}
 
 $$ 2 = y = 1 + \frac{y}{2} = 1 + \frac{1}{2}\left(1 + \frac{y}{2}\right) =
 	1 + \frac{1}{2} + \frac{y}{4} = \dots , $$
 
 \noindent
 which leads to
-\begin{comment}
-
-\begin{example}
-2 = 1 + 1/2 + 1/4 + 1/8 + ...
-\end{example}
-
-\end{comment}
 
 $$ 2 = 1 + \frac{1}{2} + \frac{1}{4} + \frac{1}{8} + \dots. $$
 
 \noindent
 However, if we try the same manipulation beginning with the observation that -1
 is the solution to the equation \( y = 1 + 2y \), we obtain
-\begin{comment}
-
-\begin{example}
--1 = y = 1 + 2y = 1 + 2(1 + 2y) = 1 + 2 + 4y = ...
-\end{example}
-
-\end{comment}
 
 $$ -1 = y = 1 + 2y = 1 + 2(1 + 2y) = 1 + 2 + 4y = \dots, $$
 
 \noindent
 which leads to
-\begin{comment}
-
-\begin{example}
--1 = 1 + 2 + 4 + 8 + ...
-\end{example}
-
-\end{comment}
 
 $$ -1 = 1 + 2 + 4 + 8 + \dots. $$
 
@@ -6399,7 +6379,7 @@ attempt to bind \code{?x} to \code{?y} matches \code{?y} (the stored value of
 \code{?x}) against \code{?y} (the new value of \code{?x}).  This is taken care
 of by the \code{equal?}  clause of \code{unify\-/match}.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (extend-if-possible var val frame)
   (let ((binding (binding-in-frame var frame)))
     (cond (binding
@@ -6413,7 +6393,7 @@ of by the \code{equal?}  clause of \code{unify\-/match}.
           ((depends-on? val var frame)     ~\textrm{; ***}~
            'failed)
           (else (extend var val frame)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{depends\-/on?} is a predicate that tests whether an expression proposed to
@@ -6423,7 +6403,7 @@ a variable that already has a value that depends on our test variable.  The
 structure of \code{depends\-/on?} is a simple recursive tree walk in which we
 substitute for the values of variables whenever necessary.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (depends-on? exp var frame)
   (define (tree-walk e)
     (cond ((var? e)
@@ -6438,7 +6418,7 @@ substitute for the values of variables whenever necessary.
                (tree-walk (cdr e))))
           (else false)))
   (tree-walk exp))
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection{Maintaining the Data Base}
 \label{Section 4.4.4.5}
@@ -6458,7 +6438,7 @@ not a constant symbol.  We avoid building our criteria for indexing (using the
 \code{car}, handling only the case of constant symbols) into the program;
 instead we call on predicates and selectors that embody our criteria.
 
-\begin{scheme}
+\begin{codeBlock}
 (define THE-ASSERTIONS the-empty-stream)
 (define (fetch-assertions pattern frame)
   (if (use-index? pattern)
@@ -6467,17 +6447,17 @@ instead we call on predicates and selectors that embody our criteria.
 (define (get-all-assertions) THE-ASSERTIONS)
 (define (get-indexed-assertions pattern)
   (get-stream (index-key-of pattern) 'assertion-stream))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{get\-/stream} looks up a stream in the table and returns an empty stream if
 nothing is stored there.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (get-stream key1 key2)
   (let ((s (get key1 key2)))
     (if s s the-empty-stream)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Rules are stored similarly, using the \code{car} of the rule conclusion.  Rule
@@ -6491,7 +6471,7 @@ the same \code{car} as the pattern.  For this purpose we store all rules whose
 conclusions start with a variable in a separate stream in our table, indexed by
 the symbol \code{?}.
 
-\begin{scheme}
+\begin{codeBlock}
 (define THE-RULES the-empty-stream)
 (define (fetch-rules pattern frame)
   (if (use-index? pattern)
@@ -6502,14 +6482,14 @@ the symbol \code{?}.
   (stream-append
    (get-stream (index-key-of pattern) 'rule-stream)
    (get-stream '? 'rule-stream)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{add\-/rule\-/or\-/assertion!} is used by \code{query\-/driver\-/loop} to add
 assertions and rules to the data base.  Each item is stored in the index, if
 appropriate, and in a stream of all assertions or rules in the data base.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (add-rule-or-assertion! assertion)
   (if (rule? assertion)
       (add-rule! assertion)
@@ -6525,13 +6505,13 @@ appropriate, and in a stream of all assertions or rules in the data base.
   (let ((old-rules THE-RULES))
     (set! THE-RULES (cons-stream rule old-rules))
     'ok))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 To actually store an assertion or a rule, we check to see if it can be indexed.
 If so, we store it in the appropriate stream.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (store-assertion-in-index assertion)
   (if (indexable? assertion)
       (let ((key (index-key-of assertion)))
@@ -6552,52 +6532,52 @@ If so, we store it in the appropriate stream.
                  'rule-stream
                  (cons-stream rule
                               current-rule-stream)))))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The following procedures define how the data-base index is used.  A pattern (an
 assertion or a rule conclusion) will be stored in the table if it starts with a
 variable or a constant symbol.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (indexable? pat)
   (or (constant-symbol? (car pat))
       (var? (car pat))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The key under which a pattern is stored in the table is either \code{?} (if it
 starts with a variable) or the constant symbol with which it starts.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (index-key-of pat)
   (let ((key (car pat)))
     (if (var? key) '? key)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The index will be used to retrieve items that might match a pattern if the
 pattern starts with a constant symbol.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (use-index? pat) (constant-symbol? (car pat)))
-\end{scheme}
+\end{codeBlock}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 4.70}Exercise 4.70:} What is the purpose of the
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 4.70}Exercise 4.70:} What is the purpose of the
 \code{let} bindings in the procedures \code{add\-/assertion!} and
 \code{add\-/rule!} ?  What would be wrong with the following implementation of
 \code{add\-/assertion!} ?  Hint: Recall the definition of the infinite stream of
 ones in \link{Section 3.5.2}: \code{(define ones (cons\-/stream 1 ones))}.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (add-assertion! assertion)
   (store-assertion-in-index assertion)
   (set! THE-ASSERTIONS
         (cons-stream assertion THE-ASSERTIONS))
   'ok)
-\end{scheme}
-\end{exercises}
+\end{codeBlock}
+\end{exerciseGroup}
 
 \subsubsection{Stream Operations}
 \label{Section 4.4.4.6}
@@ -6610,7 +6590,7 @@ The query system uses a few stream operations that were not presented in
 they take a delayed argument (like the \code{integral} procedure in
 \link{Section 3.5.4}).  This postpones looping in some cases (see \link{Exercise 4.71}).
 
-\begin{scheme}
+\begin{codeBlock}
 (define (stream-append-delayed s1 delayed-s2)
   (if (stream-null? s1)
       (force delayed-s2)
@@ -6627,7 +6607,7 @@ they take a delayed argument (like the \code{integral} procedure in
        (interleave-delayed
         (force delayed-s2)
         (delay (stream-cdr s1))))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{stream\-/flatmap}, which is used throughout the query evaluator to map a
@@ -6637,7 +6617,7 @@ lists in \link{Section 2.2.3}.  Unlike ordinary \code{flatmap}, however, we
 accumulate the streams with an interleaving process, rather than simply
 appending them (see \link{Exercise 4.72} and \link{Exercise 4.73}).
 
-\begin{scheme}
+\begin{codeBlock}
 (define (stream-flatmap proc s)
   (flatten-stream (stream-map proc s)))
 
@@ -6647,16 +6627,16 @@ appending them (see \link{Exercise 4.72} and \link{Exercise 4.73}).
       (interleave-delayed
        (stream-car stream)
        (delay (flatten-stream (stream-cdr stream))))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The evaluator also uses the following simple procedure to generate a stream
 consisting of a single element:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (singleton-stream x)
   (cons-stream x the-empty-stream))
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection{Query Syntax Procedures}
 \label{Section 4.4.4.7}
@@ -6666,7 +6646,7 @@ specify that a special form is identified by the symbol in its \code{car}.
 They are the same as the \code{type\-/tag} and \code{contents} procedures in
 \link{Section 2.4.2}, except for the error message.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (type exp)
   (if (pair? exp)
       (car exp)
@@ -6675,24 +6655,24 @@ They are the same as the \code{type\-/tag} and \code{contents} procedures in
   (if (pair? exp)
       (cdr exp)
       (error "Unknown expression CONTENTS" exp)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The following procedures, used by \code{query\-/driver\-/loop} (in
 \link{Section 4.4.4.1}), specify that rules and assertions are added to the data base by
 expressions of the form \code{(assert! \( \langle \)\var{rule\-/or\-/assertion}\( \rangle \))}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (assertion-to-be-added? exp)
   (eq? (type exp) 'assert!))
 (define (add-assertion-body exp) (car (contents exp)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Here are the syntax definitions for the \code{and}, \code{or}, \code{not}, and
 \code{lisp\-/value} special forms (\link{Section 4.4.4.2}):
 
-\begin{scheme}
+\begin{codeBlock}
 (define (empty-conjunction? exps) (null? exps))
 (define (first-conjunct exps) (car exps))
 (define (rest-conjuncts exps) (cdr exps))
@@ -6702,18 +6682,18 @@ Here are the syntax definitions for the \code{and}, \code{or}, \code{not}, and
 (define (negated-query exps) (car exps))
 (define (predicate exps) (car exps))
 (define (args exps) (cdr exps))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The following three procedures define the syntax of rules:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (rule? statement)
   (tagged-list? statement 'rule))
 (define (conclusion rule) (cadr rule))
 (define (rule-body rule)
   (if (null? (cddr rule)) '(always-true) (caddr rule)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{query\-/driver\-/loop} (\link{Section 4.4.4.1}) calls
@@ -6737,7 +6717,7 @@ procedure here explicitly.
 \code{expand\-/question\-/mark} and \code{contract\-/question\-/mark} use several
 procedures with \code{string} in their names.  These are Scheme primitives.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (query-syntax-process exp)
   (map-over-symbols expand-question-mark exp))
 (define (map-over-symbols proc exp)
@@ -6753,17 +6733,17 @@ procedures with \code{string} in their names.  These are Scheme primitives.}
               (string->symbol
                (substring chars 1 (string-length chars))))
         symbol)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Once the variables are transformed in this way, the variables in a pattern are
 lists starting with \code{?}, and the constant symbols (which need to be
 recognized for data-base indexing, \link{Section 4.4.4.5}) are just the symbols.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (var? exp) (tagged-list? exp '?))
 (define (constant-symbol? exp) (symbol? exp))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Unique variables are constructed during rule application (in
@@ -6772,21 +6752,21 @@ The unique identifier for
 a rule application is a number, which is incremented each time a rule is
 applied.
 
-\begin{scheme}
+\begin{codeBlock}
 (define rule-counter 0)
 (define (new-rule-application-id)
   (set! rule-counter (+ 1 rule-counter))
   rule-counter)
 (define (make-new-variable var rule-application-id)
   (cons '? (cons rule-application-id (cdr var))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 When \code{query\-/driver\-/loop} instantiates the query to print the answer, it
 converts any unbound pattern variables back to the right form for printing,
 using
 
-\begin{scheme}
+\begin{codeBlock}
 (define (contract-question-mark variable)
   (string->symbol
    (string-append "?"
@@ -6795,14 +6775,14 @@ using
                         "-"
                         (number->string (cadr variable)))
          (symbol->string (cadr variable))))))
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection{Frames and Bindings}
 \label{Section 4.4.4.8}
 
 Frames are represented as lists of bindings, which are variable-value pairs:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-binding variable value)
   (cons variable value))
 (define (binding-variable binding) (car binding))
@@ -6811,15 +6791,15 @@ Frames are represented as lists of bindings, which are variable-value pairs:
   (assoc variable frame))
 (define (extend variable value frame)
   (cons (make-binding variable value) frame))
-\end{scheme}
+\end{codeBlock}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 4.71}Exercise 4.71:} Louis Reasoner wonders why the
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 4.71}Exercise 4.71:} Louis Reasoner wonders why the
 \code{simple\-/query} and \code{disjoin} procedures (\link{Section 4.4.4.2}) are
 implemented using explicit \code{delay} operations, rather than being defined
 as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (simple-query query-pattern frame-stream)
   (stream-flatmap
    (lambda (frame)
@@ -6835,29 +6815,29 @@ as follows:
               frame-stream)
        (disjoin (rest-disjuncts disjuncts)
                 frame-stream))))
-\end{scheme}
+\end{codeBlock}
 
 Can you give examples of queries where these simpler definitions would lead to
 undesirable behavior?
 
-\heading{\phantomsection\label{Exercise 4.72}Exercise 4.72:} Why do \code{disjoin} and
+\exerciseHeading{\phantomsection\label{Exercise 4.72}Exercise 4.72:} Why do \code{disjoin} and
 \code{stream\-/flatmap} interleave the streams rather than simply append them?
 Give examples that illustrate why interleaving works better.  (Hint: Why did we
 use \code{interleave} in \link{Section 3.5.3}?)
 
-\heading{\phantomsection\label{Exercise 4.73}Exercise 4.73:} Why does \code{flatten\-/stream}
+\exerciseHeading{\phantomsection\label{Exercise 4.73}Exercise 4.73:} Why does \code{flatten\-/stream}
 use \code{delay} explicitly?  What would be wrong with defining it as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (flatten-stream stream)
   (if (stream-null? stream)
       the-empty-stream
       (interleave
        (stream-car stream)
        (flatten-stream (stream-cdr stream)))))
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 4.74}Exercise 4.74:} Alyssa P. Hacker proposes to use
+\exerciseHeading{\phantomsection\label{Exercise 4.74}Exercise 4.74:} Alyssa P. Hacker proposes to use
 a simpler version of \code{stream\-/flatmap} in \code{negate}, \code{lisp\-/value},
 and \code{find\-/assertions}.  She observes that the procedure that is mapped
 over the frame stream in these cases always produces either the empty stream or
@@ -6868,49 +6848,49 @@ a singleton stream, so no interleaving is needed when combining these streams.
 \item
 Fill in the missing expressions in Alyssa's program.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (simple-stream-flatmap proc s)
   (simple-flatten (stream-map proc s)))
 (define (simple-flatten stream)
-  (stream-map ~\( \dark \langle \)~??~\( \dark \rangle \)~
-              (stream-filter ~\( \dark \langle \)~??~\( \dark \rangle \)~ stream)))
-\end{scheme}
+  (stream-map ~\(\langle \)~??~\(\rangle \)~
+              (stream-filter ~\(\langle \)~??~\(\rangle \)~ stream)))
+\end{codeBlock}
 
 \item
 Does the query system's behavior change if we change it in this way?
 
 \end{enumerate}
 
-\heading{\phantomsection\label{Exercise 4.75}Exercise 4.75:} Implement for the query language
+\exerciseHeading{\phantomsection\label{Exercise 4.75}Exercise 4.75:} Implement for the query language
 a new special form called \code{unique}.  \code{unique} should succeed if there
 is precisely one item in the data base satisfying a specified query.  For
 example,
 
-\begin{scheme}
+\begin{codeBlock}
 (unique (job ?x (computer wizard)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 should print the one-item stream
 
-\begin{scheme}
+\begin{codeBlock}
 (unique (job (Bitdiddle Ben) (computer wizard)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 since Ben is the only computer wizard, and
 
-\begin{scheme}
+\begin{codeBlock}
 (unique (job ?x (computer programmer)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 should print the empty stream, since there is more than one computer
 programmer.  Moreover,
 
-\begin{scheme}
+\begin{codeBlock}
 (and (job ?x ?j) (unique (job ?anyone ?j)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 should list all the jobs that are filled by only one person, and the people who
@@ -6922,9 +6902,9 @@ procedure that handles this special form, and the second is to make
 \code{qeval} does its dispatching in a data-directed way.  If your procedure is
 called \code{uniquely\-/asserted}, all you need to do is
 
-\begin{scheme}
+\begin{codeBlock}
 (put 'unique 'qeval uniquely-asserted)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 and \code{qeval} will dispatch to this procedure for every query whose
@@ -6942,7 +6922,7 @@ This is similar to the implementation of the \code{not} special form.
 Test your implementation by forming a query that lists all people who supervise
 precisely one person.
 
-\heading{\phantomsection\label{Exercise 4.76}Exercise 4.76:} Our implementation of \code{and}
+\exerciseHeading{\phantomsection\label{Exercise 4.76}Exercise 4.76:} Our implementation of \code{and}
 as a series combination of queries (\link{Figure 4.5}) is elegant, but it is
 inefficient because in processing the second query of the \code{and} we must
 scan the data base for each frame produced by the first query.  If the data
@@ -6960,7 +6940,7 @@ implement a procedure that takes two frames as inputs, checks whether the
 bindings in the frames are compatible, and, if so, produces a frame that merges
 the two sets of bindings.  This operation is similar to unification.
 
-\heading{\phantomsection\label{Exercise 4.77}Exercise 4.77:} In \link{Section 4.4.3} we saw
+\exerciseHeading{\phantomsection\label{Exercise 4.77}Exercise 4.77:} In \link{Section 4.4.3} we saw
 that \code{not} and \code{lisp\-/value} can cause the query language to give
 ``wrong'' answers if these filtering operations are applied to frames in which
 variables are unbound.  Devise a way to fix this shortcoming.  One idea is to
@@ -6971,7 +6951,7 @@ all other operations have been performed.  However, for efficiency's sake, we
 would like to perform filtering as soon as possible so as to cut down on the
 number of intermediate frames generated.
 
-\heading{\phantomsection\label{Exercise 4.78}Exercise 4.78:} Redesign the query language as a
+\exerciseHeading{\phantomsection\label{Exercise 4.78}Exercise 4.78:} Redesign the query language as a
 nondeterministic program to be implemented using the evaluator of
 \link{Section 4.3}, rather than as a stream process.  In this approach, each query will
 produce a single answer (rather than the stream of all answers) and the user
@@ -6981,17 +6961,17 @@ and backtracking.  You will probably also find, however, that your new query
 language has subtle differences in behavior from the one implemented here.  Can
 you find examples that illustrate this difference?
 
-\heading{\phantomsection\label{Exercise 4.79}Exercise 4.79:} When we implemented the Lisp
+\exerciseHeading{\phantomsection\label{Exercise 4.79}Exercise 4.79:} When we implemented the Lisp
 evaluator in \link{Section 4.1}, we saw how to use local environments to avoid
 name conflicts between the parameters of procedures.  For example, in
 evaluating
 
-\begin{scheme}
+\begin{codeBlock}
 (define (square x) (* x x))
 (define (sum-of-squares x y)
   (+ (square x) (square y)))
 (sum-of-squares 3 4)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 there is no confusion between the \code{x} in \code{square} and the \code{x} in
@@ -7012,4 +6992,4 @@ relate any of this to the problem of making deductions in a context (e.g., ``If
 I supposed that \( P \) were true, then I would be able to deduce \( A \) and
 \( B \).'') as a method of problem solving?  (This problem is open-ended.  A good
 answer is probably worth a Ph.D.)
-\end{exercises}
+\end{exerciseGroup}

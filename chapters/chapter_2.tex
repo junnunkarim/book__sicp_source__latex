@@ -44,8 +44,6 @@ that of the primitive operations of the language, the ability to construct
 compound data objects enables us to deal with data at a higher conceptual level
 than that of the primitive data objects of the language.
 
-\enlargethispage{\baselineskip}
-
 Consider the task of designing a system to perform arithmetic with rational
 numbers.  We could imagine an operation \code{add\-/rat} that takes two rational
 numbers and produces their sum.  In terms of simple data, a rational number can
@@ -81,10 +79,10 @@ arguments and return the value of \( ax + by \).  This
 presents no difficulty if the arguments are to be numbers, because we
 can readily define the procedure
 
-\begin{scheme}
+\begin{codeBlock}
 (define (linear-combination a b x y)
   (+ (* a x) (* b y)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 But suppose we are not concerned only with numbers.  Suppose we would like to
@@ -93,10 +91,10 @@ whenever addition and multiplication are defined---for rational numbers,
 complex numbers, polynomials, or whatever.  We could express this as a
 procedure of the form
 
-\begin{scheme}
+\begin{codeBlock}
 (define (linear-combination a b x y)
   (add (mul a x) (mul b y)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 where \code{add} and \code{mul} are not the primitive procedures \code{+} and
@@ -147,8 +145,6 @@ data objects, but compound data objects as well.  Another key idea is that
 compound data objects can serve as \newterm{conventional interfaces} for
 combining program modules in mix-and-match ways.  We illustrate some of these
 ideas by presenting a simple graphics language that exploits closure.
-
-\enlargethispage{\baselineskip}
 
 We will then augment the representational power of our language by introducing
 \newterm{symbolic expressions}---data whose elementary parts can be arbitrary
@@ -243,30 +239,7 @@ We haven't yet said how a rational number is represented, or how the procedures
 \code{numer}, \code{denom}, and \code{make\-/rat} should be implemented.  Even
 so, if we did have these three procedures, we could then add, subtract,
 multiply, divide, and test equality by using the following relations:
-\begin{comment}
 
-\begin{example}
-n_1   n_2   n_1 d_2 + n_2 d_1
---- + --- = -----------------
-d_1   d_2        d_1 d_2
-
-n_1   n_2   n_1 d_2 - n_2 d_1
---- - --- = -----------------
-d_1   d_2        d_1 d_2
-
-n_1   n_2   n_1 n_2
---- * --- = -------
-d_1   d_2   d_1 d_2
-
-n_1 / d_1   n_1 d_2
---------- = -------
-n_2 / d_2   d_1 n_2
-
-n_1   n_2
---- = ---  if and only if n_1 d_2 = n_2 d_1
-d_1   d_2
-\end{example}
-\end{comment}
 \begin{align*}
   \frac{n_1}{d_1} + \frac{n_2}{d_2} 	&= \frac{n_1 d_2 + n_2 d_1}{d_1 d_2}, \\
   \frac{n_1}{d_1} - \frac{n_2}{d_2} 	&= \frac{n_1 d_2 - n_2 d_1}{d_1 d_2}, \\
@@ -279,7 +252,7 @@ d_1   d_2
 \noindent
 We can express these rules as procedures:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (add-rat x y)
   (make-rat (+ (* (numer x) (denom y))
                (* (numer y) (denom x)))
@@ -298,7 +271,7 @@ We can express these rules as procedures:
 (define (equal-rat? x y)
   (= (* (numer x) (denom y))
      (* (numer y) (denom x))))
-\end{scheme}
+\end{codeBlock}
 
 Now we have the operations on rational numbers defined in terms of the selector
 and constructor procedures \code{numer}, \code{denom}, and \code{make\-/rat}.
@@ -321,20 +294,20 @@ Register'' and \code{cdr} (pronounced ``could-er'') stands for ``Contents of
 Decrement part of Register.''} Thus, we can use \code{cons}, \code{car}, and
 \code{cdr} as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (define x (cons 1 2))
 (car x)
 ~\textit{1}~
 (cdr x)
 ~\textit{2}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Notice that a pair is a data object that can be given a name and manipulated,
 just like a primitive data object.  Moreover, \code{cons} can be used to form
 pairs whose elements are pairs, and so on:
 
-\begin{scheme}
+\begin{codeBlock}
 (define x (cons 1 2))
 (define y (cons 3 4))
 (define z (cons x y))
@@ -342,17 +315,15 @@ pairs whose elements are pairs, and so on:
 ~\textit{1}~
 (car (cdr z))
 ~\textit{3}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 In \link{Section 2.2} we will see how this ability to combine pairs means that
 pairs can be used as general-purpose building blocks to create all sorts of
-complex data structures.  The single compound-data primitive \newterm{pair},
+complex data structures. The single compound-data primitive \newterm{pair},
 implemented by the procedures \code{cons}, \code{car}, and \code{cdr}, is the
 only glue we need.  Data objects constructed from pairs are called
 \newterm{list-structured} data.
-
-\enlargethispage{\baselineskip}
 
 \subsubsection*{Representing rational numbers}
 
@@ -362,11 +333,11 @@ denominator.  Then \code{make\-/rat}, \code{numer}, and \code{denom} are readily
 implemented as follows:\footnote{Another way to define the selectors and
 constructor is
 
-\begin{smallscheme}
+\begin{compactCodeBlock}
 (define make-rat cons)
 (define numer car)
 (define denom cdr)
-\end{smallscheme}
+\end{compactCodeBlock}
 
 The first definition associates the name \code{make\-/rat} with the value of the
 expression \code{cons}, which is the primitive procedure that constructs pairs.
@@ -383,11 +354,11 @@ watch every call to \code{cons}.
 
 We have chosen not to use this style of definition in this book.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-rat n d) (cons n d))
 (define (numer x) (car x))
 (define (denom x) (cdr x))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Also, in order to display the results of our computations, we can print
@@ -398,18 +369,18 @@ these procedures returns a useful value, so in the uses of \code{print\-/rat}
 below, we show only what \code{print\-/rat} prints, not what the interpreter
 prints as the value returned by \code{print\-/rat}.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (print-rat x)
   (newline)
   (display (numer x))
   (display "/")
   (display (denom x)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Now we can try our rational-number procedures:
 
-\begin{scheme}
+\begin{codeBlock}
 (define one-half (make-rat 1 2))
 (print-rat one-half)
 ~\textit{1/2}~
@@ -420,7 +391,7 @@ Now we can try our rational-number procedures:
 ~\textit{1/6}~
 (print-rat (add-rat one-third one-third))
 ~\textit{6/9}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 As the final example shows, our rational-number implementation does not reduce
@@ -430,32 +401,32 @@ rational numbers to lowest terms.  We can remedy this by changing
 use \code{gcd} to reduce the numerator and the denominator to lowest terms
 before constructing the pair:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-rat n d)
   (let ((g (gcd n d)))
     (cons (/ n g) (/ d g))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Now we have
 
-\begin{scheme}
+\begin{codeBlock}
 (print-rat (add-rat one-third one-third))
 ~\textit{2/3}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 as desired.  This modification was accomplished by changing the constructor
 \code{make\-/rat} without changing any of the procedures (such as \code{add\-/rat}
 and \code{mul\-/rat}) that implement the actual operations.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.1}Exercise 2.1:} Define a better version of
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.1}Exercise 2.1:} Define a better version of
 \code{make\-/rat} that handles both positive and negative arguments.
 \code{make\-/rat} should normalize the sign so that if the rational number is
 positive, both the numerator and denominator are positive, and if the rational
 number is negative, only the numerator is negative.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Abstraction Barriers}
 \label{Section 2.1.2}
@@ -505,7 +476,7 @@ numbers to lowest terms is to perform the reduction whenever we access the
 parts of a rational number, rather than when we construct it.  This leads to
 different constructor and selector procedures:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-rat n d) (cons n d))
 (define (numer x)
   (let ((g (gcd (car x) (cdr x))))
@@ -513,7 +484,7 @@ different constructor and selector procedures:
 (define (denom x)
   (let ((g (gcd (car x) (cdr x))))
     (/ (cdr x) g)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The difference between this implementation and the previous one lies in when we
@@ -534,8 +505,8 @@ time or at selection time.  The data-abstraction methodology gives us a way to
 defer that decision without losing the ability to make progress on the rest of
 the system.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.2}Exercise 2.2:} Consider the problem of
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.2}Exercise 2.2:} Consider the problem of
 representing line segments in a plane.  Each segment is represented as a pair
 of points: a starting point and an ending point.  Define a constructor
 \code{make\-/segment} and selectors \code{start\-/segment} and \code{end\-/segment}
@@ -548,7 +519,7 @@ Finally, using your selectors and constructors, define a procedure
 midpoint (the point whose coordinates are the average of the coordinates of the
 endpoints).  To try your procedures, you'll need a way to print points:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (print-point p)
   (newline)
   (display "(")
@@ -556,16 +527,16 @@ endpoints).  To try your procedures, you'll need a way to print points:
   (display ",")
   (display (y-point p))
   (display ")"))
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 2.3}Exercise 2.3:} Implement a representation for
+\exerciseHeading{\phantomsection\label{Exercise 2.3}Exercise 2.3:} Implement a representation for
 rectangles in a plane.  (Hint: You may want to make use of \link{Exercise 2.2}.)
 In terms of your constructors and selectors, create procedures that compute the
 perimeter and the area of a given rectangle.  Now implement a different
 representation for rectangles.  Can you design your system with suitable
 abstraction barriers, so that the same perimeter and area procedures will work
 using either representation?
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{What Is Meant by Data?}
 \label{Section 2.1.3}
@@ -587,15 +558,6 @@ dividing them should yield the same result as dividing \code{n} by \code{d}.
 In other words, \code{make\-/rat}, \code{numer}, and \code{denom} must satisfy
 the condition that, for any integer \code{n} and any non-zero integer \code{d},
 if \code{x} is \code{(make\-/rat n d)}, then
-\begin{comment}
-
-\begin{example}
-(numer x)    n
---------- = ---
-(denom x)    d
-\end{example}
-
-\end{comment}
 
 \[
 \frac{\texttt{(numer x)}}{\texttt{(denom x)}}
@@ -644,16 +606,17 @@ that we could implement \code{cons}, \code{car}, and \code{cdr} without using
 any data structures at all but only using procedures.  Here are the
 definitions:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (cons x y)
   (define (dispatch m)
     (cond ((= m 0) x)
           ((= m 1) y)
-          (else (error "Argument not 0 or 1: CONS" m))))
+          (else
+            (error "Argument not 0 or 1: CONS" m))))
   dispatch)
 (define (car z) (z 0))
 (define (cdr z) (z 1))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This use of procedures corresponds to nothing like our intuitive notion of what
@@ -687,38 +650,38 @@ programming is often called \newterm{message passing}, and we will be using it
 as a basic tool in \link{Chapter 3} when we address the issues of modeling and
 simulation.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.4}Exercise 2.4:} Here is an alternative procedural
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.4}Exercise 2.4:} Here is an alternative procedural
 representation of pairs.  For this representation, verify that \code{(car (cons
 x y))} yields \code{x} for any objects \code{x} and \code{y}.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (cons x y)
   (lambda (m) (m x y)))
 (define (car z)
   (z (lambda (p q) p)))
-\end{scheme}
+\end{codeBlock}
 
 What is the corresponding definition of \code{cdr}? (Hint: To verify that this
 works, make use of the substitution model of \link{Section 1.1.5}.)
 
-\heading{\phantomsection\label{Exercise 2.5}Exercise 2.5:} Show that we can represent pairs of
+\exerciseHeading{\phantomsection\label{Exercise 2.5}Exercise 2.5:} Show that we can represent pairs of
 nonnegative integers using only numbers and arithmetic operations if we
 represent the pair \( a \) and \( b \) as the integer that is the product \( 2^a 3^b \).
 Give the corresponding definitions of the procedures \code{cons},
 \code{car}, and \code{cdr}.
 
-\heading{\phantomsection\label{Exercise 2.6}Exercise 2.6:} In case representing pairs as
+\exerciseHeading{\phantomsection\label{Exercise 2.6}Exercise 2.6:} In case representing pairs as
 procedures wasn't mind-boggling enough, consider that, in a language that can
 manipulate procedures, we can get by without numbers (at least insofar as
 nonnegative integers are concerned) by implementing 0 and the operation of
 adding 1 as
 
-\begin{scheme}
+\begin{codeBlock}
 (define zero (lambda (f) (lambda (x) x)))
 (define (add-1 n)
   (lambda (f) (lambda (x) (f ((n f) x)))))
-\end{scheme}
+\end{codeBlock}
 
 This representation is known as \newterm{Church numerals}, after its inventor,
 Alonzo Church, the logician who invented the λ-calculus.
@@ -727,7 +690,7 @@ Define \code{one} and \code{two} directly (not in terms of \code{zero} and
 \code{add\-/1}).  (Hint: Use substitution to evaluate \code{(add\-/1 zero)}).  Give
 a direct definition of the addition procedure \code{+} (not in terms of
 repeated application of \code{add\-/1}).
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Extended Exercise: Interval Arithmetic}
 \label{Section 2.1.4}
@@ -742,15 +705,6 @@ Electrical engineers will be using Alyssa's system to compute electrical
 quantities.  It is sometimes necessary for them to compute the value of a
 parallel equivalent resistance \( R_p \) of two resistors \( R_1 \), \( R_2 \)
 using the formula
-\begin{comment}
-
-\begin{example}
-            1
-R_p = -------------
-      1/R_1 + 1/R_2
-\end{example}
-
-\end{comment}
 
 $$ R_p = \frac{1}{1 / R_1 + 1 / R_2}.  $$
 
@@ -777,11 +731,11 @@ adding two intervals.  She reasons that the minimum value the sum could be is
 the sum of the two lower bounds and the maximum value it could be is the sum of
 the two upper bounds:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (add-interval x y)
   (make-interval (+ (lower-bound x) (lower-bound y))
                  (+ (upper-bound x) (upper-bound y))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Alyssa also works out the product of two intervals by finding the minimum and
@@ -789,7 +743,7 @@ the maximum of the products of the bounds and using them as the bounds of the
 resulting interval.  (\code{min} and \code{max} are primitives that find the
 minimum or maximum of any number of arguments.)
 
-\begin{scheme}
+\begin{codeBlock}
 (define (mul-interval x y)
   (let ((p1 (* (lower-bound x) (lower-bound y)))
         (p2 (* (lower-bound x) (upper-bound y)))
@@ -797,38 +751,38 @@ minimum or maximum of any number of arguments.)
         (p4 (* (upper-bound x) (upper-bound y))))
     (make-interval (min p1 p2 p3 p4)
                    (max p1 p2 p3 p4))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 To divide two intervals, Alyssa multiplies the first by the reciprocal of the
 second.  Note that the bounds of the reciprocal interval are the reciprocal of
 the upper bound and the reciprocal of the lower bound, in that order.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (div-interval x y)
   (mul-interval
    x
    (make-interval (/ 1.0 (upper-bound y))
                   (/ 1.0 (lower-bound y)))))
-\end{scheme}
+\end{codeBlock}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.7}Exercise 2.7:} Alyssa's program is incomplete
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.7}Exercise 2.7:} Alyssa's program is incomplete
 because she has not specified the implementation of the interval abstraction.
 Here is a definition of the interval constructor:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-interval a b) (cons a b))
-\end{scheme}
+\end{codeBlock}
 
 Define selectors \code{upper\-/bound} and \code{lower\-/bound} to complete the
 implementation.
 
-\heading{\phantomsection\label{Exercise 2.8}Exercise 2.8:} Using reasoning analogous to
+\exerciseHeading{\phantomsection\label{Exercise 2.8}Exercise 2.8:} Using reasoning analogous to
 Alyssa's, describe how the difference of two intervals may be computed.  Define
 a corresponding subtraction procedure, called \code{sub\-/interval}.
 
-\heading{\phantomsection\label{Exercise 2.9}Exercise 2.9:} The \newterm{width} of an interval
+\exerciseHeading{\phantomsection\label{Exercise 2.9}Exercise 2.9:} The \newterm{width} of an interval
 is half of the difference between its upper and lower bounds.  The width is a
 measure of the uncertainty of the number specified by the interval.  For some
 arithmetic operations the width of the result of combining two intervals is a
@@ -838,12 +792,12 @@ intervals.  Show that the width of the sum (or difference) of two intervals is
 a function only of the widths of the intervals being added (or subtracted).
 Give examples to show that this is not true for multiplication or division.
 
-\heading{\phantomsection\label{Exercise 2.10}Exercise 2.10:} Ben Bitdiddle, an expert systems
+\exerciseHeading{\phantomsection\label{Exercise 2.10}Exercise 2.10:} Ben Bitdiddle, an expert systems
 programmer, looks over Alyssa's shoulder and comments that it is not clear what
 it means to divide by an interval that spans zero.  Modify Alyssa's code to
 check for this condition and to signal an error if it occurs.
 
-\heading{\phantomsection\label{Exercise 2.11}Exercise 2.11:} In passing, Ben also cryptically
+\exerciseHeading{\phantomsection\label{Exercise 2.11}Exercise 2.11:} In passing, Ben also cryptically
 comments: ``By testing the signs of the endpoints of the intervals, it is
 possible to break \code{mul\-/interval} into nine cases, only one of which
 requires more than two multiplications.''  Rewrite this procedure using Ben's
@@ -856,14 +810,14 @@ example, he wants to work with intervals such as \( 3.5 \pm 0.15 \) rather than
 [3.35, 3.65].  Alyssa returns to her desk and fixes this problem by supplying
 an alternate constructor and alternate selectors:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-center-width c w)
   (make-interval (- c w) (+ c w)))
 (define (center i)
   (/ (+ (lower-bound i) (upper-bound i)) 2))
 (define (width i)
   (/ (- (upper-bound i) (lower-bound i)) 2))
-\end{scheme}
+\end{codeBlock}
 
 Unfortunately, most of Alyssa's users are engineers.  Real engineering
 situations usually involve measurements with only a small uncertainty, measured
@@ -871,13 +825,13 @@ as the ratio of the width of the interval to the midpoint of the interval.
 Engineers usually specify percentage tolerances on the parameters of devices,
 as in the resistor specifications given earlier.
 
-\heading{\phantomsection\label{Exercise 2.12}Exercise 2.12:} Define a constructor
+\exerciseHeading{\phantomsection\label{Exercise 2.12}Exercise 2.12:} Define a constructor
 \code{make\-/center\-/percent} that takes a center and a percentage tolerance and
 produces the desired interval.  You must also define a selector \code{percent}
 that produces the percentage tolerance for a given interval.  The \code{center}
 selector is the same as the one shown above.
 
-\heading{\phantomsection\label{Exercise 2.13}Exercise 2.13:} Show that under the assumption of
+\exerciseHeading{\phantomsection\label{Exercise 2.13}Exercise 2.13:} Show that under the assumption of
 small percentage tolerances there is a simple formula for the approximate
 percentage tolerance of the product of two intervals in terms of the tolerances
 of the factors.  You may simplify the problem by assuming that all numbers are
@@ -888,61 +842,42 @@ Several years later, after she has forgotten all about it, she gets a frenzied
 call from an irate user, Lem E. Tweakit.  It seems that Lem has noticed that
 the formula for parallel resistors can be written in two algebraically
 equivalent ways:
-\begin{comment}
-
-\begin{example}
- R_1 R_2
----------
-R_1 + R_2
-\end{example}
-
-\end{comment}
 
 $$ \frac{R_1 R_2}{R_1 + R_2} $$
 
 \noindent
 and
-\begin{comment}
-
-\begin{example}
-      1
--------------
-1/R_1 + 1/R_2
-\end{example}
-
-\end{comment}
 
 $$ \frac{1}{1 / R_1 + 1 / R_2}. $$
 
 He has written the following two programs, each of which computes the
 parallel-resistors formula differently:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (par1 r1 r2)
   (div-interval (mul-interval r1 r2)
                 (add-interval r1 r2)))
-\end{scheme}
+\end{codeBlock}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (par2 r1 r2)
   (let ((one (make-interval 1 1)))
     (div-interval
      one (add-interval (div-interval one r1)
                        (div-interval one r2)))))
-\end{scheme}
-\vspace{0.3em}
+\end{codeBlock}
 
 Lem complains that Alyssa's program gives different answers for the two ways of
 computing. This is a serious complaint.
 
-\heading{\phantomsection\label{Exercise 2.14}Exercise 2.14:} Demonstrate that Lem is right.
+\exerciseHeading{\phantomsection\label{Exercise 2.14}Exercise 2.14:} Demonstrate that Lem is right.
 Investigate the behavior of the system on a variety of arithmetic
 expressions. Make some intervals \( A \) and \( B \), and use them in computing the
 expressions \( A / A \) and \( A / B \).  You will get the most insight by
 using intervals whose width is a small percentage of the center value. Examine
 the results of the computation in center-percent form (see \link{Exercise 2.12}).
 
-\heading{\phantomsection\label{Exercise 2.15}Exercise 2.15:} Eva Lu Ator, another user, has
+\exerciseHeading{\phantomsection\label{Exercise 2.15}Exercise 2.15:} Eva Lu Ator, another user, has
 also noticed the different intervals computed by different but algebraically
 equivalent expressions. She says that a formula to compute with intervals using
 Alyssa's system will produce tighter error bounds if it can be written in such
@@ -950,11 +885,11 @@ a form that no variable that represents an uncertain number is repeated.  Thus,
 she says, \code{par2} is a ``better'' program for parallel resistances than
 \code{par1}.  Is she right?  Why?
 
-\heading{\phantomsection\label{Exercise 2.16}Exercise 2.16:} Explain, in general, why
+\exerciseHeading{\phantomsection\label{Exercise 2.16}Exercise 2.16:} Explain, in general, why
 equivalent algebraic expressions may lead to different answers.  Can you devise
 an interval-arithmetic package that does not have this shortcoming, or is this
 task impossible?  (Warning: This problem is very difficult.)
-\end{exercises}
+\end{exerciseGroup}
 
 
 \section{Hierarchical Data and the Closure Property}
@@ -1044,12 +979,12 @@ represented in box-and-pointer diagrams as a diagonal line and in programs as
 the value of the variable \code{nil}.  The entire sequence is constructed by
 nested \code{cons} operations:
 
-\begin{scheme}
+\begin{codeBlock}
 (cons 1
       (cons 2
             (cons 3
                   (cons 4 nil))))
-\end{scheme}
+\end{codeBlock}
 
 % figure 2.4
 \begin{imageFigure}{The sequence 1, 2, 3, 4 represented as a chain of pairs.}
@@ -1064,31 +999,31 @@ chain of pairs terminated by the end-of-list marker.  In contrast, the term
 just to lists.}  The above sequence could be produced by \code{(list 1 2 3 4)}.
 In general,
 
-\begin{scheme}
-(list ~\( \dark \langle \)~~\var{\dark a}~~\( \dark _{\mono{1}}\rangle \)~ ~\( \dark \langle \)~~\var{\dark a}~~\( \dark _{\mono{2}}\rangle \)~ ~\( \dots \)~ ~\( \dark \langle \)~~\var{\dark a}~~\( \dark _{\monoit{n}}\rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(list ~\(\langle \)~~\var{a}~~\(_{\mono{1}}\rangle \)~ ~\(\langle \)~~\var{a}~~\(_{\mono{2}}\rangle \)~ ~\( \dots \)~ ~\(\langle \)~~\var{a}~~\(_{\monoItalic{n}}\rangle \)~)
+\end{codeBlock}
 
 \noindent
 is equivalent to
 
-\begin{scheme}
-(cons ~\( \dark \langle \)~~\var{\dark a}~~\( \dark _{\mono{1}}\rangle \)~
-      (cons ~\( \dark \langle \)~~\var{\dark a}~~\( \dark _{\mono{2}}\rangle \)~
+\begin{codeBlock}
+(cons ~\(\langle \)~~\var{a}~~\(_{\mono{1}}\rangle \)~
+      (cons ~\(\langle \)~~\var{a}~~\(_{\mono{2}}\rangle \)~
             (cons ~\( \dots \)~
-                  (cons ~\( \dark \langle \)~~\var{\dark a}~~\( \dark _{\monoit{n}}\rangle \)~
+                  (cons ~\(\langle \)~~\var{a}~~\(_{\monoItalic{n}}\rangle \)~
                         nil)~\( \dots \)~)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Lisp systems conventionally print lists by printing the sequence of elements,
 enclosed in parentheses.  Thus, the data object in \link{Figure 2.4} is printed
 as \code{(1 2 3 4)}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define one-through-four (list 1 2 3 4))
 one-through-four
 ~\textit{(1 2 3 4)}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Be careful not to confuse the expression \code{(list 1 2 3 4)} with the list
@@ -1104,9 +1039,9 @@ second, third, and subsequent items in the list.\footnote{Since nested
 applications of \code{car} and \code{cdr} are cumbersome to write, Lisp
 dialects provide abbreviations for them---for instance,
 
-\begin{smallscheme}
-(cadr ~\( \dark \langle \)~~\var{\dark arg}~~\( \dark \rangle \)~) = (car (cdr ~\( \dark \langle \)~~\var{\dark arg}~~\( \dark \rangle \)~))
-\end{smallscheme}
+\begin{compactCodeBlock}
+(cadr ~\(\langle \)~~\var{arg}~~\(\rangle \)~) = (car (cdr ~\(\langle \)~~\var{arg}~~\(\rangle \)~))
+\end{compactCodeBlock}
 
 The names of all such procedures start with \code{c} and end with \code{r}.
 Each \code{a} between them stands for a \code{car} operation and each \code{d}
@@ -1116,7 +1051,7 @@ combinations like \code{cadr} are pronounceable.} The constructor \code{cons}
 makes a list like the original one, but with an additional item at the
 beginning.
 
-\begin{scheme}
+\begin{codeBlock}
 (car one-through-four)
 ~\textit{1}~
 (cdr one-through-four)
@@ -1127,7 +1062,7 @@ beginning.
 ~\textit{(10 1 2 3 4)}~
 (cons 5 one-through-four)
 ~\textit{(5 1 2 3 4)}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The value of \code{nil}, used to terminate the chain of pairs, can be thought
@@ -1165,7 +1100,7 @@ Otherwise, \code{list\-/ref} should return  the \( (n - 1) \)-st item of the
 
 \end{itemize}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (list-ref items n)
   (if (= n 0)
       (car items)
@@ -1173,7 +1108,7 @@ Otherwise, \code{list\-/ref} should return  the \( (n - 1) \)-st item of the
 (define squares (list 1 4 9 16 25))
 (list-ref squares 3)
 ~\textit{16}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Often we \code{cdr} down the whole list.  To aid in this, Scheme includes a
@@ -1181,7 +1116,7 @@ primitive predicate \code{null?}, which tests whether its argument is the empty
 list.  The procedure \code{length}, which returns the number of items in a
 list, illustrates this typical pattern of use:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (length items)
   (if (null? items)
       0
@@ -1189,7 +1124,7 @@ list, illustrates this typical pattern of use:
 (define odds (list 1 3 5 7))
 (length odds)
 ~\textit{4}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The \code{length} procedure implements a simple recursive plan. The reduction
@@ -1216,26 +1151,26 @@ The \code{length} of the empty list is 0.
 \noindent
 We could also compute \code{length} in an iterative style:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (length items)
   (define (length-iter a count)
     (if (null? a)
         count
         (length-iter (cdr a) (+ 1 count))))
   (length-iter items 0))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Another conventional programming technique is to ``\code{cons} up'' an answer
 list while \code{cdr}ing down a list, as in the procedure \code{append}, which
 takes two lists as arguments and combines their elements to make a new list:
 
-\begin{scheme}
+\begin{codeBlock}
 (append squares odds)
 ~\textit{(1 4 9 16 25 1 3 5 7)}~
 (append odds squares)
 ~\textit{(1 3 5 7 1 4 9 16 25)}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{append} is also implemented using a recursive plan.  To \code{append}
@@ -1252,33 +1187,33 @@ Otherwise, \code{append} the \code{cdr} of \code{list1} and \code{list2}, and
 
 \end{itemize}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (append list1 list2)
   (if (null? list1)
       list2
       (cons (car list1) (append (cdr list1) list2))))
-\end{scheme}
+\end{codeBlock}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.17}Exercise 2.17:} Define a procedure
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.17}Exercise 2.17:} Define a procedure
 \code{last\-/pair} that returns the list that contains only the last element of a
 given (nonempty) list:
 
-\begin{scheme}
+\begin{codeBlock}
 (last-pair (list 23 72 149 34))
 ~\textit{(34)}~
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 2.18}Exercise 2.18:} Define a procedure \code{reverse}
+\exerciseHeading{\phantomsection\label{Exercise 2.18}Exercise 2.18:} Define a procedure \code{reverse}
 that takes a list as argument and returns a list of the same elements in
 reverse order:
 
-\begin{scheme}
+\begin{codeBlock}
 (reverse (list 1 4 9 16 25))
 ~\textit{(25 16 9 4 1)}~
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 2.19}Exercise 2.19:} Consider the change-counting
+\exerciseHeading{\phantomsection\label{Exercise 2.19}Exercise 2.19:} Consider the change-counting
 program of \link{Section 1.2.2}.  It would be nice to be able to easily change
 the currency used by the program, so that we could compute the number of ways
 to change a British pound, for example.  As the program is written, the
@@ -1291,23 +1226,23 @@ We want to rewrite the procedure \code{cc} so that its second argument is a
 list of the values of the coins to use rather than an integer specifying which
 coins to use.  We could then have lists that defined each kind of currency:
 
-\begin{scheme}
+\begin{codeBlock}
 (define us-coins (list 50 25 10 5 1))
 (define uk-coins (list 100 50 20 10 5 2 1 0.5))
-\end{scheme}
+\end{codeBlock}
 
 We could then call \code{cc} as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (cc 100 us-coins)
 ~\textit{292}~
-\end{scheme}
+\end{codeBlock}
 
 To do this will require changing the program \code{cc} somewhat.  It will still
 have the same form, but it will access its second argument differently, as
 follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (cc amount coin-values)
   (cond ((= amount 0) 1)
         ((or (< amount 0) (no-more? coin-values)) 0)
@@ -1319,14 +1254,14 @@ follows:
                    (first-denomination
                     coin-values))
                 coin-values)))))
-\end{scheme}
+\end{codeBlock}
 
 Define the procedures \code{first\-/denomination},
 \code{except\-/first\-/denomination}, and \code{no\-/more?} in terms of primitive
 operations on list structures.  Does the order of the list \code{coin\-/values}
 affect the answer produced by \code{cc}?  Why or why not?
 
-\heading{\phantomsection\label{Exercise 2.20}Exercise 2.20:} The procedures \code{+},
+\exerciseHeading{\phantomsection\label{Exercise 2.20}Exercise 2.20:} The procedures \code{+},
 \code{*}, and \code{list} take arbitrary numbers of arguments. One way to
 define such procedures is to use \code{define} with \newterm{dotted-tail
 notation}.  In a procedure definition, a parameter list that has a dot before
@@ -1335,56 +1270,56 @@ initial parameters (if any) will have as values the initial arguments, as
 usual, but the final parameter's value will be a \newterm{list} of any
 remaining arguments.  For instance, given the definition
 
-\begin{scheme}
-(define (f x y . z) ~\( \dark \langle \)~~\var{\dark body}~~\( \dark \rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(define (f x y . z) ~\(\langle \)~~\var{body}~~\(\rangle \)~)
+\end{codeBlock}
 
 \noindent
 the procedure \code{f} can be called with two or more arguments.  If we
 evaluate
 
-\begin{scheme}
+\begin{codeBlock}
 (f 1 2 3 4 5 6)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 then in the body of \code{f}, \code{x} will be 1, \code{y} will be 2, and
 \code{z} will be the list \mbox{\code{(3 4 5 6)}}.  Given the definition
 
-\begin{scheme}
-(define (g . w) ~\( \dark \langle \)~~\var{\dark body}~~\( \dark \rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(define (g . w) ~\(\langle \)~~\var{body}~~\(\rangle \)~)
+\end{codeBlock}
 
 \noindent
 the procedure \code{g} can be called with zero or more arguments.  If we
 evaluate
 
-\begin{scheme}
+\begin{codeBlock}
 (g 1 2 3 4 5 6)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 then in the body of \code{g}, \code{w} will be the list \code{(1 2 3 4 5
 6)}.\footnote{To define \code{f} and \code{g} using \code{lambda} we would
 write
 
-\begin{smallscheme}
-(define f (lambda (x y . z) ~\( \dark \langle \)~~\var{\dark body}~~\( \dark \rangle \)~))
-(define g (lambda w ~\( \dark \langle \)~~\var{\dark body}~~\( \dark \rangle \)~))
-\end{smallscheme}
+\begin{compactCodeBlock}
+(define f (lambda (x y . z) ~\(\langle \)~~\var{body}~~\(\rangle \)~))
+(define g (lambda w ~\(\langle \)~~\var{body}~~\(\rangle \)~))
+\end{compactCodeBlock}
 }
 
 Use this notation to write a procedure \code{same\-/parity} that takes one or
 more integers and returns a list of all the arguments that have the same
 even-odd parity as the first argument.  For example,
 
-\begin{scheme}
+\begin{codeBlock}
 (same-parity 1 2 3 4 5 6 7)
 ~\textit{(1 3 5 7)}~
 (same-parity 2 3 4 5 6 7)
 ~\textit{(2 4 6)}~
-\end{scheme}
-\end{exercises}
+\end{codeBlock}
+\end{exerciseGroup}
 
 \subsubsection*{Mapping over lists}
 
@@ -1392,7 +1327,7 @@ One extremely useful operation is to apply some transformation to each element
 in a list and generate the list of results.  For instance, the following
 procedure scales each number in a list by a given factor:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (scale-list items factor)
   (if (null? items)
       nil
@@ -1401,7 +1336,7 @@ procedure scales each number in a list by a given factor:
                         factor))))
 (scale-list (list 1 2 3 4 5) 10)
 ~\textit{(10 20 30 40 50)}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We can abstract this general idea and capture it as a common pattern expressed
@@ -1415,17 +1350,17 @@ takes a procedure of \( n \) arguments, together with \( n \) lists, and applies
 the procedure to all the first elements of the lists, all the second elements
 of the lists, and so on, returning a list of the results.  For example:
 
-\begin{smallscheme}
+\begin{compactCodeBlock}
 (map + (list 1 2 3) (list 40 50 60) (list 700 800 900))
 ~\textit{(741 852 963)}~
 (map (lambda (x y) (+ x (* 2 y)))
      (list 1 2 3)
      (list 4 5 6))
 ~\textit{(9 12 15)}~
-\end{smallscheme}
+\end{compactCodeBlock}
 }
 
-\begin{scheme}
+\begin{codeBlock}
 (define (map proc items)
   (if (null? items)
       nil
@@ -1435,16 +1370,16 @@ of the lists, and so on, returning a list of the results.  For example:
 ~\textit{(10 2.5 11.6 17)}~
 (map (lambda (x) (* x x)) (list 1 2 3 4))
 ~\textit{(1 4 9 16)}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Now we can give a new definition of \code{scale\-/list} in terms of \code{map}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (scale-list items factor)
   (map (lambda (x) (* x factor))
        items))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{map} is an important construct, not only because it captures a common
@@ -1464,33 +1399,33 @@ while preserving the conceptual framework of operations that transform
 sequences to sequences.  \link{Section 2.2.3} expands on this use of sequences
 as a framework for organizing programs.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.21}Exercise 2.21:} The procedure \code{square\-/list}
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.21}Exercise 2.21:} The procedure \code{square\-/list}
 takes a list of numbers as argument and returns a list of the squares of those
 numbers.
 
-\begin{scheme}
+\begin{codeBlock}
 (square-list (list 1 2 3 4))
 ~\textit{(1 4 9 16)}~
-\end{scheme}
+\end{codeBlock}
 
 Here are two different definitions of \code{square\-/list}.  Complete both of
 them by filling in the missing expressions:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (square-list items)
   (if (null? items)
       nil
-      (cons ~\( \dark \langle \)~??~\( \dark \rangle \)~ ~\( \dark \langle \)~??~\( \dark \rangle \)~)))
+      (cons ~\(\langle \)~??~\(\rangle \)~ ~\(\langle \)~??~\(\rangle \)~)))
 (define (square-list items)
-  (map ~\( \dark \langle \)~??~\( \dark \rangle \)~ ~\( \dark \langle \)~??~\( \dark \rangle \)~))
-\end{scheme}
+  (map ~\(\langle \)~??~\(\rangle \)~ ~\(\langle \)~??~\(\rangle \)~))
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 2.22}Exercise 2.22:} Louis Reasoner tries to rewrite
+\exerciseHeading{\phantomsection\label{Exercise 2.22}Exercise 2.22:} Louis Reasoner tries to rewrite
 the first \code{square\-/list} procedure of \link{Exercise 2.21} so that it
 evolves an iterative process:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (square-list items)
   (define (iter things answer)
     (if (null? things)
@@ -1499,14 +1434,14 @@ evolves an iterative process:
               (cons (square (car things))
                     answer))))
   (iter items nil))
-\end{scheme}
+\end{codeBlock}
 
 Unfortunately, defining \code{square\-/list} this way produces the answer list in
 the reverse order of the one desired.  Why?
 
 Louis then tries to fix his bug by interchanging the arguments to \code{cons}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (square-list items)
   (define (iter things answer)
     (if (null? things)
@@ -1515,11 +1450,11 @@ Louis then tries to fix his bug by interchanging the arguments to \code{cons}:
               (cons answer
                     (square (car things))))))
   (iter items nil))
-\end{scheme}
+\end{codeBlock}
 
 This doesn't work either.  Explain.
 
-\heading{\phantomsection\label{Exercise 2.23}Exercise 2.23:} The procedure \code{for\-/each} is
+\exerciseHeading{\phantomsection\label{Exercise 2.23}Exercise 2.23:} The procedure \code{for\-/each} is
 similar to \code{map}.  It takes as arguments a procedure and a list of
 elements.  However, rather than forming a list of the results, \code{for\-/each}
 just applies the procedure to each of the elements in turn, from left to right.
@@ -1527,7 +1462,7 @@ The values returned by applying the procedure to the elements are not used at
 all---\code{for\-/each} is used with procedures that perform an action, such as
 printing.  For example,
 
-\begin{scheme}
+\begin{codeBlock}
 (for-each (lambda (x)
             (newline)
             (display x))
@@ -1535,12 +1470,12 @@ printing.  For example,
 ~\textit{57}~
 ~\textit{321}~
 ~\textit{88}~
-\end{scheme}
+\end{codeBlock}
 
 The value returned by the call to \code{for\-/each} (not illustrated above) can
 be something arbitrary, such as true.  Give an implementation of
 \code{for\-/each}.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Hierarchical Structures}
 \label{Section 2.2.2}
@@ -1549,9 +1484,9 @@ The representation of sequences in terms of lists generalizes naturally to
 represent sequences whose elements may themselves be sequences.  For example,
 we can regard the object \code{((1 2) 3 4)} constructed by
 
-\begin{scheme}
+\begin{codeBlock}
 (cons (list 1 2) (list 3 4))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 as a list of three items, the first of which is itself a list, \code{(1 2)}.
@@ -1571,7 +1506,7 @@ shows \mbox{the structure} in \link{Figure 2.5} viewed as a tree.
 
 % figure 2.6
 \begin{imageFigure}{The list structure in \link{Figure 2.5} viewed as a tree.}
-\includegraphics[width=22mm]{assets/figures/chapter_2/figure_2.6a.pdf}
+\includegraphics[width=28mm]{assets/figures/chapter_2/figure_2.6a.pdf}
 \end{imageFigure}
 
 Recursion is a natural tool for dealing with tree structures, since we can
@@ -1581,7 +1516,7 @@ reach the leaves of the tree.  As an example, compare the \code{length}
 procedure of \link{Section 2.2.1} with the \code{count\-/leaves} procedure, which
 returns the total number of leaves of a tree:
 
-\begin{scheme}
+\begin{codeBlock}
 (define x (cons (list 1 2) (list 3 4)))
 (length x)
 ~\textit{3}~
@@ -1593,7 +1528,7 @@ returns the total number of leaves of a tree:
 ~\textit{2}~
 (count-leaves (list x x))
 ~\textit{8}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 To implement \code{count\-/leaves}, recall the recursive plan for computing
@@ -1651,52 +1586,52 @@ the complete procedure:\footnote{The order of the first two clauses in the
 \code{cond} matters, since the empty list satisfies \code{null?} and also is
 not a pair.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (count-leaves x)
   (cond ((null? x) 0)
         ((not (pair? x)) 1)
         (else (+ (count-leaves (car x))
                  (count-leaves (cdr x))))))
-\end{scheme}
+\end{codeBlock}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.24}Exercise 2.24:} Suppose we evaluate the
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.24}Exercise 2.24:} Suppose we evaluate the
 expression \code{(list 1 (list 2 (list 3 4)))}.  Give the result printed by the
 interpreter, the corresponding box-and-pointer structure, and the
 interpretation of this as a tree (as in \link{Figure 2.6}).
 
-\heading{\phantomsection\label{Exercise 2.25}Exercise 2.25:} Give combinations of \code{car}s
+\exerciseHeading{\phantomsection\label{Exercise 2.25}Exercise 2.25:} Give combinations of \code{car}s
 and \code{cdr}s that will pick 7 from each of the following lists:
 
-\begin{scheme}
+\begin{codeBlock}
 (1 3 (5 7) 9)
 ((7))
 (1 (2 (3 (4 (5 (6 7))))))
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 2.26}Exercise 2.26:} Suppose we define \code{x} and
+\exerciseHeading{\phantomsection\label{Exercise 2.26}Exercise 2.26:} Suppose we define \code{x} and
 \code{y} to be two lists:
 
-\begin{scheme}
+\begin{codeBlock}
 (define x (list 1 2 3))
 (define y (list 4 5 6))
-\end{scheme}
+\end{codeBlock}
 
 What result is printed by the interpreter in response to evaluating each of the
 following expressions:
 
-\begin{scheme}
+\begin{codeBlock}
 (append x y)
 (cons x y)
 (list x y)
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 2.27}Exercise 2.27:} Modify your \code{reverse}
+\exerciseHeading{\phantomsection\label{Exercise 2.27}Exercise 2.27:} Modify your \code{reverse}
 procedure of \link{Exercise 2.18} to produce a \code{deep\-/reverse} procedure
 that takes a list as argument and returns as its value the list with its
 elements reversed and with all sublists deep-reversed as well.  For example,
 
-\begin{scheme}
+\begin{codeBlock}
 (define x (list (list 1 2) (list 3 4)))
 x
 ~\textit{((1 2) (3 4))}~
@@ -1704,40 +1639,40 @@ x
 ~\textit{((3 4) (1 2))}~
 (deep-reverse x)
 ~\textit{((4 3) (2 1))}~
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 2.28}Exercise 2.28:} Write a procedure \code{fringe}
+\exerciseHeading{\phantomsection\label{Exercise 2.28}Exercise 2.28:} Write a procedure \code{fringe}
 that takes as argument a tree (represented as a list) and returns a list whose
 elements are all the leaves of the tree arranged in left-to-right order.  For
 example,
 
-\begin{scheme}
+\begin{codeBlock}
 (define x (list (list 1 2) (list 3 4)))
 (fringe x)
 ~\textit{(1 2 3 4)}~
 (fringe (list x x))
 ~\textit{(1 2 3 4 1 2 3 4)}~
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 2.29}Exercise 2.29:} A binary mobile consists of two
+\exerciseHeading{\phantomsection\label{Exercise 2.29}Exercise 2.29:} A binary mobile consists of two
 branches, a left branch and a right branch.  Each branch is a rod of a certain
 length, from which hangs either a weight or another binary mobile.  We can
 represent a binary mobile using compound data by constructing it from two
 branches (for example, using \code{list}):
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-mobile left right)
   (list left right))
-\end{scheme}
+\end{codeBlock}
 
 A branch is constructed from a \code{length} (which must be a number) together
 with a \code{structure}, which may be either a number (representing a simple
 weight) or another mobile:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-branch length structure)
   (list length structure))
-\end{scheme}
+\end{codeBlock}
 
 \begin{enumerate}[a.]
 
@@ -1761,17 +1696,17 @@ mobile is balanced.
 \item
 Suppose we change the representation of mobiles so that the constructors are
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-mobile left right) (cons left right))
 (define (make-branch length structure)
   (cons length structure))
-\end{scheme}
+\end{codeBlock}
 
 How much do you need to change your programs to convert to the new
 representation?
 
 \end{enumerate}
-\end{exercises}
+\end{exerciseGroup}
 
 \subsubsection*{Mapping over trees}
 
@@ -1783,15 +1718,16 @@ and a tree whose leaves are numbers.  It returns a tree of the same shape,
 where each number is multiplied by the factor.  The recursive plan for
 \code{scale\-/tree} is similar to the one for \code{count\-/leaves}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (scale-tree tree factor)
   (cond ((null? tree) nil)
         ((not (pair? tree)) (* tree factor))
         (else (cons (scale-tree (car tree) factor)
                     (scale-tree (cdr tree) factor)))))
-(scale-tree (list 1 (list 2 (list 3 4) 5) (list 6 7)) 10)
+(scale-tree (list 1 (list 2 (list 3 4) 5) (list 6 7))
+            10)
 ~\textit{(10 (20 (30 40) 50) (60 70))}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Another way to implement \code{scale\-/tree} is to regard the tree as a sequence
@@ -1799,58 +1735,58 @@ of sub-trees and use \code{map}.  We map over the sequence, scaling each
 sub-tree in turn, and return the list of results.  In the base case, where the
 tree is a leaf, we simply multiply by the factor:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (scale-tree tree factor)
   (map (lambda (sub-tree)
          (if (pair? sub-tree)
              (scale-tree sub-tree factor)
              (* sub-tree factor)))
        tree))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Many tree operations can be implemented by similar combinations of sequence
 operations and recursion.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.30}Exercise 2.30:} Define a procedure
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.30}Exercise 2.30:} Define a procedure
 \code{square\-/tree} analogous to the \code{square\-/list} procedure of
 \link{Exercise 2.21}.  That is, \code{square\-/tree} should behave as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (square-tree
  (list 1
        (list 2 (list 3 4) 5)
        (list 6 7)))
 ~\textit{(1 (4 (9 16) 25) (36 49))}~
-\end{scheme}
+\end{codeBlock}
 
 Define \code{square\-/tree} both directly (i.e., without using any higher-order
 procedures) and also by using \code{map} and recursion.
 
-\heading{\phantomsection\label{Exercise 2.31}Exercise 2.31:} Abstract your answer to
+\exerciseHeading{\phantomsection\label{Exercise 2.31}Exercise 2.31:} Abstract your answer to
 \link{Exercise 2.30} to produce a procedure \code{tree\-/map} with the property
 that \code{square\-/tree} could be defined as
 
-\begin{scheme}
+\begin{codeBlock}
 (define (square-tree tree) (tree-map square tree))
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 2.32}Exercise 2.32:} We can represent a set as a list
+\exerciseHeading{\phantomsection\label{Exercise 2.32}Exercise 2.32:} We can represent a set as a list
 of distinct elements, and we can represent the set of all subsets of the set as
 a list of lists.  For example, if the set is \code{(1 2 3)}, then the set of
 all subsets is \code{(() (3) (2) (2 3) (1) (1 3) (1 2) (1 2 3))}.  Complete the
 following definition of a procedure that generates the set of subsets of a set
 and give a clear explanation of why it works:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (subsets s)
   (if (null? s)
       (list nil)
       (let ((rest (subsets (cdr s))))
-        (append rest (map ~\( \dark \langle \)~??~\( \dark \rangle \)~ rest)))))
-\end{scheme}
-\end{exercises}
+        (append rest (map ~\(\langle \)~??~\(\rangle \)~ rest)))))
+\end{codeBlock}
+\end{exerciseGroup}
 
 \subsection{Sequences as Conventional Interfaces}
 \label{Section 2.2.3}
@@ -1870,21 +1806,21 @@ structures.  Consider, for example, the following procedure, analogous to the
 \code{count\-/leaves} procedure of \link{Section 2.2.2}, which takes a tree as
 argument and computes the sum of the squares of the leaves that are odd:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sum-odd-squares tree)
   (cond ((null? tree) 0)
         ((not (pair? tree))
          (if (odd? tree) (square tree) 0))
         (else (+ (sum-odd-squares (car tree))
                  (sum-odd-squares (cdr tree))))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 On the surface, this procedure is very different from the following one, which
 constructs a list of all the even Fibonacci numbers \( {\rm Fib}(k) \), where
 \( k \) is less than or equal to a given integer \( n \):
 
-\begin{scheme}
+\begin{codeBlock}
 (define (even-fibs n)
   (define (next k)
     (if (> k n)
@@ -1894,7 +1830,7 @@ constructs a list of all the even Fibonacci numbers \( {\rm Fib}(k) \), where
               (cons f (next (+ k 1)))
               (next (+ k 1))))))
   (next 0))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Despite the fact that these two procedures are structurally very different, a
@@ -1977,36 +1913,36 @@ list operations to implement the processing at each of the stages.  For
 instance, we can implement the mapping stages of the signal-flow diagrams using
 the \code{map} procedure from \link{Section 2.2.1}:
 
-\begin{scheme}
+\begin{codeBlock}
 (map square (list 1 2 3 4 5))
 ~\textit{(1 4 9 16 25)}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Filtering a sequence to select only those elements that satisfy a given
 predicate is accomplished by
 
-\begin{scheme}
+\begin{codeBlock}
 (define (filter predicate sequence)
   (cond ((null? sequence) nil)
         ((predicate (car sequence))
          (cons (car sequence)
                (filter predicate (cdr sequence))))
         (else (filter predicate (cdr sequence)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 For example,
 
-\begin{scheme}
+\begin{codeBlock}
 (filter odd? (list 1 2 3 4 5))
 ~\textit{(1 3 5)}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Accumulations can be implemented by
 
-\begin{scheme}
+\begin{codeBlock}
 (define (accumulate op initial sequence)
   (if (null? sequence)
       initial
@@ -2018,21 +1954,21 @@ Accumulations can be implemented by
 ~\textit{120}~
 (accumulate cons nil (list 1 2 3 4 5))
 ~\textit{(1 2 3 4 5)}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 All that remains to implement signal-flow diagrams is to enumerate the sequence
 of elements to be processed.  For \code{even\-/fibs}, we need to generate the
 sequence of integers in a given range, which we can do as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (enumerate-interval low high)
   (if (> low high)
       nil
       (cons low (enumerate-interval (+ low 1) high))))
 (enumerate-interval 2 7)
 ~\textit{(2 3 4 5 6 7)}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 To enumerate the leaves of a tree, we can use\footnote{This is, in fact,
@@ -2040,7 +1976,7 @@ precisely the \code{fringe} procedure from \link{Exercise 2.28}.  Here we've
 renamed it to emphasize that it is part of a family of general
 sequence-manipulation procedures.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (enumerate-tree tree)
   (cond ((null? tree) nil)
         ((not (pair? tree)) (list tree))
@@ -2048,7 +1984,7 @@ sequence-manipulation procedures.}
                       (enumerate-tree (cdr tree))))))
 (enumerate-tree (list 1 (list 2 (list 3 4)) 5))
 ~\textit{(1 2 3 4 5)}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Now we can reformulate \code{sum\-/odd\-/squares} and \code{even\-/fibs} as in the
@@ -2056,26 +1992,26 @@ signal-flow diagrams.  For \code{sum\-/odd\-/squares}, we enumerate the sequence
 leaves of the tree, filter this to keep only the odd numbers in the sequence,
 square each element, and sum the results:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sum-odd-squares tree)
   (accumulate + 0 (map square
                        (filter
                         odd?
                         (enumerate-tree tree)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 For \code{even\-/fibs}, we enumerate the integers from 0 to \( n \), generate the
 Fibonacci number for each of these integers, filter the resulting sequence to
 keep only the even elements, and accumulate the results into a list:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (even-fibs n)
   (accumulate
    cons
    nil
    (filter even? (map fib (enumerate-interval 0 n)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The value of expressing programs as sequence operations is that this helps us
@@ -2093,7 +2029,7 @@ match.  For instance, we can reuse pieces from the \code{sum\-/odd\-/squares} an
 \code{even\-/fibs} procedures in a program that constructs a list of the squares
 of the first \( n + 1 \) Fibonacci numbers:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (list-fib-squares n)
   (accumulate
    cons
@@ -2102,13 +2038,13 @@ of the first \( n + 1 \) Fibonacci numbers:
         (map fib (enumerate-interval 0 n)))))
 (list-fib-squares 10)
 ~\textit{(0 1 1 4 9 25 64 169 441 1156 3025)}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We can rearrange the pieces and use them in computing the product of the squares of the odd
 integers in a sequence:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (product-of-squares-of-odd-elements sequence)
   (accumulate * 1 (map
                    square
@@ -2116,7 +2052,7 @@ integers in a sequence:
 (product-of-squares-of-odd-elements
   (list 1 2 3 4 5))
 ~\textit{225}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We can also formulate conventional data-processing applications in terms of
@@ -2126,12 +2062,12 @@ selector \code{salary} that returns the salary of a record, and a predicate
 \code{programmer?} that tests if a record is for a programmer.  Then we can
 write
 
-\begin{scheme}
+\begin{codeBlock}
 (define (salary-of-highest-paid-programmer records)
   (accumulate max 0 (map
                      salary
                      (filter programmer? records))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 These examples give just a hint of the vast range of operations that can be
@@ -2155,43 +2091,29 @@ sequences, while leaving the overall design of our programs intact.  We will
 exploit this capability in \link{Section 3.5}, when we generalize the
 sequence-processing paradigm to admit infinite sequences.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.33}Exercise 2.33:} Fill in the missing expressions
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.33}Exercise 2.33:} Fill in the missing expressions
 to complete the following definitions of some basic list-manipulation
 operations as accumulations:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (map p sequence)
-  (accumulate (lambda (x y) ~\( \dark \langle \)~??~\( \dark \rangle \)~) nil sequence))
+  (accumulate (lambda (x y) ~\(\langle \)~??~\(\rangle \)~) nil sequence))
 (define (append seq1 seq2)
-  (accumulate cons ~\( \dark \langle \)~??~\( \dark \rangle \)~ ~\( \dark \langle \)~??~\( \dark \rangle \)~))
+  (accumulate cons ~\(\langle \)~??~\(\rangle \)~ ~\(\langle \)~??~\(\rangle \)~))
 (define (length sequence)
-  (accumulate ~\( \dark \langle \)~??~\( \dark \rangle \)~ 0 sequence))
-\end{scheme}
+  (accumulate ~\(\langle \)~??~\(\rangle \)~ 0 sequence))
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 2.34}Exercise 2.34:} Evaluating a polynomial in \( x \)
+\exerciseHeading{\phantomsection\label{Exercise 2.34}Exercise 2.34:} Evaluating a polynomial in \( x \)
 at a given value of \( x \) can be formulated as an accumulation.  We evaluate
 the polynomial
-\begin{comment}
-
-\begin{example}
-a_n x^n + a_(n-1) x^(n-1) + ... + a_1 x + a_0
-\end{example}
-
-\end{comment}
 
 $$ a_n x^n + a_{n-1} x^{n-1} + \dots + a_1 x + a_0 $$
 
 \noindent
 using a well-known algorithm called \newterm{Horner's rule}, which structures
 the computation as
-\begin{comment}
-
-\begin{example}
-(... (a_n x + a_(n-1)) x + ... + a_1) x + a_0
-\end{example}
-
-\end{comment}
 
 $$ (\dots (a_n x + a_{n-1}) x + \dots + a_1) x + a_0. $$
 
@@ -2217,31 +2139,31 @@ Fill in the following template to produce a procedure that evaluates a
 polynomial using Horner's rule.  Assume that the coefficients of the polynomial
 are arranged in a sequence, from \( a_0 \) through \( a_n \).
 
-\begin{scheme}
+\begin{codeBlock}
 (define
   (horner-eval x coefficient-sequence)
   (accumulate
-    (lambda (this-coeff higher-terms) ~\( \dark \langle \)~??~\( \dark \rangle \)~)
+    (lambda (this-coeff higher-terms) ~\(\langle \)~??~\(\rangle \)~)
     0
     coefficient-sequence))
-\end{scheme}
+\end{codeBlock}
 
 For example, to compute \( 1 + 3x + 5x^3 + x^5 \) at \( x = 2 \) you
 would evaluate
 
-\begin{scheme}
+\begin{codeBlock}
 (horner-eval 2 (list 1 3 0 5 0 1))
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 2.35}Exercise 2.35:} Redefine \code{count\-/leaves} from
+\exerciseHeading{\phantomsection\label{Exercise 2.35}Exercise 2.35:} Redefine \code{count\-/leaves} from
 \link{Section 2.2.2} as an accumulation:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (count-leaves t)
-  (accumulate ~\( \dark \langle \)~??~\( \dark \rangle \)~ ~\( \dark \langle \)~??~\( \dark \rangle \)~ (map ~\( \dark \langle \)~??~\( \dark \rangle \)~ ~\( \dark \langle \)~??~\( \dark \rangle \)~)))
-\end{scheme}
+  (accumulate ~\(\langle \)~??~\(\rangle \)~ ~\(\langle \)~??~\(\rangle \)~ (map ~\(\langle \)~??~\(\rangle \)~ ~\(\langle \)~??~\(\rangle \)~)))
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 2.36}Exercise 2.36:} The procedure \code{accumulate\-/n}
+\exerciseHeading{\phantomsection\label{Exercise 2.36}Exercise 2.36:} The procedure \code{accumulate\-/n}
 is similar to \code{accumulate} except that it takes as its third argument a
 sequence of sequences, which are all assumed to have the same number of
 elements.  It applies the designated accumulation procedure to combine all the
@@ -2252,29 +2174,18 @@ sequence containing four sequences, \code{((1 2 3) (4 5 6) (7 8 9) (10 11
 \code{(22 26 30)}.  Fill in the missing expressions in the following definition
 of \code{accumulate\-/n}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (accumulate-n op init seqs)
   (if (null? (car seqs))
       nil
-      (cons (accumulate op init ~\( \dark \langle \)~??~\( \dark \rangle \)~)
-            (accumulate-n op init ~\( \dark \langle \)~??~\( \dark \rangle \)~))))
-\end{scheme}
+      (cons (accumulate op init ~\(\langle \)~??~\(\rangle \)~)
+            (accumulate-n op init ~\(\langle \)~??~\(\rangle \)~))))
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 2.37}Exercise 2.37:}
+\exerciseHeading{\phantomsection\label{Exercise 2.37}Exercise 2.37:}
 Suppose we represent vectors \( \mathbf{v} = (v_i) \) as sequences of numbers, and
 matrices \( \mathbf{m} = (m_{ij}) \) as sequences of vectors (the rows of the
 matrix).  For example, the matrix
-\begin{comment}
-
-\begin{example}
-+-         -+
-|  1 2 3 4  |
-|  4 5 6 6  |
-|  6 7 8 9  |
-+-         -+
-\end{example}
-
-\end{comment}
 
 $$
 \left(
@@ -2291,25 +2202,6 @@ is represented as the sequence \code{((1 2 3 4) (4 5 6 6) (6 7 8 9))}.  With
 this representation, we can use sequence operations to concisely express the
 basic matrix and vector operations.  These operations (which are described in
 any book on matrix algebra) are the following:
-\begin{comment}
-
-\begin{example}
-                                       __
-(dot-product v w)      returns the sum >_i v_i w_i
-
-(matrix-*-vector m v)  returns the vector t,
-                                   __
-                       where t_i = >_j m_(ij) v_j
-
-(matrix-*-matrix m n)  returns the matrix p,
-                                      __
-                       where p_(ij) = >_k m_(ik) n_(kj)
-
-(transpose m)          returns the matrix n,
-                       where n_(ij) = m_(ji)
-\end{example}
-
-\end{comment}
 
 $$
 \begin{array}{rl}
@@ -2326,32 +2218,32 @@ $$
 We can define the dot product as\footnote{This definition uses the extended
 version of \code{map} described in \link{Footnote 12}.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (dot-product v w)
   (accumulate + 0 (map * v w)))
-\end{scheme}
+\end{codeBlock}
 
 Fill in the missing expressions in the following procedures for computing the
 other matrix operations.  (The procedure \code{accumulate\-/n} is defined in
 \link{Exercise 2.36}.)
 
-\begin{scheme}
+\begin{codeBlock}
 (define (matrix-*-vector m v)
-  (map ~\( \dark \langle \)~??~\( \dark \rangle \)~ m))
+  (map ~\(\langle \)~??~\(\rangle \)~ m))
 (define (transpose mat)
-  (accumulate-n ~\( \dark \langle \)~??~\( \dark \rangle \)~ ~\( \dark \langle \)~??~\( \dark \rangle \)~ mat))
+  (accumulate-n ~\(\langle \)~??~\(\rangle \)~ ~\(\langle \)~??~\(\rangle \)~ mat))
 (define (matrix-*-matrix m n)
   (let ((cols (transpose n)))
-    (map ~\( \dark \langle \)~??~\( \dark \rangle \)~ m)))
-\end{scheme}
+    (map ~\(\langle \)~??~\(\rangle \)~ m)))
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 2.38}Exercise 2.38:} The \code{accumulate} procedure
+\exerciseHeading{\phantomsection\label{Exercise 2.38}Exercise 2.38:} The \code{accumulate} procedure
 is also known as \code{fold\-/right}, because it combines the first element of
 the sequence with the result of combining all the elements to the right.  There
 is also a \code{fold\-/left}, which is similar to \code{fold\-/right}, except that
 it combines elements working in the opposite direction:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (fold-left op initial sequence)
   (define (iter result rest)
     (if (null? rest)
@@ -2359,32 +2251,32 @@ it combines elements working in the opposite direction:
         (iter (op result (car rest))
               (cdr rest))))
   (iter initial sequence))
-\end{scheme}
+\end{codeBlock}
 
 What are the values of
 
-\begin{scheme}
+\begin{codeBlock}
 (fold-right / 1 (list 1 2 3))
 (fold-left / 1 (list 1 2 3))
 (fold-right list nil (list 1 2 3))
 (fold-left list nil (list 1 2 3))
-\end{scheme}
+\end{codeBlock}
 
 Give a property that \code{op} should satisfy to guarantee that
 \code{fold\-/right} and \code{fold\-/left} will produce the same values for any
 sequence.
 
-\heading{\phantomsection\label{Exercise 2.39}Exercise 2.39:} Complete the following
+\exerciseHeading{\phantomsection\label{Exercise 2.39}Exercise 2.39:} Complete the following
 definitions of \code{reverse} (\link{Exercise 2.18}) in terms of
 \code{fold\-/right} and \code{fold\-/left} from \link{Exercise 2.38}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (reverse sequence)
-  (fold-right (lambda (x y) ~\( \dark \langle \)~??~\( \dark \rangle \)~) nil sequence))
+  (fold-right (lambda (x y) ~\(\langle \)~??~\(\rangle \)~) nil sequence))
 (define (reverse sequence)
-  (fold-left (lambda (x y) ~\( \dark \langle \)~??~\( \dark \rangle \)~) nil sequence))
-\end{scheme}
-\end{exercises}
+  (fold-left (lambda (x y) ~\(\langle \)~??~\(\rangle \)~) nil sequence))
+\end{codeBlock}
+\end{exerciseGroup}
 
 \subsubsection*{Nested Mappings}
 
@@ -2398,16 +2290,6 @@ sequences.} Consider this problem: Given a positive integer \( n \), find all
 ordered pairs of distinct positive integers \( i \) and \( j \), where
 \( 1 \le j < i \le n \), such that \( i + j \) is prime.  For example, if \( n \) is 6,
 then the pairs are the following:
-\begin{comment}
-
-\begin{example}
-  i   | 2 3 4 4 5 6 6
-  j   | 1 2 1 3 2 1 5
-------+---------------
-i + j | 3 5 5 7 7 7 11
-\end{example}
-
-\end{comment}
 
 \[
 \renewcommand{\arraystretch}{1.4}  % row height
@@ -2437,22 +2319,23 @@ sequence of pairs:\footnote{We're representing a pair here as a list of two
 elements rather than as a Lisp pair.  Thus, the ``pair'' \( (i, j) \) is
 represented as \code{(list i j)}, not \code{(cons i j)}.}
 
-\begin{scheme}
+\begin{codeBlock}
 (accumulate
  append nil (map (lambda (i)
                    (map (lambda (j) (list i j))
-                        (enumerate-interval 1 (- i 1))))
+                        (enumerate-interval 1
+                                            (- i 1))))
                  (enumerate-interval 1 n)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The combination of mapping and accumulating with \code{append} is so common in
 this sort of program that we will isolate it as a separate procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (flatmap proc seq)
   (accumulate append nil (map proc seq)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Now filter this sequence of pairs to find those whose sum is prime. The filter
@@ -2460,33 +2343,36 @@ predicate is called for each element of the sequence; its argument is a pair
 and it must extract the integers from the pair.  Thus, the predicate to apply
 to each element in the sequence is
 
-\begin{scheme}
+\begin{codeBlock}
 (define (prime-sum? pair)
   (prime? (+ (car pair) (cadr pair))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Finally, generate the sequence of results by mapping over the filtered pairs
 using the following procedure, which constructs a triple consisting of the two
 elements of the pair along with their sum:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-pair-sum pair)
-  (list (car pair) (cadr pair) (+ (car pair) (cadr pair))))
-\end{scheme}
+  (list (car pair) (cadr pair) (+ (car pair)
+                                  (cadr pair))))
+\end{codeBlock}
 
 \noindent
 Combining all these steps yields the complete procedure:
 
-\begin{smallscheme}
+\begin{compactCodeBlock}
 (define (prime-sum-pairs n)
   (map make-pair-sum
        (filter prime-sum? (flatmap
                            (lambda (i)
                              (map (lambda (j) (list i j))
-                                  (enumerate-interval 1 (- i 1))))
+                                  (enumerate-interval
+                                    1
+                                    (- i 1))))
                            (enumerate-interval 1 n)))))
-\end{smallscheme}
+\end{compactCodeBlock}
 
 \noindent
 Nested mappings are also useful for sequences other than those that enumerate
@@ -2504,7 +2390,7 @@ permutations of \( S \):\footnote{Semicolons in Scheme code are used to introduc
 ignored by the interpreter.  In this book we don't use many comments; we try to
 make our programs self-documenting by using descriptive names.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (permutations s)
   (if (null? s)              ~\textrm{; empty set?}~
       (list nil)             ~\textrm{; sequence containing empty set}~
@@ -2512,7 +2398,7 @@ make our programs self-documenting by using descriptive names.}
                  (map (lambda (p) (cons x p))
                       (permutations (remove x s))))
                s)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Notice how this strategy reduces the problem of generating permutations of
@@ -2524,23 +2410,23 @@ nil)}, which is a sequence with one item, namely the set with no elements.  The
 given sequence except for a given item.  This can be expressed as a simple
 filter:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (remove item sequence)
   (filter (lambda (x) (not (= x item)))
           sequence))
-\end{scheme}
+\end{codeBlock}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.40}Exercise 2.40:} Define a procedure
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.40}Exercise 2.40:} Define a procedure
 \code{unique\-/pairs} that, given an integer \( n \), generates the sequence of
 pairs \( (i, j) \) with \( 1 \le j < i \le n \).  Use \code{unique\-/pairs}
 to simplify the definition of \code{prime\-/sum\-/pairs} given above.
 
-\heading{\phantomsection\label{Exercise 2.41}Exercise 2.41:} Write a procedure to find all
+\exerciseHeading{\phantomsection\label{Exercise 2.41}Exercise 2.41:} Write a procedure to find all
 ordered triples of distinct positive integers \( i \), \( j \), and \( k \) less than
 or equal to a given integer \( n \) that sum to a given integer \( s \).
 
-\heading{\phantomsection\label{Exercise 2.42}Exercise 2.42:} The ``eight-queens puzzle'' asks
+\exerciseHeading{\phantomsection\label{Exercise 2.42}Exercise 2.42:} The ``eight-queens puzzle'' asks
 how to place eight queens on a chessboard so that no queen is in check from any
 other (i.e., no two queens are in the same row, column, or diagonal).  One
 possible solution is shown in \link{Figure 2.8}.  One way to solve the puzzle is
@@ -2567,7 +2453,7 @@ sequence of all solutions to the problem of placing \( n \) queens on an
 \code{queen\-/cols} that returns the sequence of all ways to place queens in the
 first \( k \) columns of the board.
 
-\begin{scheme}
+\begin{codeBlock}
 
 (define (queens board-size)
   (define (queen-cols k)
@@ -2583,7 +2469,7 @@ first \( k \) columns of the board.
                  (enumerate-interval 1 board-size)))
           (queen-cols (- k 1))))))
   (queen-cols board-size))
-\end{scheme}
+\end{codeBlock}
 
 In this procedure \code{rest\-/of\-/queens} is a way to place \( k - 1 \) queens in
 the first \( k - 1 \) columns, and \code{new\-/row} is a proposed row in which to
@@ -2596,26 +2482,26 @@ positions, whether the queen in the \( k^{\mathrm{th}} \) column is safe with re
 others.  (Note that we need only check whether the new queen is safe---the
 other queens are already guaranteed safe with respect to each other.)
 
-\heading{\phantomsection\label{Exercise 2.43}Exercise 2.43:} Louis Reasoner is having a
+\exerciseHeading{\phantomsection\label{Exercise 2.43}Exercise 2.43:} Louis Reasoner is having a
 terrible time doing \link{Exercise 2.42}.  His \code{queens} procedure seems to
 work, but it runs extremely slowly.  (Louis never does manage to wait long
 enough for it to solve even the \( 6\times6 \) case.)  When Louis asks Eva Lu Ator for
 help, she points out that he has interchanged the order of the nested mappings
 in the \code{flatmap}, writing it as
 
-\begin{scheme}
+\begin{codeBlock}
 (flatmap
  (lambda (new-row)
    (map (lambda (rest-of-queens)
           (adjoin-position new-row k rest-of-queens))
         (queen-cols (- k 1))))
  (enumerate-interval 1 board-size))
-\end{scheme}
+\end{codeBlock}
 
 Explain why this interchange makes the program run slowly.  Estimate how long
 it will take Louis's program to solve the eight-queens puzzle, assuming that
 the program in \link{Exercise 2.42} solves the puzzle in time \( T \).
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Example: A Picture Language}
 \label{Section 2.2.4}
@@ -2666,8 +2552,9 @@ depends on the frame---all four images in figure 2.10 are produced by the
 same \code{wave} painter, but with respect to four different frames.  Painters
 can be more elaborate than this: The primitive painter called \code{rogers}
 paints a picture of \acronym{MIT}'s founder, William Barton Rogers, as shown in
-\link{Figure 2.11}.\footnote{William Barton Rogers (1804-1882) was the founder
-and first president of \acronym{MIT}.  A geologist and talented teacher, he
+\link{Figure 2.11}.\footnote{%
+William Barton Rogers (1804-1882) was the founder
+and first president of \acronym{MIT}. A geologist and talented teacher, he
 taught at William and Mary College and at the University of Virginia.  In 1859
 he moved to Boston, where he had more time for research, worked on a plan for
 establishing a ``polytechnic institute,'' and served as Massachusetts's first
@@ -2681,11 +2568,11 @@ more practical instruction and discipline of the natural and social sciences.''
 This education was likewise to be different from narrow trade-school education.
 In Rogers's words:
 
-\begin{quote}
+\begin{niceQuote}
 The world-enforced distinction between the practical and the scientific worker
 is utterly futile, and the whole experience of modern times has demonstrated
 its utter worthlessness.
-\end{quote}
+\end{niceQuote}
 
 Rogers served as president of \acronym{MIT} until 1870, when he resigned due to
 ill health.  In 1878 the second president of \acronym{MIT}, John Runkle,
@@ -2697,28 +2584,29 @@ Rogers collapsed and died while addressing \acronym{MIT}'s graduating class at
 the commencement exercises of 1882.  Runkle quoted Rogers's last words in a
 memorial address delivered that same year:
 
-\begin{quote}
+\begin{niceQuote}
 ``As I stand here today and see what the Institute is, \( \dots \) I call to mind
-the beginnings of science.  I remember one hundred and fifty years ago Stephen
+the beginnings of science. I remember one hundred and fifty years ago Stephen
 Hales published a pamphlet on the subject of illuminating gas, in which he
 stated that his researches had demonstrated that 128 grains of bituminous coal
--- '' ``Bituminous coal,'' these were his last words on earth.  Here he bent
+-- '' ``Bituminous coal,'' these were his last words on earth. Here he bent
 forward, as if consulting some notes on the table before him, then slowly
 regaining an erect position, threw up his hands, and was translated from the
 scene of his earthly labors and triumphs to ``the tomorrow of death,'' where
 the mysteries of life are solved, and the disembodied spirit finds unending
 satisfaction in contemplating the new and still unfathomable mysteries of the
 infinite future.
-\end{quote}
+\end{niceQuote}
 
 In the words of Francis A. Walker (\acronym{MIT}'s third president):
 
-\begin{quote}
+\begin{niceQuote}
 All his life he had borne himself most faithfully and heroically, and he died
 as so good a knight would surely have wished, in harness, at his post, and in
 the very part and act of public duty.
-\end{quote}
-} The four images in figure 2.11 are drawn with respect to the same four
+\end{niceQuote}
+}
+The four images in figure 2.11 are drawn with respect to the same four
 frames as the \code{wave} images in figure 2.10.
 
 % figure 2.11
@@ -2745,10 +2633,10 @@ original painter's image left-to-right reversed.
 \link{Figure 2.12} shows the drawing of a painter called
 \code{wave4} that is built up in two stages starting from \code{wave}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define wave2 (beside wave (flip-vert wave)))
 (define wave4 (below wave2 wave2))
-\end{scheme}
+\end{codeBlock}
 
 % figure 2.12
 \begin{imageFigure}
@@ -2775,18 +2663,19 @@ Scheme procedures, we automatically have the capability to do anything with
 painter operations that we can do with procedures.  For example, we can
 abstract the pattern in \code{wave4} as
 
-\begin{scheme}
+\begin{codeBlock}
 (define (flipped-pairs painter)
-  (let ((painter2 (beside painter (flip-vert painter))))
+  (let ((painter2 (beside painter
+                          (flip-vert painter))))
     (below painter2 painter2)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 and define \code{wave4} as an instance of this pattern:
 
-\begin{scheme}
+\begin{codeBlock}
 (define wave4 (flipped-pairs wave))
-\end{scheme}
+\end{codeBlock}
 
 % figure 2.13
 \begin{imageFigure}{Recursive plans for \code{right\-/split} and \code{corner\-/split}.}
@@ -2798,19 +2687,19 @@ We can also define recursive operations.  Here's one that makes painters split
 and branch towards the right as shown in \link{Figure 2.13}
 and \link{Figure 2.14}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (right-split painter n)
   (if (= n 0)
       painter
       (let ((smaller (right-split painter (- n 1))))
         (beside painter (below smaller smaller)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We can produce balanced patterns by branching upwards as well as towards the
 right (see exercise \link{Exercise 2.44} and figures \link{Figure 2.13} and \link{Figure 2.14}):
 
-\begin{scheme}
+\begin{codeBlock}
 (define (corner-split painter n)
   (if (= n 0)
       painter
@@ -2821,26 +2710,26 @@ right (see exercise \link{Exercise 2.44} and figures \link{Figure 2.13} and \lin
               (corner (corner-split painter (- n 1))))
           (beside (below painter top-left)
                   (below bottom-right corner))))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 By placing four copies of a \code{corner\-/split} appropriately, we obtain a
 pattern called \code{square\-/limit}, whose application to \code{wave} and
 \code{rogers} is shown in \link{Figure 2.9}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (square-limit painter n)
   (let ((quarter (corner-split painter n)))
     (let ((half (beside (flip-horiz quarter) quarter)))
       (below (flip-vert half) half))))
-\end{scheme}
+\end{codeBlock}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.44}Exercise 2.44:} Define the procedure
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.44}Exercise 2.44:} Define the procedure
 \code{up\-/split} used by \code{corner\-/split}.  It is similar to
 \code{right\-/split}, except that it switches the roles of \code{below} and
 \code{beside}.
-\end{exercises}
+\end{exerciseGroup}
 
 % figure 2.14
 \begin{imageFigure}
@@ -2871,30 +2760,30 @@ four operations and arranges the results in a square.  \code{tl}, \code{tr},
 the top right copy, the bottom left copy, and the bottom right copy,
 respectively.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (square-of-four tl tr bl br)
   (lambda (painter)
     (let ((top (beside (tl painter) (tr painter)))
           (bottom (beside (bl painter) (br painter))))
       (below bottom top))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Then \code{flipped\-/pairs} can be defined in terms of \code{square\-/of\-/four} as
 follows:\footnote{Equivalently, we could write
 
-\begin{smallscheme}
+\begin{compactCodeBlock}
 (define flipped-pairs
   (square-of-four identity flip-vert identity flip-vert))
-\end{smallscheme}
+\end{compactCodeBlock}
 }
 
-\begin{scheme}
+\begin{codeBlock}
 (define (flipped-pairs painter)
   (let ((combine4 (square-of-four identity flip-vert
                                   identity flip-vert)))
     (combine4 painter)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 and \code{square\-/limit} can be expressed as\footnote{\code{rotate180} rotates a
@@ -2902,27 +2791,29 @@ painter by 180 degrees (see \link{Exercise 2.50}).  Instead of \code{rotate180}
 we could say \code{(compose flip\-/vert flip\-/horiz)}, using the \code{compose}
 procedure from \link{Exercise 1.42}.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (square-limit painter n)
-  (let ((combine4 (square-of-four flip-horiz identity
-                                  rotate180 flip-vert)))
+  (let ((combine4 (square-of-four flip-horiz
+                                  identity
+                                  rotate180
+                                  flip-vert)))
     (combine4 (corner-split painter n))))
-\end{scheme}
+\end{codeBlock}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.45}Exercise 2.45:} \code{right\-/split} and
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.45}Exercise 2.45:} \code{right\-/split} and
 \code{up\-/split} can be expressed as instances of a general splitting operation.
 Define a procedure \code{split} with the property that evaluating
 
-\begin{scheme}
+\begin{codeBlock}
 (define right-split (split beside below))
 (define up-split (split below beside))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 produces procedures \code{right\-/split} and \code{up\-/split} with the same
 behaviors as the ones already defined.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsubsection*{Frames}
 
@@ -2951,13 +2842,6 @@ images.  With each frame, we associate a \newterm{frame coordinate map}, which
 will be used to shift and scale images to fit the frame.  The map transforms
 the unit square into the frame by mapping the vector \( \mathbf{v} = (x, y) \) to
 the vector sum
-\begin{comment}
-
-\begin{example}
-Origin(Frame) + x * Edge_1(Frame) + y * Edge_2(Frame)
-\end{example}
-
-\end{comment}
 
 $$ {\rm Origin(Frame)} + x \cdot {\rm Edge_1(Frame)} + y \cdot {\rm Edge_2(Frame)}. $$
 
@@ -2971,33 +2855,35 @@ representation for vectors.  Because of data abstraction, it doesn't matter
 what this vector representation is, so long as the vector operations behave
 correctly.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (frame-coord-map frame)
   (lambda (v)
     (add-vect
      (origin-frame frame)
-     (add-vect (scale-vect (xcor-vect v) (edge1-frame frame))
-               (scale-vect (ycor-vect v) (edge2-frame frame))))))
-\end{scheme}
+     (add-vect (scale-vect (xcor-vect v)
+                           (edge1-frame frame))
+               (scale-vect (ycor-vect v)
+                           (edge2-frame frame))))))
+\end{codeBlock}
 
 \noindent
 Observe that applying \code{frame\-/coord\-/map} to a frame returns a procedure
 that, given a vector, returns a vector.  If the argument vector is in the unit
 square, the result vector will be in the frame.  For example,
 
-\begin{scheme}
+\begin{codeBlock}
 ((frame-coord-map a-frame) (make-vect 0 0))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 returns the same vector as
 
-\begin{scheme}
+\begin{codeBlock}
 (origin-frame a-frame)
-\end{scheme}
+\end{codeBlock}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.46}Exercise 2.46:} A two-dimensional vector \( \mathbf{v} \)
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.46}Exercise 2.46:} A two-dimensional vector \( \mathbf{v} \)
 running from the origin to a point can be represented as a pair consisting of
 an \( x \)-coordinate and a \( y \)-coordinate.  Implement a data abstraction for
 vectors by giving a constructor \code{make\-/vect} and corresponding selectors
@@ -3005,14 +2891,6 @@ vectors by giving a constructor \code{make\-/vect} and corresponding selectors
 constructor, implement procedures \code{add\-/vect}, \code{sub\-/vect}, and
 \code{scale\-/vect} that perform the operations vector addition, vector
 subtraction, and multiplying a vector by a scalar:
-\begin{comment}
-
-\begin{example}
-(x_1, y_1) + (x_2, y_2) = (x_1 + x_2, y_1 + y_2)
-(x_1, y_1) - (x_2, y_2) = (x_1 - x_2, y_1 - y_2)
-             s * (x, y) = (sx, sy)
-\end{example}
-\end{comment}
 
 $$
 \begin{array}{r@{{}={}}l}
@@ -3023,19 +2901,19 @@ $$
 $$
 
 
-\heading{\phantomsection\label{Exercise 2.47}Exercise 2.47:} Here are two possible
+\exerciseHeading{\phantomsection\label{Exercise 2.47}Exercise 2.47:} Here are two possible
 constructors for frames:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-frame origin edge1 edge2)
   (list origin edge1 edge2))
 (define (make-frame origin edge1 edge2)
   (cons origin (cons edge1 edge2)))
-\end{scheme}
+\end{codeBlock}
 
 For each constructor supply the appropriate selectors to produce an
 implementation for frames.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsubsection*{Painters}
 
@@ -3053,7 +2931,7 @@ line segments as follows:\footnote{\code{segments\-/>painter} uses the
 representation for line segments described in \link{Exercise 2.48} below.  It
 also uses the \code{for\-/each} procedure described in \link{Exercise 2.23}.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (segments->painter segment-list)
   (lambda (frame)
     (for-each
@@ -3064,7 +2942,7 @@ also uses the \code{for\-/each} procedure described in \link{Exercise 2.23}.}
         ((frame-coord-map frame)
          (end-segment segment))))
      segment-list)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The segments are given using coordinates with respect to the unit square.  For
@@ -3088,15 +2966,15 @@ way at all, so long as it draws something in the designated frame.
 \link{Section 2.1.3} also showed how pairs could be implemented as procedures.  Painters
 are our second example of a procedural representation for data.}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.48}Exercise 2.48:} A directed line segment in the
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.48}Exercise 2.48:} A directed line segment in the
 plane can be represented as a pair of vectors---the vector running from the
 origin to the start-point of the segment, and the vector running from the
 origin to the end-point of the segment.  Use your vector representation from
 \link{Exercise 2.46} to define a representation for segments with a constructor
 \code{make\-/segment} and selectors \code{start\-/segment} and \code{end\-/segment}.
 
-\heading{\phantomsection\label{Exercise 2.49}Exercise 2.49:} Use \code{segments\-/>painter}
+\exerciseHeading{\phantomsection\label{Exercise 2.49}Exercise 2.49:} Use \code{segments\-/>painter}
 to define the following primitive painters:
 
 \begin{enumerate}[a.]
@@ -3115,7 +2993,7 @@ of the frame.
 The \code{wave} painter.
 
 \end{enumerate}
-\end{exercises}
+\end{exerciseGroup}
 
 \subsubsection*{Transforming and combining painters}
 
@@ -3136,65 +3014,71 @@ first point specifies the new frame's origin and the other two specify the ends
 of its edge vectors.  Thus, arguments within the unit square specify a frame
 contained within the original frame.
 
-\begin{scheme}
-(define (transform-painter painter origin corner1 corner2)
+\begin{codeBlock}
+(define (transform-painter painter
+                           origin
+                           corner1
+                           corner2)
   (lambda (frame)
     (let ((m (frame-coord-map frame)))
       (let ((new-origin (m origin)))
         (painter (make-frame
                   new-origin
-                  (sub-vect (m corner1) new-origin)
-                  (sub-vect (m corner2) new-origin)))))))
-\end{scheme}
+                  (sub-vect (m corner1)
+                            new-origin)
+                  (sub-vect (m corner2)
+                            new-origin)))))))
+\end{codeBlock}
 
 \noindent
 Here's how to flip painter images vertically:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (flip-vert painter)
-  (transform-painter painter
-                     (make-vect 0.0 1.0)   ~\textrm{; new \code{origin}}~
-                     (make-vect 1.0 1.0)   ~\textrm{; new end of \code{edge1}}~
-                     (make-vect 0.0 0.0))) ~\textrm{; new end of \code{edge2}}~
-\end{scheme}
+  (transform-painter
+    painter
+    (make-vect 0.0 1.0)   ~\textrm{; new \code{origin}}~
+    (make-vect 1.0 1.0)   ~\textrm{; new end of \code{edge1}}~
+    (make-vect 0.0 0.0))) ~\textrm{; new end of \code{edge2}}~
+\end{codeBlock}
 
 \noindent
 Using \code{transform\-/painter}, we can easily define new transformations.
 For example, we can define a painter that shrinks its image to the
 upper-right quarter of the frame it is given:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (shrink-to-upper-right painter)
   (transform-painter
    painter (make-vect 0.5 0.5)
    (make-vect 1.0 0.5) (make-vect 0.5 1.0)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Other transformations rotate images counterclockwise by 90
 degrees\footnote{\code{rotate90} is a pure rotation only for square frames,
 because it also stretches and shrinks the image to fit into the rotated frame.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (rotate90 painter)
   (transform-painter painter
                      (make-vect 1.0 0.0)
                      (make-vect 1.0 1.0)
                      (make-vect 0.0 0.0)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 or squash images towards the center of the frame:\footnote{The diamond-shaped
 images in \link{Figure 2.10} and \link{Figure 2.11} were created with
 \code{squash\-/inwards} applied to \code{wave} and \code{rogers}.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (squash-inwards painter)
   (transform-painter painter
                      (make-vect 0.0 0.0)
                      (make-vect 0.65 0.35)
                      (make-vect 0.35 0.65)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Frame transformation is also the key to defining means of combining two or more
@@ -3205,7 +3089,7 @@ is given a frame, it calls the first transformed painter to paint in the left
 half of the frame and calls the second transformed painter to paint in the
 right half of the frame:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (beside painter1 painter2)
   (let ((split-point (make-vect 0.5 0.0)))
     (let ((paint-left
@@ -3223,7 +3107,7 @@ right half of the frame:
       (lambda (frame)
         (paint-left frame)
         (paint-right frame)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Observe how the painter data abstraction, and in particular the representation
@@ -3232,19 +3116,19 @@ of painters as procedures, makes \code{beside} easy to implement.  The
 component painters other than that each painter will draw something in its
 designated frame.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.50}Exercise 2.50:} Define the transformation
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.50}Exercise 2.50:} Define the transformation
 \code{flip\-/horiz}, which flips painters horizontally, and transformations that
 rotate painters counterclockwise by 180 degrees and 270 degrees.
 
-\heading{\phantomsection\label{Exercise 2.51}Exercise 2.51:} Define the \code{below} operation
+\exerciseHeading{\phantomsection\label{Exercise 2.51}Exercise 2.51:} Define the \code{below} operation
 for painters.  \code{below} takes two painters as arguments.  The resulting
 painter, given a frame, draws with the first painter in the bottom of the frame
 and with the second painter in the top.  Define \code{below} in two different
 ways---first by writing a procedure that is analogous to the \code{beside}
 procedure given above, and again in terms of \code{beside} and suitable
 rotation operations (from \link{Exercise 2.50}).
-\end{exercises}
+\end{exerciseGroup}
 
 \subsubsection*{Levels of language for robust design}
 
@@ -3297,8 +3181,8 @@ work at the middle level to change the way \code{corner\-/split} replicates the
 level of a stratified design provides a different vocabulary for expressing the
 characteristics of the system, and a different kind of ability to change it.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.52}Exercise 2.52:} Make changes to the square limit
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.52}Exercise 2.52:} Make changes to the square limit
 of \code{wave} shown in \link{Figure 2.9} by working at each of the levels
 described above.  In particular:
 
@@ -3319,7 +3203,7 @@ to assemble the corners in a different pattern.  (For example, you might make
 the big Mr. Rogers look outward from each corner of the square.)
 
 \end{enumerate}
-\end{exercises}
+\end{exerciseGroup}
 
 \section{Symbolic Data}
 \label{Section 2.3}
@@ -3335,22 +3219,22 @@ language by introducing the ability to work with arbitrary symbols as data.
 
 If we can form compound data using symbols, we can have lists such as
 
-\begin{scheme}
+\begin{codeBlock}
 (a b c d)
 (23 45 17)
 ((Norah 12) (Molly 9) (Anna 7) (Lauren 6) (Charlotte 4))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Lists containing symbols can look just like the expressions of our
 language:
 
-\begin{scheme}
+\begin{codeBlock}
 (* (+ 23 45)
    (+ x 9))
 (define (fact n)
   (if (= n 1) 1 (* n (fact (- n 1)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 In order to manipulate symbols we need a new element in our language: the
@@ -3394,7 +3278,7 @@ In this book, the only use for character strings is as items to be printed.}
 
 Now we can distinguish between symbols and their values:
 
-\begin{scheme}
+\begin{codeBlock}
 (define a 1)
 (define b 2)
 (list a b)
@@ -3403,7 +3287,7 @@ Now we can distinguish between symbols and their values:
 ~\textit{(a b)}~
 (list 'a b)
 ~\textit{(a 2)}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Quotation also allows us to type in compound objects, using the conventional
@@ -3421,12 +3305,12 @@ interpreter can be manipulated as a data object. For instance, we could
 construct the expression \code{(car '(a b c))}, which is the same as \code{(car
 (quote (a b c)))}, by evaluating \code{(list 'car (list 'quote '(a b c)))}.}
 
-\begin{scheme}
+\begin{codeBlock}
 (car '(a b c))
 ~\textit{a}~
 (cdr '(a b c))
 ~\textit{(b c)}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 In keeping with this, we can obtain the empty list by evaluating \code{'()},
@@ -3444,35 +3328,35 @@ the list (i.e., is not \code{eq?} to any item in the list), then \code{memq}
 returns false.  Otherwise, it returns the sublist of the list beginning with
 the first occurrence of the symbol:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (memq item x)
   (cond ((null? x) false)
         ((eq? item (car x)) x)
         (else (memq item (cdr x)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 For example, the value of
 
-\begin{scheme}
+\begin{codeBlock}
 (memq 'apple '(pear banana prune))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 is false, whereas the value of
 
-\begin{scheme}
+\begin{codeBlock}
 (memq 'apple '(x (apple sauce) y apple pear))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 is \code{(apple pear)}.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.53}Exercise 2.53:} What would the interpreter print
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.53}Exercise 2.53:} What would the interpreter print
 in response to evaluating each of the following expressions?
 
-\begin{scheme}
+\begin{codeBlock}
 (list 'a 'b 'c)
 (list (list 'george))
 (cdr '((x1 x2) (y1 y2)))
@@ -3480,22 +3364,22 @@ in response to evaluating each of the following expressions?
 (pair? (car '(a short list)))
 (memq 'red '((red shoes) (blue socks)))
 (memq 'red '(red shoes blue socks))
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 2.54}Exercise 2.54:} Two lists are said to be
+\exerciseHeading{\phantomsection\label{Exercise 2.54}Exercise 2.54:} Two lists are said to be
 \code{equal?} if they contain equal elements arranged in the same order.  For
 example,
 
-\begin{scheme}
+\begin{codeBlock}
 (equal? '(this is a list) '(this is a list))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 is true, but
 
-\begin{scheme}
+\begin{codeBlock}
 (equal? '(this is a list) '(this (is a) list))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 is false.  To be more precise, we can define \code{equal?}  recursively in
@@ -3512,15 +3396,15 @@ the one that comes as a primitive in Scheme) would also stipulate that if
 \code{a} and \code{b} are both numbers, then \code{a} and \code{b} are
 \code{equal?} if they are numerically equal.}
 
-\heading{\phantomsection\label{Exercise 2.55}Exercise 2.55:} Eva Lu Ator types to the
+\exerciseHeading{\phantomsection\label{Exercise 2.55}Exercise 2.55:} Eva Lu Ator types to the
 interpreter the expression
 
-\begin{scheme}
+\begin{codeBlock}
 (car ''abracadabra)
-\end{scheme}
+\end{codeBlock}
 
 To her surprise, the interpreter prints back \code{quote}.  Explain.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Example: Symbolic Differentiation}
 \label{Section 2.3.2}
@@ -3553,27 +3437,6 @@ symbolic-differentiation program that handles expressions that are built up
 using only the operations of addition and multiplication with two arguments.
 Differentiation of any such expression can be carried out by applying the
 following reduction rules:
-\begin{comment}
-
-\begin{example}
-dc
--- = 0  for c a constant, or a variable different from x
-dx
-
-dx
--- = 1
-dx
-
-d(u + v)   du   dv
--------- = -- + --
-   dx      dx   dx
-
-d(uv)     / dv \     / du \
------ = u | -- | + v | -- |
- dx       \ dx /     \ dx /
-\end{example}
-
-\end{comment}
 
 $$
 \frac{{\it dc}}{{\it dx}} = 0,
@@ -3617,7 +3480,7 @@ should also be able to construct expressions from parts.  Let us assume that we
 already have procedures to implement the following selectors, constructors, and
 predicates:
 
-\begin{scheme}
+\begin{codeBlock}
 (variable? e)            ~\textrm{Is \code{e} a variable?}~
 (same-variable? v1 v2)   ~\textrm{Are \code{v1} and \code{v2} the same variable?}~
 (sum? e)                 ~\textrm{Is \code{e} a sum?}~
@@ -3628,27 +3491,34 @@ predicates:
 (multiplier e)           ~\textrm{Multiplier of the product \code{e}.}~
 (multiplicand e)         ~\textrm{Multiplicand of the product \code{e}.}~
 (make-product m1 m2)     ~\textrm{Construct the product of \code{m1} and \code{m2}.}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Using these, and the primitive predicate \code{number?}, which identifies
 numbers, we can express the differentiation rules as the following procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (deriv exp var)
   (cond ((number? exp) 0)
-        ((variable? exp) (if (same-variable? exp var) 1 0))
-        ((sum? exp) (make-sum (deriv (addend exp) var)
-                              (deriv (augend exp) var)))
+        ((variable? exp) (if (same-variable? exp var)
+                             1
+                             0))
+        ((sum? exp) (make-sum (deriv (addend exp)
+                                     var)
+                              (deriv (augend exp)
+                                     var)))
         ((product? exp)
          (make-sum
            (make-product (multiplier exp)
-                         (deriv (multiplicand exp) var))
-           (make-product (deriv (multiplier exp) var)
+                         (deriv (multiplicand exp)
+                                var))
+           (make-product (deriv (multiplier exp)
+                                var)
                          (multiplicand exp))))
         (else
-         (error "unknown expression type: DERIV" exp))))
-\end{scheme}
+         (error "unknown expression type: DERIV"
+                exp))))
+\end{codeBlock}
 
 \noindent
 This \code{deriv} procedure incorporates the complete differentiation
@@ -3673,67 +3543,67 @@ representation for the differentiation problem is as follows:
 The variables are symbols.  They are identified by the primitive predicate
 \code{symbol?}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (variable? x) (symbol? x))
-\end{scheme}
+\end{codeBlock}
 
 \item
 Two variables are the same if the symbols representing them are \code{eq?}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (same-variable? v1 v2)
   (and (variable? v1) (variable? v2) (eq? v1 v2)))
-\end{scheme}
+\end{codeBlock}
 
 \item
 Sums and products are constructed as lists:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-sum a1 a2) (list '+ a1 a2))
 (define (make-product m1 m2) (list '* m1 m2))
-\end{scheme}
+\end{codeBlock}
 
 \item
 A sum is a list whose first element is the symbol \code{+}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sum? x) (and (pair? x) (eq? (car x) '+)))
-\end{scheme}
+\end{codeBlock}
 
 \item
 The addend is the second item of the sum list:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (addend s) (cadr s))
-\end{scheme}
+\end{codeBlock}
 
 \item
 The augend is the third item of the sum list:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (augend s) (caddr s))
-\end{scheme}
+\end{codeBlock}
 
 \item
 A product is a list whose first element is the symbol \code{*}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (product? x) (and (pair? x) (eq? (car x) '*)))
-\end{scheme}
+\end{codeBlock}
 
 \item
 The multiplier is the second item of the product list:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (multiplier p) (cadr p))
-\end{scheme}
+\end{codeBlock}
 
 \item
 The multiplicand is the third item of the product list:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (multiplicand p) (caddr p))
-\end{scheme}
+\end{codeBlock}
 
 \end{itemize}
 
@@ -3742,7 +3612,7 @@ Thus, we need only combine these with the algorithm as embodied by \code{deriv}
 in order to have a working symbolic-differentiation program.  Let us look at
 some examples of its behavior:
 
-\begin{scheme}
+\begin{codeBlock}
 (deriv '(+ x 3) 'x)
 ~\textit{(+ 1 0)}~
 (deriv '(* x y) 'x)
@@ -3751,20 +3621,11 @@ some examples of its behavior:
 ~\textit{(+ (* (* x y) (+ 1 0))}~
    ~\textit{(* (+ (* x 0) (* 1 y))}~
       ~\textit{(+  x 3)))}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The program produces answers that are correct; however, they are unsimplified.
 It is true that
-\begin{comment}
-
-\begin{example}
-d(xy)
------ = x * 0 + 1 * y
- dx
-\end{example}
-
-\end{comment}
 
 $$ \frac{{\it d\,(xy\,)}}{{\it dx}} = x \cdot 0 + 1 \cdot y, $$
 
@@ -3783,47 +3644,47 @@ that if both summands are numbers, \code{make\-/sum} will add them and return
 their sum.  Also, if one of the summands is 0, then \code{make\-/sum} will return
 the other summand.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-sum a1 a2)
   (cond ((=number? a1 0) a2)
         ((=number? a2 0) a1)
         ((and (number? a1) (number? a2))
          (+ a1 a2))
         (else (list '+ a1 a2))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This uses the procedure \code{=number?}, which checks whether an expression is
 equal to a given number:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (=number? exp num) (and (number? exp) (= exp num)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Similarly, we will change \code{make\-/product} to build in the rules that 0
 times anything is 0 and 1 times anything is the thing itself:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-product m1 m2)
   (cond ((or (=number? m1 0) (=number? m2 0)) 0)
         ((=number? m1 1) m2)
         ((=number? m2 1) m1)
         ((and (number? m1) (number? m2)) (* m1 m2))
         (else (list '* m1 m2))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Here is how this version works on our three examples:
 
-\begin{scheme}
+\begin{codeBlock}
 (deriv '(+ x 3) 'x)
 ~\textit{1}~
 (deriv '(* x y) 'x)
 ~\textit{y}~
 (deriv '(* (* x y) (+ x 3)) 'x)
 ~\textit{(+ (* x y) (* y (+ x 3)))}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Although this is quite an improvement, the third example shows that there is
@@ -3832,19 +3693,10 @@ form that we might agree is ``simplest.''  The problem of algebraic
 simplification is complex because, among other reasons, a form that may be
 simplest for one purpose may not be for another.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.56}Exercise 2.56:} Show how to extend the basic
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.56}Exercise 2.56:} Show how to extend the basic
 differentiator to handle more kinds of expressions.  For instance, implement
 the differentiation rule
-\begin{comment}
-
-\begin{example}
-d(u^n)            du
------- = nu^(n-1) --
-  dx              dx
-\end{example}
-
-\end{comment}
 
 $$ \frac{{\it d\,(u^n\,)}}{{\it dx}} = nu^{n-1} \frac{{\it du}}{{\it dx}} $$
 
@@ -3855,20 +3707,20 @@ procedures \code{exponentiation?}, \code{base}, \code{exponent}, and
 exponentiation.)  Build in the rules that anything raised to the power 0 is 1
 and anything raised to the power 1 is the thing itself.
 
-\heading{\phantomsection\label{Exercise 2.57}Exercise 2.57:} Extend the differentiation
+\exerciseHeading{\phantomsection\label{Exercise 2.57}Exercise 2.57:} Extend the differentiation
 program to handle sums and products of arbitrary numbers of (two or more)
 terms.  Then the last example above could be expressed as
 
-\begin{scheme}
+\begin{codeBlock}
 (deriv '(* x y (+ x 3)) 'x)
-\end{scheme}
+\end{codeBlock}
 
 Try to do this by changing only the representation for sums and products,
 without changing the \code{deriv} procedure at all.  For example, the
 \code{addend} of a sum would be the first term, and the \code{augend} would be
 the sum of the rest of the terms.
 
-\heading{\phantomsection\label{Exercise 2.58}Exercise 2.58:} Suppose we want to modify the
+\exerciseHeading{\phantomsection\label{Exercise 2.58}Exercise 2.58:} Suppose we want to modify the
 differentiation program so that it works with ordinary mathematical notation,
 in which \code{+} and \code{*} are infix rather than prefix operators.  Since
 the differentiation program is defined in terms of abstract data, we can modify
@@ -3892,7 +3744,7 @@ design appropriate predicates, selectors, and constructors for this notation
 such that our derivative program still works?
 
 \end{enumerate}
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Example: Representing Sets}
 \label{Section 2.3.3}
@@ -3951,24 +3803,24 @@ this representation, \code{element\-/of\-/set?} is similar to the procedure
 \code{memq} of \link{Section 2.3.1}.  It uses \code{equal?}  instead of
 \code{eq?} so that the set elements need not be symbols:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (element-of-set? x set)
   (cond ((null? set) false)
         ((equal? x (car set)) true)
         (else (element-of-set? x (cdr set)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Using this, we can write \code{adjoin\-/set}.  If the object to be adjoined is
 already in the set, we just return the set.  Otherwise, we use \code{cons} to
 add the object to the list that represents the set:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (adjoin-set x set)
   (if (element-of-set? x set)
       set
       (cons x set)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 For \code{intersection\-/set} we can use a recursive strategy.  If we know how to
@@ -3977,15 +3829,14 @@ need to decide whether to include the \code{car} of \code{set1} in this.  But
 this depends on whether \code{(car set1)} is also in \code{set2}.  Here is the
 resulting procedure:
 
-\enlargethispage{\baselineskip}
-
-\begin{scheme}
+\begin{codeBlock}
 (define (intersection-set set1 set2)
   (cond ((or (null? set1) (null? set2)) '())
         ((element-of-set? (car set1) set2)
-         (cons (car set1) (intersection-set (cdr set1) set2)))
+         (cons (car set1) (intersection-set (cdr set1)
+                                            set2)))
         (else (intersection-set (cdr set1) set2))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 In designing a representation, one of the issues we should be concerned with is
@@ -4003,11 +3854,11 @@ each element of \code{set1}, the number of steps required grows as the product
 of the sizes of the sets involved, or \( \Theta(n^2) \) for two sets of size
 \( n \).  The same will be true of \code{union\-/set}.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.59}Exercise 2.59:} Implement the \code{union\-/set}
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.59}Exercise 2.59:} Implement the \code{union\-/set}
 operation for the unordered-list representation of sets.
 
-\heading{\phantomsection\label{Exercise 2.60}Exercise 2.60:} We specified that a set would be
+\exerciseHeading{\phantomsection\label{Exercise 2.60}Exercise 2.60:} We specified that a set would be
 represented as a list with no duplicates.  Now suppose we allow duplicates.
 For instance, the set \( \{1, 2, 3\} \) could be represented as the list \code{(2 3 2 1
 3 2 2)}.  Design procedures \code{element\-/of\-/set?}, \code{adjoin\-/set},
@@ -4015,7 +3866,7 @@ For instance, the set \( \{1, 2, 3\} \) could be represented as the list \code{(
 representation.  How does the efficiency of each compare with the corresponding
 procedure for the non-duplicate representation?  Are there applications for
 which you would use this representation in preference to the non-duplicate one?
-\end{exercises}
+\end{exerciseGroup}
 
 \subsubsection*{Sets as ordered lists}
 
@@ -4037,13 +3888,13 @@ the presence of an item, we no longer have to scan the entire set.  If we reach
 a set element that is larger than the item we are looking for, then we know
 that the item is not in the set:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (element-of-set? x set)
   (cond ((null? set) false)
         ((= x (car set)) true)
         ((< x (car set)) false)
         (else (element-of-set? x (cdr set)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 How many steps does this save?  In the worst case, the item we are looking for
@@ -4073,7 +3924,7 @@ intersection of \code{set2} with the \code{cdr} of \code{set1}.  Similarly, if
 intersection of \code{set1} with the \code{cdr} of \code{set2}.  Here is the
 procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (intersection-set set1 set2)
   (if (or (null? set1) (null? set2))
       '()
@@ -4085,7 +3936,7 @@ procedure:
                (intersection-set (cdr set1) set2))
               ((< x2 x1)
                (intersection-set set1 (cdr set2)))))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 To estimate the number of steps required by this process, observe that at each
@@ -4096,16 +3947,16 @@ Thus, the number of steps required is at most the sum of the sizes of
 unordered representation.  This is \( \Theta(n) \) growth rather than
 \( \Theta(n^2) \)---a considerable speedup, even for sets of moderate size.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.61}Exercise 2.61:} Give an implementation of
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.61}Exercise 2.61:} Give an implementation of
 \code{adjoin\-/set} using the ordered representation.  By analogy with
 \code{element\-/of\-/set?} show how to take advantage of the ordering to produce a
 procedure that requires on the average about half as many steps as with the
 unordered representation.
 
-\heading{\phantomsection\label{Exercise 2.62}Exercise 2.62:} Give a \( \Theta(n) \)
+\exerciseHeading{\phantomsection\label{Exercise 2.62}Exercise 2.62:} Give a \( \Theta(n) \)
 implementation of \code{union\-/set} for sets represented as ordered lists.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsubsection*{Sets as binary trees}
 
@@ -4151,19 +4002,19 @@ We can regard the procedures \code{entry}, \code{left\-/branch},
 of a ``binary tree'' from the particular way we might wish to represent such a
 tree in terms of list structure.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (entry tree) (car tree))
 (define (left-branch tree) (cadr tree))
 (define (right-branch tree) (caddr tree))
 (define (make-tree entry left right)
   (list entry left right))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Now we can write the \code{element\-/of\-/set?} procedure using the strategy
 described above:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (element-of-set? x set)
   (cond ((null? set) false)
         ((= x (entry set)) true)
@@ -4171,7 +4022,7 @@ described above:
          (element-of-set? x (left-branch set)))
         ((> x (entry set))
          (element-of-set? x (right-branch set)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Adjoining an item to a set is implemented similarly and also requires
@@ -4184,7 +4035,7 @@ just return the node.  If we are asked to adjoin \code{x} to an empty tree, we
 generate a tree that has \code{x} as the entry and empty right and left
 branches.  Here is the procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (adjoin-set x set)
   (cond ((null? set) (make-tree x '() '()))
         ((= x (entry set)) set)
@@ -4195,7 +4046,12 @@ branches.  Here is the procedure:
         ((> x (entry set))
          (make-tree (entry set) (left-branch set)
                     (adjoin-set x (right-branch set))))))
-\end{scheme}
+\end{codeBlock}
+
+% figure 2.17
+\begin{imageFigure}{Unbalanced tree produced by adjoining 1 through 7 in sequence.}
+  \includegraphics[width=40mm]{assets/figures/chapter_2/figure_2.17a.pdf}
+\end{imageFigure}
 
 \noindent
 The above claim that searching the tree can be performed in a logarithmic
@@ -4221,16 +4077,11 @@ steps.\footnote{Examples of such structures include \newterm{B-trees} and
 \newterm{red-black trees}.  There is a large literature on data structures
 devoted to this problem.  See \link{Cormen et al. 1990}.}
 
-% figure 2.17
-\begin{imageFigure}{Unbalanced tree produced by adjoining 1 through 7 in sequence.}
-  \includegraphics[width=40mm]{assets/figures/chapter_2/figure_2.17a.pdf}
-\end{imageFigure}
-
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.63}Exercise 2.63:} Each of the following two
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.63}Exercise 2.63:} Each of the following two
 procedures converts a binary tree to a list.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (tree->list-1 tree)
   (if (null? tree)
       '()
@@ -4248,7 +4099,7 @@ procedures converts a binary tree to a list.
                               (right-branch tree)
                               result-list)))))
   (copy-to-list tree '()))
-\end{scheme}
+\end{codeBlock}
 
 \begin{enumerate}[a.]
 
@@ -4264,7 +4115,7 @@ which one grows more slowly?
 
 \end{enumerate}
 
-\heading{\phantomsection\label{Exercise 2.64}Exercise 2.64:} The following procedure
+\exerciseHeading{\phantomsection\label{Exercise 2.64}Exercise 2.64:} The following procedure
 \code{list\-/>tree} converts an ordered list to a balanced binary tree.  The
 helper procedure \code{partial\-/tree} takes as arguments an integer \( n \) and
 list of at least \( n \) elements and constructs a balanced tree containing the
@@ -4272,7 +4123,7 @@ first \( n \) elements of the list.  The result returned by \code{partial\-/tree
 is a pair (formed with \code{cons}) whose \code{car} is the constructed tree
 and whose \code{cdr} is the list of elements not included in the tree.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (list->tree elements)
   (car (partial-tree elements (length elements))))
 (define (partial-tree elts n)
@@ -4296,7 +4147,7 @@ and whose \code{cdr} is the list of elements not included in the tree.
                                  left-tree
                                  right-tree)
                       remaining-elts))))))))
-\end{scheme}
+\end{codeBlock}
 
 \begin{enumerate}[a.]
 
@@ -4311,12 +4162,12 @@ What is the order of growth in the number of steps required by
 
 \end{enumerate}
 
-\heading{\phantomsection\label{Exercise 2.65}Exercise 2.65:} Use the results of \link{Exercise 2.63}
+\exerciseHeading{\phantomsection\label{Exercise 2.65}Exercise 2.65:} Use the results of \link{Exercise 2.63}
 and \link{Exercise 2.64} to give \( \Theta(n) \) implementations of
 \code{union\-/set} and \code{intersection\-/set} for sets implemented as (balanced)
 binary trees.\footnote{\link{Exercise 2.63} through \link{Exercise 2.65} are due
 to Paul Hilfinger.}
-\end{exercises}
+\end{exerciseGroup}
 
 \subsubsection*{Sets and information retrieval}
 
@@ -4345,13 +4196,13 @@ is no such record.  \code{lookup} is implemented in almost the same way as
 \code{element\-/of\-/set?}.  For example, if the set of records is implemented as
 an unordered list, we could use
 
-\begin{scheme}
+\begin{codeBlock}
 (define (lookup given-key set-of-records)
   (cond ((null? set-of-records) false)
         ((equal? given-key (key (car set-of-records)))
          (car set-of-records))
         (else (lookup given-key (cdr set-of-records)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Of course, there are better ways to represent large sets than as unordered
@@ -4367,11 +4218,11 @@ to be more sophisticated.  If the data base is accessed in terms of abstract
 selectors and constructors, this change in representation will not require any
 changes to the rest of the system.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.66}Exercise 2.66:} Implement the \code{lookup}
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.66}Exercise 2.66:} Implement the \code{lookup}
 procedure for the case where the set of records is structured as a binary tree,
 ordered by the numerical values of the keys.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Example: Huffman Encoding Trees}
 \label{Section 2.3.4}
@@ -4542,12 +4393,14 @@ represented.
 Leaves of the tree are represented by a list consisting of the symbol
 \code{leaf}, the symbol at the leaf, and the weight:
 
-\begin{scheme}
-(define (make-leaf symbol weight) (list 'leaf symbol weight))
+\begin{codeBlock}
+(define (make-leaf symbol weight) (list 'leaf
+                                        symbol
+                                        weight))
 (define (leaf? object) (eq? (car object) 'leaf))
 (define (symbol-leaf x) (cadr x))
 (define (weight-leaf x) (caddr x))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 A general tree will be a list of a left branch, a right branch, a set of
@@ -4559,18 +4412,18 @@ symbols for the nodes.  Since our symbol sets are represented as lists, we can
 form the union by using the \code{append} procedure we defined in
 \link{Section 2.2.1}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-code-tree left right)
   (list left
         right
         (append (symbols left) (symbols right))
         (+ (weight left) (weight right))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 If we make a tree in this way, we have the following selectors:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (left-branch  tree) (car  tree))
 (define (right-branch tree) (cadr tree))
 (define (symbols tree)
@@ -4581,7 +4434,7 @@ If we make a tree in this way, we have the following selectors:
   (if (leaf? tree)
       (weight-leaf tree)
       (cadddr tree)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The procedures \code{symbols} and \code{weight} must do something slightly
@@ -4590,20 +4443,19 @@ These are simple examples of \newterm{generic procedures} (procedures that can
 handle more than one kind of data), which we will have much more to say about
 in \link{Section 2.4} and \link{Section 2.5}.
 
-\enlargethispage{\baselineskip}
-
 \subsubsection*{The decoding procedure}
 
 The following procedure implements the decoding algorithm.  It takes as
 arguments a list of zeros and ones, together with a Huffman tree.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (decode bits tree)
   (define (decode-1 bits current-branch)
     (if (null? bits)
         '()
         (let ((next-branch
-               (choose-branch (car bits) current-branch)))
+               (choose-branch (car bits)
+                              current-branch)))
           (if (leaf? next-branch)
               (cons (symbol-leaf next-branch)
                     (decode-1 (cdr bits) tree))
@@ -4613,7 +4465,7 @@ arguments a list of zeros and ones, together with a Huffman tree.
   (cond ((= bit 0) (left-branch branch))
         ((= bit 1) (right-branch branch))
         (else (error "bad bit: CHOOSE-BRANCH" bit))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The procedure \code{decode\-/1} takes two arguments: the list of remaining bits
@@ -4641,20 +4493,21 @@ constructing sets is similar to the one described in \link{Exercise 2.61};
 however, items are compared by their weights, and the element being added to
 the set is never already in it.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (adjoin-set x set)
   (cond ((null? set) (list x))
-        ((< (weight x) (weight (car set))) (cons x set))
+        ((< (weight x) (weight (car set)))
+          (cons x set))
         (else (cons (car set)
                     (adjoin-set x (cdr set))))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The following procedure takes a list of symbol-frequency pairs such as
 \code{((A 4) (B 2) (C 1) (D 1))} and constructs an initial ordered set of
 leaves, ready to be merged according to the Huffman algorithm:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-leaf-set pairs)
   (if (null? pairs)
       '()
@@ -4662,13 +4515,13 @@ leaves, ready to be merged according to the Huffman algorithm:
         (adjoin-set (make-leaf (car pair)    ~\textrm{; symbol}~
                                (cadr pair))  ~\textrm{; frequency}~
                     (make-leaf-set (cdr pairs))))))
-\end{scheme}
+\end{codeBlock}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.67}Exercise 2.67:} Define an encoding tree and a
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.67}Exercise 2.67:} Define an encoding tree and a
 sample message:
 
-\begin{scheme}
+\begin{codeBlock}
 (define sample-tree
   (make-code-tree (make-leaf 'A 4)
                   (make-code-tree
@@ -4677,21 +4530,21 @@ sample message:
                     (make-leaf 'D 1)
                     (make-leaf 'C 1)))))
 (define sample-message '(0 1 1 0 0 1 0 1 0 1 1 1 0))
-\end{scheme}
+\end{codeBlock}
 
 Use the \code{decode} procedure to decode the message, and give the \mbox{result}.
 
-\heading{\phantomsection\label{Exercise 2.68}Exercise 2.68:} The \code{encode} procedure takes
+\exerciseHeading{\phantomsection\label{Exercise 2.68}Exercise 2.68:} The \code{encode} procedure takes
 as arguments a message and a tree and produces the list of bits that gives the
 encoded message.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (encode message tree)
   (if (null? message)
       '()
       (append (encode-symbol (car message) tree)
               (encode (cdr message) tree))))
-\end{scheme}
+\end{codeBlock}
 
 \code{encode\-/symbol} is a procedure, which you must write, that returns the
 list of bits that encodes a given symbol according to a given tree.  You should
@@ -4700,15 +4553,15 @@ the tree at all.  Test your procedure by encoding the result you obtained in
 \link{Exercise 2.67} with the sample tree and seeing whether it is the same as
 the original sample message.
 
-\heading{\phantomsection\label{Exercise 2.69}Exercise 2.69:} The following procedure takes as
+\exerciseHeading{\phantomsection\label{Exercise 2.69}Exercise 2.69:} The following procedure takes as
 its argument a list of symbol-frequency pairs (where no symbol appears in more
 than one pair) and generates a Huffman encoding tree according to the Huffman
 algorithm.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (generate-huffman-tree pairs)
   (successive-merge (make-leaf-set pairs)))
-\end{scheme}
+\end{codeBlock}
 
 \code{make\-/leaf\-/set} is the procedure given above that transforms the list of
 pairs into an ordered set of leaves.  \code{successive\-/merge} is the procedure
@@ -4719,7 +4572,7 @@ really complicated.  If you find yourself designing a complex procedure, then
 you are almost certainly doing something wrong.  You can take significant
 advantage of the fact that we are using an ordered set representation.)
 
-\heading{\phantomsection\label{Exercise 2.70}Exercise 2.70:} The following eight-symbol
+\exerciseHeading{\phantomsection\label{Exercise 2.70}Exercise 2.70:} The following eight-symbol
 alphabet with associated relative frequencies was designed to efficiently
 encode the lyrics of 1950s rock songs.  (Note that the ``symbols'' of an
 ``alphabet'' need not be individual letters.)
@@ -4746,13 +4599,13 @@ How many bits are required for the encoding?  What is the smallest number of
 bits that would be needed to encode this song if we used a fixed-length code
 for the eight-symbol alphabet?
 
-\heading{\phantomsection\label{Exercise 2.71}Exercise 2.71:} Suppose we have a Huffman tree
+\exerciseHeading{\phantomsection\label{Exercise 2.71}Exercise 2.71:} Suppose we have a Huffman tree
 for an alphabet of \( n \) symbols, and that the relative frequencies of the
 symbols are \( 1, 2, 4, \dots, 2^{n-1} \).  Sketch the tree for \( n=5 \); for
 \( n=10 \).  In such a tree (for general \( n \)) how many bits are required to
 encode the most frequent symbol?  The least frequent symbol?
 
-\heading{\phantomsection\label{Exercise 2.72}Exercise 2.72:} Consider the encoding procedure
+\exerciseHeading{\phantomsection\label{Exercise 2.72}Exercise 2.72:} Consider the encoding procedure
 that you designed in \link{Exercise 2.68}.  What is the order of growth in the
 number of steps needed to encode a symbol?  Be sure to include the number of
 steps needed to search the symbol list at each node encountered.  To answer
@@ -4761,7 +4614,7 @@ relative frequencies of the \( n \) symbols are as described in \link{Exercise 2
 and give the order of growth (as a function of \( n \)) of the number of
 steps needed to encode the most frequent and least frequent symbols in the
 alphabet.
-\end{exercises}
+\end{exerciseGroup}
 
 \section{Multiple Representations for Abstract Data}
 \label{Section 2.4}
@@ -4875,15 +4728,6 @@ with two orthogonal axes, the ``real'' axis and the ``imaginary'' axis. (See
 whose real coordinate is \( x \) and whose imaginary coordinate is \( y \).
 Addition of complex numbers reduces in this representation to addition of
 coordinates:
-\begin{comment}
-
-\begin{example}
-Real-part(z_1 + z_2) = Real-part(z_1) + Real-part(z_2)
-
-Imaginary-part(z_1 + z_2) = Imaginary-part(z_1) + Imaginary-part(z_2)
-\end{example}
-
-\end{comment}
 
 $$
 \begin{aligned}
@@ -4903,15 +4747,6 @@ representing a complex number in polar form, as a magnitude and an angle (\( r \
 and \( A \) in \link{Figure 2.20}).  The product of two complex numbers is the
 vector obtained by stretching one complex number by the length of the other and
 then rotating it through the angle of the other:
-\begin{comment}
-
-\begin{example}
-Magnitude(z_1 * z_2) = Magnitude(z_1) * Magnitude(z_2)
-
-Angle(z_1 * z_2) = Angle(z_1) + Angle(z_2)
-\end{example}
-
-\end{comment}
 
 $$
 \begin{aligned}
@@ -4941,16 +4776,16 @@ real and imaginary parts, and \code{make\-/from\-/mag\-/ang} returns a complex n
 with specified magnitude and angle.  These procedures have the property that,
 for any complex number \code{z}, both
 
-\begin{scheme}
+\begin{codeBlock}
 (make-from-real-imag (real-part z) (imag-part z))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 and
 
-\begin{scheme}
+\begin{codeBlock}
 (make-from-mag-ang (magnitude z) (angle z))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 produce complex numbers that are equal to \code{z}.
@@ -4962,21 +4797,28 @@ shown in the formulas above, we can add and subtract complex numbers in terms
 of real and imaginary parts while multiplying and dividing complex numbers in
 terms of magnitudes and angles:
 
-\begin{scheme}
-
+\begin{codeBlock}
 (define (add-complex z1 z2)
-  (make-from-real-imag (+ (real-part z1) (real-part z2))
-                       (+ (imag-part z1) (imag-part z2))))
+  (make-from-real-imag (+ (real-part z1)
+                          (real-part z2))
+                       (+ (imag-part z1)
+                          (imag-part z2))))
 (define (sub-complex z1 z2)
-  (make-from-real-imag (- (real-part z1) (real-part z2))
-                       (- (imag-part z1) (imag-part z2))))
+  (make-from-real-imag (- (real-part z1)
+                          (real-part z2))
+                       (- (imag-part z1)
+                          (imag-part z2))))
 (define (mul-complex z1 z2)
-  (make-from-mag-ang (* (magnitude z1) (magnitude z2))
-                     (+ (angle z1) (angle z2))))
+  (make-from-mag-ang (* (magnitude z1)
+                        (magnitude z2))
+                     (+ (angle z1)
+                        (angle z2))))
 (define (div-complex z1 z2)
-  (make-from-mag-ang (/ (magnitude z1) (magnitude z2))
-                     (- (angle z1) (angle z2))))
-\end{scheme}
+  (make-from-mag-ang (/ (magnitude z1)
+                        (magnitude z2))
+                     (- (angle z1)
+                        (angle z2))))
+\end{codeBlock}
 
 \noindent
 To complete the complex-number package, we must choose a representation and we
@@ -4994,16 +4836,6 @@ real and imaginary parts of a complex number is straightforward, as is
 constructing a complex number with given real and imaginary parts.  To find the
 magnitude and the angle, or to construct a complex number with a given
 magnitude and angle, he uses the trigonometric relations
-\begin{comment}
-
-\begin{example}
-                      __________
-x = r cos A     r = ./ x^2 + y^2
-
-y = r sin A     A = arctan(y,x)
-\end{example}
-
-\end{comment}
 
 $$
 \begin{array}{r@{{}={}}lr@{{}={}}l}
@@ -5020,7 +4852,7 @@ arguments \( y \) and \( x \) and to return the angle whose tangent is \( y / x 
 The signs of the arguments determine the quadrant of the angle.}  Ben's
 representation is therefore given by the following selectors and constructors:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (real-part z) (car z))
 (define (imag-part z) (cdr z))
 (define (magnitude z)
@@ -5031,7 +4863,7 @@ representation is therefore given by the following selectors and constructors:
 (define (make-from-real-imag x y) (cons x y))
 (define (make-from-mag-ang r a)
   (cons (* r (cos a)) (* r (sin a))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Alyssa, in contrast, chooses to represent complex numbers in polar form.  For
@@ -5039,16 +4871,18 @@ her, selecting the magnitude and angle is straightforward, but she has to use
 the trigonometric relations to obtain the real and imaginary parts.  Alyssa's
 representation is:
 
-\begin{scheme}
-(define (real-part z) (* (magnitude z) (cos (angle z))))
-(define (imag-part z) (* (magnitude z) (sin (angle z))))
+\begin{codeBlock}
+(define (real-part z) (* (magnitude z)
+                         (cos (angle z))))
+(define (imag-part z) (* (magnitude z)
+                         (sin (angle z))))
 (define (magnitude z) (car z))
 (define (angle z) (cdr z))
 (define (make-from-real-imag x y)
   (cons (sqrt (+ (square x) (square y)))
         (atan y x)))
 (define (make-from-mag-ang r a) (cons r a))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The discipline of data abstraction ensures that the same implementation of
@@ -5088,7 +4922,7 @@ complex number).  We will also postulate a procedure \code{attach\-/tag} that
 takes a tag and contents and produces a tagged data object.  A straightforward
 way to implement this is to use ordinary list structure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (attach-tag type-tag contents)
   (cons type-tag contents))
 (define (type-tag datum)
@@ -5099,17 +4933,17 @@ way to implement this is to use ordinary list structure:
   (if (pair? datum)
       (cdr datum)
       (error "Bad tagged datum: CONTENTS" datum)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Using these procedures, we can define predicates \code{rectangular?}  and
 \code{polar?}, which recognize rectangular and polar numbers, respectively:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (rectangular? z)
   (eq? (type-tag z) 'rectangular))
 (define (polar? z) (eq? (type-tag z) 'polar))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 With type tags, Ben and Alyssa can now modify their code so that their two
@@ -5122,7 +4956,7 @@ of his representation procedures and for Alyssa to append \code{polar} to the
 names of hers.  Here is Ben's revised rectangular representation from
 \link{Section 2.4.1}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (real-part-rectangular z) (car z))
 (define (imag-part-rectangular z) (cdr z))
 (define (magnitude-rectangular z)
@@ -5136,12 +4970,12 @@ names of hers.  Here is Ben's revised rectangular representation from
 (define (make-from-mag-ang-rectangular r a)
   (attach-tag 'rectangular
               (cons (* r (cos a)) (* r (sin a)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 and here is Alyssa's revised polar representation:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (real-part-polar z)
   (* (magnitude-polar z) (cos (angle-polar z))))
 (define (imag-part-polar z)
@@ -5154,7 +4988,7 @@ and here is Alyssa's revised polar representation:
                     (atan y x))))
 (define (make-from-mag-ang-polar r a)
   (attach-tag 'polar (cons r a)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Each generic selector is implemented as a procedure that checks the tag of its
@@ -5165,7 +4999,7 @@ or Alyssa's \code{real\-/part\-/polar}.  In either case, we use \code{contents} 
 extract the bare, untagged datum and send this to the rectangular or polar
 procedure as required:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (real-part z)
   (cond ((rectangular? z)
          (real-part-rectangular (contents z)))
@@ -5190,7 +5024,7 @@ procedure as required:
         ((polar? z)
          (angle-polar (contents z)))
         (else (error "Unknown type: ANGLE" z))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 To implement the complex-number arithmetic operations, we can use the same
@@ -5199,11 +5033,13 @@ procedures \code{add\-/complex}, \code{sub\-/complex}, \code{mul\-/complex}, and
 are generic, and so will work with either representation.  For example, the
 procedure \code{add\-/complex} is still
 
-\begin{scheme}
+\begin{codeBlock}
 (define (add-complex z1 z2)
-  (make-from-real-imag (+ (real-part z1) (real-part z2))
-                       (+ (imag-part z1) (imag-part z2))))
-\end{scheme}
+  (make-from-real-imag (+ (real-part z1)
+                          (real-part z2))
+                       (+ (imag-part z1)
+                          (imag-part z2))))
+\end{codeBlock}
 
 \noindent
 Finally, we must choose whether to construct complex numbers using Ben's
@@ -5211,12 +5047,12 @@ representation or Alyssa's representation.  One reasonable choice is to
 construct rectangular numbers whenever we have real and imaginary parts and to
 construct polar numbers whenever we have magnitudes and angles:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-from-real-imag x y)
   (make-from-real-imag-rectangular x y))
 (define (make-from-mag-ang r a)
   (make-from-mag-ang-polar r a))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The resulting complex-number system has the structure shown in \link{Figure 2.21}.
@@ -5339,7 +5175,7 @@ he did originally.  He defines a collection of procedures, or a
 entries to the table that tell the system how to operate on rectangular
 numbers.  This is accomplished by calling the following procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (install-rectangular-package)
   ~\textrm{;; internal procedures}~
   (define (real-part z) (car z))
@@ -5364,7 +5200,7 @@ numbers.  This is accomplished by calling the following procedure:
   (put 'make-from-mag-ang 'rectangular
        (lambda (r a) (tag (make-from-mag-ang r a))))
   'done)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Notice that the internal procedures here are the same procedures from
@@ -5385,14 +5221,16 @@ Ben's internally defined constructors, except that they attach the tag.
 
 Alyssa's polar package is analogous:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (install-polar-package)
   ~\textrm{;; internal procedures}~
   (define (magnitude z) (car z))
   (define (angle z) (cdr z))
   (define (make-from-mag-ang r a) (cons r a))
-  (define (real-part z) (* (magnitude z) (cos (angle z))))
-  (define (imag-part z) (* (magnitude z) (sin (angle z))))
+  (define (real-part z) (* (magnitude z)
+                           (cos (angle z))))
+  (define (imag-part z) (* (magnitude z)
+                           (sin (angle z))))
   (define (make-from-real-imag x y)
     (cons (sqrt (+ (square x) (square y)))
           (atan y x)))
@@ -5403,11 +5241,13 @@ Alyssa's polar package is analogous:
   (put 'magnitude '(polar) magnitude)
   (put 'angle '(polar) angle)
   (put 'make-from-real-imag 'polar
-       (lambda (x y) (tag (make-from-real-imag x y))))
+       (lambda (x y) (tag
+                       (make-from-real-imag x y))))
   (put 'make-from-mag-ang 'polar
-       (lambda (r a) (tag (make-from-mag-ang r a))))
+       (lambda (r a) (tag
+                       (make-from-mag-ang r a))))
   'done)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Even though Ben and Alyssa both still use their original procedures defined
@@ -5429,14 +5269,14 @@ as its value a list of the remaining arguments.
 takes two arguments, a procedure and a list.  \code{apply} applies the
 procedure, using the elements in the list as arguments.  For example,
 
-\begin{smallscheme}
+\begin{compactCodeBlock}
 (apply + (list 1 2 3 4))
-\end{smallscheme}
+\end{compactCodeBlock}
 
 \noindent
 returns 10.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (apply-generic op . args)
   (let ((type-tags (map type-tag args)))
     (let ((proc (get op type-tags)))
@@ -5445,17 +5285,17 @@ returns 10.}
           (error
             "No method for these types: APPLY-GENERIC"
             (list op type-tags))))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Using \code{apply\-/generic}, we can define our generic selectors as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (real-part z) (apply-generic 'real-part z))
 (define (imag-part z) (apply-generic 'imag-part z))
 (define (magnitude z) (apply-generic 'magnitude z))
 (define (angle z) (apply-generic 'angle z))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Observe that these do not change at all if a new representation is added to the
@@ -5467,18 +5307,18 @@ parts and from magnitudes and angles.  As in \link{Section 2.4.2}, we construct
 rectangular numbers whenever we have real and imaginary parts, and polar
 numbers whenever we have magnitudes and angles:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-from-real-imag x y)
   ((get 'make-from-real-imag 'rectangular) x y))
 (define (make-from-mag-ang r a)
   ((get 'make-from-mag-ang 'polar) r a))
-\end{scheme}
+\end{codeBlock}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.73}Exercise 2.73:} \link{Section 2.3.2} described a
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.73}Exercise 2.73:} \link{Section 2.3.2} described a
 program that performs symbolic differentiation:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (deriv exp var)
   (cond ((number? exp) 0)
         ((variable? exp)
@@ -5493,10 +5333,10 @@ program that performs symbolic differentiation:
                    (make-product
                     (deriv (multiplier exp) var)
                     (multiplicand exp))))
-        ~\( \dark \langle \)~~\var{\dark more rules can be added here}~~\( \dark \rangle \)~
+        ~\(\langle \)~~\var{more rules can be added here}~~\(\rangle \)~
         (else (error "unknown expression type:
                       DERIV" exp))))
-\end{scheme}
+\end{codeBlock}
 
 We can regard this program as performing a dispatch on the type of the
 expression to be differentiated.  In this situation the ``type tag'' of the
@@ -5504,15 +5344,17 @@ datum is the algebraic operator symbol (such as \code{+}) and the operation
 being performed is \code{deriv}.  We can transform this program into
 data-directed style by rewriting the basic derivative procedure as
 
-\begin{scheme}
+\begin{codeBlock}
 (define (deriv exp var)
   (cond ((number? exp) 0)
-        ((variable? exp) (if (same-variable? exp var) 1 0))
+        ((variable? exp) (if (same-variable? exp var)
+                             1
+                             0))
         (else ((get 'deriv (operator exp))
                (operands exp) var))))
 (define (operator exp) (car exp))
 (define (operands exp) (cdr exp))
-\end{scheme}
+\end{codeBlock}
 
 \begin{enumerate}[a.]
 
@@ -5534,16 +5376,16 @@ In this simple algebraic manipulator the type of an expression is the algebraic
 operator that binds it together.  Suppose, however, we indexed the procedures
 in the opposite way, so that the dispatch line in \code{deriv} looked like
 
-\begin{scheme}
+\begin{codeBlock}
 ((get (operator exp) 'deriv) (operands exp) var)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 What corresponding changes to the derivative system are required?
 
 \end{enumerate}
 
-\heading{\phantomsection\label{Exercise 2.74}Exercise 2.74:} Insatiable Enterprises, Inc., is
+\exerciseHeading{\phantomsection\label{Exercise 2.74}Exercise 2.74:} Insatiable Enterprises, Inc., is
 a highly decentralized conglomerate company consisting of a large number of
 independent divisions located all over the world.  The company's computer
 facilities have just been interconnected by means of a clever
@@ -5590,7 +5432,7 @@ When Insatiable takes over a new company, what changes must be made in order to
 incorporate the new personnel information into the central system?
 
 \end{enumerate}
-\end{exercises}
+\end{exerciseGroup}
 
 \subsubsection*{Message passing}
 
@@ -5610,16 +5452,18 @@ number, is represented as a procedure that takes as input the required
 operation name and performs the operation indicated.  In such a discipline,
 \code{make\-/from\-/real\-/imag} could be written as
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-from-real-imag x y)
   (define (dispatch op)
     (cond ((eq? op 'real-part) x)
           ((eq? op 'imag-part) y)
-          ((eq? op 'magnitude) (sqrt (+ (square x) (square y))))
+          ((eq? op 'magnitude) (sqrt (+ (square x)
+                                        (square y))))
           ((eq? op 'angle) (atan y x))
-          (else (error "Unknown op: MAKE-FROM-REAL-IMAG" op))))
+          (else
+            (error "Unknown op: MAKE-FROM-REAL-IMAG" op))))
   dispatch)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The corresponding \code{apply\-/generic} procedure, which applies a generic
@@ -5627,9 +5471,9 @@ operation to an argument, now simply feeds the operation's name to the data
 object and lets the object do the work:\footnote{One limitation of this
 organization is it permits only generic procedures of one argument.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (apply-generic op arg) (arg op))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Note that the value returned by \code{make\-/from\-/real\-/imag} is a procedure---the
@@ -5648,12 +5492,12 @@ to discuss generic arithmetic operations.  In \link{Chapter 3} we will return to
 message passing, and we will see that it can be a powerful tool for structuring
 simulation programs.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.75}Exercise 2.75:} Implement the constructor
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.75}Exercise 2.75:} Implement the constructor
 \code{make\-/from\-/mag\-/ang} in message-passing style.  This procedure should be
 analogous to the \code{make\-/from\-/real\-/imag} procedure given above.
 
-\heading{\phantomsection\label{Exercise 2.76}Exercise 2.76:} As a large system with generic
+\exerciseHeading{\phantomsection\label{Exercise 2.76}Exercise 2.76:} As a large system with generic
 operations evolves, new types of data objects or new operations may be needed.
 For each of the three strategies---generic operations with explicit dispatch,
 data-directed style, and message-passing-style---describe the changes that
@@ -5661,7 +5505,7 @@ must be made to a system in order to add new types or new operations.  Which
 organization would be most appropriate for a system in which new types must
 often be added?  Which would be most appropriate for a system in which new
 operations must often be added?
-\end{exercises}
+\end{exerciseGroup}
 
 \section{Systems with Generic Operations}
 \label{Section 2.5}
@@ -5718,12 +5562,12 @@ according to the data type of its arguments.
 
 The generic arithmetic procedures are defined as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (add x y) (apply-generic 'add x y))
 (define (sub x y) (apply-generic 'sub x y))
 (define (mul x y) (apply-generic 'mul x y))
 (define (div x y) (apply-generic 'div x y))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We begin by installing a package for handling \newterm{ordinary} numbers, that
@@ -5734,7 +5578,7 @@ to handle the untagged numbers).  Since these operations each take two
 arguments, they are installed in the table keyed by the list
 \code{(scheme\-/number scheme\-/number)}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (install-scheme-number-package)
   (define (tag x) (attach-tag 'scheme-number x))
   (put 'add '(scheme-number scheme-number)
@@ -5747,16 +5591,16 @@ arguments, they are installed in the table keyed by the list
        (lambda (x y) (tag (/ x y))))
   (put 'make 'scheme-number (lambda (x) (tag x)))
   'done)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Users of the Scheme-number package will create (tagged) ordinary numbers by
 means of the procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-scheme-number n)
   ((get 'make 'scheme-number) n))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Now that the framework of the generic arithmetic system is in place, we can
@@ -5765,7 +5609,7 @@ arithmetic.  Notice that, as a benefit of additivity, we can use without
 modification the rational-number code from \link{Section 2.1.1} as the internal
 procedures in the package:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (install-rational-package)
   ~\textrm{;; internal procedures}~
   (define (numer x) (car x))
@@ -5802,7 +5646,7 @@ procedures in the package:
   'done)
 (define (make-rational n d)
   ((get 'make 'rational) n d))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We can install a similar package to handle complex numbers, using the tag
@@ -5812,7 +5656,7 @@ defined by the rectangular and polar packages.  Additivity permits us to use,
 as the internal operations, the same \code{add\-/complex}, \code{sub\-/complex},
 \code{mul\-/complex}, and \code{div\-/complex} procedures from \link{Section 2.4.1}.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (install-complex-package)
   ~\textrm{;; imported procedures from rectangular and polar packages}~
   (define (make-from-real-imag x y)
@@ -5821,17 +5665,25 @@ as the internal operations, the same \code{add\-/complex}, \code{sub\-/complex},
     ((get 'make-from-mag-ang 'polar) r a))
   ~\textrm{;; internal procedures}~
   (define (add-complex z1 z2)
-    (make-from-real-imag (+ (real-part z1) (real-part z2))
-                         (+ (imag-part z1) (imag-part z2))))
+    (make-from-real-imag (+ (real-part z1)
+                            (real-part z2))
+                         (+ (imag-part z1)
+                            (imag-part z2))))
   (define (sub-complex z1 z2)
-    (make-from-real-imag (- (real-part z1) (real-part z2))
-                         (- (imag-part z1) (imag-part z2))))
+    (make-from-real-imag (- (real-part z1)
+                            (real-part z2))
+                         (- (imag-part z1)
+                            (imag-part z2))))
   (define (mul-complex z1 z2)
-    (make-from-mag-ang (* (magnitude z1) (magnitude z2))
-                       (+ (angle z1) (angle z2))))
+    (make-from-mag-ang (* (magnitude z1)
+                          (magnitude z2))
+                       (+ (angle z1)
+                          (angle z2))))
   (define (div-complex z1 z2)
-    (make-from-mag-ang (/ (magnitude z1) (magnitude z2))
-                       (- (angle z1) (angle z2))))
+    (make-from-mag-ang (/ (magnitude z1)
+                          (magnitude z2))
+                       (- (angle z1)
+                          (angle z2))))
   ~\textrm{;; interface to rest of the system}~
   (define (tag z) (attach-tag 'complex z))
   (put 'add '(complex complex)
@@ -5847,7 +5699,7 @@ as the internal operations, the same \code{add\-/complex}, \code{sub\-/complex},
   (put 'make-from-mag-ang 'complex
        (lambda (r a) (tag (make-from-mag-ang r a))))
   'done)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Programs outside the complex-number package can construct complex numbers
@@ -5856,12 +5708,12 @@ the underlying procedures, originally defined in the rectangular and polar
 packages, are exported to the complex package, and exported from there to the
 outside world.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-complex-from-real-imag x y)
   ((get 'make-from-real-imag 'complex) x y))
 (define (make-complex-from-mag-ang r a)
   ((get 'make-from-mag-ang 'complex) r a))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 What we have here is a two-level tag system.  A typical complex number, such as
@@ -5886,8 +5738,8 @@ definitions are internal to different installation procedures, however, they no
 longer need names that are distinct from each other: we could simply name them
 \code{add}, \code{sub}, \code{mul}, and \code{div} in both packages.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.77}Exercise 2.77:} Louis Reasoner tries to evaluate
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.77}Exercise 2.77:} Louis Reasoner tries to evaluate
 the expression \code{(magnitude z)} where \code{z} is the object shown in
 \link{Figure 2.24}.  To his surprise, instead of the answer 5 he gets an error
 message from \code{apply\-/generic}, saying there is no method for the operation
@@ -5897,12 +5749,12 @@ were never defined for \code{complex} numbers, just for \code{polar} and
 \code{rectangular} numbers.  All you have to do to make this work is add the
 following to the \code{complex} package:''
 
-\begin{scheme}
+\begin{codeBlock}
 (put 'real-part '(complex) real-part)
 (put 'imag-part '(complex) imag-part)
 (put 'magnitude '(complex) magnitude)
 (put 'angle '(complex) angle)
-\end{scheme}
+\end{codeBlock}
 
 Describe in detail why this works.  As an example, trace through all the
 procedures called in evaluating the expression \code{(magnitude z)} where
@@ -5910,7 +5762,7 @@ procedures called in evaluating the expression \code{(magnitude z)} where
 times is \code{apply\-/generic} invoked?  What procedure is dispatched to in each
 case?
 
-\heading{\phantomsection\label{Exercise 2.78}Exercise 2.78:} The internal procedures in the
+\exerciseHeading{\phantomsection\label{Exercise 2.78}Exercise 2.78:} The internal procedures in the
 \code{scheme\-/number} package are essentially nothing more than calls to the
 primitive procedures \code{+}, \code{-}, etc.  It was not possible to use the
 primitives of the language directly because our type-tag system requires that
@@ -5924,16 +5776,16 @@ say, the system should work as before except that ordinary numbers should be
 represented simply as Scheme numbers rather than as pairs whose \code{car} is
 the symbol \code{scheme\-/number}.
 
-\heading{\phantomsection\label{Exercise 2.79}Exercise 2.79:} Define a generic equality
+\exerciseHeading{\phantomsection\label{Exercise 2.79}Exercise 2.79:} Define a generic equality
 predicate \code{equ?} that tests the equality of two numbers, and install it in
 the generic arithmetic package.  This operation should work for ordinary
 numbers, rational numbers, and complex numbers.
 
-\heading{\phantomsection\label{Exercise 2.80}Exercise 2.80:} Define a generic predicate
+\exerciseHeading{\phantomsection\label{Exercise 2.80}Exercise 2.80:} Define a generic predicate
 \code{=zero?} that tests if its argument is zero, and install it in the generic
 arithmetic package.  This operation should work for ordinary numbers, rational
 numbers, and complex numbers.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Combining Data of Different Types}
 \label{Section 2.5.2}
@@ -5959,13 +5811,15 @@ the table using the tag \code{(complex scheme\-/number)}:\footnote{We also have
 to supply an almost identical procedure to handle the types
 \code{(scheme\-/number complex)}.}
 
-\begin{scheme}
+\begin{codeBlock}
 ~\textrm{;; to be included in the complex package}~
 (define (add-complex-to-schemenum z x)
-  (make-from-real-imag (+ (real-part z) x) (imag-part z)))
+  (make-from-real-imag (+ (real-part z) x)
+                       (imag-part z)))
 (put 'add '(complex scheme-number)
-     (lambda (z x) (tag (add-complex-to-schemenum z x))))
-\end{scheme}
+     (lambda (z x)
+       (tag (add-complex-to-schemenum z x))))
+\end{codeBlock}
 
 \noindent
 This technique works, but it is cumbersome.  With such a system, the cost of
@@ -6004,20 +5858,20 @@ transform an object of one type into an equivalent object of another type.
 Here is a typical coercion procedure, which transforms a given ordinary number
 to a complex number with that real part and zero imaginary part:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (scheme-number->complex n)
   (make-complex-from-real-imag (contents n) 0))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We install these coercion procedures in a special coercion table, indexed under
 the names of the two types:
 
-\begin{scheme}
+\begin{codeBlock}
 (put-coercion 'scheme-number
               'complex
               scheme-number->complex)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 (We assume that there are \code{put\-/coercion} and \code{get\-/coercion}
@@ -6043,7 +5897,7 @@ second argument to the type of the first argument.  Finally, if there is no
 known way to coerce either type to the other type, we give up.  Here is the
 procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (apply-generic op . args)
   (let ((type-tags (map type-tag args)))
     (let ((proc (get op type-tags)))
@@ -6054,17 +5908,28 @@ procedure:
                     (type2 (cadr type-tags))
                     (a1 (car args))
                     (a2 (cadr args)))
-                (let ((t1->t2 (get-coercion type1 type2))
-                      (t2->t1 (get-coercion type2 type1)))
+                (let ((t1->t2
+                        (get-coercion type1
+                                      type2))
+                      (t2->t1
+                        (get-coercion type2
+                                      type1)))
                   (cond (t1->t2
-                         (apply-generic op (t1->t2 a1) a2))
+                          (apply-generic op
+                                         (t1->t2 a1)
+                                         a2))
                         (t2->t1
-                         (apply-generic op a1 (t2->t1 a2)))
-                        (else (error "No method for these types"
-                                     (list op type-tags))))))
+                          (apply-generic op
+                                         a1
+                                         (t2->t1 a2)))
+                        (else
+                          (error
+                            "No method for these types"
+                            (list op
+                                  type-tags))))))
               (error "No method for these types"
                      (list op type-tags)))))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This coercion scheme has many advantages over the method of defining explicit
@@ -6160,8 +6025,6 @@ be lowered, such as \( 6 + 0i \), from those that cannot, such as \( 6 + 2i \).)
 
 \subsubsection*{Inadequacies of hierarchies}
 
-\enlargethispage{\baselineskip}
-
 If the data types in our system can be naturally arranged in a tower, this
 greatly simplifies the problems of dealing with generic operations on different
 types, as we have seen.  Unfortunately, this is usually not the case.
@@ -6198,22 +6061,22 @@ chapter 3 about local state, but we do not even mention ``classes'' or
 addressed in terms of computer-language design alone, without also drawing on
 work in knowledge representation and automated reasoning.}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.81}Exercise 2.81:} Louis Reasoner has noticed that
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.81}Exercise 2.81:} Louis Reasoner has noticed that
 \code{apply\-/generic} may try to coerce the arguments to each other's type even
 if they already have the same type.  Therefore, he reasons, we need to put
 procedures in the coercion table to \newterm{coerce} arguments of each type to
 their own type.  For example, in addition to the
 \code{scheme\-/number\-/>complex} coercion shown above, he would do:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (scheme-number->scheme-number n) n)
 (define (complex->complex z) z)
 (put-coercion 'scheme-number
               'scheme-number
               scheme-number->scheme-number)
 (put-coercion 'complex 'complex complex->complex)
-\end{scheme}
+\end{codeBlock}
 
 \begin{enumerate}[a.]
 
@@ -6224,20 +6087,20 @@ or two arguments of type \code{complex} for an operation that is not found in
 the table for those types?  For example, assume that we've defined a generic
 exponentiation operation:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (exp x y) (apply-generic 'exp x y))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 and have put a procedure for exponentiation in the Scheme-number
 package but not in any other package:
 
-\begin{scheme}
+\begin{codeBlock}
 ~\textrm{;; following added to Scheme-number package}~
 (put 'exp '(scheme-number scheme-number)
      (lambda (x y) (tag (expt x y))))
      ~\textrm{; using primitive \code{expt}}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 What happens if we call \code{exp} with two complex numbers as arguments?
@@ -6252,7 +6115,7 @@ arguments have the same type.
 
 \end{enumerate}
 
-\heading{\phantomsection\label{Exercise 2.82}Exercise 2.82:} Show how to generalize
+\exerciseHeading{\phantomsection\label{Exercise 2.82}Exercise 2.82:} Show how to generalize
 \code{apply\-/generic} to handle coercion in the general case of multiple
 arguments.  One strategy is to attempt to coerce all the arguments to the type
 of the first argument, then to the type of the second argument, and so on.
@@ -6261,14 +6124,14 @@ two-argument version given above) is not sufficiently general.  (Hint: Consider
 the case where there are some suitable mixed-type operations present in the
 table that will not be tried.)
 
-\heading{\phantomsection\label{Exercise 2.83}Exercise 2.83:} Suppose you are designing a
+\exerciseHeading{\phantomsection\label{Exercise 2.83}Exercise 2.83:} Suppose you are designing a
 generic arithmetic system for dealing with the tower of types shown in
 \link{Figure 2.25}: integer, rational, real, complex.  For each type (except
 complex), design a procedure that raises objects of that type one level in the
 tower.  Show how to install a generic \code{raise} operation that will work for
 each type (except complex).
 
-\heading{\phantomsection\label{Exercise 2.84}Exercise 2.84:} Using the \code{raise} operation
+\exerciseHeading{\phantomsection\label{Exercise 2.84}Exercise 2.84:} Using the \code{raise} operation
 of \link{Exercise 2.83}, modify the \code{apply\-/generic} procedure so that it
 coerces its arguments to have the same type by the method of successive
 raising, as discussed in this section.  You will need to devise a way to test
@@ -6276,7 +6139,7 @@ which of two types is higher in the tower.  Do this in a manner that is
 ``compatible'' with the rest of the system and will not lead to problems in
 adding new levels to the tower.
 
-\heading{\phantomsection\label{Exercise 2.85}Exercise 2.85:} This section mentioned a method
+\exerciseHeading{\phantomsection\label{Exercise 2.85}Exercise 2.85:} This section mentioned a method
 for ``simplifying'' a data object by lowering it in the tower of types as far
 as possible.  Design a procedure \code{drop} that accomplishes this for the
 tower described in \link{Exercise 2.83}.  The key is to decide, in some general
@@ -6298,13 +6161,13 @@ need to make use of a generic equality predicate, such as described in
 \link{Exercise 2.79}.  Finally, use \code{drop} to rewrite \code{apply\-/generic}
 from \link{Exercise 2.84} so that it ``simplifies'' its answers.
 
-\heading{\phantomsection\label{Exercise 2.86}Exercise 2.86:} Suppose we want to handle complex
+\exerciseHeading{\phantomsection\label{Exercise 2.86}Exercise 2.86:} Suppose we want to handle complex
 numbers whose real parts, imaginary parts, magnitudes, and angles can be either
 ordinary numbers, rational numbers, or other numbers we might wish to add to
 the system.  Describe and implement the changes to the system needed to
 accommodate this.  You will have to define operations such as \code{sine} and
 \code{cosine} that are generic over ordinary numbers and rational numbers.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Example: Symbolic Algebra}
 \label{Section 2.5.3}
@@ -6321,13 +6184,6 @@ Typical abstractions in symbolic algebra are ideas such as linear combination,
 polynomial, rational function, or trigonometric function.  We can regard these
 as compound ``types,'' which are often useful for directing the processing of
 expressions.  For example, we could describe the expression
-\begin{comment}
-
-\begin{example}
-x^2 sin (y^2 + 1) + x cos 2y + cos(y^3 - 2y^2)
-\end{example}
-
-\end{comment}
 
 $$ x^2 \sin (y^2 + 1) + x \cos 2y + \cos(y^3 - 2y^2) $$
 
@@ -6358,25 +6214,11 @@ which is either a coefficient, a power of the indeterminate, or a product of a
 coefficient and a power of the indeterminate.  A coefficient is defined as an
 algebraic expression that is not dependent upon the indeterminate of the
 polynomial.  For example,
-\begin{comment}
-
-\begin{example}
-5x^2 + 3x + 7
-\end{example}
-
-\end{comment}
 
 $$ 5x^2 + 3x + 7 $$
 
 \noindent
 is a simple polynomial in \( x \), and
-\begin{comment}
-
-\begin{example}
-(y^2 + 1)x^3 + (2y)x + 1
-\end{example}
-
-\end{comment}
 
 $$ (y^2 + 1)x^3 + (2y)x + 1 $$
 
@@ -6418,18 +6260,24 @@ just a symbol, so we can use the \code{same\-/variable?}  procedure of
 \link{Section 2.3.2} to compare variables.  The following procedures define addition and
 multiplication of polys:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (add-poly p1 p2)
-  (if (same-variable? (variable p1) (variable p2))
+  (if (same-variable? (variable p1)
+                      (variable p2))
       (make-poly (variable p1)
-                 (add-terms (term-list p1) (term-list p2)))
-      (error "Polys not in same var: ADD-POLY" (list p1 p2))))
+                 (add-terms (term-list p1)
+                            (term-list p2)))
+      (error "Polys not in same var: ADD-POLY"
+             (list p1 p2))))
 (define (mul-poly p1 p2)
-  (if (same-variable? (variable p1) (variable p2))
+  (if (same-variable? (variable p1)
+                      (variable p2))
       (make-poly (variable p1)
-                 (mul-terms (term-list p1) (term-list p2)))
-      (error "Polys not in same var: MUL-POLY" (list p1 p2))))
-\end{scheme}
+                 (mul-terms (term-list p1)
+                            (term-list p2)))
+      (error "Polys not in same var: MUL-POLY"
+             (list p1 p2))))
+\end{codeBlock}
 
 \noindent
 To incorporate polynomials into our generic arithmetic system, we need to
@@ -6438,20 +6286,21 @@ appropriate operations on tagged polynomials in the operation table.  We'll
 embed all our code in an installation procedure for the polynomial package,
 similar to the ones in \link{Section 2.5.1}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (install-polynomial-package)
   ~\textrm{;; internal procedures}~
   ~\textrm{;; representation of poly}~
-  (define (make-poly variable term-list) (cons variable term-list))
+  (define (make-poly variable term-list)
+    (cons variable term-list))
   (define (variable p) (car p))
   (define (term-list p) (cdr p))
-  ~\( \dark \langle \)~~\emph{procedures \emph{same-variable?} and \emph{variable?} from section 2.3.2}~~\( \dark \rangle \)~
+  ~\(\langle \)~~\emph{procedures \emph{same-variable?} and \emph{variable?} from section 2.3.2}~~\(\rangle \)~
   ~\textrm{;; representation of terms and term lists}~
-  ~\( \dark \langle \)~~\emph{procedures \emph{adjoin-term} \( \dots \) \emph{coeff} from text below}~~\( \dark \rangle \)~
+  ~\(\langle \)~~\emph{procedures \emph{adjoin-term} \( \dots \) \emph{coeff} from text below}~~\(\rangle \)~
   (define (add-poly p1 p2) ~\( \dots \)~)
-  ~\( \dark \langle \)~~\emph{procedures used by \emph{add-poly}}~~\( \dark \rangle \)~
+  ~\(\langle \)~~\emph{procedures used by \emph{add-poly}}~~\(\rangle \)~
   (define (mul-poly p1 p2) ~\( \dots \)~)
-  ~\( \dark \langle \)~~\emph{procedures used by \emph{mul-poly}}~~\( \dark \rangle \)~
+  ~\(\langle \)~~\emph{procedures used by \emph{mul-poly}}~~\(\rangle \)~
   ~\textrm{;; interface to rest of the system}~
   (define (tag p) (attach-tag 'polynomial p))
   (put 'add '(polynomial polynomial)
@@ -6459,9 +6308,10 @@ similar to the ones in \link{Section 2.5.1}:
   (put 'mul '(polynomial polynomial)
        (lambda (p1 p2) (tag (mul-poly p1 p2))))
   (put 'make 'polynomial
-       (lambda (var terms) (tag (make-poly var terms))))
+       (lambda (var terms)
+         (tag (make-poly var terms))))
   'done)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Polynomial addition is performed termwise.  Terms of the same order (i.e., with
@@ -6491,7 +6341,7 @@ fact, if we think of the terms of the polynomial as a set ordered according to
 the power of the indeterminate, then the program that produces the term list
 for a sum is almost identical to \code{union\-/set}.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (add-terms L1 L2)
   (cond ((empty-termlist? L1) L2)
         ((empty-termlist? L2) L1)
@@ -6507,10 +6357,11 @@ for a sum is almost identical to \code{union\-/set}.}
                  (else
                   (adjoin-term
                    (make-term (order t1)
-                              (add (coeff t1) (coeff t2)))
+                              (add (coeff t1)
+                                   (coeff t2)))
                    (add-terms (rest-terms L1)
                               (rest-terms L2)))))))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The most important point to note here is that we used the generic addition
@@ -6525,12 +6376,14 @@ Multiplying two terms forms a term whose order is the sum of the orders of the
 factors and whose coefficient is the product of the coefficients of the
 factors:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (mul-terms L1 L2)
   (if (empty-termlist? L1)
       (the-empty-termlist)
-      (add-terms (mul-term-by-all-terms (first-term L1) L2)
-                 (mul-terms (rest-terms L1) L2))))
+      (add-terms (mul-term-by-all-terms (first-term L1)
+                                        L2)
+                 (mul-terms (rest-terms L1)
+                            L2))))
 (define (mul-term-by-all-terms t1 L)
   (if (empty-termlist? L)
       (the-empty-termlist)
@@ -6539,7 +6392,7 @@ factors:
          (make-term (+ (order t1) (order t2))
                     (mul (coeff t1) (coeff t2)))
          (mul-term-by-all-terms t1 (rest-terms L))))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This is really all there is to polynomial addition and multiplication.  Notice
@@ -6549,15 +6402,6 @@ coefficient that is known about by the generic arithmetic package.  If we
 include a coercion mechanism such as one of those discussed in
 \link{Section 2.5.2}, then we also are automatically able to handle operations on
 polynomials of different coefficient types, such as
-\begin{comment}
-
-\begin{example}
-                         /        2                 \
-[3x^2 + (2 + 3i)x + 7] * | x^4 + --- x^2 + (5 + 3i) |
-                         \        3                 /
-\end{example}
-
-\end{comment}
 
 $$ [3x^2 + (2 + 3i)x + 7] \cdot \! \left[ x^4 + \frac{2}{3} x^2 + (5 + 3i) \right]\!. $$
 
@@ -6565,13 +6409,6 @@ Because we installed the polynomial addition and multiplication procedures
 \code{add\-/poly} and \code{mul\-/poly} in the generic arithmetic system as the
 \code{add} and \code{mul} operations for type \code{polynomial}, our system is
 also automatically able to handle polynomial operations such as
-\begin{comment}
-
-\begin{example}
-[(y + 1)x^2 + (y^2 + 1)x + (y - 1)] * [(y - 2)x + (y^3 + 7)]
-\end{example}
-
-\end{comment}
 
 $$ \Big[(y + 1)x^2 + (y^2 + 1)x + (y - 1)\Big] \cdot \Big[(y - 2)x + (y^3 + 7)\Big]\!. $$
 
@@ -6589,13 +6426,6 @@ work completely smoothly, we should also add to our generic arithmetic system
 the ability to coerce a ``number'' to a polynomial by regarding it as a
 polynomial of degree zero whose coefficient is the number.  This is necessary
 if we are going to perform operations such as
-\begin{comment}
-
-\begin{example}
-[x^2 + (y + 1)x + 5] + [x^2 + 2x + 1]
-\end{example}
-
-\end{comment}
 
 $$ [x^2 + (y + 1)x + 5] + [x^2 + 2x + 1], $$
 
@@ -6617,25 +6447,11 @@ consideration is the ``density'' of the polynomials we intend to manipulate.  A
 polynomial is said to be \newterm{dense} if it has nonzero coefficients in
 terms of most orders.  If it has many zero terms it is said to be
 \newterm{sparse}.  For example,
-\begin{comment}
-
-\begin{example}
-A : x^5 + 2x^4 + 3x^2 - 2x - 5
-\end{example}
-
-\end{comment}
 
 $$ A: \quad x^5 + 2x^4 + 3x^2 - 2x - 5 $$
 
 \noindent
 is a dense polynomial, whereas
-\begin{comment}
-
-\begin{example}
-B : x^100 + 2x^2 + 1
-\end{example}
-
-\end{comment}
 
 $$ B: \quad x^{100} + 2x^2 + 1 $$
 
@@ -6670,7 +6486,7 @@ guarantee, we could have implemented \code{adjoin\-/term} to be similar to the
 \code{adjoin\-/set} constructor for the ordered-list representation of sets
 (\link{Exercise 2.61}).}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (adjoin-term term term-list)
   (if (=zero? (coeff term))
       term-list
@@ -6682,7 +6498,7 @@ guarantee, we could have implemented \code{adjoin\-/term} to be similar to the
 (define (make-term order coeff) (list order coeff))
 (define (order term) (car term))
 (define (coeff term) (cadr term))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 where \code{=zero?} is as defined in \link{Exercise 2.80}.  (See also
@@ -6691,26 +6507,26 @@ where \code{=zero?} is as defined in \link{Exercise 2.80}.  (See also
 Users of the polynomial package will create (tagged) polynomials by means of
 the procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-polynomial var terms)
   ((get 'make 'polynomial) var terms))
-\end{scheme}
+\end{codeBlock}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.87}Exercise 2.87:} Install \code{=zero?} for
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.87}Exercise 2.87:} Install \code{=zero?} for
 polynomials in the generic arithmetic package.  This will allow
 \code{adjoin\-/term} to work for polynomials with coefficients that are
 themselves polynomials.
 
-\heading{\phantomsection\label{Exercise 2.88}Exercise 2.88:} Extend the polynomial system to
+\exerciseHeading{\phantomsection\label{Exercise 2.88}Exercise 2.88:} Extend the polynomial system to
 include subtraction of polynomials.  (Hint: You may find it helpful to define a
 generic negation operation.)
 
-\heading{\phantomsection\label{Exercise 2.89}Exercise 2.89:} Define procedures that implement
+\exerciseHeading{\phantomsection\label{Exercise 2.89}Exercise 2.89:} Define procedures that implement
 the term-list representation described above as appropriate for dense
 polynomials.
 
-\heading{\phantomsection\label{Exercise 2.90}Exercise 2.90:} Suppose we want to have a
+\exerciseHeading{\phantomsection\label{Exercise 2.90}Exercise 2.90:} Suppose we want to have a
 polynomial system that is efficient for both sparse and dense polynomials.  One
 way to do this is to allow both kinds of term-list representations in our
 system.  The situation is analogous to the complex-number example of
@@ -6719,18 +6535,9 @@ this we must distinguish different types of term lists and make the operations
 on term lists generic.  Redesign the polynomial system to implement this
 generalization.  This is a major effort, not a local change.
 
-\heading{\phantomsection\label{Exercise 2.91}Exercise 2.91:} A univariate polynomial can be
+\exerciseHeading{\phantomsection\label{Exercise 2.91}Exercise 2.91:} A univariate polynomial can be
 divided by another one to produce a polynomial quotient and a polynomial
 remainder.  For example,
-\begin{comment}
-
-\begin{example}
-x^5 - 1
-------- = x^3 + x, remainder x - 1
-x^2 - 1
-\end{example}
-
-\end{comment}
 
 $$ \frac{x^5 - 1}{x^2 - 1} = x^3 + x, \text{ remainder } x - 1. $$
 
@@ -6757,7 +6564,7 @@ Complete the following definition of \code{div\-/terms} by filling in the missin
 expressions.  Use this to implement \code{div\-/poly}, which takes two polys as
 arguments and returns a list of the quotient and remainder polys.
 
-\begin{smallscheme}
+\begin{compactCodeBlock}
 (define (div-terms L1 L2)
   (if (empty-termlist? L1)
       (list (the-empty-termlist) (the-empty-termlist))
@@ -6770,8 +6577,8 @@ arguments and returns a list of the quotient and remainder polys.
               (let ((rest-of-result
                      ~\( \langle \)~~\var{compute rest of result recursively}~~\( \rangle \)~ ))
                 ~\( \langle \)~~\var{form complete result}~~\( \rangle \)~ ))))))
-\end{smallscheme}
-\end{exercises}
+\end{compactCodeBlock}
+\end{exerciseGroup}
 
 \subsubsection*{Hierarchies of types in symbolic algebra}
 
@@ -6811,40 +6618,22 @@ In fact, we do not yet completely understand the concept of a data type.
 Nevertheless, what we know provides us with powerful structuring and modularity
 principles to support the design of large systems.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.92}Exercise 2.92:} By imposing an ordering on
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.92}Exercise 2.92:} By imposing an ordering on
 variables, extend the polynomial package so that addition and multiplication of
 polynomials works for polynomials in different variables.  (This is not easy!)
-\end{exercises}
+\end{exerciseGroup}
 
 \subsubsection*{Extended exercise: Rational functions}
 
 We can extend our generic arithmetic system to include \newterm{rational
 functions}.  These are ``fractions'' whose numerator and denominator are
 polynomials, such as
-\begin{comment}
-
-\begin{example}
- x + 1
--------
-x^3 - 1
-\end{example}
-
-\end{comment}
 
 $$ \frac{x + 1}{x^3 - 1}\,. $$
 
 The system should be able to add, subtract, multiply, and divide rational
 functions, and to perform such computations as
-\begin{comment}
-
-\begin{example}
- x + 1       x      x^3 + 2x^2 + 3x + 1
-------- + ------- = -------------------
-x^3 - 1   x^2 - 1    x^4 + x^3 - x - 1
-\end{example}
-
-\end{comment}
 
 $$ \frac{x + 1}{x^3 - 1} + \frac{x}{x^2 - 1}
 =
@@ -6859,21 +6648,21 @@ If we modify our rational-arithmetic package so that it uses generic
 operations, then it will do what we want, except for the problem of reducing
 fractions to lowest terms.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.93}Exercise 2.93:} Modify the rational-arithmetic
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.93}Exercise 2.93:} Modify the rational-arithmetic
 package to use generic operations, but change \code{make\-/rat} so that it does
 not attempt to reduce fractions to lowest terms.  Test your system by calling
 \code{make\-/rational} on two polynomials to produce a rational function:
 
-\begin{scheme}
+\begin{codeBlock}
 (define p1 (make-polynomial 'x '((2 1) (0 1))))
 (define p2 (make-polynomial 'x '((3 1) (0 1))))
 (define rf (make-rational p2 p1))
-\end{scheme}
+\end{codeBlock}
 
 Now add \code{rf} to itself, using \code{add}. You will observe that this
 addition procedure does not reduce fractions to lowest terms.
-\end{exercises}
+\end{exerciseGroup}
 
 \noindent
 We can reduce polynomial fractions to lowest terms using the same idea we used
@@ -6895,31 +6684,31 @@ integers, the measure \( m \) of an integer is the absolute value of the integer
 itself.  For the domain of polynomials, the measure of a polynomial is its
 degree.}  The integer version is
 
-\begin{scheme}
+\begin{codeBlock}
 (define (gcd a b)
   (if (= b 0)
       a
       (gcd b (remainder a b))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Using this, we could make the obvious modification to define a \acronym{GCD}
 operation that works on term lists:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (gcd-terms a b)
   (if (empty-termlist? b)
       a
       (gcd-terms b (remainder-terms a b))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 where \code{remainder\-/terms} picks out the remainder component of the list
 returned by the term-list division operation \code{div\-/terms} that was
 implemented in \link{Exercise 2.91}.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.94}Exercise 2.94:} Using \code{div\-/terms}, implement
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.94}Exercise 2.94:} Using \code{div\-/terms}, implement
 the procedure \code{remainder\-/terms} and use this to define \code{gcd\-/terms} as
 above.  Now write a procedure \code{gcd\-/poly} that computes the polynomial
 \acronym{GCD} of two polys.  (The procedure should signal an error if the two
@@ -6927,29 +6716,18 @@ polys are not in the same variable.)  Install in the system a generic operation
 \code{greatest\-/common\-/divisor} that reduces to \code{gcd\-/poly} for polynomials
 and to ordinary \code{gcd} for ordinary numbers.  As a test, try
 
-\begin{scheme}
+\begin{codeBlock}
 (define p1 (make-polynomial
             'x '((4 1) (3 -1) (2 -2) (1 2))))
 (define p2 (make-polynomial 'x '((3 1) (1 -1))))
 (greatest-common-divisor p1 p2)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 and check your result by hand.
 
-\heading{\phantomsection\label{Exercise 2.95}Exercise 2.95:} Define \( P_1 \), \( P_2 \), and
+\exerciseHeading{\phantomsection\label{Exercise 2.95}Exercise 2.95:} Define \( P_1 \), \( P_2 \), and
 \( P_3 \) to be the polynomials
-\begin{comment}
-
-\begin{example}
-P_1 : x^2 - 2x + 1
-
-P_2 : 11x^2 + 7
-
-P_3 : 13x + 5
-\end{example}
-
-\end{comment}
 
 $$
 \begin{array}{l@{{}:}l}
@@ -6972,7 +6750,7 @@ which division of integers can produce limited-precision decimal numbers, we
 may fail to get a valid divisor.}  To understand what is happening, try tracing
 \code{gcd\-/terms} while computing the \acronym{GCD} or try performing the
 division by hand.
-\end{exercises}
+\end{exerciseGroup}
 
 \noindent
 We can solve the problem exhibited in \link{Exercise 2.95} if we use the
@@ -6986,8 +6764,6 @@ case of reducing rational functions to lowest terms; the \acronym{GCD} will be
 used to divide both the numerator and denominator, so the integer constant
 factor will cancel out.
 
-\enlargethispage{\baselineskip}
-
 More precisely, if \( P \) and \( Q \) are polynomials, let \( O_1 \) be the order of
 \( P \) (i.e., the order of the largest term of \( P \)) and let \( O_2 \) be the
 order of \( Q \).  Let \( c \) be the leading coefficient of \( Q \).  Then it can be
@@ -6998,8 +6774,8 @@ operation of multiplying the dividend by this constant and then dividing is
 sometimes called the \newterm{pseudodivision} of \( P \) by \( Q \).  The remainder
 of the division is called the \newterm{pseudoremainder}.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.96}Exercise 2.96:}
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.96}Exercise 2.96:}
 \begin{enumerate}[a.]
 
 \item
@@ -7017,7 +6793,7 @@ coefficients of the answer by dividing all the coefficients by their (integer)
 greatest common divisor.
 
 \end{enumerate}
-\end{exercises}
+\end{exerciseGroup}
 
 \noindent
 Thus, here is how to reduce a rational function to lowest terms:
@@ -7047,8 +6823,8 @@ the numerator and the denominator and dividing through by this factor.
 
 \end{itemize}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 2.97}Exercise 2.97:}
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 2.97}Exercise 2.97:}
 \begin{enumerate}[a.]
 
 \item
@@ -7065,11 +6841,11 @@ supplied by \code{reduce\-/terms}.
 Define a procedure analogous to \code{reduce\-/terms} that does what the original
 \code{make\-/rat} did for integers:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (reduce-integers n d)
   (let ((g (gcd n d)))
     (list (/ n g) (/ d g))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 and define \code{reduce} as a generic operation that calls \code{apply\-/generic}
@@ -7081,7 +6857,7 @@ and denominator to form a rational number.  The system now handles rational
 expressions in either integers or polynomials.  To test your program, try the
 example at the beginning of this extended exercise:
 
-\begin{scheme}
+\begin{codeBlock}
 (define  p1 (make-polynomial 'x '((1 1) (0  1))))
 (define  p2 (make-polynomial 'x '((3 1) (0 -1))))
 (define  p3 (make-polynomial 'x '((1 1))))
@@ -7089,11 +6865,11 @@ example at the beginning of this extended exercise:
 (define rf1 (make-rational p1 p2))
 (define rf2 (make-rational p3 p4))
 (add rf1 rf2)
-\end{scheme}
+\end{codeBlock}
 
 See if you get the correct answer, correctly reduced to lowest terms.
 \end{enumerate}
-\end{exercises}
+\end{exerciseGroup}
 
 \noindent
 The \acronym{GCD} computation is at the heart of any system that does

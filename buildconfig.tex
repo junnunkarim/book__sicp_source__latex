@@ -1,0 +1,40 @@
+\newcommand{\latestVersion}%
+  {community.202606.1}
+\newcommand{\latestVersionLink}%
+  {https://github.com/junnunkarim/book__sicp_source__latex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\providecommand{\bookClass}{book}
+
+% paperType modes
+% ---------------
+% 0 -> a5
+% 1 -> a4
+% 2 -> ustrade
+\providecommand{\paperType}{0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% buildChapter modes
+% ------------------
+% 0 -> all chapters
+% 1 -> chapter 1
+% 2 -> chapter 2
+% 3 -> chapter 3
+% 4 -> chapter 4
+% 5 -> chapter 5
+\providecommand{\buildChapter}{0}
+
+\ifcase\buildChapter % 0
+  \newcommand{\buildExtraContents}{1} % true
+  \newcommand{\showChapterInfo}{0} % false
+\or % 1
+  \newcommand{\buildExtraContents}{1} % true
+  \newcommand{\showChapterInfo}{1} % true
+\else %
+  \newcommand{\buildExtraContents}{0} % false
+  \newcommand{\showChapterInfo}{1} % true
+\fi
+ 
+\providecommand{\buildUnofficialContents}{0} % default is false

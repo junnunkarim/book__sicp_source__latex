@@ -42,12 +42,12 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="240.71429"
-     inkscape:cy="170"
+     inkscape:zoom="1.979899"
+     inkscape:cx="205.3135"
+     inkscape:cy="174.50385"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
-     showgrid="true"
+     showgrid="false"
      inkscape:snap-global="true"
      showguides="true"
      inkscape:window-width="1920"
@@ -66,7 +66,7 @@
        spacingy="1"
        spacingx="1"
        units="px"
-       visible="true" />
+       visible="false" />
   </sodipodi:namedview>
   <metadata
      id="metadata_1.1">
@@ -438,48 +438,48 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:NewComputerModern10;-inkscape-font-specification:Inconsolata;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
-       x="160.85716"
-       y="363.72705"
+       x="156.85933"
+       y="361.84921"
        id="text3125"><tspan
          sodipodi:role="line"
          id="tspan3127"
-         x="160.85716"
-         y="363.72705"
+         x="156.85933"
+         y="361.84921"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:Inconsolata">+</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:NewComputerModern10;-inkscape-font-specification:Inconsolata;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
-       x="211.07143"
-       y="454.02313"
+       x="211.30733"
+       y="459.77731"
        id="text3129"><tspan
          sodipodi:role="line"
          id="tspan3131"
-         x="211.07143"
-         y="454.02313"
+         x="211.30733"
+         y="459.77731"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:Inconsolata"
          dy="4">*</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:NewComputerModern10;-inkscape-font-specification:Inconsolata;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
-       x="145.88145"
-       y="263.30865"
+       x="146.30733"
+       y="269.74384"
        id="text3133"><tspan
          sodipodi:role="line"
          id="tspan3135"
-         x="145.88145"
-         y="263.30865"
+         x="146.30733"
+         y="269.74384"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:Inconsolata"
          dy="4">*</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:NewComputerModern10;-inkscape-font-specification:Inconsolata;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
-       x="327.85712"
-       y="393.71954"
+       x="323.85934"
+       y="392.4155"
        id="text3137"><tspan
          sodipodi:role="line"
          id="tspan3139"
-         x="327.85712"
-         y="393.71954"
+         x="323.85934"
+         y="392.4155"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32px;line-height:1.25;font-family:NewComputerModern10;-inkscape-font-specification:Inconsolata">+</tspan></text>
   </g>
 </svg>

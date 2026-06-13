@@ -1,0 +1,79 @@
+% used for dots in index page
+\def\customDotFill{%
+  \leavevmode
+  \nobreak
+  \cleaders \hbox to .44em{\hss.\hss}\hskip 1em plus1fill
+  \nobreak
+\kern 0pt}
+
+\newcommand{\acronym}[1]{#1}
+
+\newcommand{\newterm}[1]{\index{#1}\emph{#1}}
+\newcommand{\link}[1]{\mbox{\hyperref[#1]{#1}}}
+
+% reset previous environment using "\upshape"
+\newcommand{\var}[1]{{\upshape\textsl{#1}}}
+\newcommand{\code}[1]{{\upshape\ttfamily #1}}
+
+\newcommand{\exerciseHeading}[1]{%
+  \needspace{2\baselineskip}%
+  {\sffamily\bfseries #1}%
+}
+
+\newcommand{\mono}[1]{%
+  \ifmmode%
+    \text{\ttfamily\scriptsize #1}%
+  \else%
+    {\ttfamily\scriptsize #1}%
+  \fi%
+}
+\newcommand{\monoItalic}[1]{%
+  \ifmmode%
+    \text{\ttfamily\itshape\scriptsize #1}%
+  \else%
+    {\ttfamily\itshape\scriptsize #1}%
+  \fi%
+}
+
+\newenvironment{example}{%
+  \small%
+  \verbatim
+}{%
+  \endverbatim%
+}
+\newenvironment{compactExample}{%
+  \footnotesize%
+  \verbatim
+}{%
+  \endverbatim%
+}
+
+\lstnewenvironment{codeBlock}[1][]{%
+  \upshape
+  \lstset{%
+    basicstyle=\ttfamily\small\color{SchemeLight},%
+    #1%
+  }%
+}{}
+\lstnewenvironment{compactCodeBlock}[1][]{%
+  \lstset{%
+    basicstyle=\ttfamily\footnotesize\color{SchemeLight},
+    #1%
+  }%
+}{}
+
+\newenvironment{exerciseGroup}{%
+  \small%
+  \needspace{6\baselineskip}%
+  \vspace{1em}%
+  \begin{flushright}%
+    \hfill%
+    \textbf{\textsf{EXERCISES}}\\%
+    \vspace{-0.5\baselineskip}%
+    \rule{0.4\textwidth}{0.2pt}
+  \end{flushright}%
+  \setlength{\parindent}{0pt} % no paragraph indent
+  \nopagebreak
+}{%
+  \newpage%
+}

@@ -1,0 +1,22 @@
+defaultIndent: "  "
+onlyOneBackUp: 1
+
+modifyLineBreaks:
+  textWrapOptions:
+    columns: 80
+    multipleSpacesToSingle: 1
+
+removeTrailingWhitespace: 1
+
+verbatimEnvironments:
+  verbatim: 1
+  example: 1
+  compactExample: 1
+  codeBlock: 1
+  compactCodeBlock: 1
+  lstlisting: 1
+  minted: 1
+
+verbatimCommands:
+  verb: 1
+  lstinline: 1

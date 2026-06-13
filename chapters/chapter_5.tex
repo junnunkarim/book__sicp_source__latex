@@ -80,13 +80,13 @@ divisor (\acronym{GCD}) of two integers.  As we saw in \link{Section 1.2.5},
 Euclid's Algorithm can be carried out by an iterative process, as specified by
 the following procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 
 (define (gcd a b)
   (if (= b 0)
       a
       (gcd b (remainder a b))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 A machine to carry out this algorithm must keep track of two numbers, \( a \) and
@@ -169,12 +169,12 @@ after placing numbers in registers \code{a} and \code{b}.  When the controller
 reaches \code{done}, we will find the value of the \acronym{GCD} in register
 \code{a}.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 5.1}Exercise 5.1:} Design a register machine to
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 5.1}Exercise 5.1:} Design a register machine to
 compute factorials using the iterative algorithm specified by the following
 procedure.  Draw data-path and controller diagrams for this machine.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (factorial n)
   (define (iter product counter)
     (if (> counter n)
@@ -182,8 +182,8 @@ procedure.  Draw data-path and controller diagrams for this machine.
         (iter (* counter product)
               (+ counter 1))))
   (iter 1 1))
-\end{scheme}
-\end{exercises}
+\end{codeBlock}
+\end{exerciseGroup}
 
 
 
@@ -241,7 +241,7 @@ they are listed.
 % figure 5.3
 \begin{codeFigure}{A specification of the \acronym{GCD}
 machine.}
-\begin{scheme}
+\begin{codeBlock}
 (data-paths
  (registers
   ((name a)
@@ -262,7 +262,7 @@ machine.}
    (b<-t)                         ~\textrm{; button push}~
    (goto (label test-b))          ~\textrm{; unconditional branch}~
  gcd-done)                        ~\textrm{; label}~
-\end{scheme}
+\end{codeBlock}
 \end{codeFigure}
 
 \noindent
@@ -293,7 +293,7 @@ contents of register \code{b} and the constant 0,'' we will say ``Perform the
 will omit the data-path description, leaving only the controller sequence.
 Thus, the \acronym{GCD} machine is described as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (controller
  test-b
    (test (op =) (reg b) (const 0))
@@ -303,7 +303,7 @@ Thus, the \acronym{GCD} machine is described as follows:
    (assign b (reg t))
    (goto (label test-b))
  gcd-done)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This form of description is easier to read than the kind illustrated in
@@ -336,10 +336,10 @@ controllers than with understanding the elements and connections in data paths.
 We should keep in mind, however, that data-path design is crucial in designing
 real machines.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 5.2}Exercise 5.2:} Use the register-machine language
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 5.2}Exercise 5.2:} Use the register-machine language
 to describe the iterative factorial machine of \link{Exercise 5.1}.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsubsection*{Actions}
 
@@ -379,9 +379,9 @@ we use a new kind of instruction called \code{perform}.  Thus, the action of
 printing the contents of register \code{a} is represented in a controller
 sequence by the instruction
 
-\begin{scheme}
+\begin{codeBlock}
 (perform (op print) (reg a))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \link{Figure 5.4} shows the data paths and controller for the new \acronym{GCD}
@@ -410,12 +410,12 @@ specify how to compute remainders in terms of simpler operations, such as
 subtraction.  Indeed, we can write a Scheme procedure that finds remainders in
 this way:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (remainder n d)
   (if (< n d)
       n
       (remainder (- n d) d)))
-\end{scheme}
+\end{codeBlock}
 
 % figure 5.5
 \begin{imageFigure}
@@ -430,9 +430,9 @@ paths with a subtraction operation and a comparison test.  \link{Figure 5.5}
 shows the data paths and controller for the elaborated machine.  The
 instruction
 
-\begin{scheme}
+\begin{codeBlock}
 (assign t (op rem) (reg a) (reg b))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 in the \acronym{GCD} controller definition is replaced by a sequence of
@@ -444,7 +444,7 @@ instructions that contains a loop, as shown in \link{Figure 5.6}.
     Controller instruction sequence for the \acronym{GCD} machine in
     \link{Figure 5.5}.
   }%
-\begin{scheme}
+\begin{codeBlock}
 (controller test-b
               (test (op =) (reg b) (const 0))
               (branch (label gcd-done))
@@ -459,14 +459,14 @@ instructions that contains a loop, as shown in \link{Figure 5.6}.
               (assign b (reg t))
               (goto (label test-b))
             gcd-done)
-\end{scheme}
+\end{codeBlock}
 \end{codeFigure}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 5.3}Exercise 5.3:} Design a machine to compute square
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 5.3}Exercise 5.3:} Design a machine to compute square
 roots using Newton's method, as described in \link{Section 1.1.7}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sqrt x)
   (define (good-enough? guess)
     (< (abs (- (square guess) x)) 0.001))
@@ -477,14 +477,14 @@ roots using Newton's method, as described in \link{Section 1.1.7}:
         guess
         (sqrt-iter (improve guess))))
   (sqrt-iter 1.0))
-\end{scheme}
+\end{codeBlock}
 
 Begin by assuming that \code{good\-/enough?} and \code{improve} operations are
 available as primitives.  Then show how to expand these in terms of arithmetic
 operations.  Describe each version of the \code{sqrt} machine design by drawing
 a data-path diagram and writing a controller definition in the register-machine
 language.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Subroutines}
 \label{Section 5.1.3}
@@ -529,7 +529,7 @@ as the first.  If we do this, we obtain the controller sequence shown in
     Portions of the controller sequence for a machine that uses the same
     data-path components for two different \acronym{GCD} computations.
   }%
-\begin{scheme}
+\begin{codeBlock}
 gcd-1
  (test (op =) (reg b) (const 0))
  (branch (label after-gcd-1))
@@ -547,7 +547,7 @@ gcd-2
  (assign b (reg t))
  (goto (label gcd-2))
 after-gcd-2
-\end{scheme}
+\end{codeBlock}
 \end{codeFigure}
 
 \noindent
@@ -570,7 +570,7 @@ of the \code{gcd} instructions.
     Using a \code{continue} register to avoid the duplicate controller sequence
     in \link{Figure 5.8}.
   }%
-\begin{scheme}
+\begin{codeBlock}
 gcd
  (test (op =) (reg b) (const 0))
  (branch (label gcd-done))
@@ -595,7 +595,7 @@ after-gcd-1
  (assign continue (const 1))
  (goto (label gcd))
 after-gcd-2
-\end{scheme}
+\end{codeBlock}
 \end{codeFigure}
 
 \noindent
@@ -628,7 +628,7 @@ terminate the \code{gcd} subroutine with a branch to the location stored in the
     Assigning labels to the \code{continue} register simplifies and generalizes
     the strategy shown in \link{Figure 5.9}.
   }%
-\begin{scheme}
+\begin{codeBlock}
 gcd
  (test (op =) (reg b) (const 0))
  (branch (label gcd-done))
@@ -650,7 +650,7 @@ after-gcd-1
  (assign continue (label after-gcd-2))
  (goto (label gcd))
 after-gcd-2
-\end{scheme}
+\end{codeBlock}
 \end{codeFigure}
 
 \noindent
@@ -679,19 +679,19 @@ Implementing recursive processes, however, requires an additional mechanism.
 Consider the following recursive method for computing factorials, which we
 first examined in \link{Section 1.2.1}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (factorial n)
   (if (= n 1) 1 (* (factorial (- n 1)) n)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 As we see from the procedure, computing \( n! \) requires computing \( (n - 1)! \).
 Our \acronym{GCD} machine, modeled on the procedure
 
-\begin{scheme}
+\begin{codeBlock}
 (define (gcd a b)
   (if (= b 0) a (gcd b (remainder a b))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 similarly had to compute another \acronym{GCD}.  But there is an important
@@ -728,8 +728,6 @@ machine are needed to perform a computation, only one of these copies needs to
 be active at any given time.  When the machine encounters a recursive
 subproblem, it can suspend work on the main problem, reuse the same physical
 parts to work on the subproblem, then continue the suspended computation.
-
-\enlargethispage{\baselineskip}
 
 In the subproblem, the contents of the registers will be different than they
 were in the main problem. (In this case the \code{n} register is decremented.)
@@ -822,12 +820,12 @@ modified during solution of the subproblem (see \link{Exercise 5.4}).
 Let us examine a more complex recursive process, the tree-recursive computation
 of the Fibonacci numbers, which we introduced in \link{Section 1.2.2}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (fib n)
   (if (< n 2)
       n
       (+ (fib (- n 1)) (fib (- n 2)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Just as with factorial, we can implement the recursive Fibonacci computation as
@@ -845,7 +843,7 @@ shows the controller sequence for this machine.
 
 % figure 5.12
 \begin{codeFigure}{Controller for a machine to compute Fibonacci numbers.}
-\begin{scheme}
+\begin{codeBlock}
 (controller
    (assign continue (label fib-done))
  fib-loop
@@ -877,11 +875,11 @@ shows the controller sequence for this machine.
    (assign val (reg n))     ~\textrm{; base case: Fib\( (n) = n \)}~
    (goto (reg continue))
  fib-done)
-\end{scheme}
+\end{codeBlock}
 \end{codeFigure}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 5.4}Exercise 5.4:} Specify register machines that
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 5.4}Exercise 5.4:} Specify register machines that
 implement each of the following procedures.  For each machine, write a
 controller instruction sequence and draw a diagram showing the data paths.
 
@@ -890,17 +888,17 @@ controller instruction sequence and draw a diagram showing the data paths.
 \item
 Recursive exponentiation:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (expt b n)
   (if (= n 0)
       1
       (* b (expt b (- n 1)))))
-\end{scheme}
+\end{codeBlock}
 
 \item
 Iterative exponentiation:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (expt b n)
   (define (expt-iter counter product)
     (if (= counter 0)
@@ -908,20 +906,20 @@ Iterative exponentiation:
         (expt-iter (- counter 1)
                    (* b product))))
   (expt-iter n 1))
-\end{scheme}
+\end{codeBlock}
 
 \end{enumerate}
 
-\heading{\phantomsection\label{Exercise 5.5}Exercise 5.5:} Hand-simulate the factorial and
+\exerciseHeading{\phantomsection\label{Exercise 5.5}Exercise 5.5:} Hand-simulate the factorial and
 Fibonacci machines, using some nontrivial input (requiring execution of at
 least one recursive call).  Show the contents of the stack at each significant
 point in the execution.
 
-\heading{\phantomsection\label{Exercise 5.6}Exercise 5.6:} Ben Bitdiddle observes that the
+\exerciseHeading{\phantomsection\label{Exercise 5.6}Exercise 5.6:} Ben Bitdiddle observes that the
 Fibonacci machine's controller sequence has an extra \code{save} and an extra
 \code{restore}, which can be removed to make a faster machine.  Where are these
 instructions?
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Instruction Summary}
 \label{Section 5.1.5}
@@ -931,44 +929,44 @@ following forms, where each \( \langle \)\var{input}\( _i\rangle \) is either \c
 \( \langle \)\var{register\-/name}\( \rangle \))} or \code{(const \( \langle \)\var{constant\-/value}\( \rangle \))}.  These
 instructions were introduced in \link{Section 5.1.1}:
 
-\begin{scheme}
-(assign ~\( \dark \langle \)~~\var{\dark register-name}~~\( \dark \rangle \)~ (reg ~\( \dark \langle \)~~\var{\dark register-name}~~\( \dark \rangle \)~))
-(assign ~\( \dark \langle \)~~\var{\dark register-name}~~\( \dark \rangle \)~ (const ~\( \dark \langle \)~~\var{\dark constant-value}~~\( \dark \rangle \)~))
-(assign ~\( \dark \langle \)~~\var{\dark register-name}~~\( \dark \rangle \)~
-        (op ~\( \dark \langle \)~~\var{\dark operation-name}~~\( \dark \rangle \)~)
-        ~\( \dark \langle \)~~\var{\dark input}~~\( \dark _{\mono{1}}\rangle \)~ ~\( \dots \)~ ~\( \dark \langle \)~~\var{\dark input}~~\( \dark _{\monoit{n}}\rangle \)~)
-(perform (op ~\( \dark \langle \)~~\var{\dark operation-name}~~\( \dark \rangle \)~) ~\( \dark \langle \)~~\var{\dark input}~~\( \dark _{\mono{1}}\rangle \)~ ~\( \dots \)~ ~\( \dark \langle \)~~\var{\dark input}~~\( \dark _{\monoit{n}}\rangle \)~)
-(test (op ~\( \dark \langle \)~~\var{\dark operation-name}~~\( \dark \rangle \)~) ~\( \dark \langle \)~~\var{\dark input}~~\( \dark _{\mono{1}}\rangle \)~ ~\( \dots \)~ ~\( \dark \langle \)~~\var{\dark input}~~\( \dark _{\monoit{n}}\rangle \)~)
-(branch (label ~\( \dark \langle \)~~\var{\dark label-name}~~\( \dark \rangle \)~))
-(goto (label ~\( \dark \langle \)~~\var{\dark label-name}~~\( \dark \rangle \)~))
-\end{scheme}
+\begin{codeBlock}
+(assign ~\(\langle \)~~\var{register-name}~~\(\rangle \)~ (reg ~\(\langle \)~~\var{register-name}~~\(\rangle \)~))
+(assign ~\(\langle \)~~\var{register-name}~~\(\rangle \)~ (const ~\(\langle \)~~\var{constant-value}~~\(\rangle \)~))
+(assign ~\(\langle \)~~\var{register-name}~~\(\rangle \)~
+        (op ~\(\langle \)~~\var{operation-name}~~\(\rangle \)~)
+        ~\(\langle \)~~\var{input}~~\(_{\mono{1}}\rangle \)~ ~\( \dots \)~ ~\(\langle \)~~\var{input}~~\(_{\monoItalic{n}}\rangle \)~)
+(perform (op ~\(\langle \)~~\var{operation-name}~~\(\rangle \)~) ~\(\langle \)~~\var{input}~~\(_{\mono{1}}\rangle \)~ ~\( \dots \)~ ~\(\langle \)~~\var{input}~~\(_{\monoItalic{n}}\rangle \)~)
+(test (op ~\(\langle \)~~\var{operation-name}~~\(\rangle \)~) ~\(\langle \)~~\var{input}~~\(_{\mono{1}}\rangle \)~ ~\( \dots \)~ ~\(\langle \)~~\var{input}~~\(_{\monoItalic{n}}\rangle \)~)
+(branch (label ~\(\langle \)~~\var{label-name}~~\(\rangle \)~))
+(goto (label ~\(\langle \)~~\var{label-name}~~\(\rangle \)~))
+\end{codeBlock}
 
 \noindent
 The use of registers to hold labels was introduced in \link{Section 5.1.3}:
 
-\begin{scheme}
-(assign ~\( \dark \langle \)~~\var{\dark register-name}~~\( \dark \rangle \)~ (label ~\( \dark \langle \)~~\var{\dark label-name}~~\( \dark \rangle \)~))
-(goto (reg ~\( \dark \langle \)~~\var{\dark register-name}~~\( \dark \rangle \)~))
-\end{scheme}
+\begin{codeBlock}
+(assign ~\(\langle \)~~\var{register-name}~~\(\rangle \)~ (label ~\(\langle \)~~\var{label-name}~~\(\rangle \)~))
+(goto (reg ~\(\langle \)~~\var{register-name}~~\(\rangle \)~))
+\end{codeBlock}
 
 \noindent
 Instructions to use the stack were introduced in \link{Section 5.1.4}:
 
-\begin{scheme}
-(save ~\( \dark \langle \)~~\var{\dark register-name}~~\( \dark \rangle \)~)
-(restore ~\( \dark \langle \)~~\var{\dark register-name}~~\( \dark \rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(save ~\(\langle \)~~\var{register-name}~~\(\rangle \)~)
+(restore ~\(\langle \)~~\var{register-name}~~\(\rangle \)~)
+\end{codeBlock}
 
 \noindent
 The only kind of \( \langle \)\var{constant-value}\( \rangle \) we have seen
 so far is a number, but later we will use strings, symbols, and lists.
 For example,
-\begin{scheme}
+\begin{codeBlock}
 (const "abc") ~\textrm{is the string}~ "abc",
 (const abc) ~\textrm{is the symbol}~ abc,
 (const (a b c)) ~\textrm{is the list}~ (a b c),
 ~\textrm{and}~ (const ()) ~\textrm{is the empty list.}~
-\end{scheme}
+\end{codeBlock}
 
 \section{A Register-Machine Simulator}
 \label{Section 5.2}
@@ -984,47 +982,50 @@ construct a model of the machine (a data structure whose parts correspond to
 the parts of the machine to be simulated), and the other three allow us to
 simulate the machine by manipulating the model:
 
-\begin{quote}
+\begin{niceQuote}
 
-\begin{scheme}
-(make-machine ~\( \dark \langle \)~~\var{\dark register-names}~~\( \dark \rangle \)~ ~\( \dark \langle \)~~\var{\dark operations}~~\( \dark \rangle \)~ ~\( \dark \langle \)~~\var{\dark controller}~~\( \dark \rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(make-machine ~\(\langle \)~~\var{register-names}~~\(\rangle \)~
+              ~\(\langle \)~~\var{operations}~~\(\rangle \)~
+              ~\(\langle \)~~\var{controller}~~\(\rangle \)~)
+\end{codeBlock}
 
 \noindent
 constructs and returns a model of the machine with the given registers,
 operations, and controller.
 
-\begin{scheme}
-(set-register-contents! ~\( \dark \langle\kern0.08em \)~~\var{\dark machine-model}~~\( \dark \rangle \)~
-                        ~\( \dark \langle \)~~\var{\dark register-name}~~\( \dark \rangle \)~
-                        ~\( \dark \langle \)~~\var{\dark value}~~\( \dark \rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(set-register-contents! ~\(\langle \)~~\var{machine-model}~~\(\rangle \)~
+                        ~\(\langle \)~~\var{register-name}~~\(\rangle \)~
+                        ~\(\langle \)~~\var{value}~~\(\rangle \)~)
+\end{codeBlock}
 
 \noindent
 stores a value in a simulated register in the given machine.
 
-\begin{scheme}
-(get-register-contents ~\( \dark \langle\kern0.08em \)~~\var{\dark machine-model}~~\( \dark \rangle \)~ ~\( \dark \langle \)~~\var{\dark register-name}~~\( \dark \rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(get-register-contents ~\(\langle \)~~\var{machine-model}~~\(\rangle \)~
+                       ~\(\langle \)~~\var{register-name}~~\(\rangle \)~)
+\end{codeBlock}
 
 \noindent
 returns the contents of a simulated register in the given machine.
 
-\begin{scheme}
-(start ~\( \dark \langle\kern0.08em \)~~\var{\dark machine-model}~~\( \dark \rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(start ~\(\langle \)~~\var{machine-model}~~\(\rangle \)~)
+\end{codeBlock}
 
 \noindent
 simulates the execution of the given machine, starting from the beginning of
 the controller sequence and stopping when it reaches the end of the sequence.
-\end{quote}
+\end{niceQuote}
 
 \noindent
 As an example of how these procedures are used, we can define
 \code{gcd\-/machine} to be a model of the \acronym{GCD} machine of
 \link{Section 5.1.1} as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (define gcd-machine
   (make-machine
    '(a b t)
@@ -1036,7 +1037,7 @@ As an example of how these procedures are used, we can define
             (assign b (reg t))
             (goto (label test-b))
             gcd-done)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The first argument to \code{make\-/machine} is a list of register names.  The
@@ -1049,7 +1050,7 @@ specifies the controller as a list of labels and machine instructions, as in
 To compute \acronym{GCD}s with this machine, we set the input registers, start
 the machine, and examine the result when the simulation terminates:
 
-\begin{scheme}
+\begin{codeBlock}
 (set-register-contents! gcd-machine 'a 206)
 ~\textit{done}~
 (set-register-contents! gcd-machine 'b 40)
@@ -1058,17 +1059,17 @@ the machine, and examine the result when the simulation terminates:
 ~\textit{done}~
 (get-register-contents gcd-machine 'a)
 ~\textit{2}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This computation will run much more slowly than a \code{gcd} procedure written
 in Scheme, because we will simulate low-level machine instructions, such as
 \code{assign}, by much more complex operations.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 5.7}Exercise 5.7:} Use the simulator to test the
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 5.7}Exercise 5.7:} Use the simulator to test the
 machines you designed in \link{Exercise 5.4}.
-\end{exercises}
+\end{exerciseGroup}
 
 
 
@@ -1093,8 +1094,10 @@ machine.  Then it uses an \newterm{assembler} (described below in
 machine and installs these as the machine's instruction sequence.
 \code{make\-/machine} returns as its value the modified machine model.
 
-\begin{scheme}
-(define (make-machine register-names ops controller-text)
+\begin{codeBlock}
+(define (make-machine register-names
+                      ops
+                      controller-text)
   (let ((machine (make-new-machine)))
     (for-each
      (lambda (register-name)
@@ -1104,7 +1107,7 @@ machine and installs these as the machine's instruction sequence.
     ((machine 'install-instruction-sequence)
      (assemble controller-text machine))
     machine))
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection*{Registers}
 
@@ -1112,7 +1115,7 @@ We will represent a register as a procedure with local state, as in
 \link{Chapter 3}.  The procedure \code{make\-/register} creates a register that
 holds a value that can be accessed or changed:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-register name)
   (let ((contents '*unassigned*))
     (define (dispatch message)
@@ -1123,16 +1126,16 @@ holds a value that can be accessed or changed:
              (error "Unknown request: REGISTER"
                     message))))
     dispatch))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The following procedures are used to access registers:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (get-contents register) (register 'get))
 (define (set-contents! register value)
   ((register 'set) value))
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection*{The stack}
 
@@ -1142,7 +1145,7 @@ items on the stack.  A stack accepts requests to \code{push} an item onto the
 stack, to \code{pop} the top item off the stack and return it, and to
 \code{initialize} the stack to empty.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-stack)
   (let ((s '()))
     (define (push x) (set! s (cons x s)))
@@ -1159,17 +1162,18 @@ stack, to \code{pop} the top item off the stack and return it, and to
       (cond ((eq? message 'push) push)
             ((eq? message 'pop) (pop))
             ((eq? message 'initialize) (initialize))
-            (else (error "Unknown request: STACK" message))))
+            (else (error "Unknown request: STACK"
+                         message))))
     dispatch))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The following procedures are used to access stacks:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (pop stack) (stack 'pop))
 (define (push stack value) ((stack 'push) value))
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection*{The basic machine}
 
@@ -1205,7 +1209,7 @@ instruction sequence).
     The \code{make\-/new\-/machine} procedure, which implements the basic
     machine model.
   }%
-\begin{scheme}
+\begin{codeBlock}
 (define (make-new-machine)
   (let ((pc (make-register 'pc))
         (flag (make-register 'flag))
@@ -1259,7 +1263,7 @@ instruction sequence).
               (else (error "Unknown request: MACHINE"
                            message))))
       dispatch)))
-\end{scheme}
+\end{codeBlock}
 \end{codeFigure}
 
 \noindent
@@ -1280,7 +1284,7 @@ For convenience, we provide an alternate procedural interface to a machine's
 \code{start} operation, as well as procedures to set and examine register
 contents, as specified at the beginning of \link{Section 5.2}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (start machine) (machine 'start))
 (define (get-register-contents machine register-name)
   (get-contents (get-register machine register-name)))
@@ -1288,16 +1292,16 @@ contents, as specified at the beginning of \link{Section 5.2}:
   (set-contents! (get-register machine register-name)
                  value)
   'done)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 These procedures (and many procedures in \link{Section 5.2.2} and \link{Section 5.2.3})
 use the following to look up the register with a given name in a given machine:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (get-register machine reg-name)
   ((machine 'get-register) reg-name))
-\end{scheme}
+\end{codeBlock}
 
 \subsection{The Assembler}
 \label{Section 5.2.2}
@@ -1337,14 +1341,14 @@ This procedure uses \code{update\-/insts!} to generate the instruction execution
 procedures and insert them into the instruction list, and returns the modified
 list.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (assemble controller-text machine)
   (extract-labels
    controller-text
    (lambda (insts labels)
      (update-insts! insts labels machine)
      insts)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{extract\-/labels} takes as arguments a list \code{text} (the sequence of
@@ -1355,7 +1359,7 @@ and (2) a table called \code{labels}, which associates each label from
 \code{text} with the position in the list \code{insts} that the label
 designates.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (extract-labels text receive)
   (if (null? text)
       (receive '() '())
@@ -1373,7 +1377,7 @@ designates.
                           (make-instruction next-inst)
                           insts)
                         labels)))))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{extract\-/labels} works by sequentially scanning the elements of the
@@ -1386,7 +1390,7 @@ get \code{extract\-/labels} to effectively return two values---\code{labels} and
 them.  An alternative implementation, which returns an explicit pair of values,
 is
 
-\begin{smallscheme}
+\begin{compactCodeBlock}
 (define (extract-labels text)
   (if (null? text)
       (cons '() '())
@@ -1400,18 +1404,18 @@ is
                 (cons (cons (make-instruction next-inst)
                             insts)
                       labels)))))))
-\end{smallscheme}
+\end{compactCodeBlock}
 
 \noindent
 which would be called by \code{assemble} as follows:
 
-\begin{smallscheme}
+\begin{compactCodeBlock}
 (define (assemble controller-text machine)
   (let ((result (extract-labels controller-text)))
     (let ((insts (car result)) (labels (cdr result)))
       (update-insts! insts labels machine)
       insts)))
-\end{smallscheme}
+\end{compactCodeBlock}
 
 \noindent
 You can consider our use of \code{receive} as demonstrating an elegant way to
@@ -1425,7 +1429,7 @@ the backtracking control structure in the \code{amb} evaluator in
 only the text of the instructions, to include the corresponding execution
 procedures:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (update-insts! insts labels machine)
   (let ((pc (get-register machine 'pc))
         (flag (get-register machine 'flag))
@@ -1439,7 +1443,7 @@ procedures:
          (instruction-text inst)
          labels machine pc flag stack ops)))
      insts)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The machine instruction data structure simply pairs the instruction text with
@@ -1447,13 +1451,13 @@ the corresponding execution procedure.  The execution procedure is not yet
 available when \code{extract\-/labels} constructs the instruction, and is
 inserted later by \code{update\-/insts!}.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-instruction text) (cons text '()))
 (define (instruction-text inst) (car inst))
 (define (instruction-execution-proc inst) (cdr inst))
 (define (set-instruction-execution-proc! inst proc)
   (set-cdr! inst proc))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The instruction text is not used by our simulator, but it is handy to keep
@@ -1461,28 +1465,28 @@ around for debugging (see \link{Exercise 5.16}).
 
 Elements of the label table are pairs:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-label-entry label-name insts)
   (cons label-name insts))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Entries will be looked up in the table with
 
-\begin{scheme}
+\begin{codeBlock}
 (define (lookup-label labels label-name)
   (let ((val (assoc label-name labels)))
     (if val
         (cdr val)
         (error "Undefined label: ASSEMBLE"
                label-name))))
-\end{scheme}
+\end{codeBlock}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 5.8}Exercise 5.8:} The following register-machine code
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 5.8}Exercise 5.8:} The following register-machine code
 is ambiguous, because the label \code{here} is defined more than once:
 
-\begin{scheme}
+\begin{codeBlock}
 start
   (goto (label here))
 here
@@ -1492,13 +1496,13 @@ here
   (assign a (const 4))
   (goto (label there))
 there
-\end{scheme}
+\end{codeBlock}
 
 With the simulator as written, what will the contents of register \code{a} be
 when control reaches \code{there}?  Modify the \code{extract\-/labels} procedure
 so that the assembler will signal an error if the same label name is used to
 indicate two different locations.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Generating Execution Procedures for Instructions}
 \label{Section 5.2.3}
@@ -1508,7 +1512,7 @@ procedure for an instruction.  Like the \code{analyze} procedure in the
 evaluator of \link{Section 4.1.7}, this dispatches on the type of instruction to
 generate the appropriate execution procedure.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-execution-procedure
          inst labels machine pc flag stack ops)
   (cond ((eq? (car inst) 'assign)
@@ -1528,7 +1532,7 @@ generate the appropriate execution procedure.
         (else
          (error "Unknown instruction type: ASSEMBLE"
                 inst))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 For each type of instruction in the register-machine language, there is a
@@ -1543,7 +1547,7 @@ procedures to extract and classify the parts of an instruction.
 
 The \code{make\-/assign} procedure handles \code{assign} instructions:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-assign inst machine labels operations pc)
   (let ((target
          (get-register machine (assign-reg-name inst)))
@@ -1557,19 +1561,19 @@ The \code{make\-/assign} procedure handles \code{assign} instructions:
       (lambda ()   ~\textrm{; execution procedure for \code{assign}}~
         (set-contents! target (value-proc))
         (advance-pc pc)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{make\-/assign} extracts the target register name (the second element of the
 instruction) and the value expression (the rest of the list that forms the
 instruction) from the \code{assign} instruction using the selectors
 
-\begin{scheme}
+\begin{codeBlock}
 (define (assign-reg-name assign-instruction)
   (cadr assign-instruction))
 (define (assign-value-exp assign-instruction)
   (cddr assign-instruction))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The register name is looked up with \code{get\-/register} to produce the target
@@ -1591,10 +1595,10 @@ model's \code{execute} procedure), it sets the contents of the target register
 to the result obtained by executing \code{value\-/proc}.  Then it advances the
 \code{pc} to the next instruction by running the procedure
 
-\begin{scheme}
+\begin{codeBlock}
 (define (advance-pc pc)
   (set-contents! pc (cdr (get-contents pc))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{advance\-/pc} is the normal termination for all instructions except
@@ -1608,7 +1612,7 @@ an execution procedure for it.  At simulation time, the procedure for the
 condition is called, the result is assigned to the \code{flag} register, and
 the \code{pc} is advanced:
 
-\begin{scheme}
+\begin{codeBlock}
 
 (define (make-test inst machine labels operations flag pc)
   (let ((condition (test-condition inst)))
@@ -1622,7 +1626,7 @@ the \code{pc} is advanced:
         (error "Bad TEST instruction: ASSEMBLE" inst))))
 (define (test-condition test-instruction)
   (cdr test-instruction))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The execution procedure for a \code{branch} instruction checks the contents of
@@ -1633,7 +1637,7 @@ branch destination (if the branch is taken) or else just advances the \code{pc}
 enforces this.  Notice also that the label is looked up at assembly time, not
 each time the \code{branch} instruction is simulated.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-branch inst machine labels flag pc)
   (let ((dest (branch-dest inst)))
     (if (label-exp? dest)
@@ -1648,14 +1652,14 @@ each time the \code{branch} instruction is simulated.
         (error "Bad BRANCH instruction: ASSEMBLE" inst))))
 (define (branch-dest branch-instruction)
   (cadr branch-instruction))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 A \code{goto} instruction is similar to a branch, except that the destination
 may be specified either as a label or as a register, and there is no condition
 to check---the \code{pc} is always set to the new destination.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-goto inst machine labels pc)
   (let ((dest (goto-dest inst)))
     (cond ((label-exp? dest)
@@ -1672,14 +1676,14 @@ to check---the \code{pc} is always set to the new destination.
           (else (error "Bad GOTO instruction: ASSEMBLE" inst)))))
 (define (goto-dest goto-instruction)
   (cadr goto-instruction))
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection*{Other instructions}
 
 The stack instructions \code{save} and \code{restore} simply use the stack with
 the designated register and advance the \code{pc}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-save inst machine stack pc)
   (let ((reg (get-register machine
                            (stack-inst-reg-name inst))))
@@ -1694,14 +1698,14 @@ the designated register and advance the \code{pc}:
       (advance-pc pc))))
 (define (stack-inst-reg-name stack-instruction)
   (cadr stack-instruction))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The final instruction type, handled by \code{make\-/perform}, generates an
 execution procedure for the action to be performed.  At simulation time, the
 action procedure is executed and the \code{pc} advanced.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-perform inst machine labels operations pc)
   (let ((action (perform-action inst)))
     (if (operation-exp? action)
@@ -1711,7 +1715,7 @@ action procedure is executed and the \code{pc} advanced.
           (lambda () (action-proc) (advance-pc pc)))
         (error "Bad PERFORM instruction: ASSEMBLE" inst))))
 (define (perform-action inst) (cdr inst))
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection*{Execution procedures for subexpressions}
 
@@ -1721,7 +1725,7 @@ operation (\code{make\-/operation\-/exp}, below).  The following procedure
 generates execution procedures to produce values for these expressions during
 the simulation:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-primitive-exp exp machine labels)
   (cond ((constant-exp? exp)
          (let ((c (constant-exp-value exp)))
@@ -1735,20 +1739,20 @@ the simulation:
          (let ((r (get-register machine (register-exp-reg exp))))
            (lambda () (get-contents r))))
         (else (error "Unknown expression type: ASSEMBLE" exp))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The syntax of \code{reg}, \code{label}, and \code{const} expressions is
 determined by
 
-\begin{scheme}
+\begin{codeBlock}
 (define (register-exp? exp) (tagged-list? exp 'reg))
 (define (register-exp-reg exp) (cadr exp))
 (define (constant-exp? exp) (tagged-list? exp 'const))
 (define (constant-exp-value exp) (cadr exp))
 (define (label-exp? exp) (tagged-list? exp 'label))
 (define (label-exp-label exp) (cadr exp))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{assign}, \code{perform}, and \code{test} instructions may include the
@@ -1758,7 +1762,7 @@ following procedure produces an execution procedure for an ``operation
 expression''---a list containing the operation and operand expressions from the
 instruction:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-operation-exp exp machine labels operations)
   (let ((op (lookup-prim (operation-exp-op exp)
                          operations))
@@ -1768,19 +1772,19 @@ instruction:
               (operation-exp-operands exp))))
     (lambda ()
       (apply op (map (lambda (p) (p)) aprocs)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The syntax of operation expressions is determined by
 
-\begin{scheme}
+\begin{codeBlock}
 (define (operation-exp? exp)
   (and (pair? exp) (tagged-list? (car exp) 'op)))
 (define (operation-exp-op operation-exp)
   (cadr (car operation-exp)))
 (define (operation-exp-operands operation-exp)
   (cdr operation-exp))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Observe that the treatment of operation expressions is very much like the
@@ -1791,34 +1795,34 @@ and apply the Scheme procedure that simulates the operation to the resulting
 values.  The simulation procedure is found by looking up the operation name in
 the operation table for the machine:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (lookup-prim symbol operations)
   (let ((val (assoc symbol operations)))
     (if val
         (cadr val)
         (error "Unknown operation: ASSEMBLE"
                symbol))))
-\end{scheme}
+\end{codeBlock}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 5.9}Exercise 5.9:} The treatment of machine operations
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 5.9}Exercise 5.9:} The treatment of machine operations
 above permits them to operate on labels as well as on constants and the
 contents of registers.  Modify the expression-processing procedures to enforce
 the condition that operations can be used only with registers and constants.
 
-\heading{\phantomsection\label{Exercise 5.10}Exercise 5.10:} Design a new syntax for
+\exerciseHeading{\phantomsection\label{Exercise 5.10}Exercise 5.10:} Design a new syntax for
 register-machine instructions and modify the simulator to use your new syntax.
 Can you implement your new syntax without changing any part of the simulator
 except the syntax procedures in this section?
 
-\heading{\phantomsection\label{Exercise 5.11}Exercise 5.11:} When we introduced \code{save}
+\exerciseHeading{\phantomsection\label{Exercise 5.11}Exercise 5.11:} When we introduced \code{save}
 and \code{restore} in \link{Section 5.1.4}, we didn't specify what would happen
 if you tried to restore a register that was not the last one saved, as in the
 sequence
 
-\begin{scheme}
+\begin{codeBlock}
 (save y)  (save x)  (restore y)
-\end{scheme}
+\end{codeBlock}
 
 There are several reasonable possibilities for the meaning of \code{restore}:
 
@@ -1845,7 +1849,7 @@ operation initialize all the register stacks.
 
 \end{enumerate}
 
-\heading{\phantomsection\label{Exercise 5.12}Exercise 5.12:} The simulator can be used to help
+\exerciseHeading{\phantomsection\label{Exercise 5.12}Exercise 5.12:} The simulator can be used to help
 determine the data paths required for implementing a machine with a given
 controller.  Extend the assembler to store the following information in the
 machine model:
@@ -1876,13 +1880,13 @@ Extend the message-passing interface to the machine to provide access to this
 new information.  To test your analyzer, define the Fibonacci machine from
 \link{Figure 5.12} and examine the lists you constructed.
 
-\heading{\phantomsection\label{Exercise 5.13}Exercise 5.13:} Modify the simulator so that it
+\exerciseHeading{\phantomsection\label{Exercise 5.13}Exercise 5.13:} Modify the simulator so that it
 uses the controller sequence to determine what registers the machine has rather
 than requiring a list of registers as an argument to \code{make\-/machine}.
 Instead of pre-allocating the registers in \code{make\-/machine}, you can
 allocate them one at a time when they are first seen during assembly of the
 instructions.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Monitoring Machine Performance}
 \label{Section 5.2.4}
@@ -1897,17 +1901,17 @@ interface that prints the statistics, as shown below.  We also add an operation
 to the basic machine model to print the stack statistics, by initializing
 \code{the\-/ops} in \code{make\-/new\-/machine} to
 
-\begin{scheme}
+\begin{codeBlock}
 (list (list 'initialize-stack
             (lambda () (stack 'initialize)))
       (list 'print-stack-statistics
             (lambda () (stack 'print-statistics))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Here is the new version of \code{make\-/stack}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-stack)
   (let ((s '())
         (number-pushes 0)
@@ -1943,15 +1947,15 @@ Here is the new version of \code{make\-/stack}:
              (print-statistics))
             (else (error "Unknown request: STACK" message))))
     dispatch))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \link{Exercise 5.15} through \link{Exercise 5.19} describe other useful
 monitoring and debugging features that can be added to the register-machine
 simulator.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 5.14}Exercise 5.14:} Measure the number of pushes and
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 5.14}Exercise 5.14:} Measure the number of pushes and
 the maximum stack depth required to compute \( n! \) for various small values of
 \( n \) using the factorial machine shown in \link{Figure 5.11}.  From your data
 determine formulas in terms of \( n \) for the total number of push operations
@@ -1965,26 +1969,26 @@ did for the \acronym{GCD} machine in \link{Figure 5.4}), so that you will not
 have to repeatedly invoke \code{get\-/register\-/contents},
 \code{set\-/register\-/contents!}, and \code{start}.
 
-\heading{\phantomsection\label{Exercise 5.15}Exercise 5.15:} Add \newterm{instruction
+\exerciseHeading{\phantomsection\label{Exercise 5.15}Exercise 5.15:} Add \newterm{instruction
 counting} to the register machine simulation.  That is, have the machine model
 keep track of the number of instructions executed.  Extend the machine model's
 interface to accept a new message that prints the value of the instruction
 count and resets the count to zero.
 
-\heading{\phantomsection\label{Exercise 5.16}Exercise 5.16:} Augment the simulator to provide
+\exerciseHeading{\phantomsection\label{Exercise 5.16}Exercise 5.16:} Augment the simulator to provide
 for \newterm{instruction tracing}.  That is, before each instruction is
 executed, the simulator should print the text of the instruction.  Make the
 machine model accept \code{trace\-/on} and \code{trace\-/off} messages to turn
 tracing on and off.
 
-\heading{\phantomsection\label{Exercise 5.17}Exercise 5.17:} Extend the instruction tracing of
+\exerciseHeading{\phantomsection\label{Exercise 5.17}Exercise 5.17:} Extend the instruction tracing of
 \link{Exercise 5.16} so that before printing an instruction, the simulator
 prints any labels that immediately precede that instruction in the controller
 sequence.  Be careful to do this in a way that does not interfere with
 instruction counting (\link{Exercise 5.15}).  You will have to make the
 simulator retain the necessary label information.
 
-\heading{\phantomsection\label{Exercise 5.18}Exercise 5.18:} Modify the \code{make\-/register}
+\exerciseHeading{\phantomsection\label{Exercise 5.18}Exercise 5.18:} Modify the \code{make\-/register}
 procedure of \link{Section 5.2.1} so that registers can be traced.  Registers
 should accept messages that turn tracing on and off.  When a register is
 traced, assigning a value to the register should print the name of the
@@ -1992,24 +1996,24 @@ register, the old contents of the register, and the new contents being
 assigned.  Extend the interface to the machine model to permit you to turn
 tracing on and off for designated machine registers.
 
-\heading{\phantomsection\label{Exercise 5.19}Exercise 5.19:} Alyssa P. Hacker wants a
+\exerciseHeading{\phantomsection\label{Exercise 5.19}Exercise 5.19:} Alyssa P. Hacker wants a
 \newterm{breakpoint} feature in the simulator to help her debug her machine
 designs.  You have been hired to install this feature for her.  She wants to be
 able to specify a place in the controller sequence where the simulator will
 stop and allow her to examine the state of the machine.  You are to implement a
 procedure
 
-\begin{scheme}
-(set-breakpoint ~\( \dark \langle\kern0.08em \)~~\var{\dark machine}~~\( \dark \rangle \)~ ~\( \dark \langle \)~~\var{\dark label}~~\( \dark \rangle \)~ ~\( \dark \langle \)~~\var{\dark n}~~\( \dark \rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(set-breakpoint ~\(\langle\kern0.08em \)~~\var{machine}~~\(\rangle \)~ ~\(\langle \)~~\var{label}~~\(\rangle \)~ ~\(\langle \)~~\var{n}~~\(\rangle \)~)
+\end{codeBlock}
 
 \noindent
 that sets a breakpoint just before the \( n^{\mathrm{th}} \) instruction after the given
 label.  For example,
 
-\begin{scheme}
+\begin{codeBlock}
 (set-breakpoint gcd-machine 'test-b 4)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 installs a breakpoint in \code{gcd\-/machine} just before the assignment to
@@ -2019,23 +2023,23 @@ Alyssa can then use \code{get\-/register\-/contents} and
 \code{set\-/register\-/contents!} to manipulate the state of the simulated machine.
 She should then be able to continue execution by saying
 
-\begin{scheme}
-(proceed-machine ~\( \dark \langle\kern0.08em \)~~\var{\dark machine}~~\( \dark \rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(proceed-machine ~\(\langle\kern0.08em \)~~\var{machine}~~\(\rangle \)~)
+\end{codeBlock}
 
 She should also be able to remove a specific breakpoint by means of
 
-\begin{scheme}
-(cancel-breakpoint ~\( \dark \langle\kern0.08em \)~~\var{\dark machine}~~\( \dark \rangle \)~ ~\( \dark \langle \)~~\var{\dark label}~~\( \dark \rangle \)~ ~\( \dark \langle \)~~\var{\dark n}~~\( \dark \rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(cancel-breakpoint ~\(\langle\kern0.08em \)~~\var{machine}~~\(\rangle \)~ ~\(\langle \)~~\var{label}~~\(\rangle \)~ ~\(\langle \)~~\var{n}~~\(\rangle \)~)
+\end{codeBlock}
 
 \noindent
 or to remove all breakpoints by means of
 
-\begin{scheme}
-(cancel-all-breakpoints ~\( \dark \langle\kern0.08em \)~~\var{\dark machine}~~\( \dark \rangle \)~)
-\end{scheme}
-\end{exercises}
+\begin{codeBlock}
+(cancel-all-breakpoints ~\(\langle\kern0.08em \)~~\var{machine}~~\(\rangle \)~)
+\end{codeBlock}
+\end{exerciseGroup}
 
 \section{Storage Allocation and Garbage Collection}
 \label{Section 5.3}
@@ -2069,7 +2073,7 @@ construct new data objects.  There are various techniques for providing such
 automatic storage allocation.  The method we shall discuss in this section is
 called \newterm{garbage collection}.
 
-\vfill\pagebreak
+\vfill
 
 \subsection{Memory as Vectors}
 \label{Section 5.3.1}
@@ -2214,36 +2218,36 @@ vector, or adding two numbers) use only the index portion of the typed pointer.
 
 For example, we can make a register machine support the instructions
 
-\begin{scheme}
-(assign ~\( \dark \langle \)~~\var{\dark reg}~~\( \dark _{\mono{1}}\rangle \)~ (op car) (reg ~\( \dark \langle \)~~\var{\dark reg}~~\( \dark _{\mono{2}}\rangle \)~))
-(assign ~\( \dark \langle \)~~\var{\dark reg}~~\( \dark _{\mono{1}}\rangle \)~ (op cdr) (reg ~\( \dark \langle \)~~\var{\dark reg}~~\( \dark _{\mono{2}}\rangle \)~))
-\end{scheme}
+\begin{codeBlock}
+(assign ~\(\langle \)~~\var{reg}~~\(_{\mono{1}}\rangle \)~ (op car) (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{2}}\rangle \)~))
+(assign ~\(\langle \)~~\var{reg}~~\(_{\mono{1}}\rangle \)~ (op cdr) (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{2}}\rangle \)~))
+\end{codeBlock}
 
 \noindent
 if we implement these, respectively, as
 
-\begin{scheme}
-(assign ~\( \dark \langle \)~~\var{\dark reg}~~\( \dark _{\mono{1}}\rangle \)~ (op vector-ref) (reg the-cars) (reg ~\( \dark \langle \)~~\var{\dark reg}~~\( \dark _{\mono{2}}\rangle \)~))
-(assign ~\( \dark \langle \)~~\var{\dark reg}~~\( \dark _{\mono{1}}\rangle \)~ (op vector-ref) (reg the-cdrs) (reg ~\( \dark \langle \)~~\var{\dark reg}~~\( \dark _{\mono{2}}\rangle \)~))
-\end{scheme}
+\begin{codeBlock}
+(assign ~\(\langle \)~~\var{reg}~~\(_{\mono{1}}\rangle \)~ (op vector-ref) (reg the-cars) (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{2}}\rangle \)~))
+(assign ~\(\langle \)~~\var{reg}~~\(_{\mono{1}}\rangle \)~ (op vector-ref) (reg the-cdrs) (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{2}}\rangle \)~))
+\end{codeBlock}
 
 \noindent
 The instructions
 
-\begin{scheme}
-(perform (op set-car!) (reg ~\( \dark \langle \)~~\var{\dark reg}~~\( \dark _{\mono{1}}\rangle \)~) (reg ~\( \dark \langle \)~~\var{\dark reg}~~\( \dark _{\mono{2}}\rangle \)~))
-(perform (op set-cdr!) (reg ~\( \dark \langle \)~~\var{\dark reg}~~\( \dark _{\mono{1}}\rangle \)~) (reg ~\( \dark \langle \)~~\var{\dark reg}~~\( \dark _{\mono{2}}\rangle \)~))
-\end{scheme}
+\begin{codeBlock}
+(perform (op set-car!) (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{1}}\rangle \)~) (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{2}}\rangle \)~))
+(perform (op set-cdr!) (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{1}}\rangle \)~) (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{2}}\rangle \)~))
+\end{codeBlock}
 
 \noindent
 are implemented as
 
-\begin{scheme}
+\begin{codeBlock}
 (perform
- (op vector-set!) (reg the-cars) (reg ~\( \dark \langle \)~~\var{\dark reg}~~\( \dark _{\mono{1}}\rangle \)~) (reg ~\( \dark \langle \)~~\var{\dark reg}~~\( \dark _{\mono{2}}\rangle \)~))
+ (op vector-set!) (reg the-cars) (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{1}}\rangle \)~) (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{2}}\rangle \)~))
 (perform
- (op vector-set!) (reg the-cdrs) (reg ~\( \dark \langle \)~~\var{\dark reg}~~\( \dark _{\mono{1}}\rangle \)~) (reg ~\( \dark \langle \)~~\var{\dark reg}~~\( \dark _{\mono{2}}\rangle \)~))
-\end{scheme}
+ (op vector-set!) (reg the-cdrs) (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{1}}\rangle \)~) (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{2}}\rangle \)~))
+\end{codeBlock}
 
 \noindent
 \code{cons} is performed by allocating an unused index and storing the
@@ -2257,9 +2261,9 @@ free locations are consecutive (and hence can be accessed by incrementing a
 pointer) because we are using a compacting garbage collector, as we will see in
 \link{Section 5.3.2}.}  For example, the instruction
 
-\begin{scheme}
-(assign ~\( \dark \langle \)~~\var{\dark reg}~~\( \dark _{\mono{1}}\rangle \)~ (op cons) (reg ~\( \dark \langle \)~~\var{\dark reg}~~\( \dark _{\mono{2}}\rangle \)~) (reg ~\( \dark \langle \)~~\var{\dark reg}~~\( \dark _{\mono{3}}\rangle \)~))
-\end{scheme}
+\begin{codeBlock}
+(assign ~\(\langle \)~~\var{reg}~~\(_{\mono{1}}\rangle \)~ (op cons) (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{2}}\rangle \)~) (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{3}}\rangle \)~))
+\end{codeBlock}
 
 \noindent
 is implemented as the following sequence of vector operations:\footnote{This is
@@ -2268,21 +2272,21 @@ essentially the implementation of \code{cons} in terms of \code{set\-/car!} and
 \code{get\-/new\-/pair} used in that implementation is realized here by the
 \code{free} pointer.}
 
-\begin{scheme}
+\begin{codeBlock}
 (perform
- (op vector-set!) (reg the-cars) (reg free) (reg ~\( \dark \langle \)~~\var{\dark reg}~~\( \dark _{\mono{2}}\rangle \)~))
+ (op vector-set!) (reg the-cars) (reg free) (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{2}}\rangle \)~))
 (perform
- (op vector-set!) (reg the-cdrs) (reg free) (reg ~\( \dark \langle \)~~\var{\dark reg}~~\( \dark _{\mono{3}}\rangle \)~))
-(assign ~\( \dark \langle \)~~\var{\dark reg}~~\( \dark _{\mono{1}}\rangle \)~ (reg free))
+ (op vector-set!) (reg the-cdrs) (reg free) (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{3}}\rangle \)~))
+(assign ~\(\langle \)~~\var{reg}~~\(_{\mono{1}}\rangle \)~ (reg free))
 (assign free (op +) (reg free) (const 1))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The \code{eq?} operation
 
-\begin{scheme}
-(op eq?) (reg ~\( \dark \langle \)~~\var{\dark reg}~~\( \dark _{\mono{1}}\rangle \)~) (reg ~\( \dark \langle \)~~\var{\dark reg}~~\( \dark _{\mono{2}}\rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(op eq?) (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{1}}\rangle \)~) (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{2}}\rangle \)~)
+\end{codeBlock}
 
 \noindent
 simply tests the equality of all fields in the registers, and predicates such
@@ -2296,24 +2300,24 @@ since stacks can be modeled in terms of lists.  The stack can be a list of the
 saved values, pointed to by a special register \code{the\-/stack}.  Thus, \code{
 (save \( \langle \)\var{reg}\( \rangle \))} can be implemented as
 
-\begin{scheme}
-(assign the-stack (op cons) (reg ~\( \dark \langle \)~~\var{\dark reg}~~\( \dark \rangle \)~) (reg the-stack))
-\end{scheme}
+\begin{codeBlock}
+(assign the-stack (op cons) (reg ~\(\langle \)~~\var{reg}~~\(\rangle \)~) (reg the-stack))
+\end{codeBlock}
 
 \noindent
 Similarly, \code{(restore \( \langle \)\var{reg}\( \rangle \))} can be implemented as
 
-\begin{scheme}
-(assign ~\( \dark \langle \)~~\var{\dark reg}~~\( \dark \rangle \)~ (op car) (reg the-stack))
+\begin{codeBlock}
+(assign ~\(\langle \)~~\var{reg}~~\(\rangle \)~ (op car) (reg the-stack))
 (assign the-stack (op cdr) (reg the-stack))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 and \code{(perform (op initialize\-/stack))} can be implemented as
 
-\begin{scheme}
+\begin{codeBlock}
 (assign the-stack (const ()))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 These operations can be further expanded in terms of the vector operations
@@ -2322,21 +2326,21 @@ advantageous to allocate the stack as a separate vector.  Then pushing and
 popping the stack can be accomplished by incrementing or decrementing an index
 into that vector.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 5.20}Exercise 5.20:} Draw the box-and-pointer
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 5.20}Exercise 5.20:} Draw the box-and-pointer
 representation and the memory-vector representation (as in \link{Figure 5.14})
 of the list structure produced by
 
-\begin{scheme}
+\begin{codeBlock}
 (define x (cons 1 2))
 (define y (list x x))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 with the \code{free} pointer initially \code{p1}.  What is the final value of
 \code{free} ?  What pointers represent the values of \code{x} and \code{y} ?
 
-\heading{\phantomsection\label{Exercise 5.21}Exercise 5.21:} Implement register machines for
+\exerciseHeading{\phantomsection\label{Exercise 5.21}Exercise 5.21:} Implement register machines for
 the following procedures.  Assume that the list-structure memory operations are
 available as machine primitives.
 
@@ -2345,18 +2349,18 @@ available as machine primitives.
 \item
 Recursive \code{count\-/leaves}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (count-leaves tree)
   (cond ((null? tree) 0)
         ((not (pair? tree)) 1)
         (else (+ (count-leaves (car tree))
                  (count-leaves (cdr tree))))))
-\end{scheme}
+\end{codeBlock}
 
 \item
 Recursive \code{count\-/leaves} with explicit counter:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (count-leaves tree)
   (define (count-iter tree n)
     (cond ((null? tree) n)
@@ -2366,15 +2370,15 @@ Recursive \code{count\-/leaves} with explicit counter:
                        (count-iter (car tree)
                                    n)))))
   (count-iter tree 0))
-\end{scheme}
+\end{codeBlock}
 \end{enumerate}
 
-\heading{\phantomsection\label{Exercise 5.22}Exercise 5.22:} \link{Exercise 3.12} of
+\exerciseHeading{\phantomsection\label{Exercise 5.22}Exercise 5.22:} \link{Exercise 3.12} of
 \link{Section 3.3.1} presented an \code{append} procedure that appends two lists to form
 a new list and an \code{append!} procedure that splices two lists together.
 Design a register machine to implement each of these procedures.  Assume that
 the list-structure memory operations are available as primitive operations.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Maintaining the Illusion of Infinite Memory}
 \label{Section 5.3.2}
@@ -2396,9 +2400,9 @@ most of the pairs generated in a typical computation are used only to hold
 intermediate results.  After these results are accessed, the pairs are no
 longer needed---they are \newterm{garbage}.  For instance, the computation
 
-\begin{scheme}
+\begin{codeBlock}
 (accumulate + 0 (filter odd? (enumerate-interval 0 n)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 constructs two lists: the enumeration and the result of filtering the
@@ -2543,7 +2547,7 @@ and \code{scan}.  When the relocation of \code{root} has been accomplished, we
 install the new pointer as the new \code{root} and enter the main loop of the
 garbage collector.
 
-\begin{scheme}
+\begin{codeBlock}
 begin-garbage-collection
   (assign free (const 0))
   (assign scan (const 0))
@@ -2553,7 +2557,7 @@ begin-garbage-collection
 reassign-root
   (assign root (reg new))
   (goto (label gc-loop))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 In the main loop of the garbage collector we must determine whether there are
@@ -2566,14 +2570,14 @@ subroutine to relocate the \code{car} of the next pair (by placing the
 \code{car} pointer in \code{old}).  The \code{relocate\-/continue} register is
 set up so that the subroutine will return to update the \code{car} pointer.
 
-\begin{scheme}
+\begin{codeBlock}
 gc-loop
   (test (op =) (reg scan) (reg free))
   (branch (label gc-flip))
   (assign old (op vector-ref) (reg new-cars) (reg scan))
   (assign relocate-continue (label update-car))
   (goto (label relocate-old-result-in-new))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 At \code{update\-/car}, we modify the \code{car} pointer of the pair being
@@ -2582,7 +2586,7 @@ scanned, then proceed to relocate the \code{cdr} of the pair.  We return to
 and updating the \code{cdr}, we are finished scanning that pair, so we continue
 with the main loop.
 
-\begin{scheme}
+\begin{codeBlock}
 update-car
   (perform (op vector-set!)
            (reg new-cars)
@@ -2598,7 +2602,7 @@ update-cdr
            (reg new))
   (assign scan (op +) (reg scan) (const 1))
   (goto (label gc-loop))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The subroutine \code{relocate\-/old\-/result\-/in\-/new} relocates objects as follows:
@@ -2625,7 +2629,7 @@ as a special kind of ``pair'' that doesn't satisfy the \code{pair?} predicate.
 For simulation purposes, \code{pointer\-/to\-/pair?} can be implemented as
 \code{pair?}.}
 
-\begin{scheme}
+\begin{codeBlock}
 relocate-old-result-in-new
   (test (op pointer-to-pair?) (reg old))
   (branch (label pair))
@@ -2653,7 +2657,7 @@ pair
 already-moved
   (assign new (op vector-ref) (reg the-cdrs) (reg old))
   (goto (reg relocate-continue))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 At the very end of the garbage-collection process, we interchange the role of
@@ -2661,7 +2665,7 @@ old and new memories by interchanging pointers: interchanging \code{the\-/cars}
 with \code{new\-/cars}, and \code{the\-/cdrs} with \code{new\-/cdrs}.  We will then
 be ready to perform another garbage collection the next time memory runs out.
 
-\begin{scheme}
+\begin{codeBlock}
 gc-flip
   (assign temp (reg the-cdrs))
   (assign the-cdrs (reg new-cdrs))
@@ -2669,7 +2673,7 @@ gc-flip
   (assign temp (reg the-cars))
   (assign the-cars (reg new-cars))
   (assign new-cars (reg temp))
-\end{scheme}
+\end{codeBlock}
 
 \section{The Explicit-Control Evaluator}
 \label{Section 5.4}
@@ -2758,7 +2762,7 @@ expression types.  A machine designed to run Lisp would probably include a
 \code{dispatch\-/on\-/type} instruction that would efficiently execute such
 data-directed dispatches.}
 
-\begin{scheme}
+\begin{codeBlock}
 eval-dispatch
   (test (op self-evaluating?) (reg exp))
   (branch (label ev-self-eval))
@@ -2779,7 +2783,7 @@ eval-dispatch
   (test (op application?) (reg exp))
   (branch (label ev-application))
   (goto (label unknown-expression-type))
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection*{Evaluating simple expressions}
 
@@ -2789,7 +2793,7 @@ the evaluator simply places the correct value in the \code{val} register and
 continues execution at the entry point specified by \code{continue}.
 Evaluation of simple expressions is performed by the following controller code:
 
-\begin{scheme}
+\begin{codeBlock}
 ev-self-eval
   (assign val (reg exp))
   (goto (reg continue))
@@ -2804,7 +2808,7 @@ ev-lambda
   (assign exp (op lambda-body) (reg exp))
   (assign val (op make-procedure) (reg unev) (reg exp) (reg env))
   (goto (reg continue))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Observe how \code{ev\-/lambda} uses the \code{unev} and \code{exp} registers to
@@ -2847,9 +2851,7 @@ operands into \code{unev} and save this on the stack.  We set up
 however, we save the old value of \code{continue}, which tells the controller
 where to continue after the application.
 
-\enlargethispage{\baselineskip}
-
-\begin{scheme}
+\begin{codeBlock}
 ev-application
   (save continue)
   (save env)
@@ -2858,7 +2860,7 @@ ev-application
   (assign exp (op operator) (reg exp))
   (assign continue (label ev-appl-did-operator))
   (goto (label eval-dispatch))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Upon returning from evaluating the operator subexpression, we proceed to
@@ -2872,19 +2874,19 @@ the argument-evaluation loop:\footnote{We add to the evaluator data-structure
 procedures in \link{Section 4.1.3} the following two procedures for manipulating
 argument lists:
 
-\begin{smallscheme}
+\begin{compactCodeBlock}
 (define (empty-arglist) '())
 (define (adjoin-arg arg arglist) (append arglist (list arg)))
-\end{smallscheme}
+\end{compactCodeBlock}
 
 We also use an additional syntax procedure to test for the last operand in a
 combination:
 
-\begin{smallscheme}
+\begin{compactCodeBlock}
 (define (last-operand? ops) (null? (cdr ops)))
-\end{smallscheme} }
+\end{compactCodeBlock} }
 
-\begin{scheme}
+\begin{codeBlock}
 ev-appl-did-operator
   (restore unev)                       ~\textrm{; the operands}~
   (restore env)
@@ -2893,7 +2895,7 @@ ev-appl-did-operator
   (test (op no-operands?) (reg unev))
   (branch (label apply-dispatch))
   (save proc)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Each cycle of the argument-evaluation loop evaluates an operand from the list
@@ -2906,7 +2908,7 @@ remaining operands to be evaluated (held in \code{unev}).  A special case is
 made for the evaluation of the last operand, which is handled at
 \code{ev\-/appl\-/last\-/arg}.
 
-\begin{scheme}
+\begin{codeBlock}
 ev-appl-operand-loop
   (save argl)
   (assign exp (op first-operand) (reg unev))
@@ -2916,14 +2918,14 @@ ev-appl-operand-loop
   (save unev)
   (assign continue (label ev-appl-accumulate-arg))
   (goto (label eval-dispatch))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 When an operand has been evaluated, the value is accumulated into the list held
 in \code{argl}.  The operand is then removed from the list of unevaluated
 operands in \code{unev}, and the argument-evaluation continues.
 
-\begin{scheme}
+\begin{codeBlock}
 ev-appl-accumulate-arg
   (restore unev)
   (restore env)
@@ -2931,7 +2933,7 @@ ev-appl-accumulate-arg
   (assign argl (op adjoin-arg) (reg val) (reg argl))
   (assign unev (op rest-operands) (reg unev))
   (goto (label ev-appl-operand-loop))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Evaluation of the last argument is handled differently.  There is no need to
@@ -2949,7 +2951,7 @@ avoid saving \code{argl} in this case.  The compiler in \link{Section 5.5}
 performs this optimization.  (Compare the \code{construct\-/arglist} procedure of
 \link{Section 5.5.3}.)}
 
-\begin{scheme}
+\begin{codeBlock}
 ev-appl-last-arg
   (assign continue (label ev-appl-accum-last-arg))
   (goto (label eval-dispatch))
@@ -2958,7 +2960,7 @@ ev-appl-accum-last-arg
   (assign argl (op adjoin-arg) (reg val) (reg argl))
   (restore proc)
   (goto (label apply-dispatch))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The details of the argument-evaluation loop determine the order in which the
@@ -2989,14 +2991,14 @@ the controller transfers to the entry point specified by the saved
 metacircular \code{apply}, there are two cases to consider.  Either the
 procedure to be applied is a primitive or it is a compound procedure.
 
-\begin{scheme}
+\begin{codeBlock}
 apply-dispatch
   (test (op primitive-procedure?) (reg proc))
   (branch (label primitive-apply))
   (test (op compound-procedure?) (reg proc))
   (branch (label compound-apply))
   (goto (label unknown-procedure-type))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We assume that each primitive is implemented so as to obtain its arguments from
@@ -3014,7 +3016,7 @@ to perform the application, just as we did for the metacircular evaluator in
 \link{Section 4.1.4}.  After computing the value of the primitive application,
 we restore \code{continue} and go to the designated entry point.
 
-\begin{scheme}
+\begin{codeBlock}
 
 primitive-apply
   (assign val (op apply-primitive-procedure)
@@ -3022,7 +3024,7 @@ primitive-apply
               (reg argl))
   (restore continue)
   (goto (reg continue))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 To apply a compound procedure, we proceed just as with the metacircular
@@ -3032,7 +3034,7 @@ and evaluate in this extended environment the sequence of expressions that
 forms the body of the procedure.  \code{ev\-/sequence}, described below in
 \link{Section 5.4.2}, handles the evaluation of the sequence.
 
-\begin{scheme}
+\begin{codeBlock}
 compound-apply
   (assign unev (op procedure-parameters) (reg proc))
   (assign env (op procedure-environment) (reg proc))
@@ -3040,7 +3042,7 @@ compound-apply
               (reg unev) (reg argl) (reg env))
   (assign unev (op procedure-body) (reg proc))
   (goto (label ev-sequence))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{compound\-/apply} is the only place in the interpreter where the \code{env}
@@ -3061,12 +3063,12 @@ Explicit \code{begin} expressions are evaluated by placing the sequence of
 expressions to be evaluated in \code{unev}, saving \code{continue} on the
 stack, and jumping to \code{ev\-/sequence}.
 
-\begin{scheme}
+\begin{codeBlock}
 ev-begin
   (assign unev (op begin-actions) (reg exp))
   (save continue)
   (goto (label ev-sequence))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The implicit sequences in procedure bodies are handled by jumping to
@@ -3096,7 +3098,7 @@ entry point, we restore \code{continue} from the stack before going to
 \code{eval\-/dispatch}, so that \code{eval\-/dispatch} will continue at that entry
 point after evaluating the expression.
 
-\begin{scheme}
+\begin{codeBlock}
 ev-sequence
   (assign exp (op first-exp) (reg unev))
   (test (op last-exp?) (reg unev))
@@ -3113,18 +3115,18 @@ ev-sequence-continue
 ev-sequence-last-exp
   (restore continue)
   (goto (label eval-dispatch))
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection*{Tail recursion}
 
 In \link{Chapter 1} we said that the process described by a procedure such as
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sqrt-iter guess x)
   (if (good-enough? guess x)
       guess
       (sqrt-iter (improve guess x) x)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 is an iterative process.  Even though the procedure is syntactically recursive
@@ -3155,8 +3157,6 @@ one can replace the call by a jump to the called procedure's entry point.
 Building this strategy into the interpreter, as we have done in this section,
 provides the optimization uniformly throughout the language.}
 
-\enlargethispage{\baselineskip}
-
 If we did not think to take advantage of the fact that it was unnecessary to
 save information in this case, we might have implemented \code{eval\-/sequence}
 by treating all the expressions in a sequence in the same way---saving the
@@ -3164,12 +3164,12 @@ registers, evaluating the expression, returning to restore the registers, and
 repeating this until all the expressions have been evaluated:\footnote{We can
 define \code{no\-/more\-/exps?} as follows:
 
-\begin{smallscheme}
+\begin{compactCodeBlock}
 (define (no-more-exps? seq) (null? seq))
-\end{smallscheme}
+\end{compactCodeBlock}
 }
 
-\begin{scheme}
+\begin{codeBlock}
 ev-sequence
   (test (op no-more-exps?) (reg unev))
   (branch (label ev-sequence-end))
@@ -3186,9 +3186,7 @@ ev-sequence-continue
 ev-sequence-end
   (restore continue)
   (goto (reg continue))
-\end{scheme}
-
-\enlargethispage{\baselineskip}
+\end{codeBlock}
 
 \noindent
 This may seem like a minor change to our previous code for evaluation of a
@@ -3203,10 +3201,10 @@ proportional to the number of iterations rather than requiring constant space.
 This difference can be significant.  For example, with tail recursion, an
 infinite loop can be expressed using only the procedure-call mechanism:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (count n)
   (newline) (display n) (count (+ n 1)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Without tail recursion, such a procedure would eventually run out of stack
@@ -3228,7 +3226,7 @@ the alternative, and we save \code{continue}, which we will need later in order
 to return to the evaluation of the expression that is waiting for the value of
 the \code{if}.
 
-\begin{scheme}
+\begin{codeBlock}
 ev-if
   (save exp)                    ~\textrm{; save expression for later}~
   (save env)
@@ -3236,7 +3234,7 @@ ev-if
   (assign continue (label ev-if-decide))
   (assign exp (op if-predicate) (reg exp))
   (goto (label eval-dispatch))  ~\textrm{; evaluate the predicate}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 When we return from evaluating the predicate, we test whether it was true or
@@ -3246,7 +3244,7 @@ restoring \code{env} and \code{continue} here sets up \code{eval\-/dispatch} to
 have the correct environment and to continue at the right place to receive the
 value of the \code{if} expression.
 
-\begin{scheme}
+\begin{codeBlock}
 
 ev-if-decide
   (restore continue)
@@ -3260,9 +3258,7 @@ ev-if-alternative
 ev-if-consequent
   (assign exp (op if-consequent) (reg exp))
   (goto (label eval-dispatch))
-\end{scheme}
-
-\enlargethispage{\baselineskip}
+\end{codeBlock}
 
 \subsubsection*{Assignments and definitions}
 
@@ -3272,7 +3268,7 @@ Assignments are handled by \code{ev\-/assignment}, which is reached from
 installs the new value in the environment.  \code{set\-/variable\-/value!} is
 assumed to be available as a machine operation.
 
-\begin{scheme}
+\begin{codeBlock}
 ev-assignment
   (assign unev (op assignment-variable) (reg exp))
   (save unev)                   ~\textrm{; save variable for later}~
@@ -3289,12 +3285,12 @@ ev-assignment-1
    (op set-variable-value!) (reg unev) (reg val) (reg env))
   (assign val (const ok))
   (goto (reg continue))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Definitions are handled in a similar way:
 
-\begin{scheme}
+\begin{codeBlock}
 ev-definition
   (assign unev (op definition-variable) (reg exp))
   (save unev)                   ~\textrm{; save variable for later}~
@@ -3311,10 +3307,10 @@ ev-definition-1
    (op define-variable!) (reg unev) (reg val) (reg env))
   (assign val (const ok))
   (goto (reg continue))
-\end{scheme}
+\end{codeBlock}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 5.23}Exercise 5.23:} Extend the evaluator to handle
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 5.23}Exercise 5.23:} Extend the evaluator to handle
 derived expressions such as \code{cond}, \code{let}, and so on
 (\link{Section 4.1.2}).  You may ``cheat'' and assume that the syntax transformers such
 as \code{cond\-/>if} are available as machine operations.\footnote{This isn't
@@ -3323,15 +3319,15 @@ our explicit-control evaluator to interpret a Scheme program that performs
 source-level transformations like \code{cond\-/>if} in a syntax phase that runs
 before execution.}
 
-\heading{\phantomsection\label{Exercise 5.24}Exercise 5.24:} Implement \code{cond} as a new
+\exerciseHeading{\phantomsection\label{Exercise 5.24}Exercise 5.24:} Implement \code{cond} as a new
 basic special form without reducing it to \code{if}.  You will have to
 construct a loop that tests the predicates of successive \code{cond} clauses
 until you find one that is true, and then use \code{ev\-/sequence} to evaluate
 the actions of the clause.
 
-\heading{\phantomsection\label{Exercise 5.25}Exercise 5.25:} Modify the evaluator so that it
+\exerciseHeading{\phantomsection\label{Exercise 5.25}Exercise 5.25:} Modify the evaluator so that it
 uses normal-order evaluation, based on the lazy evaluator of \link{Section 4.2}.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Running the Evaluator}
 \label{Section 5.4.4}
@@ -3364,13 +3360,13 @@ from a device.
 
 To support the \code{get\-/global\-/environment} operation we define
 
-\begin{smallscheme}
+\begin{compactCodeBlock}
 (define the-global-environment (setup-environment))
 (define (get-global-environment) the-global-environment)
-\end{smallscheme}
+\end{compactCodeBlock}
 }
 
-\begin{scheme}
+\begin{codeBlock}
 read-eval-print-loop
   (perform (op initialize-stack))
   (perform
@@ -3383,7 +3379,7 @@ print-result
   (perform (op announce-output) (const ";;EC-Eval value:"))
   (perform (op user-print) (reg val))
   (goto (label read-eval-print-loop))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 When we encounter an error in a procedure (such as the ``unknown procedure type
@@ -3391,7 +3387,7 @@ error'' indicated at \code{apply\-/dispatch}), we print an error message and
 return to the driver loop.\footnote{There are other errors that we would like
 the interpreter to handle, but these are not so simple.  See \link{Exercise 5.30}.}
 
-\begin{scheme}
+\begin{codeBlock}
 unknown-expression-type
   (assign val (const unknown-expression-type-error))
   (goto (label signal-error))
@@ -3402,7 +3398,7 @@ unknown-procedure-type
 signal-error
   (perform (op user-print) (reg val))
   (goto (label read-eval-print-loop))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 For the purposes of the simulation, we initialize the stack each time through
@@ -3415,14 +3411,14 @@ If we combine all the code fragments presented in
 \link{Section 5.4.1}--\link{Section 5.4.4}, we can create an evaluator machine model that we can
 run using the register-machine simulator of \link{Section 5.2}.
 
-\begin{scheme}
+\begin{codeBlock}
 (define eceval
   (make-machine
    '(exp env val proc argl continue unev)
    eceval-operations
    '(read-eval-print-loop
-     ~\( \dark \langle \)~~\emph{entire machine controller as given above}~~\( \dark \rangle \)~ )))
-\end{scheme}
+     ~\(\langle \)~~\emph{entire machine controller as given above}~~\(\rangle \)~ )))
+\end{codeBlock}
 
 \noindent
 We must define Scheme procedures to simulate the operations used as primitives
@@ -3430,16 +3426,16 @@ by the evaluator.  These are the same procedures we used for the metacircular
 evaluator in \link{Section 4.1}, together with the few additional ones defined
 in footnotes throughout \link{Section 5.4}.
 
-\begin{scheme}
+\begin{codeBlock}
 (define eceval-operations
   (list (list 'self-evaluating? self-evaluating)
-        ~\( \dark \langle \)~~\emph{complete list of operations for eceval machine}~~\( \dark \rangle \)~))
-\end{scheme}
+        ~\(\langle \)~~\emph{complete list of operations for eceval machine}~~\(\rangle \)~))
+\end{codeBlock}
 
 \noindent
 Finally, we can initialize the global environment and run the evaluator:
 
-\begin{scheme}
+\begin{codeBlock}
 (define the-global-environment (setup-environment))
 (start eceval)
 ~\textit{;;; EC-Eval input:}~
@@ -3451,7 +3447,7 @@ Finally, we can initialize the global environment and run the evaluator:
 (append '(a b c) '(d e f))
 ~\textit{;;; EC-Eval value:}~
 ~\textit{(a b c d e f)}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Of course, evaluating expressions in this way will take much longer than if we
@@ -3472,18 +3468,18 @@ the version of the simulator that collects statistics on stack use
 (\link{Section 5.2.4}), and adding an instruction at the evaluator's \code{print\-/result}
 entry point to print the statistics:
 
-\begin{scheme}
+\begin{codeBlock}
 print-result
   (perform (op print-stack-statistics))   ~\textrm{; added instruction}~
   (perform
    (op announce-output) (const ";;; EC-Eval value:"))
   ~\( \dots \)~ ~\textrm{; same as before}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Interactions with the evaluator now look like this:
 
-\begin{scheme}
+\begin{codeBlock}
 ~\textit{;;; EC-Eval input:}~
 (define (factorial n)
   (if (= n 1) 1 (* (factorial (- n 1)) n)))
@@ -3495,27 +3491,27 @@ Interactions with the evaluator now look like this:
 ~\textit{(total-pushes = 144 maximum-depth = 28)}~
 ~\textit{;;; EC-Eval value:}~
 ~\textit{120}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Note that the driver loop of the evaluator reinitializes the stack at the start
 of each interaction, so that the statistics printed will refer only to stack
 operations used to evaluate the previous expression.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 5.26}Exercise 5.26:} Use the monitored stack to
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 5.26}Exercise 5.26:} Use the monitored stack to
 explore the tail-recursive property of the evaluator (\link{Section 5.4.2}).
 Start the evaluator and define the iterative \code{factorial} procedure from
 \link{Section 1.2.1}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (factorial n)
   (define (iter product counter)
     (if (> counter n)
         product
         (iter (* counter product) (+ counter 1))))
   (iter 1 1))
-\end{scheme}
+\end{codeBlock}
 
 Run the procedure with some small values of \( n \).  Record the maximum stack
 depth and the number of pushes required to compute \( n! \) for each of these
@@ -3535,33 +3531,20 @@ by two constants.
 
 \end{enumerate}
 
-\heading{\phantomsection\label{Exercise 5.27}Exercise 5.27:} For comparison with \link{Exercise 5.26},
+\exerciseHeading{\phantomsection\label{Exercise 5.27}Exercise 5.27:} For comparison with \link{Exercise 5.26},
 explore the behavior of the following procedure for computing factorials
 recursively:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (factorial n)
   (if (= n 1) 1 (* (factorial (- n 1)) n)))
-\end{scheme}
+\end{codeBlock}
 
 By running this procedure with the monitored stack, determine, as a function of
 \( n \), the maximum depth of the stack and the total number of pushes used in
 evaluating \( n! \) for \( n \ge 1 \).  (Again, these functions will be linear.)
 Summarize your experiments by filling in the following table with the
 appropriate expressions in terms of \( n \):
-\begin{comment}
-
-\begin{example}
-               Maximum depth       Number of pushes
-
-Recursive
-factorial
-
-Iterative
-factorial
-\end{example}
-
-\end{comment}
 
 \[
 \renewcommand{\arraystretch}{1.2}
@@ -3580,22 +3563,22 @@ The maximum depth is a measure of the amount of space used by the evaluator in
 carrying out the computation, and the number of pushes correlates well with the
 time required.
 
-\heading{\phantomsection\label{Exercise 5.28}Exercise 5.28:} Modify the definition of the
+\exerciseHeading{\phantomsection\label{Exercise 5.28}Exercise 5.28:} Modify the definition of the
 evaluator by changing \code{eval\-/sequence} as described in \link{Section 5.4.2}
 so that the evaluator is no longer tail-recursive.  Rerun your experiments from
 \link{Exercise 5.26} and \link{Exercise 5.27} to demonstrate that both versions
 of the \code{factorial} procedure now require space that grows linearly with
 their input.
 
-\heading{\phantomsection\label{Exercise 5.29}Exercise 5.29:} Monitor the stack operations in
+\exerciseHeading{\phantomsection\label{Exercise 5.29}Exercise 5.29:} Monitor the stack operations in
 the tree-recursive Fibonacci computation:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (fib n)
   (if (< n 2)
       n
       (+ (fib (- n 1)) (fib (- n 2)))))
-\end{scheme}
+\end{codeBlock}
 
 \begin{enumerate}[a.]
 
@@ -3617,7 +3600,7 @@ constant \( k \) that is independent of \( n \).  Give the formula, and say what
 
 \end{enumerate}
 
-\heading{\phantomsection\label{Exercise 5.30}Exercise 5.30:} Our evaluator currently catches
+\exerciseHeading{\phantomsection\label{Exercise 5.30}Exercise 5.30:} Our evaluator currently catches
 and signals only two kinds of errors---unknown expression types and unknown
 procedure types.  Other errors will take us out of the evaluator
 read-eval-print loop.  When we run the evaluator using the register-machine
@@ -3657,7 +3640,7 @@ and go to \code{signal\-/error} if necessary.  Build this structure and make it
 work.  This is a major project.
 
 \end{enumerate}
-\end{exercises}
+\end{exerciseGroup}
 
 \section{Compilation}
 \label{Section 5.5}
@@ -3793,11 +3776,11 @@ evaluation is accomplished by the machine operation
 that we implement in this section will take advantage of this fact and generate
 code that evaluates the operator using the instruction
 
-\begin{scheme}
+\begin{codeBlock}
 (assign proc (op lookup-variable-value)
              (const f)
              (reg env))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This code not only avoids the unnecessary saves and restores but also assigns
@@ -3843,7 +3826,7 @@ procedures in our register machine simulation.)}  \code{compile} performs a
 case analysis on the syntactic type of the expression to be compiled.  For each
 type of expression, it dispatches to a specialized \newterm{code generator}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (compile exp target linkage)
   (cond ((self-evaluating? exp)
          (compile-self-evaluating exp target linkage))
@@ -3865,7 +3848,7 @@ type of expression, it dispatches to a specialized \newterm{code generator}:
          (compile-application exp target linkage))
         (else
          (error "Unknown expression type: COMPILE" exp))))
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection*{Targets and linkages}
 
@@ -3898,18 +3881,18 @@ For example, compiling the expression \code{5} (which is self-evaluating) with
 a target of the \code{val} register and a linkage of \code{next} should produce
 the instruction
 
-\begin{scheme}
+\begin{codeBlock}
 (assign val (const 5))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Compiling the same expression with a linkage of \code{return} should produce
 the instructions
 
-\begin{scheme}
+\begin{codeBlock}
 (assign val (const 5))
 (goto (reg continue))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 In the first case, execution will continue with the next instruction in the
@@ -3931,17 +3914,17 @@ instruction sequences that are to be executed sequentially; it appends them and
 returns the combined sequence.  That is, if \( \langle \)\var{seq}\( _1\rangle \) and \( \langle \)\var{seq}\( _2\rangle \) are
 sequences of instructions, then evaluating
 
-\begin{scheme}
-(append-instruction-sequences ~\( \dark \langle \)~~\var{\dark seq}~~\( \dark _{\mono{1}}\rangle \)~ ~\( \dark \langle \)~~\var{\dark seq}~~\( \dark _{\mono{2}}\rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(append-instruction-sequences ~\(\langle \)~~\var{seq}~~\(_{\mono{1}}\rangle \)~ ~\(\langle \)~~\var{seq}~~\(_{\mono{2}}\rangle \)~)
+\end{codeBlock}
 
 \noindent
 produces the sequence
 
-\begin{scheme}
-~\( \dark \langle \)~~\var{\dark seq}~~\( \dark _{\mono{1}}\rangle \)~
-~\( \dark \langle \)~~\var{\dark seq}~~\( \dark _{\mono{2}}\rangle \)~
-\end{scheme}
+\begin{codeBlock}
+~\(\langle \)~~\var{seq}~~\(_{\mono{1}}\rangle \)~
+~\(\langle \)~~\var{seq}~~\(_{\mono{2}}\rangle \)~
+\end{codeBlock}
 
 \noindent
 Whenever registers might need to be saved, the compiler's code generators use
@@ -3957,25 +3940,13 @@ the register around the first sequence before appending the sequences.
 Otherwise, \code{preserving} simply returns the appended instruction sequences.
 Thus, for example,
 
-\begin{scheme}
-(preserving (list ~\( \dark \langle \)~~\var{\dark reg}~~\( \dark _{\mono{1}}\rangle \)~ ~\( \dark \langle \)~~\var{\dark reg}~~\( \dark _{\mono{2}}\rangle \)~) ~\( \dark \langle \)~~\var{\dark seq}~~\( \dark _{\mono{1}}\rangle \)~ ~\( \dark \langle \)~~\var{\dark seq}~~\( \dark _{\mono{2}}\rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(preserving (list ~\(\langle \)~~\var{reg}~~\(_{\mono{1}}\rangle \)~ ~\(\langle \)~~\var{reg}~~\(_{\mono{2}}\rangle \)~) ~\(\langle \)~~\var{seq}~~\(_{\mono{1}}\rangle \)~ ~\(\langle \)~~\var{seq}~~\(_{\mono{2}}\rangle \)~)
+\end{codeBlock}
 
 \noindent
 produces one of the following four sequences of instructions, depending on how
 \( \langle \)\var{seq}\( _1\rangle \) and \( \langle \)\var{seq}\( _2\rangle \) use \( \langle \)\var{reg}\( _1\rangle \) and \( \langle \)\var{reg}\( _2\rangle \):
-\begin{comment}
-
-\begin{smallexample}
-<seq_1> | (save <reg_1>)    | (save <reg_2>)    | (save <reg_2>)
-<seq_2> | <seq_1>           | <seq_1>           | (save <reg_1>)
-        | (restore <reg_1>) | (restore <reg_2>) | <seq_1>
-        | <seq_2>           | <seq_2>           | (restore <reg_1>)
-        |                   |                   | (restore <reg_2>)
-        |                   |                   | <seq_2>
-\end{smallexample}
-
-\end{comment}
 
 \[
 \begin{array}{l|l|l|l}
@@ -4035,11 +4006,11 @@ the actual instructions (also called \newterm{statements}) in the sequence.
 We will represent an instruction sequence as a list of its three parts.  The
 constructor for instruction sequences is thus
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-instruction-sequence
          needs modifies statements)
   (list needs modifies statements))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 For example, the two-instruction sequence that looks up the value of the
@@ -4048,29 +4019,29 @@ and then returns, requires registers \code{env} and \code{continue} to have
 been initialized, and modifies register \code{val}.  This sequence would
 therefore be constructed as
 
-\begin{scheme}
+\begin{codeBlock}
 (make-instruction-sequence
  '(env continue)
  '(val)
  '((assign val
            (op lookup-variable-value) (const x) (reg env))
    (goto (reg continue))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We sometimes need to construct an instruction sequence with no statements:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (empty-instruction-sequence)
   (make-instruction-sequence '() '() '()))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The procedures for combining instruction sequences are shown in
 \link{Section 5.5.4}.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 5.31}Exercise 5.31:} In evaluating a procedure
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 5.31}Exercise 5.31:} In evaluating a procedure
 application, the explicit-control evaluator always saves and restores the
 \code{env} register around the evaluation of the operator, saves and restores
 \code{env} around the evaluation of each operand (except the final one), saves
@@ -4080,14 +4051,14 @@ of the following combinations, say which of these \code{save} and
 \code{restore} operations are superfluous and thus could be eliminated by the
 compiler's \code{preserving} mechanism:
 
-\begin{scheme}
+\begin{codeBlock}
 (f 'x 'y)
 ((f) 'x 'y)
 (f (g 'x) y)
 (f (g 'x) 'y)
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 5.32}Exercise 5.32:} Using the \code{preserving}
+\exerciseHeading{\phantomsection\label{Exercise 5.32}Exercise 5.32:} Using the \code{preserving}
 mechanism, the compiler will avoid saving and restoring \code{env} around the
 evaluation of the operator of a combination in the case where the operator is a
 symbol.  We could also build such optimizations into the evaluator.  Indeed,
@@ -4108,7 +4079,7 @@ that this would eliminate the advantage of compilation altogether.  What do you
 think of this idea?
 
 \end{enumerate}
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Compiling Expressions}
 \label{Section 5.5.2}
@@ -4134,33 +4105,33 @@ a comma is evaluated.
 For example, if the value of \code{linkage} is the symbol \code{branch25},
 then the expression
 
-\begin{smallscheme}
+\begin{compactCodeBlock}
 `((goto (label ,linkage)))
-\end{smallscheme}
+\end{compactCodeBlock}
 
 \noindent
 evaluates to the list
 
-\begin{smallscheme}
+\begin{compactCodeBlock}
 ((goto (label branch25)))
-\end{smallscheme}
+\end{compactCodeBlock}
 
 \noindent
 Similarly, if the value of \code{x} is the list \code{(a b c)}, then
 
-\begin{smallscheme}
+\begin{compactCodeBlock}
 `(1 2 ,(car x))
-\end{smallscheme}
+\end{compactCodeBlock}
 
 \noindent
 evaluates to the list
 
-\begin{smallscheme}
+\begin{compactCodeBlock}
 (1 2 a).
-\end{smallscheme}
+\end{compactCodeBlock}
 }
 
-\begin{scheme}
+\begin{codeBlock}
 (define (compile-linkage linkage)
   (cond ((eq? linkage 'return)
          (make-instruction-sequence '(continue) '()
@@ -4170,7 +4141,7 @@ evaluates to the list
         (else
          (make-instruction-sequence '() '()
           `((goto (label ,linkage)))))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The linkage code is appended to an instruction sequence by \code{preserving}
@@ -4179,12 +4150,12 @@ the \code{continue} register, since a \code{return} linkage will require the
 \code{continue} and the linkage code needs it, \code{continue} will be saved
 and restored.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (end-with-linkage linkage instruction-sequence)
   (preserving '(continue)
    instruction-sequence
    (compile-linkage linkage)))
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection*{Compiling simple expressions}
 
@@ -4192,7 +4163,7 @@ The code generators for self-evaluating expressions, quotations, and variables
 construct instruction sequences that assign the required value to the target
 register and then proceed as specified by the linkage descriptor.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (compile-self-evaluating exp target linkage)
   (end-with-linkage linkage
    (make-instruction-sequence '() (list target)
@@ -4208,7 +4179,7 @@ register and then proceed as specified by the linkage descriptor.
               (op lookup-variable-value)
               (const ,exp)
               (reg env))))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 All these assignment instructions modify the target register, and the one that
@@ -4226,7 +4197,7 @@ defining the variable and the code for the variable value could be the
 compilation of a complex expression that might modify the registers in
 arbitrary ways.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (compile-assignment exp target linkage)
   (let ((var (assignment-variable exp))
         (get-value-code
@@ -4253,9 +4224,7 @@ arbitrary ways.
                   (reg val)
                   (reg env))
          (assign ,target (const ok))))))))
-\end{scheme}
-
-\enlargethispage{\baselineskip}
+\end{codeBlock}
 
 \noindent
 The appended two-instruction sequence requires \code{env} and \code{val} and
@@ -4271,17 +4240,17 @@ would cause the previous contents of \code{val} to be restored right after the
 The code for an \code{if} expression compiled with a given target and linkage
 has the form
 
-\begin{scheme}
-~\( \dark \langle \)~~\emph{compilation of predicate, target \emph{val}, linkage \emph{next}}~~\( \dark \rangle \)~
+\begin{codeBlock}
+~\(\langle \)~~\emph{compilation of predicate, target \emph{val}, linkage \emph{next}}~~\(\rangle \)~
  (test (op false?) (reg val))
  (branch (label false-branch))
 true-branch
- ~\( \dark \langle \)~~\emph{compilation of consequent with given target}~
-  ~\emph{and given linkage or \emph{after-if}}~~\( \dark \rangle \)~
+ ~\(\langle \)~~\emph{compilation of consequent with given target}~
+  ~\emph{and given linkage or \emph{after-if}}~~\(\rangle \)~
 false-branch
- ~\( \dark \langle \)~~\emph{compilation of alternative with given target and linkage}~~\( \dark \rangle \)~
+ ~\(\langle \)~~\emph{compilation of alternative with given target and linkage}~~\(\rangle \)~
 after-if
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 To generate this code, we compile the predicate, consequent, and alternative,
@@ -4296,7 +4265,7 @@ example, successive calls to \code{(make\-/label 'a)} would return \code{a1},
 \code{a2}, and so on.  \code{make\-/label} can be implemented similarly to the
 generation of unique variable names in the query language, as follows:
 
-\begin{smallscheme}
+\begin{compactCodeBlock}
 (define label-counter 0)
 (define (new-label-number)
   (set! label-counter (+ 1 label-counter))
@@ -4305,7 +4274,7 @@ generation of unique variable names in the query language, as follows:
   (string->symbol
     (string-append (symbol->string name)
                    (number->string (new-label-number)))))
-\end{smallscheme}
+\end{compactCodeBlock}
 } In this arrangement of code, we must branch around the true branch if the
 test is false.  The only slight complication is in how the linkage for the true
 branch should be handled.  If the linkage for the conditional is \code{return}
@@ -4313,7 +4282,7 @@ or a label, then the true and false branches will both use this same linkage.
 If the linkage is \code{next}, the true branch ends with a jump around the code
 for the false branch to the label at the end of the conditional.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (compile-if exp target linkage)
   (let ((t-branch (make-label 'true-branch))
         (f-branch (make-label 'false-branch))
@@ -4337,7 +4306,7 @@ for the false branch to the label at the end of the conditional.
            (append-instruction-sequences t-branch c-code)
            (append-instruction-sequences f-branch a-code))
           after-if))))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{env} is preserved around the predicate code because it could be needed by
@@ -4362,7 +4331,7 @@ appended to form a single instruction sequence, such that \code{env} (needed
 for the rest of the sequence) and \code{continue} (possibly needed for the
 linkage at the end of the sequence) are preserved.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (compile-sequence seq target linkage)
   (if (last-exp? seq)
       (compile (first-exp seq) target linkage)
@@ -4370,17 +4339,17 @@ linkage at the end of the sequence) are preserved.
        '(env continue)
        (compile (first-exp seq) target 'next)
        (compile-sequence (rest-exps seq) target linkage))))
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection*{Compiling \code{lambda} expressions}
 
 \code{lambda} expressions construct procedures.  The object code for a
 \code{lambda} expression must have the form
 
-\begin{scheme}
-~\( \dark \langle \)~~\emph{construct procedure object and assign it to target register}~~\( \dark \rangle \)~
-~\( \dark \langle \)~~\var{\dark linkage}~~\( \dark \rangle \)~
-\end{scheme}
+\begin{codeBlock}
+~\(\langle \)~~\emph{construct procedure object and assign it to target register}~~\(\rangle \)~
+~\(\langle \)~~\var{linkage}~~\(\rangle \)~
+\end{codeBlock}
 
 \noindent
 When we compile the \code{lambda} expression, we also generate the code for the
@@ -4392,12 +4361,12 @@ expression is a label or \code{return}, this is fine.  But if the linkage is
 using a linkage that jumps to a label that is inserted after the body.  The
 object code thus has the form
 
-\begin{scheme}
-~\( \dark \langle \)~~\emph{construct procedure object and assign it to target register}~~\( \dark \rangle \)~
- ~\( \dark \langle \)~~\emph{code for given linkage}~~\( \dark \rangle \)~ ~\emph{or}~ ~\code{(goto (label after\-/lambda))}~
- ~\( \dark \langle \)~~\emph{compilation of procedure body}~~\( \dark \rangle \)~
+\begin{codeBlock}
+~\(\langle \)~~\emph{construct procedure object and assign it to target register}~~\(\rangle \)~
+ ~\(\langle \)~~\emph{code for given linkage}~~\(\rangle \)~ ~\emph{or}~ ~\code{(goto (label after\-/lambda))}~
+ ~\(\langle \)~~\emph{compilation of procedure body}~~\(\rangle \)~
 after-lambda
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{compile\-/lambda} generates the code for constructing the procedure object
@@ -4409,17 +4378,17 @@ machine operations to implement a data structure for representing compiled
 procedures, analogous to the structure for compound procedures described in
 \link{Section 4.1.3}:
 
-\begin{smallscheme}
+\begin{compactCodeBlock}
 (define (make-compiled-procedure entry env)
   (list 'compiled-procedure entry env))
 (define (compiled-procedure? proc)
   (tagged-list? proc 'compiled-procedure))
 (define (compiled-procedure-entry c-proc) (cadr c-proc))
 (define (compiled-procedure-env c-proc) (caddr c-proc))
-\end{smallscheme}
+\end{compactCodeBlock}
 }
 
-\begin{scheme}
+\begin{codeBlock}
 (define (compile-lambda exp target linkage)
   (let ((proc-entry (make-label 'entry))
         (after-lambda (make-label 'after-lambda)))
@@ -4435,9 +4404,7 @@ procedures, analogous to the structure for compound procedures described in
                     (reg env)))))
         (compile-lambda-body exp proc-entry))
        after-lambda))))
-\end{scheme}
-
-\enlargethispage{\baselineskip}
+\end{codeBlock}
 
 \noindent
 \code{compile\-/lambda} uses the special combiner
@@ -4459,7 +4426,7 @@ body.  The sequence is compiled with linkage \code{return} and target
 \code{val} so that it will end by returning from the procedure with the
 procedure result in \code{val}.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (compile-lambda-body exp proc-entry)
   (let ((formals (lambda-parameters exp)))
     (append-instruction-sequences
@@ -4474,7 +4441,7 @@ procedure result in \code{val}.
                 (reg argl)
                 (reg env))))
      (compile-sequence (lambda-body exp) 'val 'return))))
-\end{scheme}
+\end{codeBlock}
 
 \subsection{Compiling Combinations}
 \label{Section 5.5.3}
@@ -4483,11 +4450,11 @@ The essence of the compilation process is the compilation of procedure
 applications.  The code for a combination compiled with a given target and
 linkage has the form
 
-\begin{scheme}
-~\( \dark \langle \)~~\emph{compilation of operator, target \emph{proc}, linkage \emph{next}}~~\( \dark \rangle \)~
-~\( \dark \langle \)~~\emph{evaluate operands and construct argument list in \emph{argl}}~~\( \dark \rangle \)~
-~\( \dark \langle \)~~\emph{compilation of procedure call with given target and linkage}~~\( \dark \rangle \)~
-\end{scheme}
+\begin{codeBlock}
+~\(\langle \)~~\emph{compilation of operator, target \emph{proc}, linkage \emph{next}}~~\(\rangle \)~
+~\(\langle \)~~\emph{evaluate operands and construct argument list in \emph{argl}}~~\(\rangle \)~
+~\(\langle \)~~\emph{compilation of procedure call with given target and linkage}~~\(\rangle \)~
+\end{codeBlock}
 
 \noindent
 The registers \code{env}, \code{proc}, and \code{argl} may have to be saved and
@@ -4510,7 +4477,7 @@ modify \code{proc}, which will be needed for the actual procedure application).
 \code{continue} must also be preserved throughout, since it is needed for the
 linkage in the procedure call.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (compile-application exp target linkage)
   (let ((proc-code (compile (operator exp) 'proc 'next))
         (operand-codes
@@ -4522,7 +4489,7 @@ linkage in the procedure call.
      (preserving '(proc continue)
       (construct-arglist operand-codes)
       (compile-procedure-call target linkage)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The code to construct the argument list will evaluate each operand into
@@ -4535,15 +4502,15 @@ to the empty list to set up for this sequence of evaluations, we make the first
 code sequence construct the initial \code{argl}.  The general form of the
 argument-list construction is thus as follows:
 
-\begin{scheme}
-~\( \dark \langle \)~~\emph{compilation of last operand, targeted to \emph{val}}~~\( \dark \rangle \)~
+\begin{codeBlock}
+~\(\langle \)~~\emph{compilation of last operand, targeted to \emph{val}}~~\(\rangle \)~
 (assign argl (op list) (reg val))
-~\( \dark \langle \)~~\emph{compilation of next operand, targeted to \emph{val}}~~\( \dark \rangle \)~
+~\(\langle \)~~\emph{compilation of next operand, targeted to \emph{val}}~~\(\rangle \)~
 (assign argl (op cons) (reg val) (reg argl))
 ~\( \dots \)~
-~\( \dark \langle \)~~\emph{compilation of first operand, targeted to \emph{val}}~~\( \dark \rangle \)~
+~\(\langle \)~~\emph{compilation of first operand, targeted to \emph{val}}~~\(\rangle \)~
 (assign argl (op cons) (reg val) (reg argl))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{argl} must be preserved around each operand evaluation except the first
@@ -4557,9 +4524,9 @@ of the first operand to be evaluated and the need to preserve \code{argl} and
 as arguments the code that evaluates the individual operands.  If there are no
 operands at all, it simply emits the instruction
 
-\begin{scheme}
+\begin{codeBlock}
 (assign argl (const ()))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Otherwise, \code{construct\-/arglist} creates code that initializes \code{argl}
@@ -4568,7 +4535,7 @@ arguments and adjoins them to \code{argl} in succession.  In order to process
 the arguments from last to first, we must reverse the list of operand code
 sequences from the order supplied by \code{compile\-/application}.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (construct-arglist operand-codes)
   (let ((operand-codes (reverse operand-codes)))
     (if (null? operand-codes)
@@ -4598,7 +4565,7 @@ sequences from the order supplied by \code{compile\-/application}.
         (preserving '(env)
          code-for-next-arg
          (code-to-get-rest-args (cdr operand-codes))))))
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection*{Applying procedures}
 
@@ -4612,20 +4579,20 @@ compiled procedure.  For a primitive procedure, it uses
 \code{apply\-/primitive\-/procedure}; we will see shortly how it handles compiled
 procedures.  The procedure-application code has the following form:
 
-\begin{scheme}
+\begin{codeBlock}
 (test (op primitive-procedure?) (reg proc))
  (branch (label primitive-branch))
 compiled-branch
- ~\( \dark \langle \)~~\emph{code to apply compiled procedure with given target}~
-  ~\emph{and appropriate linkage}~~\( \dark \rangle \)~
+ ~\(\langle \)~~\emph{code to apply compiled procedure with given target}~
+  ~\emph{and appropriate linkage}~~\(\rangle \)~
 primitive-branch
- (assign ~\( \dark \langle \)~~\var{\dark target}~~\( \dark \rangle \)~
+ (assign ~\(\langle \)~~\var{target}~~\(\rangle \)~
          (op apply-primitive-procedure)
          (reg proc)
          (reg argl))
- ~\( \dark \langle \)~~\var{\dark linkage}~~\( \dark \rangle \)~
+ ~\(\langle \)~~\var{linkage}~~\(\rangle \)~
 after-call
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Observe that the compiled branch must skip around the primitive branch.
@@ -4634,7 +4601,7 @@ compound branch must use a linkage that jumps to a label that is inserted after
 the primitive branch.  (This is similar to the linkage used for the true branch
 in \code{compile\-/if}.)
 
-\begin{scheme}
+\begin{codeBlock}
 (define (compile-procedure-call target linkage)
   (let ((primitive-branch (make-label 'primitive-branch))
         (compiled-branch (make-label 'compiled-branch))
@@ -4660,7 +4627,7 @@ in \code{compile\-/if}.)
                      (reg proc)
                      (reg argl)))))))
        after-call))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The primitive and compound branches, like the true and false branches in
@@ -4680,28 +4647,28 @@ might expect the code for a compiled-procedure application (to be generated by
 \code{compile\-/proc\-/appl}) with a given target and linkage to look like this if
 the linkage is a label
 
-\begin{scheme}
+\begin{codeBlock}
 (assign continue (label proc-return))
  (assign val (op compiled-procedure-entry) (reg proc))
  (goto (reg val))
 proc-return
- (assign ~\( \dark \langle \)~~\var{\dark target}~~\( \dark \rangle \)~ (reg val))   ~\textrm{; included if target is not \code{val}}~
- (goto (label ~\( \dark \langle \)~~\var{\dark linkage}~~\( \dark \rangle \)~))      ~\textrm{; linkage code}~
-\end{scheme}
+ (assign ~\(\langle \)~~\var{target}~~\(\rangle \)~ (reg val))   ~\textrm{; included if target is not \code{val}}~
+ (goto (label ~\(\langle \)~~\var{linkage}~~\(\rangle \)~))      ~\textrm{; linkage code}~
+\end{codeBlock}
 
 \noindent
 or like this if the linkage is \code{return}.
 
-\begin{scheme}
+\begin{codeBlock}
 (save continue)
  (assign continue (label proc-return))
  (assign val (op compiled-procedure-entry) (reg proc))
  (goto (reg val))
 proc-return
- (assign ~\( \dark \langle \)~~\var{\dark target}~~\( \dark \rangle \)~ (reg val))   ~\textrm{; included if target is not \code{val}}~
+ (assign ~\(\langle \)~~\var{target}~~\(\rangle \)~ (reg val))   ~\textrm{; included if target is not \code{val}}~
  (restore continue)
  (goto (reg continue))         ~\textrm{; linkage code}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This code sets up \code{continue} so that the procedure will return to a label
@@ -4724,11 +4691,11 @@ to a special location that copies it.  Instead, we simplify the code by setting
 up \code{continue} so that the procedure will ``return'' directly to the place
 specified by the caller's linkage:
 
-\begin{scheme}
-~\( \dark \langle \)~~\emph{set up \emph{continue} for linkage}~~\( \dark \rangle \)~
+\begin{codeBlock}
+~\(\langle \)~~\emph{set up \emph{continue} for linkage}~~\(\rangle \)~
 (assign val (op compiled-procedure-entry) (reg proc))
 (goto (reg val))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 If the linkage is a label, we set up \code{continue} so that the procedure will
@@ -4736,11 +4703,11 @@ return to that label.  (That is, the \code{(goto (reg continue))} the procedure
 ends with becomes equivalent to the \code{(goto (label \( \langle \)\var{linkage}\( \rangle \)))} at
 \code{proc\-/return} above.)
 
-\begin{scheme}
-(assign continue (label ~\( \dark \langle \)~~\var{\dark linkage}~~\( \dark \rangle \)~))
+\begin{codeBlock}
+(assign continue (label ~\(\langle \)~~\var{linkage}~~\(\rangle \)~))
 (assign val (op compiled-procedure-entry) (reg proc))
 (goto (reg val))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 If the linkage is \code{return}, we don't need to set up \code{continue} at
@@ -4748,10 +4715,10 @@ all: It already holds the desired location.  (That is, the \code{(goto (reg
 continue))} the procedure ends with goes directly to the place where the
 \code{(goto (reg continue))} at \code{proc\-/return} would have gone.)
 
-\begin{scheme}
+\begin{codeBlock}
 (assign val (op compiled-procedure-entry) (reg proc))
 (goto (reg val))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 With this implementation of the \code{return} linkage, the compiler generates
@@ -4788,16 +4755,16 @@ instruction sequences are declared to modify all the registers, since executing
 the procedure body can change the registers in arbitrary ways.\footnote{The
 variable \code{all\-/regs} is bound to the list of names of all the registers:
 
-\begin{smallscheme}
+\begin{compactCodeBlock}
 (define all-regs '(env proc val argl continue))
-\end{smallscheme}
+\end{compactCodeBlock}
 } Also note that the code sequence for the case with target \code{val} and
 linkage \code{return} is declared to need \code{continue}: Even though
 \code{continue} is not explicitly used in the two-instruction sequence, we must
 be sure that \code{continue} will have the correct value when we enter the
 compiled procedure.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (compile-proc-appl target linkage)
   (cond ((and (eq? target 'val) (not (eq? linkage 'return)))
          (make-instruction-sequence '(proc) all-regs
@@ -4827,7 +4794,7 @@ compiled procedure.
               (eq? linkage 'return))
          (error "return linkage, target not val: COMPILE"
                 target))))
-\end{scheme}
+\end{codeBlock}
 
 \subsection{Combining Instruction Sequences}
 \label{Section 5.5.4}
@@ -4840,25 +4807,25 @@ case of an instruction sequence, which doesn't need or modify any registers.
 So to determine the registers needed and modified by instruction sequences we
 use the selectors
 
-\begin{scheme}
+\begin{codeBlock}
 (define (registers-needed s)
   (if (symbol? s) '() (car s)))
 (define (registers-modified s)
   (if (symbol? s) '() (cadr s)))
 (define (statements s)
   (if (symbol? s) (list s) (caddr s)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 and to determine whether a given
 sequence needs or modifies a given register we use the predicates
 
-\begin{scheme}
+\begin{codeBlock}
 (define (needs-register? seq reg)
   (memq reg (registers-needed seq)))
 (define (modifies-register? seq reg)
   (memq reg (registers-modified seq)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 In terms of these predicates and selectors, we can implement the various
@@ -4887,7 +4854,7 @@ set of registers needed by \code{seq1} with the set difference of the registers
 needed by \code{seq2} and the registers modified by \code{seq1}.)  Thus,
 \code{append\-/instruction\-/sequences} is implemented as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (append-instruction-sequences . seqs)
   (define (append-2-sequences seq1 seq2)
     (make-instruction-sequence
@@ -4905,14 +4872,14 @@ needed by \code{seq2} and the registers modified by \code{seq1}.)  Thus,
          (car seqs)
          (append-seq-list (cdr seqs)))))
   (append-seq-list seqs))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This procedure uses some simple operations for manipulating sets represented as
 lists, similar to the (unordered) set representation described in
 \link{Section 2.3.3}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (list-union s1 s2)
   (cond ((null? s1) s2)
         ((memq (car s1) s2) (list-union (cdr s1) s2))
@@ -4922,7 +4889,7 @@ lists, similar to the (unordered) set representation described in
         ((memq (car s1) s2) (list-difference (cdr s1) s2))
         (else (cons (car s1)
                     (list-difference (cdr s1) s2)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{preserving}, the second major instruction sequence combiner, takes a list
@@ -4944,7 +4911,7 @@ of registers to be preserved:\footnote{Note that \code{preserving} calls
 shown in this book accepts only two arguments, Scheme standardly provides an
 \code{append} procedure that takes an arbitrary number of arguments.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (preserving regs seq1 seq2)
   (if (null? regs)
       (append-instruction-sequences seq1 seq2)
@@ -4962,7 +4929,7 @@ shown in this book accepts only two arguments, Scheme standardly provides an
                       `((restore ,first-reg))))
              seq2)
             (preserving (cdr regs) seq1 seq2)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Another sequence combiner, \code{tack\-/on\-/instruction\-/sequence}, is used by
@@ -4972,14 +4939,14 @@ sequence, its register use has no impact on the register use of the sequence in
 which it is embedded.  We thus ignore the procedure body's sets of needed and
 modified registers when we tack it onto the other sequence.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (tack-on-instruction-sequence seq body-seq)
   (make-instruction-sequence
    (registers-needed seq)
    (registers-modified seq)
    (append (statements seq)
            (statements body-seq))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{compile\-/if} and \code{compile\-/procedure\-/call} use a special combiner
@@ -4990,7 +4957,7 @@ other will be entered.  Because of this, the registers needed by the second
 branch are still needed by the combined sequence, even if these are modified by
 the first branch.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (parallel-instruction-sequences seq1 seq2)
   (make-instruction-sequence
    (list-union (registers-needed seq1)
@@ -4999,7 +4966,7 @@ the first branch.
                (registers-modified seq2))
    (append (statements seq1)
            (statements seq2))))
-\end{scheme}
+\end{codeBlock}
 
 \subsection{An Example of Compiled Code}
 \label{Section 5.5.5}
@@ -5008,7 +4975,7 @@ Now that we have seen all the elements of the compiler, let us examine an
 example of compiled code to see how things fit together.  We will compile the
 definition of a recursive \code{factorial} procedure by calling \code{compile}:
 
-\begin{scheme}
+\begin{codeBlock}
 (compile
  '(define (factorial n)
     (if (= n 1)
@@ -5016,7 +4983,7 @@ definition of a recursive \code{factorial} procedure by calling \code{compile}:
         (* (factorial (- n 1)) n)))
  'val
  'next)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We have specified that the value of the \code{define} expression should be
@@ -5033,16 +5000,16 @@ preserved around the computation of the value, because it is needed in order to
 install the definition.  Because the linkage is \code{next}, there is no
 linkage code in this case.  The skeleton of the compiled code is thus
 
-\begin{scheme}
-~\( \dark \langle \)~~\emph{save \emph{env} if modified by code to compute value}~~\( \dark \rangle \)~
-  ~\( \dark \langle \)~~\emph{compilation of definition value, target \emph{val}, linkage \emph{next}}~~\( \dark \rangle \)~
-  ~\( \dark \langle \)~~\emph{restore \emph{env} if saved above}~~\( \dark \rangle \)~
+\begin{codeBlock}
+~\(\langle \)~~\emph{save \emph{env} if modified by code to compute value}~~\(\rangle \)~
+  ~\(\langle \)~~\emph{compilation of definition value, target \emph{val}, linkage \emph{next}}~~\(\rangle \)~
+  ~\(\langle \)~~\emph{restore \emph{env} if saved above}~~\(\rangle \)~
   (perform (op define-variable!)
            (const factorial)
            (reg val)
            (reg env))
   (assign val (const ok))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The expression that is to be compiled to produce the value for the variable
@@ -5061,7 +5028,7 @@ generated.  (The procedure code at \code{entry2} isn't executed at this point,
 so its use of \code{env} is irrelevant.)  Therefore, the skeleton for the
 compiled code becomes
 
-\begin{scheme}
+\begin{codeBlock}
   (assign val
           (op make-compiled-procedure)
           (label entry2)
@@ -5074,25 +5041,25 @@ entry2
           (const (n))
           (reg argl)
           (reg env))
-  ~\( \dark \langle \)~~\emph{compilation of procedure body}~~\( \dark \rangle \)~
+  ~\(\langle \)~~\emph{compilation of procedure body}~~\(\rangle \)~
 after-lambda1
   (perform (op define-variable!)
            (const factorial)
            (reg val)
            (reg env))
   (assign val (const ok))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 A procedure body is always compiled (by \code{compile\-/lambda\-/body}) as a
 sequence with target \code{val} and linkage \code{return}.  The sequence in
 this case consists of a single \code{if} expression:
 
-\begin{scheme}
+\begin{codeBlock}
 (if (= n 1)
     1
     (* (factorial (- n 1)) n))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{compile\-/if} generates code that first computes the predicate (targeted to
@@ -5106,18 +5073,18 @@ both compiled with target \code{val} and linkage \code{return}.  (That is, the
 value of the conditional, which is the value computed by either of its
 branches, is the value of the procedure.)
 
-\begin{scheme}
-~\( \dark \langle \)~~\emph{save \emph{continue}, \emph{env} if modified by predicate and needed by branches}~~\( \dark \rangle \)~
-  ~\( \dark \langle \)~~\emph{compilation of predicate, target \emph{val}, linkage \emph{next}}~~\( \dark \rangle \)~
-  ~\( \dark \langle \)~~\emph{restore \emph{continue}, \emph{env} if saved above}~~\( \dark \rangle \)~
+\begin{codeBlock}
+~\(\langle \)~~\emph{save \emph{continue}, \emph{env} if modified by predicate and needed by branches}~~\(\rangle \)~
+  ~\(\langle \)~~\emph{compilation of predicate, target \emph{val}, linkage \emph{next}}~~\(\rangle \)~
+  ~\(\langle \)~~\emph{restore \emph{continue}, \emph{env} if saved above}~~\(\rangle \)~
   (test (op false?) (reg val))
   (branch (label false-branch4))
 true-branch5
-  ~\( \dark \langle \)~~\emph{compilation of true branch, target \emph{val}, linkage \emph{return}}~~\( \dark \rangle \)~
+  ~\(\langle \)~~\emph{compilation of true branch, target \emph{val}, linkage \emph{return}}~~\(\rangle \)~
 false-branch4
-  ~\( \dark \langle \)~~\emph{compilation of false branch, target \emph{val}, linkage \emph{return}}~~\( \dark \rangle \)~
+  ~\(\langle \)~~\emph{compilation of false branch, target \emph{val}, linkage \emph{return}}~~\(\rangle \)~
 after-if3
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The predicate \code{(= n 1)} is a procedure call.  This looks up the operator
@@ -5130,7 +5097,7 @@ registers around the evaluation of the operator and operands don't result in
 any saving of registers, because in this case those evaluations don't modify
 the registers in question.
 
-\begin{scheme}
+\begin{codeBlock}
   (assign proc
           (op lookup-variable-value) (const =) (reg env))
   (assign val (const 1))
@@ -5150,16 +5117,16 @@ primitive-branch17
           (reg proc)
           (reg argl))
 after-call15
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The true branch, which is the constant 1, compiles (with target \code{val} and
 linkage \code{return}) to
 
-\begin{scheme}
+\begin{codeBlock}
 (assign val (const 1))
 (goto (reg continue))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The code for the false branch is another procedure call, where the procedure
@@ -5173,25 +5140,25 @@ above, are in fact generated, because these registers are modified by the
 procedure call in the predicate and needed for the procedure call and the
 \code{return} linkage in the branches.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 5.33}Exercise 5.33:} Consider the following definition
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 5.33}Exercise 5.33:} Consider the following definition
 of a factorial procedure, which is slightly different from the one given above:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (factorial-alt n)
   (if (= n 1)
       1
       (* n (factorial-alt (- n 1)))))
-\end{scheme}
+\end{codeBlock}
 
 Compile this procedure and compare the resulting code with that produced for
 \code{factorial}.  Explain any differences you find.  Does either program
 execute more efficiently than the other?
 
-\heading{\phantomsection\label{Exercise 5.34}Exercise 5.34:} Compile the iterative factorial
+\exerciseHeading{\phantomsection\label{Exercise 5.34}Exercise 5.34:} Compile the iterative factorial
 procedure
 
-\begin{scheme}
+\begin{codeBlock}
 (define (factorial n)
   (define (iter product counter)
     (if (> counter n)
@@ -5199,7 +5166,7 @@ procedure
         (iter (* counter product)
               (+ counter 1))))
   (iter 1 1))
-\end{scheme}
+\end{codeBlock}
 
 Annotate the resulting code, showing the essential difference between the code
 for iterative and recursive versions of \code{factorial} that makes one process
@@ -5208,7 +5175,7 @@ build up stack space and the other run in constant stack space.
 % figure 5.17
 \begin{codeFigure}
   {Compilation of the definition of the \code{factorial} procedure.}
-\begin{smallscheme}
+\begin{compactCodeBlock}
 ~\textrm{;; construct the procedure and skip over code for the procedure body}~
   (assign val
           (op make-compiled-procedure)
@@ -5341,15 +5308,15 @@ after-lambda1
            (reg val)
            (reg env))
   (assign val (const ok))
-\end{smallscheme}
+\end{compactCodeBlock}
 \end{codeFigure}
 
-\heading{\phantomsection\label{Exercise 5.35}Exercise 5.35:} What expression was compiled to
+\exerciseHeading{\phantomsection\label{Exercise 5.35}Exercise 5.35:} What expression was compiled to
 produce the code shown in \link{Figure 5.18}?
 
 % figure 5.18
 \begin{codeFigure}{An example of compiler output. See \link{Exercise 5.35}.}
-\begin{smallscheme}
+\begin{compactCodeBlock}
 (assign val
         (op make-compiled-procedure)
         (label entry16)
@@ -5440,10 +5407,10 @@ after-lambda15
            (reg val)
            (reg env))
   (assign val (const ok))
-\end{smallscheme}
+\end{compactCodeBlock}
 \end{codeFigure}
 
-\heading{\phantomsection\label{Exercise 5.36}Exercise 5.36:} What order of evaluation does our
+\exerciseHeading{\phantomsection\label{Exercise 5.36}Exercise 5.36:} What order of evaluation does our
 compiler produce for operands of a combination?  Is it left-to-right,
 right-to-left, or some other order?  Where in the compiler is this order
 determined?  Modify the compiler so that it produces some other order of
@@ -5452,7 +5419,7 @@ explicit-control evaluator in \link{Section 5.4.1}.)  How does changing the
 order of operand evaluation affect the efficiency of the code that constructs
 the argument list?
 
-\heading{\phantomsection\label{Exercise 5.37}Exercise 5.37:} One way to understand the
+\exerciseHeading{\phantomsection\label{Exercise 5.37}Exercise 5.37:} One way to understand the
 compiler's \code{preserving} mechanism for optimizing stack usage is to see
 what extra operations would be generated if we did not use this idea.  Modify
 \code{preserving} so that it always generates the \code{save} and
@@ -5460,7 +5427,7 @@ what extra operations would be generated if we did not use this idea.  Modify
 unnecessary stack operations that are generated.  Compare the code to that
 generated with the \code{preserving} mechanism intact.
 
-\heading{\phantomsection\label{Exercise 5.38}Exercise 5.38:} Our compiler is clever about
+\exerciseHeading{\phantomsection\label{Exercise 5.38}Exercise 5.38:} Our compiler is clever about
 avoiding unnecessary stack operations, but it is not clever at all when it
 comes to compiling calls to the primitive procedures of the language in terms
 of the primitive operations supplied by the machine.  For example, consider how
@@ -5480,11 +5447,11 @@ compiled into something as simple as\footnote{We have used the same symbol
 operation.  In general there will not be a one-to-one correspondence between
 primitives of the source language and primitives of the machine.}
 
-\begin{scheme}
+\begin{codeBlock}
 (assign
  val (op lookup-variable-value) (const a) (reg env))
 (assign val (op +) (reg val) (const 1))
-\end{scheme}
+\end{codeBlock}
 
 In this exercise we will extend our compiler to support open coding of selected
 primitives.  Special-purpose code will be generated for calls to these
@@ -5535,7 +5502,7 @@ two operands will have to be compiled into a sequence of operations, each with
 only two inputs.
 
 \end{enumerate}
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Lexical Addressing}
 \label{Section 5.5.6}
@@ -5550,20 +5517,18 @@ if there are many variables.  For example, consider the problem of looking up
 the value of \code{x} while evaluating the expression \code{(* x y z)} in an
 application of the procedure that is returned by
 
-\enlargethispage{\baselineskip}
-
-\begin{scheme}
+\begin{codeBlock}
 (let ((x 3) (y 4))
   (lambda (a b c d e)
     (let ((y (* a b x)) (z (+ c d x)))
       (* x y z))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Since a \code{let} expression is just syntactic sugar for a \code{lambda}
 combination, this expression is equivalent to
 
-\begin{scheme}
+\begin{codeBlock}
 ((lambda (x y)
    (lambda (a b c d e)
      ((lambda (y z) (* x y z))
@@ -5571,7 +5536,7 @@ combination, this expression is equivalent to
       (+ c d x))))
  3
  4)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Each time \code{lookup\-/variable\-/value} searches for \code{x}, it must determine
@@ -5610,15 +5575,15 @@ that point \code{y} is at address (0, 0) and \code{c} is at address (1, 2).  In
 expression \( \langle \)\var{e2}\( \kern0.09em\rangle \), \code{x} is at (1, 0), \code{y} is at (1, 1), and \code{c}
 is at (0, 2).
 
-\begin{scheme}
+\begin{codeBlock}
 ((lambda (x y)
    (lambda (a b c d e)
-     ((lambda (y z) ~\( \dark \langle \)~~\var{\dark e1}~~\( \dark \rangle \)~)
-      ~\( \dark \langle \)~~\var{\dark e2}~~\( \dark \rangle \)~
+     ((lambda (y z) ~\(\langle \)~~\var{e1}~~\(\rangle \)~)
+      ~\(\langle \)~~\var{e2}~~\(\rangle \)~
       (+ c d x))))
  3
  4)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 One way for the compiler to produce code that uses lexical addressing is to
@@ -5642,8 +5607,8 @@ sketch of the lexical-addressing strategy in order to incorporate lexical
 lookup into the compiler.  \link{Exercise 5.44} describes another use for the
 compile-time environment.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 5.39}Exercise 5.39:} Write a procedure
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 5.39}Exercise 5.39:} Write a procedure
 \code{lexical\-/address\-/lookup} that implements the new lookup operation.  It
 should take two arguments---a lexical address and a run-time environment---and
 return the value of the variable stored at the specified lexical address.
@@ -5655,28 +5620,28 @@ definitions in order for lexical addressing to work.} Also write a procedure
 \code{lexical\-/address\-/set!} that implements the operation that changes the
 value of the variable at a specified lexical address.
 
-\heading{\phantomsection\label{Exercise 5.40}Exercise 5.40:} Modify the compiler to maintain
+\exerciseHeading{\phantomsection\label{Exercise 5.40}Exercise 5.40:} Modify the compiler to maintain
 the compile-time environment as described above.  That is, add a
 compile-time-environment argument to \code{compile} and the various code
 generators, and extend it in \code{compile\-/lambda\-/body}.
 
-\heading{\phantomsection\label{Exercise 5.41}Exercise 5.41:} Write a procedure
+\exerciseHeading{\phantomsection\label{Exercise 5.41}Exercise 5.41:} Write a procedure
 \code{find\-/variable} that takes as arguments a variable and a compile-time
 environment and returns the lexical address of the variable with respect to
 that environment.  For example, in the program fragment that is shown above,
 the compile-time environment during the compilation of expression \( \langle \)\var{e1}\( \kern0.08em\rangle \) is
 \code{((y z) (a b c d e) (x y))}.  \code{find\-/variable} should produce
 
-\begin{scheme}
+\begin{codeBlock}
 (find-variable 'c '((y z) (a b c d e) (x y)))
 ~\textit{(1 2)}~
 (find-variable 'x '((y z) (a b c d e) (x y)))
 ~\textit{(2 0)}~
 (find-variable 'w '((y z) (a b c d e) (x y)))
 ~\textit{not-found}~
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 5.42}Exercise 5.42:} Using \code{find\-/variable} from
+\exerciseHeading{\phantomsection\label{Exercise 5.42}Exercise 5.42:} Using \code{find\-/variable} from
 \link{Exercise 5.41}, rewrite \code{compile\-/variable} and
 \code{compile\-/assignment} to output lexical-address instructions.  In cases
 where \code{find\-/variable} returns \code{not\-/found} (that is, where the
@@ -5697,7 +5662,7 @@ run-time environment found in \code{env}.)  Test the modified compiler on a few
 simple cases, such as the nested \code{lambda} combination at the beginning of
 this section.
 
-\heading{\phantomsection\label{Exercise 5.43}Exercise 5.43:} We argued in \link{Section 4.1.6}
+\exerciseHeading{\phantomsection\label{Exercise 5.43}Exercise 5.43:} We argued in \link{Section 4.1.6}
 that internal definitions for block structure should not be considered ``real''
 \code{define}s.  Rather, a procedure body should be interpreted as if the
 internal variables being defined were installed as ordinary \code{lambda}
@@ -5707,7 +5672,7 @@ interpreter to accomplish this by scanning out internal definitions.  Modify
 the compiler to perform the same transformation before it compiles a procedure
 body.
 
-\heading{\phantomsection\label{Exercise 5.44}Exercise 5.44:} In this section we have focused
+\exerciseHeading{\phantomsection\label{Exercise 5.44}Exercise 5.44:} In this section we have focused
 on the use of the compile-time environment to produce lexical addresses.  But
 there are other uses for compile-time environments.  For instance, in
 \link{Exercise 5.38} we increased the efficiency of compiled code by open-coding
@@ -5716,10 +5681,10 @@ procedures as reserved words.  If a program were to rebind such a name, the
 mechanism described in \link{Exercise 5.38} would still open-code it as a
 primitive, ignoring the new binding.  For example, consider the procedure
 
-\begin{scheme}
+\begin{codeBlock}
 (lambda (+ * a b x y)
   (+ (* a x) (* b y)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 which computes a linear combination of \code{x} and \code{y}.  We might call it
@@ -5730,7 +5695,7 @@ open-coding compiler to consult the compile-time environment in order to
 compile the correct code for expressions involving the names of primitive
 procedures.  (The code will work correctly as long as the program does not
 \code{define} or \code{set!} these names.)
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Interfacing Compiled Code to the Evaluator}
 \label{Section 5.5.7}
@@ -5747,7 +5712,7 @@ expressions can call compiled procedures as well as interpreted ones.  We can
 then put a compiled procedure into the machine and use the evaluator to call
 it:
 
-\begin{scheme}
+\begin{codeBlock}
 (compile-and-go
  '(define (factorial n)
     (if (= n 1)
@@ -5759,7 +5724,7 @@ it:
 (factorial 5)
 ~\textit{;;; EC-Eval value:}~
 ~\textit{120}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 To allow the evaluator to handle compiled procedures (for example, to evaluate
@@ -5772,7 +5737,7 @@ compiled procedures as well as interpreted procedures are compound
 explicit-control evaluator, in this section we will use ``compound'' to mean
 interpreted (as opposed to compiled).}
 
-\begin{scheme}
+\begin{codeBlock}
 apply-dispatch
   (test (op primitive-procedure?) (reg proc))
   (branch (label primitive-apply))
@@ -5785,7 +5750,7 @@ compiled-apply
   (restore continue)
   (assign val (op compiled-procedure-entry) (reg proc))
   (goto (reg val))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Note the restore of \code{continue} at \code{compiled\-/apply}.  Recall that the
@@ -5802,22 +5767,20 @@ must always initialize the \code{flag} register before starting the evaluator
 machine.  To start the machine at its ordinary read-eval-print loop, we could
 use
 
-\begin{smallscheme}
+\begin{compactCodeBlock}
 (define (start-eceval)
   (set! the-global-environment (setup-environment))
   (set-register-contents! eceval 'flag false)
   (start eceval))
-\end{smallscheme}
+\end{compactCodeBlock}
 }
 
-\begin{scheme}
+\begin{codeBlock}
 (branch (label external-entry))      ~\textrm{; branches if \code{flag} is set}~
 read-eval-print-loop
   (perform (op initialize-stack))
   ~\( \dots \)~
-\end{scheme}
-
-\enlargethispage{\baselineskip}
+\end{codeBlock}
 
 \noindent
 \code{external\-/entry} assumes that the machine is started with \code{val}
@@ -5831,7 +5794,7 @@ object that the system may try to print, we also modify the system print
 operation \code{user\-/print} (from \link{Section 4.1.4}) so that it will not
 attempt to print the components of a compiled procedure:
 
-\begin{smallscheme}
+\begin{compactCodeBlock}
 (define (user-print object)
   (cond ((compound-procedure? object)
          (display (list 'compound-procedure
@@ -5841,16 +5804,16 @@ attempt to print the components of a compiled procedure:
         ((compiled-procedure? object)
          (display '<compiled-procedure>))
         (else (display object))))
-\end{smallscheme}
+\end{compactCodeBlock}
 }
 
-\begin{scheme}
+\begin{codeBlock}
 external-entry
   (perform (op initialize-stack))
   (assign env (op get-global-environment))
   (assign continue (label print-result))
   (goto (reg val))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Now we can use the following procedure to compile a procedure definition,
@@ -5865,7 +5828,7 @@ register-machine simulator (\link{Section 5.2.2}).  We then initialize the
 so that the evaluator will go to \code{external\-/entry}, and start the
 evaluator.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (compile-and-go expression)
   (let ((instructions
          (assemble
@@ -5876,13 +5839,13 @@ evaluator.
     (set-register-contents! eceval 'val instructions)
     (set-register-contents! eceval 'flag true)
     (start eceval)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 If we have set up stack monitoring, as at the end of \link{Section 5.4.4}, we
 can examine the stack usage of compiled code:
 
-\begin{scheme}
+\begin{codeBlock}
 (compile-and-go
  '(define (factorial n)
     (if (= n 1)
@@ -5896,7 +5859,7 @@ can examine the stack usage of compiled code:
 ~\textit{(total-pushes = 31 maximum-depth = 14)}~
 ~\textit{;;; EC-Eval value:}~
 ~\textit{120}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Compare this example with the evaluation of \code{(factorial 5)} using the
@@ -5967,8 +5930,8 @@ is fun but often frustrating, because the results are extremely sensitive to
 minuscule details.}  Or we can compile one of the interpreters of
 \link{Section 4.1} to produce an interpreter that runs on the new machine.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 5.45}Exercise 5.45:} By comparing the stack operations
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 5.45}Exercise 5.45:} By comparing the stack operations
 used by compiled code to the stack operations used by the evaluator for the
 same computation, we can determine the extent to which the compiler optimizes
 use of the stack, both in speed (reducing the total number of stack operations)
@@ -6005,17 +5968,17 @@ that would come closer in performance to the hand-tailored version?
 
 \end{enumerate}
 
-\heading{\phantomsection\label{Exercise 5.46}Exercise 5.46:} Carry out an analysis like the
+\exerciseHeading{\phantomsection\label{Exercise 5.46}Exercise 5.46:} Carry out an analysis like the
 one in \link{Exercise 5.45} to determine the effectiveness of compiling the
 tree-recursive Fibonacci procedure
 
-\begin{scheme}
+\begin{codeBlock}
 (define (fib n)
   (if (< n 2)
       n
       (+ (fib (- n 1))
          (fib (- n 2)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 compared to the effectiveness of using the special-purpose Fibonacci machine of
@@ -6024,7 +5987,7 @@ compared to the effectiveness of using the special-purpose Fibonacci machine of
 \( n; \) hence the ratios of stack operations will not approach a limiting value
 that is independent of \( n \).
 
-\heading{\phantomsection\label{Exercise 5.47}Exercise 5.47:} This section described how to
+\exerciseHeading{\phantomsection\label{Exercise 5.47}Exercise 5.47:} This section described how to
 modify the explicit-control evaluator so that interpreted code can call
 compiled procedures.  Show how to modify the compiler so that compiled
 procedures can call not only primitive procedures and compiled procedures, but
@@ -6039,24 +6002,24 @@ be defined there), so we will add a register called \code{compapp} to the
 evaluator machine to hold this entry point, and add an instruction to
 initialize it:
 
-\begin{scheme}
+\begin{codeBlock}
  (assign compapp (label compound-apply))
  (branch (label external-entry)) ~\textrm{; branches if \code{flag} is set}~
 read-eval-print-loop ~\( \dots \)~
-\end{scheme}
+\end{codeBlock}
 
 To test your code, start by defining a procedure \code{f} that calls a
 procedure \code{g}.  Use \code{compile\-/and\-/go} to compile the definition of
 \code{f} and start the evaluator.  Now, typing at the evaluator, define
 \code{g} and try to call \code{f}.
 
-\heading{\phantomsection\label{Exercise 5.48}Exercise 5.48:} The \code{compile\-/and\-/go}
+\exerciseHeading{\phantomsection\label{Exercise 5.48}Exercise 5.48:} The \code{compile\-/and\-/go}
 interface implemented in this section is awkward, since the compiler can be
 called only once (when the evaluator machine is started).  Augment the
 compiler-interpreter interface by providing a \code{compile\-/and\-/run} primitive
 that can be called from within the explicit-control evaluator as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 ~\textit{;;; EC-Eval input:}~
 (compile-and-run
  '(define (factorial n)
@@ -6067,9 +6030,9 @@ that can be called from within the explicit-control evaluator as follows:
 (factorial 5)
 ~\textit{;;; EC-Eval value:}~
 ~\textit{120}~
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 5.49}Exercise 5.49:} As an alternative to using the
+\exerciseHeading{\phantomsection\label{Exercise 5.49}Exercise 5.49:} As an alternative to using the
 explicit-control evaluator's read-eval-print loop, design a register machine
 that performs a read-compile-execute-print loop.  That is, the machine should
 run a loop that reads an expression, compiles it, assembles and executes the
@@ -6077,21 +6040,21 @@ resulting code, and prints the result.  This is easy to run in our simulated
 setup, since we can arrange to call the procedures \code{compile} and
 \code{assemble} as ``register-machine operations.''
 
-\heading{\phantomsection\label{Exercise 5.50}Exercise 5.50:} Use the compiler to compile the
+\exerciseHeading{\phantomsection\label{Exercise 5.50}Exercise 5.50:} Use the compiler to compile the
 metacircular evaluator of \link{Section 4.1} and run this program using the
 register-machine simulator.  (To compile more than one definition at a time,
 you can package the definitions in a \code{begin}.)  The resulting interpreter
 will run very slowly because of the multiple levels of interpretation, but
 getting all the details to work is an instructive exercise.
 
-\heading{\phantomsection\label{Exercise 5.51}Exercise 5.51:} Develop a rudimentary
+\exerciseHeading{\phantomsection\label{Exercise 5.51}Exercise 5.51:} Develop a rudimentary
 implementation of Scheme in C (or some other low-level language of your choice)
 by translating the explicit-control evaluator of \link{Section 5.4} into C.  In
 order to run this code you will need to also provide appropriate
 storage-allocation routines and other run-time support.
 
-\heading{\phantomsection\label{Exercise 5.52}Exercise 5.52:} As a counterpoint to
+\exerciseHeading{\phantomsection\label{Exercise 5.52}Exercise 5.52:} As a counterpoint to
 \link{Exercise 5.51}, modify the compiler so that it compiles Scheme procedures
 into sequences of C instructions.  Compile the metacircular evaluator of
 \link{Section 4.1} to produce a Scheme interpreter written in C.
-\end{exercises}
+\end{exerciseGroup}

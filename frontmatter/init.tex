@@ -3,9 +3,14 @@
 
 \tableofcontents
 
-% \input{frontmatter/unofficial_texinfo_format}
-\input{frontmatter/dedication}
-\input{frontmatter/foreword}
-\input{frontmatter/preface_2nd_edition}
-\input{frontmatter/preface_1st_edition}
-\input{frontmatter/acknowledgments}
+\ifnum \buildExtraContents=1 % if true
+  \ifnum \buildUnofficialContents=1 % if true
+    \input{frontmatter/unofficial_texinfo_format}
+  \fi %
+  %
+  \input{frontmatter/dedication}
+  \input{frontmatter/foreword}
+  \input{frontmatter/preface_2nd_edition}
+  \input{frontmatter/preface_1st_edition}
+  \input{frontmatter/acknowledgments}
+\fi

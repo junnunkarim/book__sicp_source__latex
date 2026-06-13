@@ -74,29 +74,35 @@
 %   Improved microtypography in code listings. Removed manual
 %   word breaks. Fixed broken links.
 
-\documentclass[11pt, twoside, a5paper]{book}
+\input{buildconfig}
+\input{layouts/init}
 
-% load all packages, macros, and configuration settings
+\documentclass[twoside]{\bookClass}
+
 \input{preamble/init}
 
 \begin{document}
 
 \VerbatimFootnotes
 
-% front sections
 \frontmatter
-\include{frontmatter/init}
+\input{frontmatter/init}
 
-% chapters
 \mainmatter
-\include{chapters/chapter_1}
-\include{chapters/chapter_2}
-\include{chapters/chapter_3}
-\include{chapters/chapter_4}
-\include{chapters/chapter_5}
+\ifnum \buildChapter=0
+  \include{chapters/chapter_1}
+  \include{chapters/chapter_2}
+  \include{chapters/chapter_3}
+  \include{chapters/chapter_4}
+  \include{chapters/chapter_5}
+\else%
+  % set accurate chapter number when building for only a specific chapter
+  % (buildChapter - 1)
+  \setcounter{chapter}{\buildChapter-1}
+  \include{chapters/chapter_\buildChapter}
+\fi
 
-% back sections
 \backmatter
-\include{backmatter/init}
+\input{backmatter/init}
 
 \end{document}

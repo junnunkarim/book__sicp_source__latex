@@ -9,15 +9,28 @@
       \textit{of} Computer Programs%
     }%
   }%
-  
-  \vspace{4mm}
-  
-  \includegraphics[width=0.45\textwidth]{assets/bookwheel.jpg}
 
-  \vspace{2mm}
-  
-  {\Large\sffamily\textcolor{LinkRed}{second edition}}\\
-  {\small\sffamily version 202606 (community)\par}
+  \ifnum\showChapterInfo=1 %
+    \vspace{4mm}
+
+    {%
+      \Large\scshape{Chapter}%
+      \fontsize{6em}{0em}\selectfont\oldstylenums{\buildChapter}%
+    }%
+
+    \vspace{4mm}
+    \includegraphics[width=0.40\textwidth]{assets/bookwheel.jpg}
+    \vspace{2mm}
+  \else
+    \vspace{4mm}
+
+    \includegraphics[width=0.45\textwidth]{assets/bookwheel.jpg}
+
+    \vspace{2mm}
+  \fi
+
+  {\Large\sffamily\textcolor{LinkRed}{\scshape second edition}}\\
+  {\small\sffamily\latestVersion\par}
 
   \vspace{1em}
 

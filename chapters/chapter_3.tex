@@ -2,7 +2,7 @@
 \label{Chapter 3}
 
 \chapterDoubleQuote{%
-    Mεταβάλλον ὰναπαύεται\newline
+    Mεταβάλλον ὰναπαύεται\\
     (Even while it changes, it stands still.)
   }%
   {Heraclitus}%
@@ -114,7 +114,7 @@ message \emph{Insufficient funds}. For example, if we begin with \$100 in the
 account, we should obtain the following sequence of responses using
 \code{withdraw}:
 
-\begin{scheme}
+\begin{codeBlock}
 (withdraw 25)
 ~\textit{75}~
 (withdraw 25)
@@ -123,7 +123,7 @@ account, we should obtain the following sequence of responses using
 ~\textit{"Insufficient funds"}~
 (withdraw 15)
 ~\textit{35}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Observe that the expression \code{(withdraw 25)}, evaluated twice, yields
@@ -148,28 +148,28 @@ value of \code{balance}.  Otherwise, \code{withdraw} returns the
 \emph{Insufficient funds} message.  Here are the definitions of \code{balance}
 and \code{withdraw}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define balance 100)
 (define (withdraw amount)
   (if (>= balance amount)
       (begin (set! balance (- balance amount))
              balance)
       "Insufficient funds"))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Decrementing \code{balance} is accomplished by the expression
 
-\begin{scheme}
+\begin{codeBlock}
 (set! balance (- balance amount))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This uses the \code{set!} special form, whose syntax is
 
-\begin{scheme}
-(set! ~\( \dark \langle \)~~\var{\dark name}~~\( \dark \rangle \)~ ~\( \dark \langle \)~~\var{\dark new-value}~~\( \dark \rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(set! ~\(\langle \)~~\var{name}~~\(\rangle \)~ ~\(\langle \)~~\var{new-value}~~\(\rangle \)~)
+\end{codeBlock}
 
 \noindent
 Here \( \langle \)\var{name}\( \kern0.04em\rangle \) is a symbol and \( \langle \)\var{new-value}\( \kern0.04em\rangle \) is any expression.
@@ -191,9 +191,9 @@ expressions to be evaluated in the case where the \code{if} test is true: first
 decrementing \code{balance} and then returning the value of \code{balance}.  In
 general, evaluating the expression
 
-\begin{scheme}
-(begin ~\( \dark \langle \)~~\var{\dark exp}~~\( \dark _{\mono{1}}\rangle \)~ ~\( \dark \langle \)~~\var{\dark exp}~~\( \dark _{\mono{2}}\rangle \)~ ~\( \dots \)~ ~\( \dark \langle \)~~\var{\dark exp}~~\( \dark _{\monoit{k}}\rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(begin ~\(\langle \)~~\var{exp}~~\(_{\mono{1}}\rangle \)~ ~\(\langle \)~~\var{exp}~~\(_{\mono{2}}\rangle \)~ ~\( \dots \)~ ~\(\langle \)~~\var{exp}~~\(_{\monoItalic{k}}\rangle \)~)
+\end{codeBlock}
 
 \noindent
 causes the expressions \( \langle\kern0.06em \)\var{exp}\( _1\rangle \) through \( \langle\kern0.06em \)\var{exp}\( _k\rangle \) to be evaluated
@@ -218,7 +218,7 @@ account.
 We can make \code{balance} internal to \code{withdraw} by rewriting the
 definition as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (define new-withdraw
   (let ((balance 100))
     (lambda (amount)
@@ -226,7 +226,7 @@ definition as follows:
           (begin (set! balance (- balance amount))
                  balance)
           "Insufficient funds"))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 What we have done here is use \code{let} to establish an environment with a
@@ -269,20 +269,20 @@ specifies the initial amount of money in the account.\footnote{In contrast with
 This will be clearer after the discussion of the environment model of
 evaluation in \link{Section 3.2}.  (See also \link{Exercise 3.10}.)}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-withdraw balance)
   (lambda (amount)
     (if (>= balance amount)
         (begin (set! balance (- balance amount))
                balance)
         "Insufficient funds")))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{make\-/withdraw} can be used as follows to create two objects \code{W1} and
 \code{W2}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define W1 (make-withdraw 100))
 (define W2 (make-withdraw 100))
 
@@ -294,7 +294,7 @@ evaluation in \link{Section 3.2}.  (See also \link{Exercise 3.10}.)}
 ~\textit{"Insufficient funds"}~
 (W1 40)
 ~\textit{10}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Observe that \code{W1} and \code{W2} are completely independent objects, each
@@ -305,7 +305,7 @@ We can also create objects that handle deposits as well as withdrawals, and
 thus we can represent simple bank accounts.  Here is a procedure that returns a
 ``bank-account object'' with a specified initial balance:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-account balance)
   (define (withdraw amount)
     (if (>= balance amount)
@@ -321,7 +321,7 @@ thus we can represent simple bank accounts.  Here is a procedure that returns a
           (else (error "Unknown request: MAKE-ACCOUNT"
                        m))))
   dispatch)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Each call to \code{make\-/account} sets up an environment with a local state
@@ -336,7 +336,7 @@ ability to modify local variables.
 
 \code{make\-/account} can be used as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (define acc (make-account 100))
 ((acc 'withdraw) 50)
 ~\textit{50}~
@@ -346,7 +346,7 @@ ability to modify local variables.
 ~\textit{90}~
 ((acc 'withdraw) 60)
 ~\textit{30}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Each call to \code{acc} returns the locally defined \code{deposit} or
@@ -354,16 +354,16 @@ Each call to \code{acc} returns the locally defined \code{deposit} or
 \code{amount}.  As was the case with \code{make\-/withdraw}, another call to
 \code{make\-/account}
 
-\begin{scheme}
+\begin{codeBlock}
 (define acc2 (make-account 100))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 will produce a completely separate account object, which maintains its own
 local \code{balance}.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 3.1}Exercise 3.1:} An \newterm{accumulator} is a
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 3.1}Exercise 3.1:} An \newterm{accumulator} is a
 procedure that is called repeatedly with a single numeric argument and
 accumulates its arguments into a sum.  Each time it is called, it returns the
 currently accumulated sum.  Write a procedure \code{make\-/accumulator} that
@@ -371,15 +371,15 @@ generates accumulators, each maintaining an independent sum.  The input to
 \code{make\-/accumulator} should specify the initial value of the sum; for
 example
 
-\begin{scheme}
+\begin{codeBlock}
 (define A (make-accumulator 5))
 (A 10)
 ~\textit{15}~
 (A 10)
 ~\textit{25}~
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 3.2}Exercise 3.2:} In software-testing applications,
+\exerciseHeading{\phantomsection\label{Exercise 3.2}Exercise 3.2:} In software-testing applications,
 it is useful to be able to count the number of times a given procedure is
 called during the course of a computation.  Write a procedure
 \code{make\-/monitored} that takes as input a procedure, \code{f}, that itself
@@ -392,38 +392,38 @@ resets the counter to zero.  For any other input, \code{mf} returns the result
 of calling \code{f} on that input and increments the counter.  For instance, we
 could make a monitored version of the \code{sqrt} procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define s (make-monitored sqrt))
 (s 100)
 ~\textit{10}~
 (s 'how-many-calls?)
 ~\textit{1}~
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 3.3}Exercise 3.3:} Modify the \code{make\-/account}
+\exerciseHeading{\phantomsection\label{Exercise 3.3}Exercise 3.3:} Modify the \code{make\-/account}
 procedure so that it creates password-protected accounts.  That is,
 \code{make\-/account} should take a symbol as an additional argument, as in
 
-\begin{scheme}
+\begin{codeBlock}
 (define acc (make-account 100 'secret-password))
-\end{scheme}
+\end{codeBlock}
 
 The resulting account object should process a request only if it is accompanied
 by the password with which the account was created, and should otherwise return
 a complaint:
 
-\begin{scheme}
+\begin{codeBlock}
 ((acc 'secret-password 'withdraw) 40)
 ~\textit{60}~
 ((acc 'some-other-password 'deposit) 50)
 ~\textit{"Incorrect password"}~
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 3.4}Exercise 3.4:} Modify the \code{make\-/account}
+\exerciseHeading{\phantomsection\label{Exercise 3.4}Exercise 3.4:} Modify the \code{make\-/account}
 procedure of \link{Exercise 3.3} by adding another local state variable so that,
 if an account is accessed more than seven consecutive times with an incorrect
 password, it invokes the procedure \code{call\-/the\-/cops}.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{The Benefits of Introducing Assignment}
 \label{Section 3.1.2}
@@ -442,10 +442,10 @@ discuss methods for generating suitable sequences here.  Rather, let us assume
 that we have a procedure \code{rand\-/update} that has the property that if we
 start with a given number \( x_1 \) and form
 
-\begin{scheme}
-~\( \dark x_2 \)~ = (rand-update ~\( \dark x_1 \)~)
-~\( \dark x_3 \)~ = (rand-update ~\( \dark x_2 \)~)
-\end{scheme}
+\begin{codeBlock}
+~\(x_2 \)~ = (rand-update ~\(x_1 \)~)
+~\(x_3 \)~ = (rand-update ~\(x_2 \)~)
+\end{codeBlock}
 
 \noindent
 then the sequence of values \( x_1 \), \( x_2 \), \( x_3 \), \( \dots \) will have the
@@ -471,12 +471,12 @@ to \code{rand} computes \code{rand\-/update} of the current value of \code{x},
 returns this as the random number, and also stores this as the new value of
 \code{x}.
 
-\begin{scheme}
+\begin{codeBlock}
 (define rand (let ((x random-init))
                (lambda ()
                  (set! x (rand-update x))
                  x)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Of course, we could generate the same sequence of random numbers without using
@@ -507,7 +507,7 @@ or false each time it is run.  \code{monte\-/carlo} runs the experiment for the
 designated number of trials and returns a number telling the fraction of the
 trials in which the experiment was found to be true.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (estimate-pi trials)
   (sqrt (/ 6 (monte-carlo trials cesaro-test))))
 (define (cesaro-test)
@@ -524,14 +524,14 @@ trials in which the experiment was found to be true.
            (iter (- trials-remaining 1)
                  trials-passed))))
   (iter trials 0))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Now let us try the same computation using \code{rand\-/update} directly rather
 than \code{rand}, the way we would be forced to proceed if we did not use
 assignment to model local state:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (estimate-pi trials)
   (sqrt (/ 6 (random-gcd-test trials random-init))))
 (define (random-gcd-test trials initial-x)
@@ -549,7 +549,7 @@ assignment to model local state:
                      trials-passed
                      x2))))))
   (iter trials 0 initial-x))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 While the program is still simple, it betrays some painful breaches of
@@ -585,8 +585,8 @@ structure systems in a more modular fashion than if all state had to be
 manipulated explicitly, by passing additional parameters.  Unfortunately, as we
 shall see, the story is not so simple.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 3.5}Exercise 3.5:} \newterm{Monte Carlo integration}
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 3.5}Exercise 3.5:} \newterm{Monte Carlo integration}
 is a method of estimating definite integrals by means of Monte Carlo
 simulation.  Consider computing the area of a region of space described by a
 predicate \( P(x, y) \) that is true for points \( (x, y) \) in the
@@ -622,13 +622,13 @@ input.\footnote{\acronym{MIT} Scheme provides such a procedure.  If
 an exact integer, but if it is given a decimal value (as in this exercise) it
 returns a decimal value.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (random-in-range low high)
   (let ((range (- high low)))
     (+ low (random range))))
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 3.6}Exercise 3.6:} It is useful to be able to reset a
+\exerciseHeading{\phantomsection\label{Exercise 3.6}Exercise 3.6:} It is useful to be able to reset a
 random-number generator to produce a sequence starting from a given value.
 Design a new \code{rand} procedure that is called with an argument that is
 either the symbol \code{generate} or the symbol \code{reset} and behaves as
@@ -637,7 +637,7 @@ follows: \code{(rand 'generate)} produces a new random number; \code{((rand
 designated \( \langle \)\var{new-value}\( \kern0.08em\rangle \).  Thus, by resetting the state, one can generate
 repeatable sequences.  These are very handy to have when testing and debugging
 programs that use random numbers.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{The Costs of Introducing Assignment}
 \label{Section 3.1.3}
@@ -659,7 +659,7 @@ To understand how assignment complicates matters, consider a simplified version
 of the \code{make\-/withdraw} procedure of \link{Section 3.1.1} that does not
 bother to check for an insufficient amount:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-simplified-withdraw balance)
   (lambda (amount)
     (set! balance (- balance amount))
@@ -669,55 +669,55 @@ bother to check for an insufficient amount:
 ~\textit{5}~
 (W 10)
 ~\textit{-5}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Compare this procedure with the following \code{make\-/decrementer} procedure,
 which does not use \code{set!}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-decrementer balance)
   (lambda (amount)
     (- balance amount)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{make\-/decrementer} returns a procedure that subtracts its input from a
 designated amount \code{balance}, but there is no accumulated effect over
 successive calls, as with \code{make\-/simplified\-/withdraw}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define D (make-decrementer 25))
 (D 20)
 ~\textit{5}~
 (D 10)
 ~\textit{15}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We can use the substitution model to explain how \code{make\-/decrementer} works.
 For instance, let us analyze the evaluation of the expression
 
-\begin{scheme}
+\begin{codeBlock}
 ((make-decrementer 25) 20)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We first simplify the operator of the combination by substituting 25 for
 \code{balance} in the body of \code{make\-/decrementer}.  This reduces the
 expression to
 
-\begin{scheme}
+\begin{codeBlock}
 ((lambda (amount) (- 25 amount)) 20)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Now we apply the operator by substituting 20 for \code{amount} in the body of
 the \code{lambda} expression:
 
-\begin{scheme}
+\begin{codeBlock}
 (- 25 20)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The final answer is 5.
@@ -725,9 +725,9 @@ The final answer is 5.
 Observe, however, what happens if we attempt a similar substitution analysis
 with \code{make\-/simplified\-/withdraw}:
 
-\begin{scheme}
+\begin{codeBlock}
 ((make-simplified-withdraw 25) 20)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We first simplify the operator by substituting 25 for \code{balance} in the
@@ -737,17 +737,17 @@ to\footnote{We don't substitute for the occurrence of \code{balance} in the
 evaluated.  If we did substitute for it, we would get \code{(set! 25 (- 25
 amount))}, which makes no sense.}
 
-\begin{scheme}
+\begin{codeBlock}
 ((lambda (amount) (set! balance (- 25 amount)) 25) 20)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Now we apply the operator by substituting 20 for \code{amount} in the body of
 the \code{lambda} expression:
 
-\begin{scheme}
+\begin{codeBlock}
 (set! balance (- 25 20)) 25
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 If we adhered to the substitution model, we would have to say that the meaning
@@ -776,10 +776,10 @@ problematical.  Consider the concept of two things being ``the same.''
 Suppose we call \code{make\-/decrementer} twice with the same argument to create
 two procedures:
 
-\begin{scheme}
+\begin{codeBlock}
 (define D1 (make-decrementer 25))
 (define D2 (make-decrementer 25))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Are \code{D1} and \code{D2} the same?  An acceptable answer is yes, because
@@ -789,24 +789,24 @@ substituted for \code{D2} in any computation without changing the result.
 
 Contrast this with making two calls to \code{make\-/simplified\-/withdraw}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define W1 (make-simplified-withdraw 25))
 (define W2 (make-simplified-withdraw 25))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Are \code{W1} and \code{W2} the same?  Surely not, because calls to \code{W1}
 and \code{W2} have distinct effects, as shown by the following sequence of
 interactions:
 
-\begin{scheme}
+\begin{codeBlock}
 (W1 20)
 ~\textit{5}~
 (W1 20)
 ~\textit{-15}~
 (W2 20)
 ~\textit{5}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Even though \code{W1} and \code{W2} are ``equal'' in the sense that they are
@@ -838,18 +838,18 @@ As an example of how this issue arises in programming, consider the situation
 where Peter and Paul have a bank account with \$100 in it.  There is a
 substantial difference between modeling this as
 
-\begin{scheme}
+\begin{codeBlock}
 (define peter-acc (make-account 100))
 (define paul-acc (make-account 100))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 and modeling it as
 
-\begin{scheme}
+\begin{codeBlock}
 (define peter-acc (make-account 100))
 (define paul-acc peter-acc)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 In the first situation, the two bank accounts are distinct.  Transactions made
@@ -902,21 +902,21 @@ imperative style are susceptible to bugs that cannot occur in functional
 programs.  For example, recall the iterative factorial program from
 \link{Section 1.2.1}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (factorial n)
   (define (iter product counter)
     (if (> counter n)
         product
         (iter (* counter product) (+ counter 1))))
   (iter 1 1))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Instead of passing arguments in the internal iterative loop, we could adopt a
 more imperative style by using explicit assignment to update the values of the
 variables \code{product} and \code{counter}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (factorial n)
   (let ((product 1)
         (counter 1))
@@ -927,7 +927,7 @@ variables \code{product} and \code{counter}:
                  (set! counter (+ counter 1))
                  (iter))))
     (iter)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This does not change the results produced by the program, but it does introduce
@@ -935,10 +935,10 @@ a subtle trap.  How do we decide the order of the assignments?  As it happens,
 the program is correct as written.  But writing the assignments in the opposite
 order
 
-\begin{scheme}
+\begin{codeBlock}
 (set! counter (+ counter 1))
 (set! product (* counter product))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 would have produced a different, incorrect result.  In general, programming
@@ -961,8 +961,8 @@ to this in \link{Section 3.4}.  First, however, we will address the issue of
 providing a computational model for expressions that involve assignment, and
 explore the uses of objects with local state in designing simulations.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 3.7}Exercise 3.7:} Consider the bank account objects
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 3.7}Exercise 3.7:} Consider the bank account objects
 created by \code{make\-/account}, with the password modification described in
 \link{Exercise 3.3}.  Suppose that our banking system requires the ability to
 make joint accounts.  Define a procedure \code{make\-/joint} that accomplishes
@@ -974,17 +974,17 @@ an additional access to the original account using the new password.  For
 example, if \code{peter\-/acc} is a bank account with password
 \code{open\-/sesame}, then
 
-\begin{scheme}
+\begin{codeBlock}
 (define paul-acc
   (make-joint peter-acc 'open-sesame 'rosebud))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 will allow one to make transactions on \code{peter\-/acc} using the name
 \code{paul\-/acc} and the password \code{rosebud}.  You may wish to modify your
 solution to \link{Exercise 3.3} to accommodate this new feature.
 
-\heading{\phantomsection\label{Exercise 3.8}Exercise 3.8:} When we defined the evaluation
+\exerciseHeading{\phantomsection\label{Exercise 3.8}Exercise 3.8:} When we defined the evaluation
 model in \link{Section 1.1.3}, we said that the first step in evaluating an
 expression is to evaluate its subexpressions.  But we never specified the order
 in which the subexpressions should be evaluated (e.g., left to right or right
@@ -992,14 +992,14 @@ to left).  When we introduce assignment, the order in which the arguments to a
 procedure are evaluated can make a difference to the result.  Define a simple
 procedure \code{f} such that evaluating
 
-\begin{scheme}
+\begin{codeBlock}
 (+ (f 0) (f 1))
-\end{scheme}
+\end{codeBlock}
 
 will return 0 if
 the arguments to \code{+} are evaluated from left to right but will return 1 if
 the arguments are evaluated from right to left.
-\end{exercises}
+\end{exerciseGroup}
 
 \section{The Environment Model of Evaluation}
 \label{Section 3.2}
@@ -1115,20 +1115,20 @@ environment is the environment in which the λ-expression was
 evaluated to produce the procedure.  For example, consider the procedure
 definition
 
-\begin{scheme}
+\begin{codeBlock}
 (define (square x)
   (* x x))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 evaluated in the global environment.  The procedure definition syntax is just
 syntactic sugar for an underlying implicit λ-expression.  It would
 have been equivalent to have used
 
-\begin{scheme}
+\begin{codeBlock}
 (define square
   (lambda (x) (* x x)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 which evaluates \code{(lambda (x) (* x x))} and binds \code{square} to the
@@ -1231,14 +1231,14 @@ When we introduced the substitution model in \link{Section 1.1.5} we showed how
 the combination \code{(f 5)} evaluates to 136, given the following procedure
 definitions:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (square x)
   (* x x))
 (define (sum-of-squares x y)
   (+ (square x) (square y)))
 (define (f a)
   (sum-of-squares (+ a 1) (* a 2)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We can analyze the same example using the environment model.  \link{Figure 3.4}
@@ -1257,9 +1257,9 @@ expression \code{(f 5)}.  The call to \code{f} creates a new environment E1
 beginning with a frame in which \code{a}, the formal parameter of \code{f}, is
 bound to the argument 5.  In E1, we evaluate the body of \code{f}:
 
-\begin{scheme}
+\begin{codeBlock}
 (sum-of-squares (+ a 1) (* a 2))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 To evaluate this combination, we first evaluate the subexpressions.  The first
@@ -1270,8 +1270,6 @@ enclosing environment, i.e. the global environment, and find the binding shown
 in \link{Figure 3.4}.)  The other two subexpressions are evaluated by applying
 the primitive operations \code{+} and \code{*} to evaluate the two combinations
 \code{(+ a 1)} and \code{(* a 2)} to obtain 6 and 10, respectively.
-
-\enlargethispage{\baselineskip}
 
 Now we apply the procedure object \code{sum\-/of\-/squares} to the arguments 6 and
 10.  This results in a new environment E2 in which the formal parameters
@@ -1309,20 +1307,20 @@ environment structures, we will not dwell on how these returned values are
 passed from call to call; however, this is also an important aspect of the
 evaluation process, and we will return to it in detail in \link{Chapter 5}.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 3.9}Exercise 3.9:} In \link{Section 1.2.1} we used the
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 3.9}Exercise 3.9:} In \link{Section 1.2.1} we used the
 substitution model to analyze two procedures for computing factorials, a
 recursive version
 
-\begin{scheme}
+\begin{codeBlock}
 (define (factorial n)
   (if (= n 1) 1 (* n (factorial (- n 1)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 and an iterative version
 
-\begin{scheme}
+\begin{codeBlock}
 (define (factorial n) (fact-iter 1 1 n))
 (define (fact-iter product counter max-count)
   (if (> counter max-count)
@@ -1330,7 +1328,7 @@ and an iterative version
       (fact-iter (* counter product)
                  (+ counter 1)
                  max-count)))
-\end{scheme}
+\end{codeBlock}
 
 Show the environment structures created by evaluating \\ \code{(factorial 6)}
 using each version of the \code{factorial} procedure.\footnote{The environment
@@ -1338,7 +1336,7 @@ model will not clarify our claim in \link{Section 1.2.1} that the interpreter
 can execute a procedure such as \code{fact\-/iter} in a constant amount of space
 using tail recursion.  We will discuss tail recursion when we deal with the
 control structure of the interpreter in \link{Section 5.4}.}
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Frames as the Repository of Local State}
 \label{Section 3.2.3}
@@ -1348,29 +1346,29 @@ be used to represent objects with local state.  As an example, consider the
 ``withdrawal processor'' from \link{Section 3.1.1} created by calling the
 procedure
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-withdraw balance)
   (lambda (amount)
     (if (>= balance amount)
         (begin (set! balance (- balance amount))
                balance)
         "Insufficient funds")))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Let us describe the evaluation of
 
-\begin{scheme}
+\begin{codeBlock}
 (define W1 (make-withdraw 100))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 followed by
 
-\begin{scheme}
+\begin{codeBlock}
 (W1 50)
 ~\textit{50}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \link{Figure 3.6} shows the result of defining the \code{make\-/withdraw}
@@ -1394,9 +1392,9 @@ is itself a λ-expression.
 The interesting part of the computation happens when we apply the procedure
 \code{make\-/withdraw} to an argument:
 
-\begin{scheme}
+\begin{codeBlock}
 (define W1 (make-withdraw 100))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We begin, as usual, by setting up an environment E1 in which the formal
@@ -1416,14 +1414,12 @@ since the \code{define} itself is being evaluated in the global environment.
   \includegraphics[width=99mm]{assets/figures/chapter_3/figure_3.8c.pdf}
 \end{imageFigure}
 
-\enlargethispage{\baselineskip}
-
 Now we can analyze what happens when \code{W1} is applied to an argument:
 
-\begin{scheme}
+\begin{codeBlock}
 (W1 50)
 ~\textit{50}~
-\end{scheme}
+\end{codeBlock}
 
 We begin by constructing a frame in which \code{amount}, the formal parameter
 of \code{W1}, is bound to the argument 50.  The crucial point to observe is
@@ -1432,12 +1428,12 @@ but rather the environment E1, because this is the environment that is
 specified by the \code{W1} procedure object.  Within this new environment, we
 evaluate the body of the procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (if (>= balance amount)
     (begin (set! balance (- balance amount))
            balance)
     "Insufficient funds")
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The resulting environment structure is shown in \link{Figure 3.8}.  The
@@ -1450,8 +1446,6 @@ E1.
 \begin{imageFigure}{Environments after the call to \code{W1}.}
   \includegraphics[width=96mm]{assets/figures/chapter_3/figure_3.9a.pdf}
 \end{imageFigure}
-
-\enlargethispage{\baselineskip}
 
 When the \code{set!} is executed, the binding of \code{balance} in E1 is
 changed.  At the completion of the call to \code{W1}, \code{balance} is 50, and
@@ -1468,9 +1462,9 @@ situation after the call to \code{W1}.
 Observe what happens when we create a second ``withdraw'' object by making
 another call to \code{make\-/withdraw}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define W2 (make-withdraw 100))
-\end{scheme}
+\end{codeBlock}
 
 % figure 3.10
 \begin{imageFigure}
@@ -1493,13 +1487,13 @@ state variable \code{balance} stored in E1, whereas calls to \code{W2}
 reference the \code{balance} stored in E2. Thus, changes to the local state of
 one object do not affect the other object.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 3.10}Exercise 3.10:} In the \code{make\-/withdraw}
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 3.10}Exercise 3.10:} In the \code{make\-/withdraw}
 procedure, the local variable \code{balance} is created as a parameter of
 \code{make\-/withdraw}.  We could also create the local state variable
 explicitly, using \code{let}, as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-withdraw initial-amount)
   (let ((balance initial-amount))
     (lambda (amount)
@@ -1507,35 +1501,35 @@ explicitly, using \code{let}, as follows:
           (begin (set! balance (- balance amount))
                  balance)
           "Insufficient funds"))))
-\end{scheme}
+\end{codeBlock}
 
 Recall from \link{Section 1.3.2} that \code{let} is simply syntactic sugar for a
 procedure call:
 
-\begin{scheme}
-(let ((~\( \dark \langle \)~~\var{\dark var}~~\( \dark \rangle \)~ ~\( \dark \langle \)~~\var{\dark exp}~~\( \dark \rangle \)~)) ~\( \dark \langle \)~~\var{\dark body}~~\( \dark \rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(let ((~\(\langle \)~~\var{var}~~\(\rangle \)~ ~\(\langle \)~~\var{exp}~~\(\rangle \)~)) ~\(\langle \)~~\var{body}~~\(\rangle \)~)
+\end{codeBlock}
 
 \noindent
 is interpreted as an alternate syntax for
 
-\begin{scheme}
-((lambda (~\( \dark \langle \)~~\var{\dark var}~~\( \dark \rangle \)~) ~\( \dark \langle \)~~\var{\dark body}~~\( \dark \rangle \)~) ~\( \dark \langle \)~~\var{\dark exp}~~\( \dark \rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+((lambda (~\(\langle \)~~\var{var}~~\(\rangle \)~) ~\(\langle \)~~\var{body}~~\(\rangle \)~) ~\(\langle \)~~\var{exp}~~\(\rangle \)~)
+\end{codeBlock}
 
 Use the environment model to analyze this alternate version of
 \code{make\-/withdraw}, drawing figures like the ones above to illustrate the
 interactions
 
-\begin{scheme}
+\begin{codeBlock}
 (define W1 (make-withdraw 100))
 (W1 50)
 (define W2 (make-withdraw 100))
-\end{scheme}
+\end{codeBlock}
 
 Show that the two versions of \code{make\-/withdraw} create objects with the same
 behavior.  How do the environment structures differ for the two versions?
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Internal Definitions}
 \label{Section 3.2.4}
@@ -1544,7 +1538,7 @@ behavior.  How do the environment structures differ for the two versions?
 definitions, thus leading to a block structure as in the following procedure to
 compute square roots:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sqrt x)
   (define (good-enough? guess)
     (< (abs (- (square guess) x)) 0.001))
@@ -1555,7 +1549,7 @@ compute square roots:
         guess
         (sqrt-iter (improve guess))))
   (sqrt-iter 1.0))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Now we can use the environment model to see why these internal definitions
@@ -1570,10 +1564,10 @@ environment E1 was formed, subordinate to the global environment, in which the
 parameter \code{x} is bound to 2.  The body of \code{sqrt} was then evaluated
 in E1.  Since the first expression in the body of \code{sqrt} is
 
-\begin{scheme}
+\begin{codeBlock}
 (define (good-enough? guess)
   (< (abs (- (square guess) x)) 0.001))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 evaluating this expression defined the procedure \code{good\-/enough?}  in the
@@ -1624,14 +1618,14 @@ evaluation environment for the enclosing procedure.
 
 \end{itemize}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 3.11}Exercise 3.11:} In \link{Section 3.2.3} we saw how
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 3.11}Exercise 3.11:} In \link{Section 3.2.3} we saw how
 the environment model described the behavior of procedures with local state.
 Now we have seen how internal definitions work.  A typical message-passing
 procedure contains both of these aspects.  Consider the bank account procedure
 of \link{Section 3.1.1}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-account balance)
   (define (withdraw amount)
     (if (>= balance amount)
@@ -1648,28 +1642,28 @@ of \link{Section 3.1.1}:
            (error "Unknown request: MAKE-ACCOUNT"
                   m))))
   dispatch)
-\end{scheme}
+\end{codeBlock}
 
 Show the environment structure generated by the sequence of interactions
 
-\begin{scheme}
+\begin{codeBlock}
 (define acc (make-account 50))
 ((acc 'deposit) 40)
 ~\textit{90}~
 ((acc 'withdraw) 60)
 ~\textit{30}~
-\end{scheme}
+\end{codeBlock}
 
 Where is the local state for \code{acc} kept?  Suppose we define another
 account
 
-\begin{scheme}
+\begin{codeBlock}
 (define acc2 (make-account 100))
-\end{scheme}
+\end{codeBlock}
 
 How are the local states for the two accounts kept distinct?  Which parts of
 the environment structure are shared between \code{acc} and \code{acc2}?
-\end{exercises}
+\end{exerciseGroup}
 
 \section{Modeling with Mutable Data}
 \label{Section 3.3}
@@ -1689,9 +1683,9 @@ include, in addition to selectors and constructors, operations called
 banking system requires us to change account balances.  Thus, a data structure
 for representing bank accounts might admit an operation
 
-\begin{scheme}
-(set-balance! ~\( \dark \langle \)~~\var{\dark account}~~\( \dark \rangle \)~ ~\( \dark \langle \)~~\var{\dark new-value}~~\( \dark \rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(set-balance! ~\(\langle \)~~\var{account}~~\(\rangle \)~ ~\(\langle \)~~\var{new-value}~~\(\rangle \)~)
+\end{codeBlock}
 
 \noindent
 that changes the balance of the designated account to the designated new value.
@@ -1750,8 +1744,6 @@ bound to a new pair created by the \code{cons} operation; the list to which
   \includegraphics[width=72mm]{assets/figures/chapter_3/figure_3.12b.pdf}
 \end{imageFigure}
 
-\enlargethispage{\baselineskip}
-
 % figure 3.13
 \begin{imageFigure}
   {Effect of \code{(set\-/car! x y)} on the lists in \link{Figure 3.12}.}
@@ -1767,8 +1759,6 @@ bound to a new pair created by the \code{cons} operation; the list to which
   \includegraphics[width=72mm]{assets/figures/chapter_3/figure_3.14b.pdf}
 \end{imageFigure}
 
-\enlargethispage{\baselineskip}
-
 % figure 3.15
 \begin{imageFigure}
   {Effect of \code{(set\-/cdr! x y)} on the lists in \link{Figure 3.12}.}
@@ -1783,7 +1773,13 @@ on the lists of \link{Figure 3.12} is shown in \link{Figure 3.15}.  Here the
 f)}.  Also, the list \code{(c d)}, which used to be the \code{cdr} of \code{x},
 is now detached from the structure.
 
-\pagebreak
+\begin{codeBlock}
+(define (cons x y)
+  (let ((new (get-new-pair)))
+    (set-car! new x)
+    (set-cdr! new y)
+    new))
+\end{codeBlock}
 
 \code{cons} builds new list structure by creating new pairs, while
 \code{set\-/car!} and \code{set\-/cdr!} modify existing pairs.  Indeed, we could
@@ -1795,24 +1791,16 @@ the \code{cons}.\footnote{\code{get\-/new\-/pair} is one of the operations that
 must be implemented as part of the memory management required by a Lisp
 implementation.  We will discuss this in \link{Section 5.3.1}.}
 
-\begin{scheme}
-(define (cons x y)
-  (let ((new (get-new-pair)))
-    (set-car! new x)
-    (set-cdr! new y)
-    new))
-\end{scheme}
-
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 3.12}Exercise 3.12:} The following procedure for
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 3.12}Exercise 3.12:} The following procedure for
 appending lists was introduced in \link{Section 2.2.1}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (append x y)
   (if (null? x)
       y
       (cons (car x) (append (cdr x) y))))
-\end{scheme}
+\end{codeBlock}
 
 \code{append} forms a new list by successively \code{cons}ing the elements of
 \code{x} onto \code{y}.  The procedure \code{append!} is similar to
@@ -1821,62 +1809,62 @@ lists by splicing them together, modifying the final pair of \code{x} so that
 its \code{cdr} is now \code{y}.  (It is an error to call \code{append!} with an
 empty \code{x}.)
 
-\begin{scheme}
+\begin{codeBlock}
 (define (append! x y)
   (set-cdr! (last-pair x) y)
   x)
-\end{scheme}
+\end{codeBlock}
 
 Here \code{last\-/pair} is a procedure that returns the last pair in its
 argument:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (last-pair x)
   (if (null? (cdr x)) x (last-pair (cdr x))))
-\end{scheme}
+\end{codeBlock}
 
 Consider the interaction
 
-\begin{scheme}
+\begin{codeBlock}
 (define x (list 'a 'b))
 (define y (list 'c 'd))
 (define z (append x y))
 z
 ~\textit{(a b c d)}~
 (cdr x)
-~\( \dark \langle \)~~\var{\dark response}~~\( \dark \rangle \)~
+~\(\langle \)~~\var{response}~~\(\rangle \)~
 (define w (append! x y))
 w
 ~\textit{(a b c d)}~
 (cdr x)
-~\( \dark \langle \)~~\var{\dark response}~~\( \dark \rangle \)~
-\end{scheme}
+~\(\langle \)~~\var{response}~~\(\rangle \)~
+\end{codeBlock}
 
 What are the missing \( \langle \)\var{response}\( \rangle \)s?
 Draw box-and-pointer \\ diagrams to explain your answer.
 
-\heading{\phantomsection\label{Exercise 3.13}Exercise 3.13:} Consider the following
+\exerciseHeading{\phantomsection\label{Exercise 3.13}Exercise 3.13:} Consider the following
 \code{make\-/cycle} procedure, which uses the \code{last\-/pair} procedure defined
 in \link{Exercise 3.12}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-cycle x)
   (set-cdr! (last-pair x) x)
   x)
-\end{scheme}
+\end{codeBlock}
 
 Draw a box-and-pointer diagram that shows the structure \code{z} created by
 
-\begin{scheme}
+\begin{codeBlock}
 (define z (make-cycle (list 'a 'b 'c)))
-\end{scheme}
+\end{codeBlock}
 
 What happens if we try to compute \code{(last\-/pair z)}?
 
-\heading{\phantomsection\label{Exercise 3.14}Exercise 3.14:} The following procedure is quite
+\exerciseHeading{\phantomsection\label{Exercise 3.14}Exercise 3.14:} The following procedure is quite
 useful, although obscure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (mystery x)
   (define (loop x y)
     (if (null? x)
@@ -1885,7 +1873,7 @@ useful, although obscure:
           (set-cdr! x y)
           (loop temp x))))
   (loop x '()))
-\end{scheme}
+\end{codeBlock}
 
 \code{loop} uses the ``temporary'' variable \code{temp} to hold the old value
 of the \code{cdr} of \code{x}, since the \code{set\-/cdr!}  on the next line
@@ -1896,7 +1884,7 @@ Suppose that we now evaluate \code{(define w (mystery v))}. Draw
 box-and-pointer diagrams that show the structures \code{v} and \code{w} after
 evaluating this expression.  What would be printed as the values of \code{v}
 and \code{w}?
-\end{exercises}
+\end{exerciseGroup}
 
 \subsubsection*{Sharing and identity}
 
@@ -1905,10 +1893,10 @@ We mentioned in \link{Section 3.1.3} the theoretical issues of ``sameness'' and
 practice when individual pairs are \newterm{shared} among different data
 objects.  For example, consider the structure formed by
 
-\begin{scheme}
+\begin{codeBlock}
 (define x (list 'a 'b))
 (define z1 (cons x x))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 As shown in \link{Figure 3.16}, \code{z1} is a pair whose \code{car} and
@@ -1921,9 +1909,9 @@ in which many individual pairs are shared by many different structures.
 In contrast to \link{Figure 3.16}, \link{Figure 3.17} shows the structure created
 by
 
-\begin{scheme}
+\begin{codeBlock}
 (define z2 (cons (list 'a 'b) (list 'a 'b)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 In this structure, the pairs in the two \code{(a b)} lists are distinct,
@@ -1954,9 +1942,9 @@ example of the difference that sharing can make, consider the following
 procedure, which modifies the \code{car} of the structure to which it is
 applied:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (set-to-wow! x) (set-car! (car x) 'wow) x)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Even though \code{z1} and \code{z2} are ``the same'' structure, applying
@@ -1965,7 +1953,7 @@ the \code{car} also changes the \code{cdr}, because in \code{z1} the \code{car}
 and the \code{cdr} are the same pair.  With \code{z2}, the \code{car} and
 \code{cdr} are distinct, so \code{set\-/to\-/wow!} modifies only the \code{car}:
 
-\begin{scheme}
+\begin{codeBlock}
 z1
 ~\textit{((a b) a b)}~
 (set-to-wow! z1)
@@ -1974,7 +1962,7 @@ z2
 ~\textit{((a b) a b)}~
 (set-to-wow! z2)
 ~\textit{((wow b) a b)}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 One way to detect sharing in list structures is to use the predicate
@@ -2005,52 +1993,52 @@ memory locations in the computer.  This suffices for simple Lisp programs, but
 is hardly a general way to resolve the issue of ``sameness'' in computational
 models.}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 3.15}Exercise 3.15:} Draw box-and-pointer diagrams to
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 3.15}Exercise 3.15:} Draw box-and-pointer diagrams to
 explain the effect of \code{set\-/to\-/wow!} on the structures \code{z1} and
 \code{z2} above.
 
-\heading{\phantomsection\label{Exercise 3.16}Exercise 3.16:} Ben Bitdiddle decides to write a
+\exerciseHeading{\phantomsection\label{Exercise 3.16}Exercise 3.16:} Ben Bitdiddle decides to write a
 procedure to count the number of pairs in any list structure.  ``It's easy,''
 he reasons.  ``The number of pairs in any structure is the number in the
 \code{car} plus the number in the \code{cdr} plus one more to count the current
 pair.''  So Ben writes the following procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (count-pairs x)
   (if (not (pair? x))
       0
       (+ (count-pairs (car x))
          (count-pairs (cdr x))
          1)))
-\end{scheme}
+\end{codeBlock}
 
 Show that this procedure is not correct.  In particular, draw box-and-pointer
 diagrams representing list structures made up of exactly three pairs for which
 Ben's procedure would return 3; return 4; return 7; never return at all.
 
-\heading{\phantomsection\label{Exercise 3.17}Exercise 3.17:} Devise a correct version of the
+\exerciseHeading{\phantomsection\label{Exercise 3.17}Exercise 3.17:} Devise a correct version of the
 \code{count\-/pairs} procedure of \link{Exercise 3.16} that returns the number of
 distinct pairs in any structure.  (Hint: Traverse the structure, maintaining an
 auxiliary data structure that is used to keep track of which pairs have already
 been counted.)
 
-\heading{\phantomsection\label{Exercise 3.18}Exercise 3.18:} Write a procedure that examines a
+\exerciseHeading{\phantomsection\label{Exercise 3.18}Exercise 3.18:} Write a procedure that examines a
 list and determines whether it contains a cycle, that is, whether a program
 that tried to find the end of the list by taking successive \code{cdr}s would
 go into an infinite loop.  \link{Exercise 3.13} constructed such lists.
 
-\heading{\phantomsection\label{Exercise 3.19}Exercise 3.19:} Redo \link{Exercise 3.18} using an
+\exerciseHeading{\phantomsection\label{Exercise 3.19}Exercise 3.19:} Redo \link{Exercise 3.18} using an
 algorithm that takes only a constant amount of space.  (This requires a very
 clever idea.)
-\end{exercises}
+\end{exerciseGroup}
 
 \subsubsection*{Mutation is just assignment}
 
 When we introduced compound data, we observed in \link{Section 2.1.3} that pairs
 can be represented purely in terms of procedures:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (cons x y)
   (define (dispatch m)
     (cond ((eq? m 'car) x)
@@ -2059,7 +2047,7 @@ can be represented purely in terms of procedures:
   dispatch)
 (define (car z) (z 'car))
 (define (cdr z) (z 'cdr))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The same observation is true for mutable data.  We can implement mutable data
@@ -2068,7 +2056,7 @@ extend the above pair implementation to handle \code{set\-/car!} and
 \code{set\-/cdr!} in a manner analogous to the way we implemented bank accounts
 using \code{make\-/account} in \link{Section 3.1.1}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (cons x y)
   (define (set-x! v) (set! x v))
   (define (set-y! v) (set! y v))
@@ -2086,7 +2074,7 @@ using \code{make\-/account} in \link{Section 3.1.1}:
   ((z 'set-car!) new-value) z)
 (define (set-cdr! z new-value)
   ((z 'set-cdr!) new-value) z)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Assignment is all that is needed, theoretically, to account for the behavior of
@@ -2097,22 +2085,22 @@ modify the environment, which is itself a mutable data structure.  Thus,
 assignment and mutation are equipotent: Each can be implemented in terms of the
 other.}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 3.20}Exercise 3.20:} Draw environment diagrams to
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 3.20}Exercise 3.20:} Draw environment diagrams to
 illustrate the evaluation of the sequence of expressions
 
-\begin{scheme}
+\begin{codeBlock}
 (define x (cons 1 2))
 (define z (cons x x))
 (set-car! (cdr z) 17)
 (car x)
 ~\textit{17}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 using the procedural implementation of pairs given above.  (Compare
 \link{Exercise 3.11}.)
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Representing Queues}
 \label{Section 3.3.2}
@@ -2208,42 +2196,42 @@ representation.
 To define the queue operations we use the following procedures, which enable us
 to select and to modify the front and rear pointers of a queue:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (front-ptr queue) (car queue))
 (define (rear-ptr  queue) (cdr queue))
 (define (set-front-ptr! queue item)
   (set-car! queue item))
 (define (set-rear-ptr!  queue item)
   (set-cdr! queue item))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Now we can implement the actual queue operations.  We will consider a queue to
 be empty if its front pointer is the empty list:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (empty-queue? queue)
   (null? (front-ptr queue)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The \code{make\-/queue} constructor returns, as an initially empty queue, a pair
 whose \code{car} and \code{cdr} are both the empty list:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-queue) (cons '() '()))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 To select the item at the front of the queue, we return the \code{car} of the
 pair indicated by the front pointer:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (front-queue queue)
   (if (empty-queue? queue)
       (error "FRONT called with an empty queue" queue)
       (car (front-ptr queue))))
-\end{scheme}
+\end{codeBlock}
 
 % figure 3.20
 \begin{imageFigure}
@@ -2262,7 +2250,7 @@ empty, we set the front and rear pointers of the queue to this new pair.
 Otherwise, we modify the final pair in the queue to point to the new pair, and
 also set the rear pointer to the new pair.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (insert-queue! queue item)
   (let ((new-pair (cons item '())))
     (cond ((empty-queue? queue)
@@ -2273,7 +2261,7 @@ also set the rear pointer to the new pair.
            (set-cdr! (rear-ptr queue) new-pair)
            (set-rear-ptr! queue new-pair)
            queue))))
-\end{scheme}
+\end{codeBlock}
 
 % figure 3.21
 \begin{imageFigure}
@@ -2294,20 +2282,24 @@ empty; we needn't worry about updating the rear pointer, which will still point
 to the deleted item, because \code{empty\-/queue?} looks only at the front
 pointer.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (delete-queue! queue)
   (cond ((empty-queue? queue)
-         (error "DELETE! called with an empty queue" queue))
-        (else (set-front-ptr! queue (cdr (front-ptr queue)))
-              queue)))
-\end{scheme}
+         (error
+           "DELETE! called with an empty queue"
+           queue))
+        (else
+          (set-front-ptr! queue
+                          (cdr (front-ptr queue)))
+          queue)))
+\end{codeBlock}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 3.21}Exercise 3.21:} Ben Bitdiddle decides to test the
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 3.21}Exercise 3.21:} Ben Bitdiddle decides to test the
 queue implementation described above.  He types in the procedures to the Lisp
 interpreter and proceeds to try them out:
 
-\begin{scheme}
+\begin{codeBlock}
 (define q1 (make-queue))
 (insert-queue! q1 'a)
 ~\textit{((a) a)}~
@@ -2317,7 +2309,7 @@ interpreter and proceeds to try them out:
 ~\textit{((b) b)}~
 (delete-queue! q1)
 ~\textit{(() b)}~
-\end{scheme}
+\end{codeBlock}
 
 ``It's all wrong!'' he complains.  ``The interpreter's response shows that the
 last item is inserted into the queue twice.  And when I delete both items, the
@@ -2331,24 +2323,24 @@ what Eva Lu is talking about.  In particular, show why Ben's examples produce
 the printed results that they do.  Define a procedure \code{print\-/queue} that
 takes a queue as input and prints the sequence of items in the queue.
 
-\heading{\phantomsection\label{Exercise 3.22}Exercise 3.22:} Instead of representing a queue
+\exerciseHeading{\phantomsection\label{Exercise 3.22}Exercise 3.22:} Instead of representing a queue
 as a pair of pointers, we can build a queue as a procedure with local state.
 The local state will consist of pointers to the beginning and the end of an
 ordinary list.  Thus, the \code{make\-/queue} procedure will have the form
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-queue)
   (let ((front-ptr ~\( \dots \)~ )
         (rear-ptr ~\( \dots \)~ ))
-    ~\( \dark \langle \)~~\var{\dark definitions of internal procedures}~~\( \dark \rangle \)~
+    ~\(\langle \)~~\var{definitions of internal procedures}~~\(\rangle \)~
     (define (dispatch m) ~\( \dots \)~)
     dispatch))
-\end{scheme}
+\end{codeBlock}
 
 Complete the definition of \code{make\-/queue} and provide implementations of the
 queue operations using this representation.
 
-\heading{\phantomsection\label{Exercise 3.23}Exercise 3.23:} A \newterm{deque} (``double-ended
+\exerciseHeading{\phantomsection\label{Exercise 3.23}Exercise 3.23:} A \newterm{deque} (``double-ended
 queue'') is a sequence in which items can be inserted and deleted at either the
 front or the rear.  Operations on deques are the constructor \code{make\-/deque},
 the predicate \code{empty\-/deque?}, selectors \code{front\-/deque} and
@@ -2358,7 +2350,7 @@ the predicate \code{empty\-/deque?}, selectors \code{front\-/deque} and
 implementations of the operations.\footnote{Be careful not to make the
 interpreter try to print a structure that contains cycles.  (See \link{Exercise 3.13}.)}
 All operations should be accomplished in \( \Theta \)(1) steps.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Representing Tables}
 \label{Section 3.3.3}
@@ -2387,11 +2379,11 @@ list has a special backbone pair at the beginning, which holds a dummy
 ``record''---in this case the arbitrarily chosen symbol \code{*table*}.
 \link{Figure 3.22} shows the box-and-pointer diagram for the table
 
-\begin{scheme}
+\begin{codeBlock}
 a:  1
 b:  2
 c:  3
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 To extract information from a table we use the \code{lookup} procedure, which
@@ -2405,7 +2397,7 @@ structure.}  \code{lookup} then checks to see that the resulting record
 returned by \code{assoc} is not false, and returns the value (the \code{cdr})
 of the record.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (lookup key table)
   (let ((record (assoc key (cdr table))))
     (if record
@@ -2415,7 +2407,7 @@ of the record.
   (cond ((null? records) false)
         ((equal? key (caar records)) (car records))
         (else (assoc key (cdr records)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 To insert a value in a table under a specified key, we first use \code{assoc}
@@ -2431,7 +2423,7 @@ starts the table.  If we did not arrange things in this way, \code{insert!}
 would have to return a new value for the start of the table when it added a new
 record.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (insert! key value table)
   (let ((record (assoc key (cdr table))))
     (if record
@@ -2440,16 +2432,16 @@ record.}
                   (cons (cons key value)
                         (cdr table)))))
   'ok)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 To construct a new table, we simply create a list containing the symbol
 \code{*table*}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-table)
   (list '*table*))
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection*{Two-dimensional tables}
 
@@ -2471,7 +2463,7 @@ since the key that identifies the subtable serves this purpose.)
 When we look up an item, we use the first key to identify the correct subtable.
 Then we use the second key to identify the record within the subtable.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (lookup key-1 key-2 table)
   (let ((subtable
          (assoc key-1 (cdr table))))
@@ -2482,7 +2474,7 @@ Then we use the second key to identify the record within the subtable.
               (cdr record)
               false))
         false)))
-\end{scheme}
+\end{codeBlock}
 
 % figure 3.23
 \begin{imageFigure}
@@ -2497,7 +2489,7 @@ the table under the first key.  If a subtable already exists for the first key,
 we insert the new record into this subtable, using the insertion method for
 one-dimensional tables described above:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (insert! key-1 key-2 value table)
   (let ((subtable (assoc key-1 (cdr table))))
     (if subtable
@@ -2512,7 +2504,7 @@ one-dimensional tables described above:
                               (cons key-2 value))
                         (cdr table)))))
   'ok)
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection*{Creating local tables}
 
@@ -2525,57 +2517,60 @@ its local state.  When sent an appropriate message, this ``table object''
 supplies the procedure with which to operate on the internal table.  Here is a
 generator for two-dimensional tables represented in this fashion:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-table)
   (let ((local-table (list '*table*)))
     (define (lookup key-1 key-2)
       (let ((subtable
-             (assoc key-1 (cdr local-table))))
+              (assoc key-1 (cdr local-table))))
         (if subtable
             (let ((record
-                   (assoc key-2 (cdr subtable))))
+                    (assoc key-2 (cdr subtable))))
               (if record (cdr record) false))
             false)))
     (define (insert! key-1 key-2 value)
       (let ((subtable
-             (assoc key-1 (cdr local-table))))
+              (assoc key-1 (cdr local-table))))
         (if subtable
             (let ((record
-                   (assoc key-2 (cdr subtable))))
+                    (assoc key-2 (cdr subtable))))
               (if record
                   (set-cdr! record value)
                   (set-cdr! subtable
                             (cons (cons key-2 value)
                                   (cdr subtable)))))
             (set-cdr! local-table
-                      (cons (list key-1 (cons key-2 value))
+                      (cons (list key-1
+                                  (cons key-2 value))
                             (cdr local-table)))))
       'ok)
     (define (dispatch m)
       (cond ((eq? m 'lookup-proc) lookup)
             ((eq? m 'insert-proc!) insert!)
-            (else (error "Unknown operation: TABLE" m))))
+            (else
+              (error "Unknown operation: TABLE"
+                     m))))
     dispatch))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Using \code{make\-/table}, we could implement the \code{get} and \code{put}
 operations used in \link{Section 2.4.3} for data-directed programming, as
 follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (define operation-table (make-table))
 (define get (operation-table 'lookup-proc))
 (define put (operation-table 'insert-proc!))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{get} takes as arguments two keys, and \code{put} takes as arguments two
 keys and a value.  Both operations access the same local table, which is
 encapsulated within the object created by the call to \code{make\-/table}.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 3.24}Exercise 3.24:} In the table implementations
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 3.24}Exercise 3.24:} In the table implementations
 above, the keys are tested for equality using \code{equal?} (called by
 \code{assoc}).  This is not always the appropriate test.  For instance, we
 might have a table with numeric keys in which we don't need an exact match to
@@ -2586,13 +2581,13 @@ Design a table constructor \code{make\-/table} that takes as an argument a
 access appropriate \code{lookup} and \code{insert!} procedures for a local
 table.
 
-\heading{\phantomsection\label{Exercise 3.25}Exercise 3.25:} Generalizing one- and
+\exerciseHeading{\phantomsection\label{Exercise 3.25}Exercise 3.25:} Generalizing one- and
 two-dimensional tables, show how to implement a table in which values are
 stored under an arbitrary number of keys and different values may be stored
 under different numbers of keys.  The \code{lookup} and \code{insert!}
 procedures should take as input a list of keys used to access the table.
 
-\heading{\phantomsection\label{Exercise 3.26}Exercise 3.26:} To search a table as implemented
+\exerciseHeading{\phantomsection\label{Exercise 3.26}Exercise 3.26:} To search a table as implemented
 above, one needs to scan through the list of records.  This is basically the
 unordered list representation of \link{Section 2.3.3}.  For large tables, it may
 be more efficient to structure the table in a different manner.  Describe a
@@ -2600,7 +2595,7 @@ table implementation where the (key, value) records are organized using a
 binary tree, assuming that keys can be ordered in some way (e.g., numerically
 or alphabetically).  (Compare \link{Exercise 2.66} of \link{Chapter 2}.)
 
-\heading{\phantomsection\label{Exercise 3.27}Exercise 3.27:} \newterm{Memoization} (also
+\exerciseHeading{\phantomsection\label{Exercise 3.27}Exercise 3.27:} \newterm{Memoization} (also
 called \newterm{tabulation}) is a technique that enables a procedure to record,
 in a local table, values that have previously been computed.  This technique
 can make a vast difference in the performance of a program.  A memoized
@@ -2612,16 +2607,16 @@ new value in the ordinary way and stores this in the table.  As an example of
 memoization, recall from \link{Section 1.2.2} the exponential process for
 computing Fibonacci numbers:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (fib n)
   (cond ((= n 0) 0)
         ((= n 1) 1)
         (else (+ (fib (- n 1)) (fib (- n 2))))))
-\end{scheme}
+\end{codeBlock}
 
 The memoized version of the same procedure is
 
-\begin{scheme}
+\begin{codeBlock}
 (define memo-fib
   (memoize
    (lambda (n)
@@ -2629,12 +2624,12 @@ The memoized version of the same procedure is
            ((= n 1) 1)
            (else (+ (memo-fib (- n 1))
                     (memo-fib (- n 2))))))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 where the memoizer is defined as
 
-\begin{scheme}
+\begin{codeBlock}
 (define (memoize f)
   (let ((table (make-table)))
     (lambda (x)
@@ -2644,13 +2639,13 @@ where the memoizer is defined as
             (let ((result (f x)))
               (insert! x result table)
               result))))))
-\end{scheme}
+\end{codeBlock}
 
 Draw an environment diagram to analyze the computation of \code{(memo\-/fib 3)}.
 Explain why \code{memo\-/fib} computes the \( n^{\mathrm{th}} \) Fibonacci number in a number
 of steps proportional to \( n \).  Would the scheme still work if we had simply
 defined \code{memo\-/fib} to be \code{(memoize fib)}?
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{A Simulator for Digital Circuits}
 \label{Section 3.3.4}
@@ -2719,14 +2714,14 @@ that enforce the correct relationships among the signals.
 One basic element of our simulation will be a procedure \code{make\-/wire}, which
 constructs wires.  For example, we can construct six wires as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (define a (make-wire))
 (define b (make-wire))
 (define c (make-wire))
 (define d (make-wire))
 (define e (make-wire))
 (define s (make-wire))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We attach a function box to a set of wires by calling a procedure that
@@ -2735,7 +2730,7 @@ the wires to be attached to the box.  For example, given that we can construct
 and-gates, or-gates, and inverters, we can wire together the half-adder shown
 in \link{Figure 3.25}:
 
-\begin{scheme}
+\begin{codeBlock}
 (or-gate a b d)
 ~\textit{ok}~
 (and-gate a b c)
@@ -2744,14 +2739,14 @@ in \link{Figure 3.25}:
 ~\textit{ok}~
 (and-gate d e s)
 ~\textit{ok}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Better yet, we can explicitly name this operation by defining a procedure
 \code{half\-/adder} that constructs this circuit, given the four external wires
 to be attached to the half-adder:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (half-adder a b s c)
   (let ((d (make-wire)) (e (make-wire)))
     (or-gate a b d)
@@ -2759,7 +2754,7 @@ to be attached to the half-adder:
     (inverter c e)
     (and-gate d e s)
     'ok))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The advantage of making this definition is that we can use \code{half\-/adder}
@@ -2772,14 +2767,15 @@ addition one place to the right.  The circuit generates SUM, which is the sum
 bit in the corresponding position, and \( \rm C_{out} \), which is the carry
 bit to be propagated to the left.} We can construct a full-adder as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (full-adder a b c-in sum c-out)
-  (let ((s (make-wire)) (c1 (make-wire)) (c2 (make-wire)))
+  (let ((s (make-wire)) (c1 (make-wire))
+                        (c2 (make-wire)))
     (half-adder b c-in s c1)
     (half-adder a s sum c2)
     (or-gate c1 c2 c-out)
     'ok))
-\end{scheme}
+\end{codeBlock}
 
 % figure 3.26
 \begin{imageFigure}
@@ -2838,7 +2834,7 @@ signal on the input wire changes value.  The procedure computes the
 \code{logical\-/not} of the input signal, and then, after one
 \code{inverter\-/delay}, sets the output signal to be this new value:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (inverter input output)
   (define (invert-input)
     (let ((new-value (logical-not (get-signal input))))
@@ -2850,7 +2846,7 @@ signal on the input wire changes value.  The procedure computes the
   (cond ((= s 0) 1)
         ((= s 1) 0)
         (else (error "Invalid signal" s))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 An and-gate is a little more complex.  The action procedure must be run if
@@ -2859,7 +2855,7 @@ either of the inputs to the gate changes.  It computes the \code{logical\-/and}
 signals on the input wires and sets up a change to the new value to occur on
 the output wire after one \code{and\-/gate\-/delay}.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (and-gate a1 a2 output)
   (define (and-action-procedure)
     (let
@@ -2872,20 +2868,20 @@ the output wire after one \code{and\-/gate\-/delay}.
   (add-action! a1 and-action-procedure)
   (add-action! a2 and-action-procedure)
   'ok)
-\end{scheme}
+\end{codeBlock}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 3.28}Exercise 3.28:} Define an or-gate as a primitive
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 3.28}Exercise 3.28:} Define an or-gate as a primitive
 function box.  Your \code{or\-/gate} constructor should be similar to
 \code{and\-/gate}.
 
-\heading{\phantomsection\label{Exercise 3.29}Exercise 3.29:} Another way to construct an
+\exerciseHeading{\phantomsection\label{Exercise 3.29}Exercise 3.29:} Another way to construct an
 or-gate is as a compound digital logic device, built from and-gates and
 inverters.  Define a procedure \code{or\-/gate} that accomplishes this.  What is
 the delay time of the or-gate in terms of \code{and\-/gate\-/delay} and
 \code{inverter\-/delay}?
 
-\heading{\phantomsection\label{Exercise 3.30}Exercise 3.30:} \link{Figure 3.27} shows a
+\exerciseHeading{\phantomsection\label{Exercise 3.30}Exercise 3.30:} \link{Figure 3.27} shows a
 \newterm{ripple-carry adder} formed by stringing together \( n \) full-adders.
 This is the simplest form of parallel adder for adding two \( n \)-bit binary
 numbers.  The inputs \( A_1 \), \( A_2 \), \( A_3 \), \( \dots \), \( A_n \) and
@@ -2908,7 +2904,7 @@ and inverters?
   \includegraphics[width=96mm]{assets/figures/chapter_3/figure_3.27a.pdf}
 \end{imageFigure}
 
-\end{exercises}
+\end{exerciseGroup}
 
 \subsubsection*{Representing wires}
 
@@ -2920,13 +2916,13 @@ together with a \code{dispatch} procedure that selects the appropriate local
 operation, just as we did with the simple bank-account object in
 \link{Section 3.1.1}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-wire)
   (let ((signal-value 0) (action-procedures '()))
     (define (set-my-signal! new-value)
       (if (not (= signal-value new-value))
           (begin (set! signal-value new-value)
-                 (call-each action-procedures))
+            (call-each action-procedures))
           'done))
     (define (accept-action-procedure! proc)
       (set! action-procedures
@@ -2935,10 +2931,13 @@ operation, just as we did with the simple bank-account object in
     (define (dispatch m)
       (cond ((eq? m 'get-signal) signal-value)
             ((eq? m 'set-signal!) set-my-signal!)
-            ((eq? m 'add-action!) accept-action-procedure!)
-            (else (error "Unknown operation: WIRE" m))))
+            ((eq? m 'add-action!)
+             accept-action-procedure!)
+            (else
+              (error "Unknown operation: WIRE"
+                     m))))
     dispatch))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The local procedure \code{set\-/my\-/signal!} tests whether the new signal value
@@ -2946,13 +2945,13 @@ changes the signal on the wire.  If so, it runs each of the action procedures,
 using the following procedure \code{call\-/each}, which calls each of the items
 in a list of no-argument procedures:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (call-each procedures)
   (if (null? procedures)
       'done
       (begin ((car procedures))
              (call-each (cdr procedures)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The local procedure \code{accept\-/action\-/procedure!} adds the given procedure to
@@ -2973,13 +2972,13 @@ that, in a language in which we can deal with procedures as objects, there is
 no fundamental difference between ``procedures'' and ``data,'' and we can
 choose our syntactic sugar to allow us to program in whatever style we choose.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (get-signal wire) (wire 'get-signal))
 (define (set-signal! wire new-value)
   ((wire 'set-signal!) new-value))
 (define (add-action! wire action-procedure)
   ((wire 'add-action!) action-procedure))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Wires, which have time-varying signals and may be incrementally attached to
@@ -3028,12 +3027,12 @@ removing the first item.
 The particular agenda that we use is denoted by \code{the\-/agenda}.  The
 procedure \code{after\-/delay} adds new elements to \code{the\-/agenda}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (after-delay delay action)
   (add-to-agenda! (+ delay (current-time the-agenda))
                   action
                   the-agenda))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The simulation is driven by the procedure \code{propagate}, which operates on
@@ -3042,15 +3041,16 @@ general, as the simulation runs, new items will be added to the agenda, and
 \code{propagate} will continue the simulation as long as there are items on the
 agenda:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (propagate)
   (if (empty-agenda? the-agenda)
       'done
-      (let ((first-item (first-agenda-item the-agenda)))
+      (let ((first-item
+              (first-agenda-item the-agenda)))
         (first-item)
         (remove-first-agenda-item! the-agenda)
         (propagate))))
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection*{A sample simulation}
 
@@ -3059,7 +3059,7 @@ simulator in action.  The probe tells the wire that, whenever its signal
 changes value, it should print the new signal value, together with the current
 time and a name that identifies the wire:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (probe name wire)
   (add-action! wire
                (lambda ()
@@ -3068,23 +3068,23 @@ time and a name that identifies the wire:
                  (display (current-time the-agenda))
                  (display "  New-value = ")
                  (display (get-signal wire)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We begin by initializing the agenda and specifying delays for the primitive
 function boxes:
 
-\begin{scheme}
+\begin{codeBlock}
 (define the-agenda (make-agenda))
 (define inverter-delay 2)
 (define and-gate-delay 3)
 (define or-gate-delay 5)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Now we define four wires, placing probes on two of them:
 
-\begin{scheme}
+\begin{codeBlock}
 (define input-1 (make-wire))
 (define input-2 (make-wire))
 (define sum (make-wire))
@@ -3095,63 +3095,63 @@ Now we define four wires, placing probes on two of them:
 
 (probe 'carry carry)
 ~\textit{carry 0  New-value = 0}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Next we connect the wires in a half-adder circuit (as in \link{Figure 3.25}),
 set the signal on \code{input\-/1} to 1, and run the simulation:
 
-\begin{scheme}
+\begin{codeBlock}
 (half-adder input-1 input-2 sum carry)
 ~\textit{ok}~
-\end{scheme}
+\end{codeBlock}
 
-\begin{scheme}
+\begin{codeBlock}
 (set-signal! input-1 1)
 ~\textit{done}~
-\end{scheme}
+\end{codeBlock}
 
-\begin{scheme}
+\begin{codeBlock}
 (propagate)
 ~\textit{sum 8  New-value = 1}~
 ~\textit{done}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The \code{sum} signal changes to 1 at time 8.  We are now eight time units from
 the beginning of the simulation.  At this point, we can set the signal on
 \code{input\-/2} to 1 and allow the values to propagate:
 
-\begin{scheme}
+\begin{codeBlock}
 (set-signal! input-2 1)
 ~\textit{done}~
-\end{scheme}
+\end{codeBlock}
 
-\begin{scheme}
+\begin{codeBlock}
 (propagate)
 ~\textit{carry 11  New-value = 1}~
 ~\textit{sum 16  New-value = 0}~
 ~\textit{done}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The \code{carry} changes to 1 at time 11 and the \code{sum} changes to 0 at
 time 16.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 3.31}Exercise 3.31:} The internal procedure
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 3.31}Exercise 3.31:} The internal procedure
 \code{accept\-/action\-/procedure!} defined in \code{make\-/wire} specifies that when
 a new action procedure is added to a wire, the procedure is immediately run.
 Explain why this initialization is necessary.  In particular, trace through the
 half-adder example in the paragraphs above and say how the system's response
 would differ if we had defined \code{accept\-/action\-/procedure!} as
 
-\begin{scheme}
+\begin{codeBlock}
 (define (accept-action-procedure! proc)
   (set! action-procedures
         (cons proc action-procedures)))
-\end{scheme}
-\end{exercises}
+\end{codeBlock}
+\end{exerciseGroup}
 
 \subsubsection*{Implementing the agenda}
 
@@ -3162,12 +3162,12 @@ The agenda is made up of \newterm{time segments}.  Each time segment is a pair
 consisting of a number (the time) and a queue (see \link{Exercise 3.32}) that
 holds the procedures that are scheduled to be run during that time segment.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-time-segment time queue)
   (cons time queue))
 (define (segment-time s) (car s))
 (define (segment-queue s) (cdr s))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We will operate on the time-segment queues using the queue operations described
@@ -3182,7 +3182,7 @@ of 0:\footnote{The agenda is a headed list, like the tables in
 \link{Section 3.3.3}, but since the list is headed by the time, we do not need an
 additional dummy header (such as the \code{*table*} symbol used with tables).}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-agenda) (list 0))
 (define (current-time agenda) (car agenda))
 (define (set-current-time! agenda time)
@@ -3192,15 +3192,15 @@ additional dummy header (such as the \code{*table*} symbol used with tables).}
   (set-cdr! agenda segments))
 (define (first-segment agenda) (car (segments agenda)))
 (define (rest-segments agenda) (cdr (segments agenda)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 An agenda is empty if it has no time segments:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (empty-agenda? agenda)
   (null? (segments agenda)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 To add an action to an agenda, we first check if the agenda is empty.  If so,
@@ -3211,7 +3211,7 @@ If we reach a time later than the one to which we are appointed, we insert a
 new time segment into the agenda just before it.  If we reach the end of the
 agenda, we must create a new time segment at the end.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (add-to-agenda! time action agenda)
   (define (belongs-before? segments)
     (or (null? segments)
@@ -3227,18 +3227,19 @@ agenda, we must create a new time segment at the end.
         (let ((rest (cdr segments)))
           (if (belongs-before? rest)
               (set-cdr!
-               segments
-               (cons (make-new-time-segment time action)
-                     (cdr segments)))
+                segments
+                (cons (make-new-time-segment time
+                                             action)
+                      (cdr segments)))
               (add-to-segments! rest)))))
   (let ((segments (segments agenda)))
     (if (belongs-before? segments)
         (set-segments!
-         agenda
-         (cons (make-new-time-segment time action)
-               segments))
+          agenda
+          (cons (make-new-time-segment time action)
+                segments))
         (add-to-segments! segments))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The procedure that removes the first item from the agenda deletes the item at
@@ -3250,13 +3251,13 @@ to do something, rather than to select between two expressions.  An \code{if}
 expression returns an unspecified value if the predicate is false and there is
 no \( \langle \)\var{alternative}\( \kern0.08em\rangle \).}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (remove-first-agenda-item! agenda)
   (let ((q (segment-queue (first-segment agenda))))
     (delete-queue! q)
     (if (empty-queue? q)
         (set-segments! agenda (rest-segments agenda)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The first agenda item is found at the head of the queue in the first time
@@ -3266,7 +3267,7 @@ action most recently processed.  Storing this time at the head of the agenda
 ensures that it will still be available even if the associated time segment has
 been deleted.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (first-agenda-item agenda)
   (if (empty-agenda? agenda)
       (error "Agenda is empty: FIRST-AGENDA-ITEM")
@@ -3274,10 +3275,10 @@ been deleted.}
         (set-current-time! agenda
                            (segment-time first-seg))
         (front-queue (segment-queue first-seg)))))
-\end{scheme}
+\end{codeBlock}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 3.32}Exercise 3.32:} The procedures to be run during
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 3.32}Exercise 3.32:} The procedures to be run during
 each time segment of the agenda are kept in a queue.  Thus, the procedures for
 each segment are called in the order in which they were added to the agenda
 (first in, first out).  Explain why this order must be used.  In particular,
@@ -3285,7 +3286,7 @@ trace the behavior of an and-gate whose inputs change from 0, 1 to 1, 0 in the
 same segment and say how the behavior would differ if we stored a segment's
 procedures in an ordinary list, adding and removing procedures only at the
 front (last in, first out).
-\end{exercises}
+\end{exerciseGroup}
 
 
 \subsection{Propagation of Constraints}
@@ -3298,13 +3299,6 @@ quantities.  For example, a mathematical model of a mechanical structure might
 include the information that the deflection \( d \) of a metal rod is related to
 the force \( F \) on the rod, the length \( L \) of the rod, the cross-sectional
 area \( A \), and the elastic modulus \( E \) via the equation
-\begin{comment}
-
-\begin{example}
-dAE = FL
-\end{example}
-
-\end{comment}
 
 $$ dAE = FL. $$
 
@@ -3337,13 +3331,6 @@ express more complex relations.  We combine constraints by constructing
 \newterm{connectors}.  A connector is an object that ``holds'' a value that may
 participate in one or more constraints.  For example, we know that the
 relationship between Fahrenheit and Celsius temperatures is
-\begin{comment}
-
-\begin{example}
-9C = 5(F - 32)
-\end{example}
-
-\end{comment}
 
 $$ 9C = 5(F - 32). $$
 
@@ -3386,17 +3373,17 @@ above, we first create two connectors, \code{C} and \code{F}, by calling the
 constructor \code{make\-/connector}, and link \code{C} and \code{F} in an
 appropriate network:
 
-\begin{scheme}
+\begin{codeBlock}
 (define C (make-connector))
 (define F (make-connector))
 (celsius-fahrenheit-converter C F)
 ~\textit{ok}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The procedure that creates the network is defined as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (celsius-fahrenheit-converter c f)
   (let ((u (make-connector))
         (v (make-connector))
@@ -3410,7 +3397,7 @@ The procedure that creates the network is defined as follows:
     (constant 5 x)
     (constant 32 y)
     'ok))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This procedure creates the internal connectors \code{u}, \code{v}, \code{w},
@@ -3426,22 +3413,22 @@ and \code{F}, using a \code{probe} procedure similar to the one we used to
 monitor wires in \link{Section 3.3.4}.  Placing a probe on a connector will
 cause a message to be printed whenever the connector is given a value:
 
-\begin{scheme}
+\begin{codeBlock}
 (probe "Celsius temp" C)
 (probe "Fahrenheit temp" F)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Next we set the value of \code{C} to 25.  (The third argument to
 \code{set\-/value!} tells \code{C} that this directive comes from the
 \code{user}.)
 
-\begin{scheme}
+\begin{codeBlock}
 (set-value! C 25 'user)
 ~\textit{Probe: Celsius temp = 25}~
 ~\textit{Probe: Fahrenheit temp = 77}~
 ~\textit{done}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The probe on \code{C} awakens and reports the value.  \code{C} also propagates
@@ -3450,22 +3437,22 @@ which is reported by the probe on \code{F}.
 
 Now we can try to set \code{F} to a new value, say 212:
 
-\begin{scheme}
+\begin{codeBlock}
 (set-value! F 212 'user)
 ~\textit{Error! Contradiction (77 212)}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The connector complains that it has sensed a contradiction: Its value is 77,
 and someone is trying to set it to 212.  If we really want to reuse the network
 with new values, we can tell \code{C} to forget its old value:
 
-\begin{scheme}
+\begin{codeBlock}
 (forget-value! C 'user)
 ~\textit{Probe: Celsius temp = ?}~
 ~\textit{Probe: Fahrenheit temp = ?}~
 ~\textit{done}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{C} finds that the \code{user}, who set its value originally, is now
@@ -3477,12 +3464,12 @@ its value, as shown by the probe.
 
 Now that \code{F} has no value, we are free to set it to 212:
 
-\begin{scheme}
+\begin{codeBlock}
 (set-value! F 212 'user)
 ~\textit{Probe: Fahrenheit temp = 212}~
 ~\textit{Probe: Celsius temp = 100}~
 ~\textit{done}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This new value, when propagated through the network, forces \code{C} to have a
@@ -3534,20 +3521,26 @@ the connector has lost its value.
 and \code{a2} and a \code{sum} connector.  An adder is implemented as a
 procedure with local state (the procedure \code{me} below):
 
-\begin{scheme}
+\begin{codeBlock}
 (define (adder a1 a2 sum)
   (define (process-new-value)
-    (cond ((and (has-value? a1) (has-value? a2))
+    (cond ((and (has-value? a1)
+                (has-value? a2))
            (set-value! sum
-                       (+ (get-value a1) (get-value a2))
+                       (+ (get-value a1)
+                          (get-value a2))
                        me))
-          ((and (has-value? a1) (has-value? sum))
+          ((and (has-value? a1)
+                (has-value? sum))
            (set-value! a2
-                       (- (get-value sum) (get-value a1))
+                       (- (get-value sum)
+                          (get-value a1))
                        me))
-          ((and (has-value? a2) (has-value? sum))
+          ((and (has-value? a2)
+                (has-value? sum))
            (set-value! a1
-                       (- (get-value sum) (get-value a2))
+                       (- (get-value sum)
+                          (get-value a2))
                        me))))
   (define (process-forget-value)
     (forget-value! sum me)
@@ -3555,14 +3548,18 @@ procedure with local state (the procedure \code{me} below):
     (forget-value! a2 me)
     (process-new-value))
   (define (me request)
-    (cond ((eq? request 'I-have-a-value)  (process-new-value))
-          ((eq? request 'I-lost-my-value) (process-forget-value))
-          (else (error "Unknown request: ADDER" request))))
+    (cond ((eq? request 'I-have-a-value)
+           (process-new-value))
+          ((eq? request 'I-lost-my-value)
+           (process-forget-value))
+          (else
+            (error "Unknown request: ADDER"
+                   request))))
   (connect a1 me)
   (connect a2 me)
   (connect sum me)
   me)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{adder} connects the new adder to the designated connectors and returns it
@@ -3571,12 +3568,12 @@ dispatch to the local procedures.  The following ``syntax interfaces'' (see
 \link{Footnote 27} in \link{Section 3.3.4}) are used in conjunction with
 the dispatch:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (inform-about-value constraint)
   (constraint 'I-have-a-value))
 (define (inform-about-no-value constraint)
   (constraint 'I-lost-my-value))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The adder's local procedure \code{process\-/new\-/value} is called when the adder
@@ -3598,22 +3595,28 @@ and these values may need to be propagated back through the adder.
 A multiplier is very similar to an adder. It will set its \code{product} to 0
 if either of the factors is 0, even if the other factor is not known.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (multiplier m1 m2 product)
   (define (process-new-value)
-    (cond ((or (and (has-value? m1) (= (get-value m1) 0))
-               (and (has-value? m2) (= (get-value m2) 0)))
+    (cond ((or (and (has-value? m1)
+                    (= (get-value m1) 0))
+               (and (has-value? m2)
+                    (= (get-value m2) 0)))
            (set-value! product 0 me))
-          ((and (has-value? m1) (has-value? m2))
+          ((and (has-value? m1)
+                (has-value? m2))
            (set-value! product
-                       (* (get-value m1) (get-value m2))
+                       (* (get-value m1)
+                          (get-value m2))
                        me))
-          ((and (has-value? product) (has-value? m1))
+          ((and (has-value? product)
+                (has-value? m1))
            (set-value! m2
                        (/ (get-value product)
                           (get-value m1))
                        me))
-          ((and (has-value? product) (has-value? m2))
+          ((and (has-value? product)
+                (has-value? m2))
            (set-value! m1
                        (/ (get-value product)
                           (get-value m2))
@@ -3624,49 +3627,59 @@ if either of the factors is 0, even if the other factor is not known.
     (forget-value! m2 me)
     (process-new-value))
   (define (me request)
-    (cond ((eq? request 'I-have-a-value)  (process-new-value))
-          ((eq? request 'I-lost-my-value) (process-forget-value))
-          (else (error "Unknown request: MULTIPLIER"
-                       request))))
+    (cond ((eq? request 'I-have-a-value)
+           (process-new-value))
+          ((eq? request 'I-lost-my-value)
+           (process-forget-value))
+          (else
+            (error "Unknown request: MULTIPLIER"
+                   request))))
   (connect m1 me)
   (connect m2 me)
   (connect product me)
   me)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 A \code{constant} constructor simply sets the value of the designated
 connector.  Any \code{I\-/have\-/a\-/value} or \code{I\-/lost\-/my\-/value} message sent to
 the constant box will produce an error.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (constant value connector)
   (define (me request)
     (error "Unknown request: CONSTANT" request))
   (connect connector me)
   (set-value! connector value me)
   me)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Finally, a probe prints a message about the setting or unsetting of
 the designated connector:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (probe name connector)
   (define (print-probe value)
-    (newline) (display "Probe: ") (display name)
-    (display " = ") (display value))
+    (newline)
+    (display "Probe: ")
+    (display name)
+    (display " = ")
+    (display value))
   (define (process-new-value)
     (print-probe (get-value connector)))
   (define (process-forget-value) (print-probe "?"))
   (define (me request)
-    (cond ((eq? request 'I-have-a-value)  (process-new-value))
-          ((eq? request 'I-lost-my-value) (process-forget-value))
-          (else (error "Unknown request: PROBE" request))))
+    (cond ((eq? request 'I-have-a-value)
+           (process-new-value))
+          ((eq? request 'I-lost-my-value)
+           (process-forget-value))
+          (else
+            (error "Unknown request: PROBE"
+                   request))))
   (connect connector me)
   me)
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection*{Representing connectors}
 
@@ -3675,9 +3688,11 @@ A connector is represented as a procedural object with local state variables
 that set the connector's value; and \code{constraints}, a list of the
 constraints in which the connector participates.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-connector)
-  (let ((value false) (informant false) (constraints '()))
+  (let ((value false)
+        (informant false)
+        (constraints '()))
     (define (set-my-value newval setter)
       (cond ((not (has-value? me))
              (set! value newval)
@@ -3686,14 +3701,16 @@ constraints in which the connector participates.
                               inform-about-value
                               constraints))
             ((not (= value newval))
-             (error "Contradiction" (list value newval)))
+             (error
+               "Contradiction"
+               (list value newval)))
             (else 'ignored)))
     (define (forget-my-value retractor)
       (if (eq? retractor informant)
           (begin (set! informant false)
-                 (for-each-except retractor
-                                  inform-about-no-value
-                                  constraints))
+            (for-each-except retractor
+                             inform-about-no-value
+                             constraints))
           'ignored))
     (define (connect new-constraint)
       (if (not (memq new-constraint constraints))
@@ -3709,10 +3726,11 @@ constraints in which the connector participates.
             ((eq? request 'set-value!) set-my-value)
             ((eq? request 'forget) forget-my-value)
             ((eq? request 'connect) connect)
-            (else (error "Unknown operation: CONNECTOR"
-                         request))))
+            (else
+              (error "Unknown operation: CONNECTOR"
+                     request))))
     me))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The connector's local procedure \code{set\-/my\-/value} is called when there is a
@@ -3725,15 +3743,18 @@ constraints except the constraint that requested the value to be set.  This is
 accomplished using the following iterator, which applies a designated procedure
 to all items in a list except a given one:
 
-\begin{scheme}
-(define (for-each-except exception procedure list)
+\begin{codeBlock}
+(define (for-each-except exception
+                         procedure
+                         list)
   (define (loop items)
     (cond ((null? items) 'done)
-          ((eq? (car items) exception) (loop (cdr items)))
+          ((eq? (car items) exception)
+           (loop (cdr items)))
           (else (procedure (car items))
                 (loop (cdr items)))))
   (loop list))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 If a connector is asked to forget its value, it runs the local procedure
@@ -3749,7 +3770,7 @@ The connector's procedure \code{me} serves as a dispatch to the other internal
 procedures and also represents the connector as an object.  The following
 procedures provide a syntax interface for the dispatch:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (has-value? connector)
   (connector 'has-value?))
 (define (get-value connector)
@@ -3760,92 +3781,92 @@ procedures provide a syntax interface for the dispatch:
   ((connector 'forget) retractor))
 (define (connect connector new-constraint)
   ((connector 'connect) new-constraint))
-\end{scheme}
+\end{codeBlock}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 3.33}Exercise 3.33:} Using primitive multiplier,
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 3.33}Exercise 3.33:} Using primitive multiplier,
 adder, and constant constraints, define a procedure \code{averager} that takes
 three connectors \code{a}, \code{b}, and \code{c} as inputs and establishes the
 constraint that the value of \code{c} is the average of the values of \code{a}
 and \code{b}.
 
-\heading{\phantomsection\label{Exercise 3.34}Exercise 3.34:} Louis Reasoner wants to build a
+\exerciseHeading{\phantomsection\label{Exercise 3.34}Exercise 3.34:} Louis Reasoner wants to build a
 squarer, a constraint device with two terminals such that the value of
 connector \code{b} on the second terminal will always be the square of the
 value \code{a} on the first terminal.  He proposes the following simple device
 made from a multiplier:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (squarer a b)
   (multiplier a a b))
-\end{scheme}
+\end{codeBlock}
 
 There is a serious flaw in this idea.  Explain.
 
-\heading{\phantomsection\label{Exercise 3.35}Exercise 3.35:} Ben Bitdiddle tells Louis that
+\exerciseHeading{\phantomsection\label{Exercise 3.35}Exercise 3.35:} Ben Bitdiddle tells Louis that
 one way to avoid the trouble in \link{Exercise 3.34} is to define a squarer as a
 new primitive constraint.  Fill in the missing portions in Ben's outline for a
 procedure to implement such a constraint:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (squarer a b)
   (define (process-new-value)
     (if (has-value? b)
         (if (< (get-value b) 0)
             (error "square less than 0: SQUARER"
                    (get-value b))
-            ~\( \dark \langle \)~~\var{\dark alternative1}~~\( \dark \rangle \)~)
-        ~\( \dark \langle \)~~\var{\dark alternative2}~~\( \dark \rangle \)~))
-  (define (process-forget-value) ~\( \dark \langle \)~~\var{\dark body1}~~\( \dark \rangle \)~)
-  (define (me request) ~\( \dark \langle \)~~\var{\dark body2}~~\( \dark \rangle \)~)
-  ~\( \dark \langle \)~~\var{\dark rest of definition}~~\( \dark \rangle \)~
+            ~\(\langle \)~~\var{alternative1}~~\(\rangle \)~)
+        ~\(\langle \)~~\var{alternative2}~~\(\rangle \)~))
+  (define (process-forget-value) ~\(\langle \)~~\var{body1}~~\(\rangle \)~)
+  (define (me request) ~\(\langle \)~~\var{body2}~~\(\rangle \)~)
+  ~\(\langle \)~~\var{rest of definition}~~\(\rangle \)~
   me)
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 3.36}Exercise 3.36:} Suppose we evaluate the following
+\exerciseHeading{\phantomsection\label{Exercise 3.36}Exercise 3.36:} Suppose we evaluate the following
 sequence of expressions in the global environment:
 
-\begin{scheme}
+\begin{codeBlock}
 (define a (make-connector))
 (define b (make-connector))
 (set-value! a 10 'user)
-\end{scheme}
+\end{codeBlock}
 
 At some time during evaluation of the \code{set\-/value!}, the following
 expression from the connector's local procedure is evaluated:
 
-\begin{scheme}
+\begin{codeBlock}
 (for-each-except
   setter inform-about-value constraints)
-\end{scheme}
+\end{codeBlock}
 
 Draw an environment diagram showing the environment in which the above
 expression is evaluated.
 
-\heading{\phantomsection\label{Exercise 3.37}Exercise 3.37:} The
+\exerciseHeading{\phantomsection\label{Exercise 3.37}Exercise 3.37:} The
 \code{celsius\-/fahrenheit\-/converter} procedure is cumbersome when compared with
 a more expression-oriented style of definition, such as
 
-\begin{scheme}
+\begin{codeBlock}
 (define (celsius-fahrenheit-converter x)
   (c+ (c* (c/ (cv 9) (cv 5))
           x)
       (cv 32)))
 (define C (make-connector))
 (define F (celsius-fahrenheit-converter C))
-\end{scheme}
+\end{codeBlock}
 
 Here \code{c+}, \code{c*}, etc. are the ``constraint'' versions of the
 arithmetic operations.  For example, \code{c+} takes two connectors as
 arguments and returns a connector that is related to these by an adder
 constraint:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (c+ x y)
   (let ((z (make-connector)))
     (adder x y z)
     z))
-\end{scheme}
+\end{codeBlock}
 
 Define analogous procedures \code{c-}, \code{c*}, \code{c/}, and \code{cv}
 (constant value) that enable us to define compound constraints as in the
@@ -3859,19 +3880,19 @@ on compound data.  For example, if we wanted to compute the product
 in ``imperative style,'' using procedures that set the values of designated
 vector arguments but do not themselves return vectors as values:
 
-\begin{smallscheme}
+\begin{compactCodeBlock}
 (v-sum a b temp1)
 (v-sum c d temp2)
 (v-prod temp1 temp2 answer)
-\end{smallscheme}
+\end{compactCodeBlock}
 
 Alternatively, we could deal with expressions, using procedures that return
 vectors as values, and thus avoid explicitly mentioning \code{temp1} and
 \code{temp2}:
 
-\begin{smallscheme}
+\begin{compactCodeBlock}
 (define answer (v-prod (v-sum a b) (v-sum c d)))
-\end{smallscheme}
+\end{compactCodeBlock}
 
 \noindent
 Since Lisp allows us to return compound objects as values of procedures, we can
@@ -3889,7 +3910,7 @@ with new operations that communicate with constraints directly rather than only
 indirectly via operations on connectors.  Although it is easy to implement the
 expression-oriented style in terms of the imperative implementation, it is very
 difficult to do the converse.}
-\end{exercises}
+\end{exerciseGroup}
 
 \section{Concurrency: Time Is of the Essence}
 \label{Section 3.4}
@@ -3908,12 +3929,12 @@ same value.  In contrast, recall the example of modeling withdrawals from a
 bank account and returning the resulting balance, introduced at the beginning
 of \link{Section 3.1.1}:
 
-\begin{scheme}
+\begin{codeBlock}
 (withdraw 25)
 ~\textit{75}~
 (withdraw 25)
 ~\textit{50}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Here successive evaluations of the same expression yield different values.
@@ -3986,14 +4007,14 @@ by Peter and Paul are implemented as two separate processes sharing a common
 variable \code{balance}, each process specified by the procedure given in
 \link{Section 3.1.1}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (withdraw amount)
   (if (>= balance amount)
       (begin
         (set! balance (- balance amount))
         balance)
       "Insufficient funds"))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 If the two processes operate independently, then Peter might test the
@@ -4004,9 +4025,9 @@ Peter's test.
 
 Things can be worse still.  Consider the expression
 
-\begin{scheme}
+\begin{codeBlock}
 (set! balance (- balance amount))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 executed as part of each withdrawal process.  This consists of three steps: (1)
@@ -4129,17 +4150,17 @@ values.  This algorithm converges to the right answer independent of the order
 in which the operations are done; there is no need for any restrictions on
 concurrent use of the shared values.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 3.38}Exercise 3.38:} Suppose that Peter, Paul, and
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 3.38}Exercise 3.38:} Suppose that Peter, Paul, and
 Mary share a joint bank account that initially contains \$100.  Concurrently,
 Peter deposits \$10, Paul withdraws \$20, and Mary withdraws half the money in
 the account, by executing the following commands:
 
-\begin{scheme}
+\begin{codeBlock}
 Peter: (set! balance (+ balance 10))
 Paul:  (set! balance (- balance 20))
 Mary:  (set! balance (- balance (/ balance 2)))
-\end{scheme}
+\end{codeBlock}
 
 \begin{enumerate}[a.]
 
@@ -4154,7 +4175,7 @@ processes to be interleaved?  Draw timing diagrams like the one in \link{Figure 
 to explain how these values can occur.
 
 \end{enumerate}
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Mechanisms for Controlling Concurrency}
 \label{Section 3.4.2}
@@ -4212,9 +4233,9 @@ changed between an access and the corresponding assignment.
 To make the above mechanism more concrete, suppose that we have extended Scheme
 to include a procedure called \code{parallel\-/execute}:
 
-\begin{scheme}
-(parallel-execute ~\( \dark \langle \)~~\var{\dark p}~~\( \dark _{\mono{1}}\rangle \)~ ~\( \dark \langle \)~~\var{\dark p}~~\( \dark _{\mono{2}}\rangle \)~ ~\( \dots \)~ ~\( \dark \langle \)~~\var{\dark p}~~\( \dark _{\monoit{k}}\rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(parallel-execute ~\(\langle \)~~\var{p}~~\(_{\mono{1}}\rangle \)~ ~\(\langle \)~~\var{p}~~\(_{\mono{2}}\rangle \)~ ~\( \dots \)~ ~\(\langle \)~~\var{p}~~\(_{\monoItalic{k}}\rangle \)~)
+\end{codeBlock}
 
 \noindent
 Each \( \langle p \rangle \) must be a procedure of no arguments.  \code{parallel\-/execute}
@@ -4229,12 +4250,12 @@ the newly created processes.}
 
 As an example of how this is used, consider
 
-\begin{scheme}
+\begin{codeBlock}
 (define x 10)
 (parallel-execute
  (lambda () (set! x (* x x)))
  (lambda () (set! x (+ x 1))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This creates two concurrent processes---\( P_1 \), which sets \code{x} to
@@ -4242,14 +4263,14 @@ This creates two concurrent processes---\( P_1 \), which sets \code{x} to
 execution is complete, \code{x} will be left with one of five possible values,
 depending on the interleaving of the events of \( P_1 \) and \( P_2 \):
 
-\begin{scheme}
+\begin{codeBlock}
 101: ~\textrm{\( P_1 \) sets \code{x} to 100 and then \( P_2 \) increments \code{x} to 101.}~
 121: ~\textrm{\( P_2 \) increments \code{x} to 11 and then \( P_1 \) sets \code{x} to \code{x} \code{*} \code{x}.}~
 110: ~\textrm{\( P_2 \) changes \code{x} from 10 to 11 between the two times that}~
      ~\textrm{\( P_1 \) accesses the value of \code{x} during the evaluation of \code{(* x x)}.}~
  11: ~\textrm{\( P_2 \) accesses \code{x}, then \( P_1 \) sets \code{x} to 100, then \( P_2 \) sets \code{x}.}~
 100: ~\textrm{\( P_1 \) accesses \code{x} (twice), then \( P_2 \) sets \code{x} to 11, then \( P_1 \) sets \code{x}.}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We can constrain the concurrency by using serialized procedures, which are
@@ -4261,13 +4282,13 @@ procedures in the same set.
 
 Thus, in contrast to the example above, executing
 
-\begin{scheme}
+\begin{codeBlock}
 (define x 10)
 (define s (make-serializer))
 (parallel-execute
  (s (lambda () (set! x (* x x))))
  (s (lambda () (set! x (+ x 1)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 can produce only two possible values for \code{x}, 101 or 121.  The other
@@ -4277,12 +4298,12 @@ cannot be interleaved.
 Here is a version of the \code{make\-/account} procedure from
 \link{Section 3.1.1}, where the deposits and withdrawals have been serialized:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-account balance)
   (define (withdraw amount)
     (if (>= balance amount)
         (begin (set! balance (- balance amount))
-               balance)
+          balance)
         "Insufficient funds"))
   (define (deposit amount)
     (set! balance (+ balance amount))
@@ -4292,10 +4313,11 @@ Here is a version of the \code{make\-/account} procedure from
       (cond ((eq? m 'withdraw) (protected withdraw))
             ((eq? m 'deposit) (protected deposit))
             ((eq? m 'balance) balance)
-            (else (error "Unknown request: MAKE-ACCOUNT"
-                         m))))
+            (else
+              (error "Unknown request: MAKE-ACCOUNT"
+                     m))))
     dispatch))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 With this implementation, two processes cannot be withdrawing from or
@@ -4306,42 +4328,42 @@ value and when Paul actually performs the assignment.  On the other hand, each
 account has its own serializer, so that deposits and withdrawals for different
 accounts can proceed concurrently.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 3.39}Exercise 3.39:} Which of the five possibilities
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 3.39}Exercise 3.39:} Which of the five possibilities
 in the parallel execution shown above remain if we instead serialize execution
 as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (define x 10)
 (define s (make-serializer))
 (parallel-execute
  (lambda () (set! x ((s (lambda () (* x x))))))
  (s (lambda () (set! x (+ x 1)))))
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 3.40}Exercise 3.40:} Give all possible values of
+\exerciseHeading{\phantomsection\label{Exercise 3.40}Exercise 3.40:} Give all possible values of
 \code{x} that can result from executing
 
-\begin{scheme}
+\begin{codeBlock}
 (define x 10)
 (parallel-execute (lambda () (set! x (* x x)))
                   (lambda () (set! x (* x x x))))
-\end{scheme}
+\end{codeBlock}
 
 Which of these possibilities remain if we instead use serialized procedures:
 
-\begin{scheme}
+\begin{codeBlock}
 (define x 10)
 (define s (make-serializer))
 (parallel-execute (s (lambda () (set! x (* x x))))
                   (s (lambda () (set! x (* x x x)))))
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 3.41}Exercise 3.41:} Ben Bitdiddle worries that it
+\exerciseHeading{\phantomsection\label{Exercise 3.41}Exercise 3.41:} Ben Bitdiddle worries that it
 would be better to implement the bank account as follows (where the commented
 line has been changed):
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-account balance)
   (define (withdraw amount)
     (if (>= balance amount)
@@ -4363,14 +4385,14 @@ line has been changed):
              (error "Unknown request: MAKE-ACCOUNT"
                     m))))
     dispatch))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 because allowing unserialized access to the bank balance can result in
 anomalous behavior.  Do you agree?  Is there any scenario that demonstrates
 Ben's concern?
 
-\heading{\phantomsection\label{Exercise 3.42}Exercise 3.42:} Ben Bitdiddle suggests that it's
+\exerciseHeading{\phantomsection\label{Exercise 3.42}Exercise 3.42:} Ben Bitdiddle suggests that it's
 a waste of time to create a new serialized procedure in response to every
 \code{withdraw} and \code{deposit} message.  He says that \code{make\-/account}
 could be changed so that the calls to \code{protected} are done outside the
@@ -4378,7 +4400,7 @@ could be changed so that the calls to \code{protected} are done outside the
 serialized procedure (which was created at the same time as the account) each
 time it is asked for a withdrawal procedure.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-account balance)
   (define (withdraw amount)
     (if (>= balance amount)
@@ -4399,11 +4421,11 @@ time it is asked for a withdrawal procedure.
                (error "Unknown request: MAKE-ACCOUNT"
                       m))))
       dispatch)))
-\end{scheme}
+\end{codeBlock}
 
 Is this a safe change to make?  In particular, is there any difference in what
 concurrency is allowed by these two versions of \code{make\-/account}?
-\end{exercises}
+\end{exerciseGroup}
 
 \subsubsection*{Complexity of using multiple shared resources}
 
@@ -4422,13 +4444,13 @@ follows:\footnote{We have simplified \code{exchange} by exploiting the fact
 that our \code{deposit} message accepts negative amounts.  (This is a serious
 bug in our banking system!)}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (exchange account1 account2)
   (let ((difference (- (account1 'balance)
                        (account2 'balance))))
     ((account1 'withdraw) difference)
     ((account2 'deposit) difference)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This procedure works well when only a single process is trying to do the
@@ -4455,12 +4477,12 @@ following version of \code{make\-/account} is identical to the original version
 given in \link{Section 3.1.1}, except that a serializer is provided to protect
 the balance variable, and the serializer is exported via message passing:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-account-and-serializer balance)
   (define (withdraw amount)
     (if (>= balance amount)
         (begin (set! balance (- balance amount))
-               balance)
+          balance)
         "Insufficient funds"))
   (define (deposit amount)
     (set! balance (+ balance amount))
@@ -4471,11 +4493,11 @@ the balance variable, and the serializer is exported via message passing:
             ((eq? m 'deposit) deposit)
             ((eq? m 'balance) balance)
             ((eq? m 'serializer) balance-serializer)
-            (else (error "Unknown request: MAKE-ACCOUNT" m))))
+            (else
+              (error "Unknown request: MAKE-ACCOUNT"
+                     m))))
     dispatch))
-\end{scheme}
-
-\enlargethispage{\baselineskip}
+\end{codeBlock}
 
 \noindent
 We can use this to do serialized deposits and withdrawals.  However, unlike our
@@ -4484,29 +4506,29 @@ bank-account objects to explicitly manage the serialization, for example as
 follows:\footnote{\link{Exercise 3.45} investigates why deposits and withdrawals
 are no longer automatically serialized by the account.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (deposit account amount)
   (let ((s (account 'serializer))
         (d (account 'deposit)))
     ((s d) amount)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Exporting the serializer in this way gives us enough flexibility to implement a
 serialized exchange program.  We simply serialize the original \code{exchange}
 procedure with the serializers for both accounts:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (serialized-exchange account1 account2)
   (let ((serializer1 (account1 'serializer))
         (serializer2 (account2 'serializer)))
     ((serializer1 (serializer2 exchange))
      account1
      account2)))
-\end{scheme}
+\end{codeBlock}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 3.43}Exercise 3.43:} Suppose that the balances in
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 3.43}Exercise 3.43:} Suppose that the balances in
 three accounts start out as \$10, \$20, and \$30, and that multiple processes run,
 exchanging the balances in the accounts.  Argue that if the processes are run
 sequentially, after any number of concurrent exchanges, the account balances
@@ -4518,18 +4540,18 @@ program in this section.  On the other hand, argue that even with this
 preserved.  Draw a timing diagram to show how even this condition would be
 violated if we did not serialize the transactions on individual accounts.
 
-\heading{\phantomsection\label{Exercise 3.44}Exercise 3.44:} Consider the problem of
+\exerciseHeading{\phantomsection\label{Exercise 3.44}Exercise 3.44:} Consider the problem of
 transferring an amount from one account to another.  Ben Bitdiddle claims that
 this can be accomplished with the following procedure, even if there are
 multiple people concurrently transferring money among multiple accounts, using
 any account mechanism that serializes deposit and withdrawal transactions, for
 example, the version of \code{make\-/account} in the text above.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (transfer from-account to-account amount)
   ((from-account 'withdraw) amount)
   ((to-account 'deposit) amount))
-\end{scheme}
+\end{codeBlock}
 
 Louis Reasoner claims that there is a problem here, and that we need to use a
 more sophisticated method, such as the one required for dealing with the
@@ -4537,7 +4559,7 @@ exchange problem.  Is Louis right?  If not, what is the essential difference
 between the transfer problem and the exchange problem?  (You should assume that
 the balance in \code{from\-/account} is at least \code{amount}.)
 
-\heading{\phantomsection\label{Exercise 3.45}Exercise 3.45:} Louis Reasoner thinks our
+\exerciseHeading{\phantomsection\label{Exercise 3.45}Exercise 3.45:} Louis Reasoner thinks our
 bank-account system is unnecessarily complex and error-prone now that deposits
 and withdrawals aren't automatically serialized.  He suggests that
 \code{make\-/account\-/and\-/serializer} should have exported the serializer (for use
@@ -4545,7 +4567,7 @@ by such procedures as \code{serialized\-/exchange}) in addition to (rather than
 instead of) using it to serialize accounts and deposits as \code{make\-/account}
 did.  He proposes to redefine accounts as follows:
 
-\begin{smallscheme}
+\begin{compactCodeBlock}
 (define (make-account-and-serializer balance)
   (define (withdraw amount)
     (if (>= balance amount)
@@ -4561,18 +4583,18 @@ did.  He proposes to redefine accounts as follows:
             ((eq? m 'serializer) balance-serializer)
             (else (error "Unknown request: MAKE-ACCOUNT" m))))
     dispatch))
-\end{smallscheme}
+\end{compactCodeBlock}
 
 Then deposits are handled as with the original \code{make\-/account}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (deposit account amount)
   ((account 'deposit) amount))
-\end{scheme}
+\end{codeBlock}
 
 Explain what is wrong with Louis's reasoning.  In particular, consider what
 happens when \code{serialized\-/exchange} is called.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsubsection*{Implementing serializers}
 
@@ -4599,7 +4621,7 @@ the mutex.  This ensures that only one of the procedures produced by the
 serializer can be running at once, which is precisely the serialization
 property that we need to guarantee.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-serializer)
   (let ((mutex (make-mutex)))
     (lambda (p)
@@ -4609,7 +4631,7 @@ property that we need to guarantee.
           (mutex 'release)
           val))
       serialized-p)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The mutex is a mutable object (here we'll use a one-element list, which we'll
@@ -4628,7 +4650,7 @@ the system schedules another process to run while the first is waiting, and the
 blocked process is awakened when the mutex becomes available.}  To release the
 mutex, we set the cell contents to false.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-mutex)
   (let ((cell (list false)))
     (define (the-mutex m)
@@ -4638,7 +4660,7 @@ mutex, we set the cell contents to false.
             ((eq? m 'release) (clear! cell))))
     the-mutex))
 (define (clear! cell) (set-car! cell false))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{test\-/and\-/set!} tests the cell and returns the result of the test.  In
@@ -4646,10 +4668,10 @@ addition, if the test was false, \code{test\-/and\-/set!} sets the cell contents
 true before returning false.  We can express this behavior as the following
 procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (test-and-set! cell)
   (if (car cell) true (begin (set-car! cell true) false)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 However, this implementation of \code{test\-/and\-/set!} does not suffice as it
@@ -4670,7 +4692,7 @@ time before interrupting it and moving on to the next process.  In that case,
 setting.\footnote{In \acronym{MIT} Scheme for a single processor, which uses a
 time-slicing model, \code{test\-/and\-/set!} can be implemented as follows:
 
-\begin{smallscheme}
+\begin{compactCodeBlock}
 (define (test-and-set! cell)
   (without-interrupts
    (lambda ()
@@ -4678,7 +4700,7 @@ time-slicing model, \code{test\-/and\-/set!} can be implemented as follows:
          true
          (begin (set-car! cell true)
                 false)))))
-\end{smallscheme}
+\end{compactCodeBlock}
 
 \noindent
 \code{without\-/interrupts} disables time-slicing interrupts while its procedure
@@ -4701,14 +4723,14 @@ Buridan argued that a perfectly rational dog placed between two equally
 attractive sources of food will starve to death, because it is incapable of
 deciding which to go to first.}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 3.46}Exercise 3.46:} Suppose that we implement
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 3.46}Exercise 3.46:} Suppose that we implement
 \code{test\-/and\-/set!}  using an ordinary procedure as shown in the text, without
 attempting to make the operation atomic.  Draw a timing diagram like the one in
 \link{Figure 3.29} to demonstrate how the mutex implementation can fail by
 allowing two processes to acquire the mutex at the same time.
 
-\heading{\phantomsection\label{Exercise 3.47}Exercise 3.47:} A semaphore (of size \( n \)) is a
+\exerciseHeading{\phantomsection\label{Exercise 3.47}Exercise 3.47:} A semaphore (of size \( n \)) is a
 generalization of a mutex.  Like a mutex, a semaphore supports acquire and
 release operations, but it is more general in that up to \( n \) processes can
 acquire it concurrently.  Additional processes that attempt to acquire the
@@ -4723,7 +4745,7 @@ in terms of mutexes
 in terms of atomic \code{test\-/and\-/set!} operations.
 
 \end{enumerate}
-\end{exercises}
+\end{exerciseGroup}
 
 \subsubsection*{Deadlock}
 
@@ -4755,8 +4777,8 @@ of the deadlocked state and try again.  Deadlock-recovery mechanisms are widely
 used in database management systems, a topic that is treated in detail in
 \link{Gray and Reuter 1993}.}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 3.48}Exercise 3.48:} Explain in detail why the
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 3.48}Exercise 3.48:} Explain in detail why the
 deadlock-avoidance method described above, (i.e., the accounts are numbered,
 and each process attempts to acquire the smaller-numbered account first) avoids
 deadlock in the exchange problem.  Re\-write \code{serialized\-/exchange} to
@@ -4764,13 +4786,13 @@ incorporate this idea.  (You will also need to modify \code{make\-/account} so
 that each account is created with a number, which can be accessed by sending an
 appropriate message.)
 
-\heading{\phantomsection\label{Exercise 3.49}Exercise 3.49:} Give a scenario where the
+\exerciseHeading{\phantomsection\label{Exercise 3.49}Exercise 3.49:} Give a scenario where the
 deadlock-avoid\-ance mechanism described above does not work.  (Hint: In the
 exchange problem, each process knows in advance which accounts it will need to
 get access to.  Consider a situation where a process must get access to some
 shared resources before it can know which additional shared resources it will
 require.)
-\end{exercises}
+\end{exerciseGroup}
 
 \subsubsection*{Concurrency, time, and communication}
 
@@ -4900,7 +4922,7 @@ all the prime numbers in an interval.  The first program is written in standard
 iterative style:\footnote{Assume that we have a predicate \code{prime?} (e.g.,
 as in \link{Section 1.2.6}) that tests for primality.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sum-primes a b)
   (define (iter count accum)
     (cond ((> count b) accum)
@@ -4908,19 +4930,19 @@ as in \link{Section 1.2.6}) that tests for primality.}
              (iter (+ count 1) (+ count accum)))
           (else (iter (+ count 1) accum))))
   (iter a 0))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The second program performs the same computation using the sequence operations
 of \link{Section 2.2.3}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sum-primes a b)
   (accumulate +
               0
               (filter prime?
                       (enumerate-interval a b))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 In carrying out the computation, the first program needs to store only the sum
@@ -4936,10 +4958,10 @@ The inefficiency in using lists becomes painfully apparent if we use the
 sequence paradigm to compute the second prime in the interval from 10,000 to
 1,000,000 by evaluating the expression
 
-\begin{scheme}
+\begin{codeBlock}
 (car (cdr (filter prime?
                   (enumerate-interval 10000 1000000))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This expression does find the second prime, but the computational overhead is
@@ -4967,10 +4989,10 @@ that manipulate them.  There is a constructor, \code{cons\-/stream}, and two
 selectors, \code{stream\-/car} and \code{stream\-/cdr}, which satisfy the
 constraints
 
-\begin{scheme}
+\begin{codeBlock}
 (stream-car (cons-stream x y)) = x
 (stream-cdr (cons-stream x y)) = y
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 There is a distinguishable object, \code{the\-/empty\-/stream}, which cannot be the
@@ -4989,7 +5011,7 @@ finer control over the process of evaluation than we can at present.  We will
 discuss this point further at the end of \link{Section 3.5.4}.  In
 \link{Section 4.2}, we'll develop a framework that unifies lists and streams.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (stream-ref s n)
   (if (= n 0)
       (stream-car s)
@@ -5004,16 +5026,16 @@ discuss this point further at the end of \link{Section 3.5.4}.  In
       'done
       (begin (proc (stream-car s))
              (stream-for-each proc (stream-cdr s)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{stream\-/for\-/each} is useful for viewing streams:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (display-stream s)
   (stream-for-each display-line s))
 (define (display-line x) (newline) (display x))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 To make the stream implementation automatically and transparently interleave
@@ -5044,16 +5066,16 @@ let us use these to construct streams.
 
 \code{cons\-/stream} is a special form defined so that
 
-\begin{scheme}
-(cons-stream ~\( \dark \langle \)~~\var{\dark a}~~\( \dark \rangle \)~ ~\( \dark \langle \)~~\var{\dark b}~~\( \dark \rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(cons-stream ~\(\langle \)~~\var{a}~~\(\rangle \)~ ~\(\langle \)~~\var{b}~~\(\rangle \)~)
+\end{codeBlock}
 
 \noindent
 is equivalent to
 
-\begin{scheme}
-(cons ~\( \dark \langle \)~~\var{\dark a}~~\( \dark \rangle \)~ (delay ~\( \dark \langle \)~~\var{\dark b}~~\( \dark \rangle \)~))
-\end{scheme}
+\begin{codeBlock}
+(cons ~\(\langle \)~~\var{a}~~\(\rangle \)~ (delay ~\(\langle \)~~\var{b}~~\(\rangle \)~))
+\end{codeBlock}
 
 \noindent
 What this means is that we will construct streams using pairs.  However, rather
@@ -5061,10 +5083,10 @@ than placing the value of the rest of the stream into the \code{cdr} of the
 pair we will put there a promise to compute the rest if it is ever requested.
 \code{stream\-/car} and \code{stream\-/cdr} can now be defined as procedures:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (stream-car stream) (car stream))
 (define (stream-cdr stream) (force (cdr stream)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{stream\-/car} selects the \code{car} of the pair; \code{stream\-/cdr} selects
@@ -5082,13 +5104,13 @@ though \code{force} can be an ordinary procedure.}
 To see how this implementation behaves, let us analyze the ``outrageous'' prime
 computation we saw above, reformulated in terms of streams:
 
-\begin{scheme}
+\begin{codeBlock}
 (stream-car
  (stream-cdr
   (stream-filter prime?
                  (stream-enumerate-interval
                   10000 1000000))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We will see that it does indeed work efficiently.
@@ -5097,14 +5119,14 @@ We begin by calling \code{stream\-/enumerate\-/interval} with the arguments 10,0
 and 1,000,000.  \code{stream\-/enumerate\-/interval} is the stream analog of
 \code{enumerate\-/interval} (\link{Section 2.2.3}):
 
-\begin{scheme}
+\begin{codeBlock}
 (define (stream-enumerate-interval low high)
   (if (> low high)
       the-empty-stream
       (cons-stream
        low
        (stream-enumerate-interval (+ low 1) high))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 and thus the result returned by \code{stream\-/enumerate\-/interval}, formed by the
@@ -5114,10 +5136,10 @@ an environment in which the variables are bound to the appropriate numbers.
 For example, \code{(+ low 1)} with \code{low} bound to 10,000 actually appears
 where \code{10001} is shown.}
 
-\begin{scheme}
+\begin{codeBlock}
 (cons 10000
       (delay (stream-enumerate-interval 10001 1000000)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 That is, \code{stream\-/enumerate\-/interval} returns a stream represented as a
@@ -5125,7 +5147,7 @@ pair whose \code{car} is 10,000 and whose \code{cdr} is a promise to enumerate
 more of the interval if so requested.  This stream is now filtered for primes,
 using the stream analog of the \code{filter} procedure (\link{Section 2.2.3}):
 
-\begin{scheme}
+\begin{codeBlock}
 (define (stream-filter pred stream)
   (cond ((stream-null? stream) the-empty-stream)
         ((pred (stream-car stream))
@@ -5134,7 +5156,7 @@ using the stream analog of the \code{filter} procedure (\link{Section 2.2.3}):
                        pred
                        (stream-cdr stream))))
         (else (stream-filter pred (stream-cdr stream)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{stream\-/filter} tests the \code{stream\-/car} of the stream (the \code{car}
@@ -5143,10 +5165,10 @@ examines the \code{stream\-/cdr} of its input stream.  The call to
 \code{stream\-/cdr} forces evaluation of the delayed
 \code{stream\-/enumerate\-/interval}, which now returns
 
-\begin{scheme}
+\begin{codeBlock}
 (cons 10001
       (delay (stream-enumerate-interval 10002 1000000)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{stream\-/filter} now looks at the \code{stream\-/car} of this stream, 10,001,
@@ -5154,15 +5176,15 @@ sees that this is not prime either, forces another \code{stream\-/cdr}, and so
 on, until \code{stream\-/enumerate\-/interval} yields the prime 10,007, whereupon
 \code{stream\-/filter}, according to its definition, returns
 
-\begin{scheme}
+\begin{codeBlock}
 (cons-stream (stream-car stream)
              (stream-filter pred (stream-cdr stream)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 which in this case is
 
-\begin{scheme}
+\begin{codeBlock}
 (cons 10007
       (delay (stream-filter
               prime?
@@ -5170,7 +5192,7 @@ which in this case is
                     (delay (stream-enumerate-interval
                             10009
                             1000000))))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This result is now passed to \code{stream\-/cdr} in our original expression.
@@ -5179,7 +5201,7 @@ delayed \code{stream\-/enumerate\-/interval} until it finds the next prime, whic
 is 10,009.  Finally, the result passed to \code{stream\-/car} in our original
 expression is
 
-\begin{scheme}
+\begin{codeBlock}
 (cons 10009
       (delay (stream-filter
               prime?
@@ -5187,7 +5209,7 @@ expression is
                     (delay (stream-enumerate-interval
                             10011
                             1000000))))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{stream\-/car} returns 10,009, and the computation is complete.  Only as
@@ -5211,24 +5233,24 @@ package an expression so that it can be evaluated later on demand, and we can
 accomplish this simply by treating the expression as the body of a procedure.
 \code{delay} can be a special form such that
 
-\begin{scheme}
-(delay ~\( \dark \langle \)~~\var{\dark exp}~~\( \dark \rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(delay ~\(\langle \)~~\var{exp}~~\(\rangle \)~)
+\end{codeBlock}
 
 \noindent
 is syntactic sugar for
 
-\begin{scheme}
-(lambda () ~\( \dark \langle \)~~\var{\dark exp}~~\( \dark \rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(lambda () ~\(\langle \)~~\var{exp}~~\(\rangle \)~)
+\end{codeBlock}
 
 \noindent
 \code{force} simply calls the procedure (of no arguments) produced by
 \code{delay}, so we can implement \code{force} as a procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (force delayed-object) (delayed-object))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This implementation suffices for \code{delay} and \code{force} to work as
@@ -5245,7 +5267,7 @@ procedure (of no arguments) and returns a memoized version of the procedure.
 The first time the memoized procedure is run, it saves the computed result.  On
 subsequent evaluations, it simply returns the result.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (memo-proc proc)
   (let ((already-run? false) (result false))
     (lambda ()
@@ -5254,15 +5276,15 @@ subsequent evaluations, it simply returns the result.
                  (set! already-run? true)
                  result)
           result))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{delay} is then defined so that \code{(delay \( \langle \)\var{exp}\( \rangle \))} is equivalent
 to
 
-\begin{scheme}
-(memo-proc (lambda () ~\( \dark \langle \)~~\var{\dark exp}~~\( \dark \rangle \)~))
-\end{scheme}
+\begin{codeBlock}
+(memo-proc (lambda () ~\(\langle \)~~\var{exp}~~\(\rangle \)~))
+\end{codeBlock}
 
 \noindent
 and \code{force} is as defined previously.\footnote{There are many possible
@@ -5277,31 +5299,31 @@ known as \newterm{call-by-need}.  The Algol community would refer to our
 original delayed objects as \newterm{call-by-name thunks} and to the optimized
 versions as \newterm{call-by-need thunks}.}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 3.50}Exercise 3.50:} Complete the following
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 3.50}Exercise 3.50:} Complete the following
 definition, which generalizes \code{stream\-/map} to allow procedures that take
 multiple arguments, analogous to \code{map} in \link{Section 2.2.1},
 \link{Footnote 12}.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (stream-map proc . argstreams)
-  (if (~\( \dark \langle \)~??~\( \dark \rangle \)~ (car argstreams))
+  (if (~\(\langle \)~??~\(\rangle \)~ (car argstreams))
       the-empty-stream
-      (~\( \dark \langle \)~??~\( \dark \rangle \)~
-       (apply proc (map ~\( \dark \langle \)~??~\( \dark \rangle \)~ argstreams))
+      (~\(\langle \)~??~\(\rangle \)~
+       (apply proc (map ~\(\langle \)~??~\(\rangle \)~ argstreams))
        (apply stream-map
-              (cons proc (map ~\( \dark \langle \)~??~\( \dark \rangle \)~ argstreams))))))
-\end{scheme}
+              (cons proc (map ~\(\langle \)~??~\(\rangle \)~ argstreams))))))
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 3.51}Exercise 3.51:} In order to take a closer look at
+\exerciseHeading{\phantomsection\label{Exercise 3.51}Exercise 3.51:} In order to take a closer look at
 delayed evaluation, we will use the following procedure, which simply returns
 its argument after printing it:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (show x)
   (display-line x)
   x)
-\end{scheme}
+\end{codeBlock}
 
 What does the interpreter print in response to evaluating each expression in
 the following sequence?\footnote{Exercises such as \link{Exercise 3.51} and
@@ -5316,18 +5338,18 @@ order in which events actually happen in our programs.  Unfortunately, this is
 precisely what we cannot afford to do in the presence of assignment, which
 forces us to be concerned with time and change.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define x
   (stream-map show
               (stream-enumerate-interval 0 10)))
 (stream-ref x 5)
 (stream-ref x 7)
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 3.52}Exercise 3.52:} Consider the sequence of
+\exerciseHeading{\phantomsection\label{Exercise 3.52}Exercise 3.52:} Consider the sequence of
 expressions
 
-\begin{scheme}
+\begin{codeBlock}
 (define sum 0)
 (define (accum x) (set! sum (+ x sum)) sum)
 (define seq
@@ -5339,7 +5361,7 @@ expressions
                  seq))
 (stream-ref y 7)
 (display-stream z)
-\end{scheme}
+\end{codeBlock}
 
 What is the value of \code{sum} after each of the above expressions is
 evaluated?  What is the printed response to evaluating the \code{stream\-/ref}
@@ -5347,7 +5369,7 @@ and \code{display\-/stream} expressions?  Would these responses differ if we had
 implemented \code{(delay \( \langle \)\var{exp}\( \rangle \))} simply as
 \code{(lambda () \( \langle \)\var{exp}\( \rangle \))}
 without using the optimization provided by \code{memo\-/proc}?  Explain.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Infinite Streams}
 \label{Section 3.5.2}
@@ -5360,11 +5382,11 @@ striking, we can use streams to represent sequences that are infinitely long.
 For instance, consider the following definition of the stream of positive
 integers:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (integers-starting-from n)
   (cons-stream n (integers-starting-from (+ n 1))))
 (define integers (integers-starting-from 1))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This makes sense because \code{integers} will be a pair whose \code{car} is 1
@@ -5376,30 +5398,30 @@ infinite stream is not there.
 Using \code{integers} we can define other infinite streams, such as the stream
 of integers that are not divisible by 7:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (divisible? x y) (= (remainder x y) 0))
 (define no-sevens
   (stream-filter (lambda (x) (not (divisible? x 7)))
                  integers))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Then we can find integers not divisible by 7 simply by accessing elements of
 this stream:
 
-\begin{scheme}
+\begin{codeBlock}
 (stream-ref no-sevens 100)
 ~\textit{117}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 In analogy with \code{integers}, we can define the infinite stream of Fibonacci
 numbers:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (fibgen a b) (cons-stream a (fibgen b (+ a b))))
 (define fibs (fibgen 0 1))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{fibs} is a pair whose \code{car} is 0 and whose \code{cdr} is a promise
@@ -5429,7 +5451,7 @@ of \code{S} and the rest of which is obtained by filtering all multiples of the
 first element of \code{S} out of the rest of \code{S} and sieving the
 result. This process is readily described in terms of stream operations:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sieve stream)
   (cons-stream
    (stream-car stream)
@@ -5438,15 +5460,15 @@ result. This process is readily described in terms of stream operations:
              (not (divisible? x (stream-car stream))))
            (stream-cdr stream)))))
 (define primes (sieve (integers-starting-from 2)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Now to find a particular prime we need only ask for it:
 
-\begin{scheme}
+\begin{codeBlock}
 (stream-ref primes 50)
 ~\textit{233}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 It is interesting to contemplate the signal-processing system set up by
@@ -5478,9 +5500,9 @@ one. An alternative way to specify streams is to take advantage of delayed
 evaluation to define streams implicitly.  For example, the following expression
 defines the stream \code{ones} to be an infinite stream of ones:
 
-\begin{scheme}
+\begin{codeBlock}
 (define ones (cons-stream 1 ones))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This works much like the definition of a recursive procedure: \code{ones} is a
@@ -5493,17 +5515,17 @@ as \code{add\-/streams}, which produces the elementwise sum of two given
 streams:\footnote{This uses the generalized version of \code{stream\-/map} from
 \link{Exercise 3.50}.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (add-streams s1 s2) (stream-map + s1 s2))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Now we can define the integers as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (define integers
   (cons-stream 1 (add-streams ones integers)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This defines \code{integers} to be a stream whose first element is 1 and the
@@ -5516,40 +5538,42 @@ back into the definition to produce the next integer.
 
 We can define the Fibonacci numbers in the same style:
 
-\begin{scheme}
+\begin{codeBlock}
 (define fibs
   (cons-stream
-   0
-   (cons-stream 1 (add-streams (stream-cdr fibs) fibs))))
-\end{scheme}
+    0
+    (cons-stream 1
+                 (add-streams (stream-cdr fibs)
+                              fibs))))
+\end{codeBlock}
 
 \noindent
 This definition says that \code{fibs} is a stream beginning with 0 and 1, such
 that the rest of the stream can be generated by adding \code{fibs} to itself
 shifted by one place:
 
-\begin{scheme}
+\begin{codeBlock}
       1  1  2  3  5  8   13  21  ~\( \dots \)~  =  ~\code{(stream\-/cdr fibs)}~
       0  1  1  2  3  5   8   13  ~\( \dots \)~  =  ~\code{fibs}~
 0  1  1  2  3  5  8  13  21  34  ~\( \dots \)~  =  ~\code{fibs}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{scale\-/stream} is another useful procedure in formulating such stream
 definitions.  This multiplies each item in a stream by a given constant:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (scale-stream stream factor)
   (stream-map (lambda (x) (* x factor))
               stream))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 For example,
 
-\begin{scheme}
+\begin{codeBlock}
 (define double (cons-stream 1 (scale-stream double 2)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 produces the stream of powers of 2: 1, 2, 4, 8, 16, 32, \( \dots \).
@@ -5558,26 +5582,26 @@ An alternate definition of the stream of primes can be given by starting with
 the integers and filtering them by testing for primality.  We will need the
 first prime, 2, to get started:
 
-\begin{scheme}
+\begin{codeBlock}
 (define primes
   (cons-stream
    2
    (stream-filter prime? (integers-starting-from 3))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This definition is not so straightforward as it appears, because we will test
 whether a number \( n \) is prime by checking whether \( n \) is divisible by a
 prime (not by just any integer) less than or equal to \( \sqrt{n} \):
 
-\begin{scheme}
+\begin{codeBlock}
 (define (prime? n)
   (define (iter ps)
     (cond ((> (square (stream-car ps)) n) true)
           ((divisible? n (stream-car ps)) false)
           (else (iter (stream-cdr ps)))))
   (iter primes))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This is a recursive definition, since \code{primes} is defined in terms of the
@@ -5598,34 +5622,34 @@ P. L. Chebyshev established that \( p_{n+1} \le 2p_n \) for all \( n \).
 This result, originally conjectured in 1845, is known as \newterm{Bertrand's
 hypothesis}.  A proof can be found in section 22.3 of \link{Hardy and Wright 1960}.}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 3.53}Exercise 3.53:} Without running the program,
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 3.53}Exercise 3.53:} Without running the program,
 describe the elements of the stream defined by
 
-\begin{scheme}
+\begin{codeBlock}
 (define s (cons-stream 1 (add-streams s s)))
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 3.54}Exercise 3.54:} Define a procedure
+\exerciseHeading{\phantomsection\label{Exercise 3.54}Exercise 3.54:} Define a procedure
 \code{mul\-/streams}, analogous to \code{add\-/streams}, that produces the
 elementwise product of its two input streams.  Use this together with the
 stream of \code{integers} to complete the following definition of the stream
 whose \( n^{\mathrm{th}} \) element (counting from 0) is \( n + 1 \) factorial:
 
-\begin{scheme}
+\begin{codeBlock}
 (define factorials
-  (cons-stream 1 (mul-streams ~\( \dark \langle \)~??~\( \dark \rangle \)~ ~\( \dark \langle \)~??~\( \dark \rangle \)~)))
-\end{scheme}
+  (cons-stream 1 (mul-streams ~\(\langle \)~??~\(\rangle \)~ ~\(\langle \)~??~\(\rangle \)~)))
+\end{codeBlock}
 % \noindent
 % \code{(define factorials (cons\-/stream 1 (mul\-/streams}\( \kern0.7ex\langle \)\code{?}\( \rangle \)\( \kern0.7ex\langle \)\code{?}\( \rangle \)\code{)))}
 
-\heading{\phantomsection\label{Exercise 3.55}Exercise 3.55:} Define a procedure
+\exerciseHeading{\phantomsection\label{Exercise 3.55}Exercise 3.55:} Define a procedure
 \code{partial\-/sums} that takes as argument a stream \( S \) and returns the
 stream whose elements are \( S_0 \), \( S_0 + S_1 \), \( S_0 + S_1 + S_2, \dots \).
 For example, \code{(partial\-/sums integers)} should be the
 stream 1, 3, 6, 10, 15, \( \dots \).
 
-\heading{\phantomsection\label{Exercise 3.56}Exercise 3.56:} A famous problem, first raised by
+\exerciseHeading{\phantomsection\label{Exercise 3.56}Exercise 3.56:} A famous problem, first raised by
 R. Hamming, is to enumerate, in ascending order with no repetitions, all
 positive integers with no prime factors other than 2, 3, or 5.  One obvious way
 to do this is to simply test each integer in turn to see whether it has any
@@ -5656,7 +5680,7 @@ Now all we have to do is combine elements from these sources.  For this we
 define a procedure \code{merge} that combines two ordered streams into one
 ordered result stream, eliminating repetitions:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (merge s1 s2)
   (cond ((stream-null? s1) s2)
         ((stream-null? s2) s1)
@@ -5676,17 +5700,17 @@ ordered result stream, eliminating repetitions:
                    s1car
                    (merge (stream-cdr s1)
                           (stream-cdr s2)))))))))
-\end{scheme}
+\end{codeBlock}
 
 Then the required stream may be constructed with \code{merge}, as follows:
 
-\begin{scheme}
-(define S (cons-stream 1 (merge ~\( \dark \langle \)~??~\( \dark \rangle \)~ ~\( \dark \langle \)~??~\( \dark \rangle \)~)))
-\end{scheme}
+\begin{codeBlock}
+(define S (cons-stream 1 (merge ~\(\langle \)~??~\(\rangle \)~ ~\(\langle \)~??~\(\rangle \)~)))
+\end{codeBlock}
 
 Fill in the missing expressions in the places marked \( \langle \)??\( \kern0.08em\rangle \) above.
 
-\heading{\phantomsection\label{Exercise 3.57}Exercise 3.57:} How many additions are performed
+\exerciseHeading{\phantomsection\label{Exercise 3.57}Exercise 3.57:} How many additions are performed
 when we compute the \( n^{\mathrm{th}} \) Fibonacci number using the definition of
 \code{fibs} based on the \code{add\-/streams} procedure?  Show that the number of
 additions would be exponentially greater if we had implemented \code{(delay
@@ -5698,40 +5722,23 @@ we used assignment to explicitly construct a local table.  Our call-by-need
 stream optimization effectively constructs such a table automatically, storing
 values in the previously forced parts of the stream.}
 
-\heading{\phantomsection\label{Exercise 3.58}Exercise 3.58:} Give an interpretation of the
+\exerciseHeading{\phantomsection\label{Exercise 3.58}Exercise 3.58:} Give an interpretation of the
 stream computed by the following procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (expand num den radix)
   (cons-stream
    (quotient (* num radix) den)
    (expand (remainder (* num radix) den) den radix)))
-\end{scheme}
+\end{codeBlock}
 
 (\code{quotient} is a primitive that returns the integer quotient of two
 integers.)  What are the successive elements produced by \code{(expand 1 7
 10)}?  What is produced by \code{(expand 3 8 10)}?
 
-\heading{\phantomsection\label{Exercise 3.59}Exercise 3.59:} In \link{Section 2.5.3} we saw how
+\exerciseHeading{\phantomsection\label{Exercise 3.59}Exercise 3.59:} In \link{Section 2.5.3} we saw how
 to implement a polynomial arithmetic system representing polynomials as lists
 of terms.  In a similar way, we can work with \newterm{power series}, such as
-\begin{comment}
-
-\begin{example}
-               x^2     x^3       x^4
-e^x = 1 + x + ----- + ----- + --------- + ...
-                2     3 * 2   4 * 3 * 2
-
-             x^2       x^4
-cos x = 1 - ----- + --------- - ...
-              2     4 * 3 * 2
-
-             x^3         x^5
-sin x = x - ----- + ------------- - ...
-            3 * 2   5 * 4 * 3 * 2
-\end{example}
-
-\end{comment}
 
 $$
 e^x = 1 + x + \displaystyle\frac{x^2}{2} + \displaystyle\frac{x^3}{3 \cdot 2} + \displaystyle\frac{x^4}{4 \cdot 3 \cdot 2} + \dots,
@@ -5756,15 +5763,6 @@ elements are the coefficients \( a_0 \), \( a_1 \), \( a_2 \), \( a_3 \), \( \do
 
 \item
 The integral of the series \( a_0 + a_1 x + a_2 x^2 + a_3 x^3 + \dots \) is the series
-\begin{comment}
-
-\begin{example}
-             1             1             1
-c + a_0 x + --- a_1 x^2 + --- a_2 x^3 + --- a_3 x^4 + ...
-             2             3             4
-\end{example}
-
-\end{comment}
 
 $$ c + a_0 x + \frac{1}{2} a_1 x^2 + \frac{1}{3} a_2 x^3 + \frac{1}{4} a_3 x^4 + \dots, $$
 
@@ -5782,49 +5780,39 @@ The function \( x \mapsto e^x \) is its own derivative.  This implies that
 constant term, which is \( e^0 = 1 \).  Accordingly, we can generate the series
 for \( e^x \) as
 
-\begin{scheme}
+\begin{codeBlock}
 (define exp-series
   (cons-stream 1 (integrate-series exp-series)))
-\end{scheme}
+\end{codeBlock}
 
 Show how to generate the series for sine and cosine, starting from the facts
 that the derivative of sine is cosine and the derivative of cosine is the
 negative of sine:
 
-\begin{scheme}
-(define cosine-series (cons-stream 1 ~\( \dark \langle \)~??~\( \dark \rangle \)~))
-(define sine-series (cons-stream 0 ~\( \dark \langle \)~??~\( \dark \rangle \)~))
-\end{scheme}
+\begin{codeBlock}
+(define cosine-series (cons-stream 1 ~\(\langle \)~??~\(\rangle \)~))
+(define sine-series (cons-stream 0 ~\(\langle \)~??~\(\rangle \)~))
+\end{codeBlock}
 \end{enumerate}
 
-\heading{\phantomsection\label{Exercise 3.60}Exercise 3.60:} With power series represented as
+\exerciseHeading{\phantomsection\label{Exercise 3.60}Exercise 3.60:} With power series represented as
 streams of coefficients as in \link{Exercise 3.59}, adding series is implemented
 by \code{add\-/streams}.  Complete the definition of the following procedure for
 multiplying series:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (mul-series s1 s2)
-  (cons-stream ~\( \dark \langle \)~??~\( \dark \rangle \)~ (add-streams ~\( \dark \langle \)~??~\( \dark \rangle \)~ ~\( \dark \langle \)~??~\( \dark \rangle \)~)))
-\end{scheme}
+  (cons-stream ~\(\langle \)~??~\(\rangle \)~ (add-streams ~\(\langle \)~??~\(\rangle \)~ ~\(\langle \)~??~\(\rangle \)~)))
+\end{codeBlock}
 
 You can test your procedure by verifying that \mbox{\( \sin^2\!x + \cos^2\!x = 1 \)},
 using the series from \link{Exercise 3.59}.
 
-\heading{\phantomsection\label{Exercise 3.61}Exercise 3.61:} Let \( S \) be a power series
+\exerciseHeading{\phantomsection\label{Exercise 3.61}Exercise 3.61:} Let \( S \) be a power series
 (\link{Exercise 3.59}) whose constant term is 1.  Suppose we want to find the
 power series \( 1 / S \), that is, the series \( X \) such that \( SX = 1 \).
 Write \( S = 1 + S_R \) where \( S_R \) is the part of \( S \) after the
 constant term.  Then we can solve for \( X \) as follows:
-\begin{comment}
-
-\begin{example}
-        S * X = 1
-(1 + S_R) * X = 1
-  X + S_R * X = 1
-            X = 1 - S_R * X
-\end{example}
-
-\end{comment}
 
 $$
 \begin{array}{r@{{}={}}l}
@@ -5841,14 +5829,14 @@ this idea to write a procedure \code{invert\-/unit\-/series} that computes \( 1 
 for a power series \( S \) with constant term 1.  You will need to use
 \code{mul\-/series} from \link{Exercise 3.60}.
 
-\heading{\phantomsection\label{Exercise 3.62}Exercise 3.62:} Use the results of \link{Exercise 3.60}
+\exerciseHeading{\phantomsection\label{Exercise 3.62}Exercise 3.62:} Use the results of \link{Exercise 3.60}
 and \link{Exercise 3.61} to define a procedure \code{div\-/series} that
 divides two power series.  \code{div\-/series} should work for any two series,
 provided that the denominator series begins with a nonzero constant term.  (If
 the denominator has a zero constant term, then \code{div\-/series} should signal
 an error.)  Show how to use \code{div\-/series} together with the result of
 \link{Exercise 3.59} to generate the power series for tangent.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Exploiting the Stream Paradigm}
 \label{Section 3.5.3}
@@ -5875,10 +5863,10 @@ Let's adopt this perspective in revisiting the square-root procedure from
 and better guesses for the square root of \( x \) by applying over and over again
 the procedure that improves guesses:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sqrt-improve guess x)
   (average guess (/ x guess)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 In our original \code{sqrt} procedure, we made these guesses be the successive
@@ -5888,13 +5876,14 @@ to bind the local variable \code{guesses}, because the value of \code{guesses}
 depends on \code{guesses} itself.  \link{Exercise 3.63} addresses why we want a
 local variable here.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sqrt-stream x)
   (define guesses
     (cons-stream
-     1.0
-     (stream-map (lambda (guess) (sqrt-improve guess x))
-                 guesses)))
+      1.0
+      (stream-map (lambda (guess)
+                    (sqrt-improve guess x))
+                  guesses)))
   guesses)
 
 (display-stream (sqrt-stream 2))
@@ -5904,7 +5893,7 @@ local variable here.}
 ~\textit{1.4142156862745097}~
 ~\textit{1.4142135623746899}~
 ~\( \dots \)~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We can generate more and more terms of the stream to get better and better
@@ -5914,15 +5903,6 @@ until the answer is good enough.  (See \link{Exercise 3.64}.)
 Another iteration that we can treat in the same way is to generate an
 approximation to \( \pi \), based upon the alternating series that we saw in
 \link{Section 1.3.1}:
-\begin{comment}
-
-\begin{example}
-[pi]        1     1     1
----- = 1 - --- + --- - --- + ...
-  4         3     5     7
-\end{example}
-
-\end{comment}
 
 $$ \frac{\pi}{4} = 1 - \frac{1}{3} + \frac{1}{5} - frac{1}{7} + \dots. $$
 
@@ -5931,7 +5911,7 @@ odd integers, with alternating signs).  Then we take the stream of sums of more
 and more terms (using the \code{partial\-/sums} procedure of
 \link{Exercise 3.55}) and scale the result by 4:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (pi-summands n)
   (cons-stream (/ 1.0 n)
                (stream-map - (pi-summands (+ n 2)))))
@@ -5948,7 +5928,7 @@ and more terms (using the \code{partial\-/sums} procedure of
 ~\textit{3.2837384837384844}~
 ~\textit{3.017071817071818}~
 ~\( \dots \)~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This gives us a stream of better and better approximations to \( \pi \),
@@ -5966,22 +5946,13 @@ Leonhard Euler, works well with sequences that are partial sums of alternating
 series (series of terms with alternating signs).  In Euler's technique, if
 \( S_n \) is the \( n^{\mathrm{th}} \) term of the original sum sequence, then the
 accelerated sequence has terms
-\begin{comment}
-
-\begin{example}
-             (S_(n+1) - S_n)^2
-S_(n+1) - ------------------------
-          S_(n-1) - 2S_n + S_(n+1)
-\end{example}
-
-\end{comment}
 
 $$ S_{n+1} - {\frac{(S_{n+1} - S_n)^2}{S_{n-1} - 2S_n + S_{n+1}}}\,. $$
 
 Thus, if the original sequence is represented as a stream of values, the
 transformed sequence is given by
 
-\begin{scheme}
+\begin{codeBlock}
 (define (euler-transform s)
   (let ((s0 (stream-ref s 0))     ~\textrm{; \( S_{n-1} \)}~
         (s1 (stream-ref s 1))     ~\textrm{; \( S_n \)}~
@@ -5989,13 +5960,13 @@ transformed sequence is given by
     (cons-stream (- s2 (/ (square (- s2 s1))
                           (+ s0 (* -2 s1) s2)))
                  (euler-transform (stream-cdr s)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We can demonstrate Euler acceleration with our sequence of approximations to
 \( \pi \):
 
-\begin{scheme}
+\begin{codeBlock}
 (display-stream (euler-transform pi-stream))
 ~\textit{3.166666666666667}~
 ~\textit{3.1333333333333337}~
@@ -6006,7 +5977,7 @@ We can demonstrate Euler acceleration with our sequence of approximations to
 ~\textit{3.142071817071818}~
 ~\textit{3.1412548236077655}~
 ~\( \dots \)~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Even better, we can accelerate the accelerated sequence, and recursively
@@ -6014,23 +5985,13 @@ accelerate that, and so on.  Namely, we create a stream of streams (a structure
 we'll call a \newterm{tableau}) in which each stream is the transform of the
 preceding one:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-tableau transform s)
   (cons-stream s (make-tableau transform (transform s))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The tableau has the form
-\begin{comment}
-
-\begin{example}
-s_00   s_01   s_02   s_03   s_04   ...
-       s_10   s_11   s_12   s_13   ...
-              s_20   s_21   s_22   ...
-                            ...
-\end{example}
-
-\end{comment}
 
 \[
 \begin{matrix}
@@ -6044,16 +6005,16 @@ s_{00} & s_{01} & s_{02} & s_{03} & s_{04} & \dots \\
 Finally, we form a sequence by taking the first term in each row of the
 tableau:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (accelerated-sequence transform s)
   (stream-map stream-car (make-tableau transform s)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We can demonstrate this kind of ``super-acceleration'' of the \( \pi \)
 sequence:
 
-\begin{scheme}
+\begin{codeBlock}
 (display-stream
  (accelerated-sequence euler-transform pi-stream))
 ~\textit{4.}~
@@ -6065,7 +6026,7 @@ sequence:
 ~\textit{3.1415926535911765}~
 ~\textit{3.141592653589778}~
 ~\( \dots \)~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The result is impressive.  Taking eight terms of the sequence yields the
@@ -6079,18 +6040,18 @@ But the stream formulation is particularly elegant and convenient because the
 entire sequence of states is available to us as a data structure that can be
 manipulated with a uniform set of operations.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 3.63}Exercise 3.63:} Louis Reasoner asks why the
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 3.63}Exercise 3.63:} Louis Reasoner asks why the
 \code{sqrt\-/stream} procedure was not written in the following more
 straightforward way, without the local variable \code{guesses}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sqrt-stream x)
   (cons-stream 1.0 (stream-map
                     (lambda (guess)
                       (sqrt-improve guess x))
                     (sqrt-stream x))))
-\end{scheme}
+\end{codeBlock}
 
 Alyssa P. Hacker replies that this version of the procedure is considerably
 less efficient because it performs redundant computation.  Explain Alyssa's
@@ -6098,28 +6059,19 @@ answer.  Would the two versions still differ in efficiency if our
 implementation of \code{delay} used only \code{(lambda () \( \langle \)\var{exp}\( \rangle \))} without
 using the optimization provided by \code{memo\-/proc} (\link{Section 3.5.1})?
 
-\heading{\phantomsection\label{Exercise 3.64}Exercise 3.64:} Write a procedure
+\exerciseHeading{\phantomsection\label{Exercise 3.64}Exercise 3.64:} Write a procedure
 \code{stream\-/limit} that takes as arguments a stream and a number (the
 tolerance).  It should examine the stream until it finds two successive
 elements that differ in absolute value by less than the tolerance, and return
 the second of the two elements.  Using this, we could compute square roots up
 to a given tolerance by
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sqrt x tolerance)
   (stream-limit (sqrt-stream x) tolerance))
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 3.65}Exercise 3.65:} Use the series
-\begin{comment}
-
-\begin{example}
-            1     1     1
-ln 2 = 1 - --- + --- - --- + ...
-            2     3     4
-\end{example}
-
-\end{comment}
+\exerciseHeading{\phantomsection\label{Exercise 3.65}Exercise 3.65:} Use the series
 
 $$ \ln 2 = 1 - \frac{1}{2} + \frac{1}{3} - \frac{1}{4} + \dots $$
 
@@ -6127,7 +6079,7 @@ $$ \ln 2 = 1 - \frac{1}{2} + \frac{1}{3} - \frac{1}{4} + \dots $$
 to compute three sequences of approximations to the natural logarithm of 2, in
 the same way we did above for \( \pi \).  How rapidly do these sequences
 converge?
-\end{exercises}
+\end{exerciseGroup}
 
 \subsubsection*{Infinite streams of pairs}
 
@@ -6144,26 +6096,16 @@ of \link{Section 2.2.3} to produce the stream of pairs of \emph{all} integers
 \link{Section 2.2.3}, we represent a pair of integers as a list rather than a Lisp
 pair.}
 
-\begin{scheme}
+\begin{codeBlock}
 (stream-filter
  (lambda (pair) (prime? (+ (car pair) (cadr pair))))
  int-pairs)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Our problem, then, is to produce the stream \code{int\-/pairs}.  More generally,
 suppose we have two streams \( S = (S_i) \) and \( T = (T_j) \),
 and imagine the infinite rectangular array
-\begin{comment}
-
-\begin{example}
-(S_0, T_0)  (S_0, T_1)  (S_0, T_2)  ...
-(S_1, T_0)  (S_1, T_1)  (S_1, T_2)  ...
-(S_2, T_0)  (S_2, T_1)  (S_2, T_2)  ...
-   ...
-\end{example}
-
-\end{comment}
 
 \[
 \begin{matrix}
@@ -6176,16 +6118,6 @@ and imagine the infinite rectangular array
 
 We wish to generate a stream that contains all the pairs in the array that lie
 on or above the diagonal, i.e., the pairs
-\begin{comment}
-
-\begin{example}
-(S_0, T_0)  (S_0, T_1)  (S_0, T_2)  ...
-            (S_1, T_1)  (S_1, T_2)  ...
-                        (S_2, T_2)  ...
-                                    ...
-\end{example}
-
-\end{comment}
 
 \[
 \begin{matrix}
@@ -6204,17 +6136,6 @@ Call the general stream of pairs \code{(pairs S T)}, and consider it to be
 composed of three parts: the pair \( (S_0, T_0) \), the rest of the pairs in
 the first row, and the remaining pairs:\footnote{See \link{Exercise 3.68} for
 some insight into why we chose this decomposition.}
-\begin{comment}
-
-\begin{example}
-(S_0, T_0) | (S_0, T_1)  (S_0, T_2)  ...
------------+-----------------------------
-           | (S_1, T_1)  (S_1, T_2)  ...
-           |             (S_2, T_2)  ...
-           |                         ...
-\end{example}
-
-\end{comment}
 
 \[
 \begin{array}{c|ccc}
@@ -6231,45 +6152,46 @@ first row) is (recursively) the pairs formed from \code{(stream\-/cdr S)} and
 \code{(stream\-/cdr T)}.  Also note that the second piece (the rest of the first
 row) is
 
-\begin{scheme}
+\begin{codeBlock}
 (stream-map (lambda (x) (list (stream-car s) x))
             (stream-cdr t))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Thus we can form our stream of pairs as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (pairs s t)
   (cons-stream
    (list (stream-car s) (stream-car t))
-   (~\( \dark \langle \)~~\var{\dark combine-in-some-way}~~\( \dark \rangle \)~
+   (~\(\langle \)~~\var{combine-in-some-way}~~\(\rangle \)~
      (stream-map (lambda (x) (list (stream-car s) x))
                  (stream-cdr t))
      (pairs (stream-cdr s) (stream-cdr t)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 In order to complete the procedure, we must choose some way to combine the two
 inner streams.  One idea is to use the stream analog of the \code{append}
 procedure from \link{Section 2.2.1}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (stream-append s1 s2)
   (if (stream-null? s1)
       s2
       (cons-stream (stream-car s1)
-                   (stream-append (stream-cdr s1) s2))))
-\end{scheme}
+                   (stream-append (stream-cdr s1)
+                                  s2))))
+\end{codeBlock}
 
 \noindent
 This is unsuitable for infinite streams, however, because it takes all the
 elements from the first stream before incorporating the second stream.  In
 particular, if we try to generate all pairs of positive integers using
 
-\begin{scheme}
+\begin{codeBlock}
 (pairs integers integers)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 our stream of results will first try to run through all pairs with the first
@@ -6287,13 +6209,13 @@ number \( f(i, j) \) of the output stream.  The trick of using
 \code{interleave} to accomplish this was shown to us by David Turner, who
 employed it in the language KRC (\link{Turner 1981}).}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (interleave s1 s2)
   (if (stream-null? s1)
       s2
       (cons-stream (stream-car s1)
                    (interleave s2 (stream-cdr s1)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Since \code{interleave} takes elements alternately from the two streams, every
@@ -6302,7 +6224,7 @@ stream, even if the first stream is infinite.
 
 We can thus generate the required stream of pairs as
 
-\begin{scheme}
+\begin{codeBlock}
 (define (pairs s t)
   (cons-stream
    (list (stream-car s) (stream-car t))
@@ -6310,45 +6232,45 @@ We can thus generate the required stream of pairs as
     (stream-map (lambda (x) (list (stream-car s) x))
                 (stream-cdr t))
     (pairs (stream-cdr s) (stream-cdr t)))))
-\end{scheme}
+\end{codeBlock}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 3.66}Exercise 3.66:} Examine the stream \code{(pairs
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 3.66}Exercise 3.66:} Examine the stream \code{(pairs
 integers integers)}. Can you make any general comments about the order in which
 the pairs are placed into the stream? For example, approximately how many pairs precede
 the pair (1, 100)?  the pair (99, 100)? the pair (100, 100)? (If you can make
 precise mathematical statements here, all the better. But feel free to give
 more qualitative answers if you find yourself getting bogged down.)
 
-\heading{\phantomsection\label{Exercise 3.67}Exercise 3.67:} Modify the \code{pairs} procedure
+\exerciseHeading{\phantomsection\label{Exercise 3.67}Exercise 3.67:} Modify the \code{pairs} procedure
 so that \code{(pairs integers integers)} will produce the stream of \emph{all}
 pairs of integers \( (i, j) \) (without the condition \( i \le j \)).  Hint:
 You will need to mix in an additional stream.
 
-\heading{\phantomsection\label{Exercise 3.68}Exercise 3.68:} Louis Reasoner thinks that
+\exerciseHeading{\phantomsection\label{Exercise 3.68}Exercise 3.68:} Louis Reasoner thinks that
 building a stream of pairs from three parts is unnecessarily complicated.
 Instead of separating the pair \( (S_0, T_0) \) from the rest of the pairs in
 the first row, he proposes to work with the whole first row, as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (pairs s t)
   (interleave
    (stream-map (lambda (x) (list (stream-car s) x))
                t)
    (pairs (stream-cdr s) (stream-cdr t))))
-\end{scheme}
+\end{codeBlock}
 
 Does this work?  Consider what happens if we evaluate \code{(pairs integers
 integers)} using Louis's definition of \code{pairs}.
 
-\heading{\phantomsection\label{Exercise 3.69}Exercise 3.69:} Write a procedure \code{triples}
+\exerciseHeading{\phantomsection\label{Exercise 3.69}Exercise 3.69:} Write a procedure \code{triples}
 that takes three infinite streams, \( S \), \( T \), and \( U \), and produces the
 stream of triples \( (S_i, T_j, U_k) \) such that \( i \le j \le k \).
 Use \code{triples} to generate the stream of all Pythagorean
 triples of positive integers, i.e., the triples \( (i, j, k) \) such that
 \( i \le j \) and \( i^2 + j^2 = k^2 \).
 
-\heading{\phantomsection\label{Exercise 3.70}Exercise 3.70:} It would be nice to be able to
+\exerciseHeading{\phantomsection\label{Exercise 3.70}Exercise 3.70:} It would be nice to be able to
 generate streams in which the pairs appear in some useful order, rather than in
 the order that results from an \emph{ad hoc} interleaving process.  We can use
 a technique similar to the \code{merge} procedure of \link{Exercise 3.56}, if we
@@ -6380,7 +6302,7 @@ ordered according to the sum \( 2i + 3\!j + 5i\!j \).
 
 \end{enumerate}
 
-\heading{\phantomsection\label{Exercise 3.71}Exercise 3.71:} Numbers that can be expressed as
+\exerciseHeading{\phantomsection\label{Exercise 3.71}Exercise 3.71:} Numbers that can be expressed as
 the sum of two cubes in more than one way are sometimes called
 \newterm{Ramanujan numbers}, in honor of the mathematician Srinivasa
 Ramanujan.\footnote{To quote from G. H. Hardy's obituary of Ramanujan (\link{Hardy 1921}):
@@ -6399,10 +6321,10 @@ the stream of pairs of integers \( (i, j) \) weighted according to the sum
 consecutive pairs with the same weight.  Write a procedure to generate the
 Ramanujan numbers.  The first such number is 1,729.  What are the next five?
 
-\heading{\phantomsection\label{Exercise 3.72}Exercise 3.72:} In a similar way to \link{Exercise 3.71}
+\exerciseHeading{\phantomsection\label{Exercise 3.72}Exercise 3.72:} In a similar way to \link{Exercise 3.71}
 generate a stream of all numbers that can be written as the sum of two
 squares in three different ways (showing how they can be so written).
-\end{exercises}
+\end{exerciseGroup}
 
 \subsubsection*{Streams as signals}
 
@@ -6413,17 +6335,6 @@ values of a signal at successive time intervals as consecutive elements of a
 stream.  For instance, we can implement an \newterm{integrator} or
 \newterm{summer} that, for an input stream \( x = (x_i) \), an initial
 value \( C \), and a small increment \( dt \), accumulates the sum
-\begin{comment}
-
-\begin{example}
-           i
-          ---
-S_i = C + >   x_j dt
-          ---
-          j=1
-\end{example}
-
-\end{comment}
 
 $$ S_i = C + \sum_{j=1}^i x_{\kern-0.07em j} \kern0.1em dt $$
 
@@ -6432,14 +6343,16 @@ and returns the stream of values \( S = (S_i) \).  The following
 \code{integral} procedure is reminiscent of the ``implicit style'' definition
 of the stream of integers (\link{Section 3.5.2}):
 
-\begin{scheme}
+\begin{codeBlock}
 (define (integral integrand initial-value dt)
   (define int
-    (cons-stream initial-value
-                 (add-streams (scale-stream integrand dt)
-                              int)))
+    (cons-stream
+      initial-value
+      (add-streams
+        (scale-stream integrand dt)
+        int)))
   int)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \link{Figure 3.32} is a picture of a signal-processing system that corresponds
@@ -6455,8 +6368,8 @@ inputs.
   \includegraphics[width=102mm]{assets/figures/chapter_3/figure_3.32.pdf}
 \end{imageFigure}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 3.73}Exercise 3.73:} We can model electrical circuits
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 3.73}Exercise 3.73:} We can model electrical circuits
 using streams to represent the values of currents or voltages at a sequence of
 times.  For instance, suppose we have an \newterm{RC circuit} consisting of a
 resistor of resistance \( R \) and a capacitor of capacitance \( C \) in series.
@@ -6480,7 +6393,7 @@ evaluating \code{(define RC1 (RC 5 1 0.5))}.  This defines \code{RC1} as a
 procedure that takes a stream representing the time sequence of currents and an
 initial capacitor voltage and produces the output stream of voltages.
 
-\heading{\phantomsection\label{Exercise 3.74}Exercise 3.74:} Alyssa P. Hacker is designing a
+\exerciseHeading{\phantomsection\label{Exercise 3.74}Exercise 3.74:} Alyssa P. Hacker is designing a
 system to process signals coming from physical sensors.  One important feature
 she wishes to produce is a signal that describes the \newterm{zero crossings}
 of the input signal.  That is, the resulting signal should be \( +1 \) whenever the
@@ -6489,10 +6402,10 @@ changes from positive to negative, and 0 otherwise.  (Assume that the sign of a
 0 input is positive.)  For example, a typical input signal with its associated
 zero-crossing signal would be
 
-\begin{scheme}
+\begin{codeBlock}
 ~\( \dots \)~ 1 2 1.5 1 0.5 -0.1 -2 -3 -2 -0.5 0.2 3 4 ~\( \dots \)~
 ~\( \dots \)~ 0 0  0  0  0   -1   0  0  0   0   1  0 0 ~\( \dots \)~
-\end{scheme}
+\end{codeBlock}
 
 In Alyssa's system, the signal from the sensor is represented as a stream
 \code{sense\-/data} and the stream \code{zero\-/crossings} is the corresponding
@@ -6501,7 +6414,7 @@ stream of zero crossings.  Alyssa first writes a procedure
 signs of the values to produce an appropriate 0, 1, or - 1.  She then
 constructs her zero-crossing stream as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-zero-crossings input-stream last-value)
   (cons-stream
    (sign-change-detector
@@ -6512,22 +6425,22 @@ constructs her zero-crossing stream as follows:
     (stream-car input-stream))))
 (define zero-crossings
   (make-zero-crossings sense-data 0))
-\end{scheme}
+\end{codeBlock}
 
 Alyssa's boss, Eva Lu Ator, walks by and suggests that this program is
 approximately equivalent to the following one, which uses the generalized
 version of \code{stream\-/map} from \link{Exercise 3.50}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define zero-crossings
   (stream-map sign-change-detector
               sense-data
-              ~\( \dark \langle \)~~\var{\dark expression}~~\( \dark \rangle \)~))
-\end{scheme}
+              ~\(\langle \)~~\var{expression}~~\(\rangle \)~))
+\end{codeBlock}
 
 Complete the program by supplying the indicated \( \langle \)\var{expression}\( \rangle \).
 
-\heading{\phantomsection\label{Exercise 3.75}Exercise 3.75:} Unfortunately, Alyssa's
+\exerciseHeading{\phantomsection\label{Exercise 3.75}Exercise 3.75:} Unfortunately, Alyssa's
 zero-crossing detector in \link{Exercise 3.74} proves to be insufficient,
 because the noisy signal from the sensor leads to spurious zero crossings.  Lem
 E.  Tweakit, a hardware specialist, suggests that Alyssa smooth the signal to
@@ -6537,7 +6450,7 @@ averaging each value of the sense data with the previous value.  She explains
 the problem to her assistant, Louis Reasoner, who attempts to implement the
 idea, altering Alyssa's program as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-zero-crossings input-stream last-value)
   (let ((avpt (/ (+ (stream-car input-stream)
                     last-value)
@@ -6546,13 +6459,13 @@ idea, altering Alyssa's program as follows:
      (sign-change-detector avpt last-value)
      (make-zero-crossings
       (stream-cdr input-stream) avpt))))
-\end{scheme}
+\end{codeBlock}
 
 This does not correctly implement Alyssa's plan.  Find the bug that Louis has
 installed and fix it without changing the structure of the program.  (Hint: You
 will need to increase the number of arguments to \code{make\-/zero\-/crossings}.)
 
-\heading{\phantomsection\label{Exercise 3.76}Exercise 3.76:} Eva Lu Ator has a criticism of
+\exerciseHeading{\phantomsection\label{Exercise 3.76}Exercise 3.76:} Eva Lu Ator has a criticism of
 Louis's approach in \link{Exercise 3.75}.  The program he wrote is not modular,
 because it intermixes the operation of smoothing with the zero-crossing
 extraction.  For example, the extractor should not have to be changed if Alyssa
@@ -6561,7 +6474,7 @@ procedure \code{smooth} that takes a stream as input and produces a stream in
 which each element is the average of two successive input stream elements.
 Then use \code{smooth} as a component to implement the zero-crossing detector
 in a more modular style.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Streams and Delayed Evaluation}
 \label{Section 3.5.4}
@@ -6572,13 +6485,13 @@ The feedback loop for the adder shown in \link{Figure 3.32} is modeled by the
 fact that \code{integral}'s internal stream \code{int} is defined in terms of
 itself:
 
-\begin{scheme}
+\begin{codeBlock}
 (define int
   (cons-stream
    initial-value
    (add-streams (scale-stream integrand dt)
                 int)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The interpreter's ability to deal with such an implicit definition depends on
@@ -6609,12 +6522,12 @@ such equations.
 Assuming we are given an initial value \( y_0 \) for \( y \), we could try to model
 this system using the procedure
 
-\begin{scheme}
+\begin{codeBlock}
 (define (solve f y0 dt)
   (define y (integral dy y0 dt))
   (define dy (stream-map f y))
   y)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This procedure does not work, because in the first line of \code{solve} the
@@ -6638,7 +6551,7 @@ integrand stream to be a \newterm{delayed argument}.  \code{integral} will
 \code{force} the integrand to be evaluated only when it is required to generate
 more than the first element of the output stream:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (integral delayed-integrand initial-value dt)
   (define int
     (cons-stream
@@ -6646,7 +6559,7 @@ more than the first element of the output stream:
      (let ((integrand (force delayed-integrand)))
        (add-streams (scale-stream integrand dt) int))))
   int)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Now we can implement our \code{solve} procedure by delaying the evaluation of
@@ -6656,12 +6569,12 @@ implementation there is a simple variation that will work.  The problem has to
 do with subtle differences in the ways that Scheme implementations handle
 internal definitions.  (See \link{Section 4.1.6}.)}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (solve f y0 dt)
   (define y (integral (delay dy) y0 dt))
   (define dy (stream-map f y))
   y)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 In general, every caller of \code{integral} must now \code{delay} the integrand
@@ -6670,22 +6583,22 @@ approximating \( e \approx 2.718 \) by computing the value at \( y = 1 \) of the
 solution to the differential equation \( dy / dt = y \) with initial
 condition \( y(0) = 1 \):
 
-\begin{scheme}
+\begin{codeBlock}
 (stream-ref (solve (lambda (y) y)
                    1
                    0.001)
             1000)
 ~\textit{2.716924}~
-\end{scheme}
+\end{codeBlock}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 3.77}Exercise 3.77:} The \code{integral} procedure
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 3.77}Exercise 3.77:} The \code{integral} procedure
 used above was analogous to the ``implicit'' definition of the infinite stream
 of integers in \link{Section 3.5.2}.  Alternatively, we can give a definition of
 \code{integral} that is more like \code{integers\-/starting\-/from} (also in
 \link{Section 3.5.2}):
 
-\begin{smallscheme}
+\begin{compactCodeBlock}
 (define (integral integrand initial-value dt)
   (cons-stream
    initial-value
@@ -6695,7 +6608,7 @@ of integers in \link{Section 3.5.2}.  Alternatively, we can give a definition of
                  (+ (* dt (stream-car integrand))
                     initial-value)
                  dt))))
-\end{smallscheme}
+\end{compactCodeBlock}
 
 When used in systems with loops, this procedure has the same problem as does
 our original version of \code{integral}.  Modify the procedure so that it
@@ -6711,18 +6624,9 @@ expects the \code{integrand} as a delayed argument and hence can be used in the
   \includegraphics[width=91mm]{assets/figures/chapter_3/figure_3.35a.pdf}
 \end{imageFigure}
 
-\heading{\phantomsection\label{Exercise 3.78}Exercise 3.78:} Consider the problem of designing
+\exerciseHeading{\phantomsection\label{Exercise 3.78}Exercise 3.78:} Consider the problem of designing
 a signal-processing system to study the homogeneous second-order linear
 differential equation
-\begin{comment}
-
-\begin{example}
-d^2 y        d y
------  -  a -----  -  by  =  0
-d t^2        d t
-\end{example}
-
-\end{comment}
 
 $$ \frac{d^2\!y}{dt^2} - a \frac{dy}{dt} - by = 0. $$
 
@@ -6735,7 +6639,7 @@ arguments the constants \( a \), \( b \), and \( dt \) and the initial values
 \( y_0 \) and \( dy_0 \) for \( y \) and \( dy / dt \) and generates the
 stream of successive values of \( y \).
 
-\heading{\phantomsection\label{Exercise 3.79}Exercise 3.79:} Generalize the \code{solve\-/2nd}
+\exerciseHeading{\phantomsection\label{Exercise 3.79}Exercise 3.79:} Generalize the \code{solve\-/2nd}
 procedure of \link{Exercise 3.78} so that it can be used to solve general
 second-order differential equations \( d^2\!y / dt^2 =
 f(dy / dt, y) \).
@@ -6752,7 +6656,7 @@ f(dy / dt, y) \).
   \includegraphics[width=68mm]{assets/figures/chapter_3/figure_3.37a.pdf}
 \end{imageFigure}
 
-\heading{\phantomsection\label{Exercise 3.80}Exercise 3.80:} A \newterm{series RLC circuit}
+\exerciseHeading{\phantomsection\label{Exercise 3.80}Exercise 3.80:} A \newterm{series RLC circuit}
 consists of a resistor, a capacitor, and an inductor connected in series, as
 shown in \link{Figure 3.36}.  If \( R \), \( L \), and \( C \) are the resistance,
 inductance, and capacitance, then the relations between voltage (\( v \)) and
@@ -6787,7 +6691,7 @@ variables, \( v_{C_0} \) and \( i_{L_0} \), and produces a pair (using
 RLC circuit with \( R \) = 1 ohm, \( C \) = 0.2 farad, \( L \) = 1 henry, \( dt \)
 = 0.1 second, and initial values \( i_{L_0} \) = 0 amps and \( v_{C_0} \) =
 10 volts.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsubsection*{Normal-order evaluation}
 
@@ -6853,31 +6757,31 @@ random-number generator from programs that used random numbers.  We began with
 a procedure \code{rand\-/update}, whose successive values furnished our supply of
 random numbers, and used this to produce a random-number generator:
 
-\begin{scheme}
+\begin{codeBlock}
 (define rand
   (let ((x random-init))
     (lambda ()
       (set! x (rand-update x))
       x)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 In the stream formulation there is no random-number generator \emph{per se},
 just a stream of random numbers produced by successive calls to
 \code{rand\-/update}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define random-numbers
   (cons-stream
    random-init
    (stream-map rand-update random-numbers)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We use this to construct the stream of outcomes of the Ces\`aro experiment
 performed on consecutive pairs in the \code{random\-/numbers} stream:
 
-\begin{scheme}
+\begin{codeBlock}
 (define cesaro-stream
   (map-successive-pairs
    (lambda (r1 r2) (= (gcd r1 r2) 1))
@@ -6886,7 +6790,7 @@ performed on consecutive pairs in the \code{random\-/numbers} stream:
   (cons-stream
    (f (stream-car s) (stream-car (stream-cdr s)))
    (map-successive-pairs f (stream-cdr (stream-cdr s)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The \code{cesaro\-/stream} is now fed to a \code{monte\-/carlo} procedure, which
@@ -6896,7 +6800,7 @@ doesn't need a parameter telling how many trials to perform.  Better estimates
 of \( \pi \) (from performing more experiments) are obtained by looking farther
 into the \code{pi} stream:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (monte-carlo experiment-stream passed failed)
   (define (next passed failed)
     (cons-stream
@@ -6910,15 +6814,15 @@ into the \code{pi} stream:
   (stream-map
    (lambda (p) (sqrt (/ 6 p)))
    (monte-carlo cesaro-stream 0 0)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 There is considerable modularity in this approach, because we still can
 formulate a general \code{monte\-/carlo} procedure that can deal with arbitrary
 experiments.  Yet there is no assignment or local state.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 3.81}Exercise 3.81:} \link{Exercise 3.6} discussed
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 3.81}Exercise 3.81:} \link{Exercise 3.6} discussed
 generalizing the random-number generator to allow one to reset the
 random-number sequence so as to produce repeatable sequences of ``random''
 numbers.  Produce a stream formulation of this same generator that operates on
@@ -6926,12 +6830,12 @@ an input stream of requests to \code{generate} a new random number or to
 \code{reset} the sequence to a specified value and that produces the desired
 stream of random numbers.  Don't use assignment in your solution.
 
-\heading{\phantomsection\label{Exercise 3.82}Exercise 3.82:} Redo \link{Exercise 3.5} on Monte
+\exerciseHeading{\phantomsection\label{Exercise 3.82}Exercise 3.82:} Redo \link{Exercise 3.5} on Monte
 Carlo integration in terms of streams.  The stream version of
 \code{estimate\-/integral} will not have an argument telling how many trials to
 perform.  Instead, it will produce a stream of estimates based on successively
 more trials.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsubsection*{A functional-programming view of time}
 
@@ -6957,12 +6861,12 @@ implementation of a ``withdrawal processor'' that monitors the balance in a
 bank account.  In \link{Section 3.1.3} we implemented a simplified version of
 such a processor:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (make-simplified-withdraw balance)
   (lambda (amount)
     (set! balance (- balance amount))
     balance))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Calls to \code{make\-/simplified\-/withdraw} produce computational objects, each
@@ -6976,13 +6880,14 @@ Alternatively, we can model a withdrawal processor as a procedure that takes as
 input a balance and a stream of amounts to withdraw and produces the stream of
 successive balances in the account:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (stream-withdraw balance amount-stream)
   (cons-stream
    balance
-   (stream-withdraw (- balance (stream-car amount-stream))
+   (stream-withdraw (- balance
+                       (stream-car amount-stream))
                     (stream-cdr amount-stream))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{stream\-/withdraw} implements a well-defined mathematical function whose
@@ -7077,7 +6982,9 @@ state.  Thus, in an attempt to support the functional style, the need to merge
 inputs from different agents reintroduces the same problems that the functional
 style was meant to eliminate.
 
-\enlargethispage{\baselineskip}
+\ifnum\paperType=0 %
+  \newpage
+\fi
 
 We began this chapter with the goal of building computational models whose
 structure matches our perception of the real world we are trying to model.  We

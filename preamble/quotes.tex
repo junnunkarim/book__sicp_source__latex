@@ -1,0 +1,134 @@
+% --- quotes ---
+% --------------
+%
+% big and fancy quote mark
+\NewDocumentCommand{\fancyQuoteMark}{O{0,0} m}{%
+  \begin{picture}(0,0)(0,0)%
+    \put(#1){%
+      \makebox(0,0){%
+        \scalebox{3}{\textcolor{LightGray}{#2}}%
+      }%
+    }%
+  \end{picture}%
+}
+
+% #1 -> author name,
+% #2 -> work name,
+% #3 -> extra
+\NewDocumentEnvironment{fancyQuote}{O{} O{} O{}}{%
+  \def\fqAuthor{#1}%
+  \def\fqWork{#2}%
+  \def\fqExtra{#3}%
+  %
+  \vspace{0.5em}%
+  \noindent%
+  \begin{list}{}{%
+    \setlength{\leftmargin}{0.1\textwidth}%
+    \setlength{\rightmargin}{0.1\textwidth}%
+  }%
+  \item[]%
+  \fancyQuoteMark[-15,-5]{``}%
+  \color{DeepGray}%
+  % \sffamily%
+  \small%
+  \begingroup%
+    \itshape%
+}{%
+  \endgroup\par
+  \makebox[0pt][l]{%
+    \hspace{0.8\textwidth}%
+    \fancyQuoteMark[15,15]{''}%
+  }%
+  \footnotesize%
+  \ifx\fqAuthor%
+    \empty%
+  \else%
+    \hfill\rule{0.6\linewidth}{0.2pt}\par
+    \hfill\begin{minipage}[t]{0.6\linewidth}%
+      \scriptsize --- \textsc{\fqAuthor}%
+      \tiny%
+      % check if fqWork is empty or not
+      \ifx\fqWork%
+        \empty%
+      \else%
+        \newline\emph{\fqWork}%
+      \fi%
+      % check if fqExtra is empty or not
+      \ifx\fqExtra%
+        \empty%
+      \else%
+        ,\ (\fqExtra)%
+      \fi%
+    \end{minipage}%
+  \fi%
+  \par%
+  \vspace{0.5em}%
+  \end{list}%
+}
+
+% #1 -> quoted content
+% #2 -> author name
+% #3 -> work name
+% #4 -> extra
+\newcommand{\chapterQuote}[4]{
+  \vspace{-15pt}%
+  \vspace{-1ex}%
+  \begin{fancyQuote}[#2][#3][#4]%
+    #1%
+  \end{fancyQuote}%
+  \vspace{-1ex}%
+  \vspace{20pt}%
+}
+
+% fancy hacks i guess, ¯\_(ツ)_/¯
+%
+% 1st quote
+% ---------
+% #1 -> quoted content
+% #2 -> author name
+% #3 -> work name
+% #4 -> extra
+%
+% 2nd quote
+% ---------
+% #5 -> quoted content
+% #6 -> author name
+% #7 -> work name
+% #8 -> extra
+\NewDocumentCommand{\chapterDoubleQuote}{m m m m m m m m}{
+  \vspace{-15pt}%
+  \vspace{-1ex}%
+  \begin{fancyQuote}[#2][#3][#4]
+    #1%
+  \end{fancyQuote}%
+  \begin{fancyQuote}[#6][#7][#8]
+    #5%
+  \end{fancyQuote}%
+  \vspace{-1ex}%
+  \vspace{20pt}%
+}
+
+% for using in quotes inside chapter
+% #1 -> quoted content
+% #2 -> author name
+% #3 -> work name
+% #4 -> extra
+\newcommand{\elegantQuote}[4]{
+  \begin{fancyQuote}[#2][#3][#4]%
+    #1%
+  \end{fancyQuote}%
+}
+
+\newenvironment{niceQuote}{%
+  \vspace{0.5\baselineskip}%
+  \begin{list}{}{%
+    \setlength{\leftmargin}{0.1\textwidth}%
+    \setlength{\rightmargin}{0.1\textwidth}%
+  }%
+    \item[]%
+    \small%
+    \itshape%
+}{%
+  \end{list}%
+  \vspace{0.5\baselineskip}%
+}

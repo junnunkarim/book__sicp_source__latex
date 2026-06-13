@@ -1,0 +1,9 @@
+\ifcase\paperType % 0 -> a5
+  \input{layouts/layout_a5}
+\or % 1 -> a4
+  \input{layouts/layout_a4}
+\or % 2 -> ustrade
+  \input{layouts/layout_ustrade}
+\else % default
+  \input{layouts/layout_a5}
+\fi

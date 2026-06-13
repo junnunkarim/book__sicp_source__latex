@@ -1,5 +1,14 @@
-\input{backmatter/references}
-\input{backmatter/exercises}
+\ifnum \buildExtraContents=1 % if true
+  \input{backmatter/references}
+  %
+  \ifnum \buildChapter=0 % add "list of exercises" only to pdf with all chapters
+    \input{backmatter/exercises}
+  \fi
+\fi
+
 \input{backmatter/figures}
 \input{backmatter/index}
-% \input{backmatter/colophon}
+
+\ifnum \buildUnofficialContents=1 % if true
+  \input{backmatter/colophon}
+\fi

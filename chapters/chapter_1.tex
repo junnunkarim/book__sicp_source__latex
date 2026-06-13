@@ -17,147 +17,143 @@
 
 \noindent
 \lettrine{W}{e are about to study} the idea of a \newterm{computational process}.
-Computational processes are abstract beings that inhabit computers.  As they
-evolve, processes manipulate other abstract things called \newterm{data}.  The
+Computational processes are abstract beings that inhabit computers. As they
+evolve, processes manipulate other abstract things called \newterm{data}. The
 evolution of a process is directed by a pattern of rules called a
-\newterm{program}.  People create programs to direct processes.  In effect, we
+\newterm{program}. People create programs to direct processes. In effect, we
 conjure the spirits of the computer with our spells.
 
-A computational process is indeed much like a sorcerer's idea of a spirit.  It
-cannot be seen or touched.  It is not composed of matter at all.  However, it
-is very real.  It can perform intellectual work.  It can answer questions.  It
+A computational process is indeed much like a sorcerer's idea of a spirit. It
+cannot be seen or touched. It is not composed of matter at all. However, it
+is very real. It can perform intellectual work. It can answer questions. It
 can affect the world by disbursing money at a bank or by controlling a robot
-arm in a factory.  The programs we use to conjure processes are like a
-sorcerer's spells.  They are carefully composed from symbolic expressions in
+arm in a factory. The programs we use to conjure processes are like a
+sorcerer's spells. They are carefully composed from symbolic expressions in
 arcane and esoteric \newterm{programming languages} that prescribe the tasks we
 want our processes to perform.
 
 A computational process, in a correctly working computer, executes programs
-precisely and accurately.  Thus, like the sorcerer's apprentice, novice
+precisely and accurately. Thus, like the sorcerer's apprentice, novice
 programmers must learn to understand and to anticipate the consequences of
-their conjuring.  Even small errors (usually called \newterm{bugs} or
+their conjuring. Even small errors (usually called \newterm{bugs} or
 \newterm{glitches}) in programs can have complex and unanticipated
 consequences.
 
 Fortunately, learning to program is considerably less dangerous than learning
 sorcery, because the spirits we deal with are conveniently contained in a
-secure way.  Real-world programming, however, requires care, expertise, and
-wisdom.  A small bug in a computer-aided design program, for example, can lead
+secure way. Real-world programming, however, requires care, expertise, and
+wisdom. A small bug in a computer-aided design program, for example, can lead
 to the catastrophic collapse of an airplane or a dam or the self-destruction of
 an industrial robot.
 
 Master software engineers have the ability to organize programs so that they
 can be reasonably sure that the resulting processes will perform the tasks
-intended.  They can visualize the behavior of their systems in advance.  They
+intended. They can visualize the behavior of their systems in advance. They
 know how to structure programs so that unanticipated problems do not lead to
 catastrophic consequences, and when problems do arise, they can \newterm{debug}
-their programs.  Well-designed computational systems, like well-designed
+their programs. Well-designed computational systems, like well-designed
 automobiles or nuclear reactors, are designed in a modular manner, so that the
 parts can be constructed, replaced, and debugged separately.
 
 \subsubsection*{Programming in Lisp}
 
 We need an appropriate language for describing processes, and we will use for
-this purpose the programming language Lisp.  Just as our everyday thoughts are
+this purpose the programming language Lisp. Just as our everyday thoughts are
 usually expressed in our natural language (such as English, French, or
 Japanese), and descriptions of quantitative phenomena are expressed with
 mathematical notations, our procedural thoughts will be expressed in Lisp.
 Lisp was invented in the late 1950s as a formalism for reasoning about the use
 of certain kinds of logical expressions, called \newterm{recursion equations},
-as a model for computation.  The language was conceived by John McCarthy and is
+as a model for computation. The language was conceived by John McCarthy and is
 based on his paper ``Recursive Functions of Symbolic Expressions and Their
 Computation by Machine'' (\link{McCarthy 1960}).
 
 Despite its inception as a mathematical formalism, Lisp is a practical
-programming language.  A Lisp \newterm{interpreter} is a machine that carries
-out processes described in the Lisp language.  The first Lisp interpreter was
+programming language. A Lisp \newterm{interpreter} is a machine that carries
+out processes described in the Lisp language. The first Lisp interpreter was
 implemented by McCarthy with the help of colleagues and students in the
 Artificial Intelligence Group of the \acronym{MIT} Research Laboratory of
 Electronics and in the \acronym{MIT} Computation Center.\footnote{The
 \textit{Lisp 1 Programmer's Manual} appeared in 1960, and the \textit{Lisp 1.5
-Programmer's Manual} (\link{McCarthy et al. 1965}) was published in 1962.  The early history
-of Lisp is described in \link{McCarthy 1978}.}  Lisp, whose name is an acronym for
+Programmer's Manual} (\link{McCarthy et al. 1965}) was published in 1962. The early history
+of Lisp is described in \link{McCarthy 1978}.} Lisp, whose name is an acronym for
 LISt Processing, was designed to provide symbol-manipulating capabilities for
 attacking programming problems such as the symbolic differentiation and
-integration of algebraic expressions.  It included for this purpose new data
+integration of algebraic expressions. It included for this purpose new data
 objects known as atoms and lists, which most strikingly set it apart from all
 other languages of the period.
 
-Lisp was not the product of a concerted design effort.  Instead, it evolved
+Lisp was not the product of a concerted design effort. Instead, it evolved
 informally in an experimental manner in response to users' needs and to
-pragmatic implementation considerations.  Lisp's informal evolution has
+pragmatic implementation considerations. Lisp's informal evolution has
 continued through the years, and the community of Lisp users has traditionally
 resisted attempts to promulgate any ``official'' definition of the language.
 This evolution, together with the flexibility and elegance of the initial
 conception, has enabled Lisp, which is the second oldest language in widespread
 use today (only Fortran is older), to continually adapt to encompass the most
-modern ideas about program design.  Thus, Lisp is by now a family of dialects,
+modern ideas about program design. Thus, Lisp is by now a family of dialects,
 which, while sharing most of the original features, may differ from one another
-in significant ways.  The dialect of Lisp used in this book is called
+in significant ways. The dialect of Lisp used in this book is called
 Scheme.\footnote{The two dialects in which most major Lisp programs of the
 1970s were written are MacLisp (\link{Moon 1978}; \link{Pitman 1983}), developed at the
 \acronym{MIT} Project \acronym{MAC}, and Interlisp (\link{Teitelman 1974}), developed
 at Bolt Beranek and Newman Inc. and the Xerox Palo Alto Research Center.
 Portable Standard Lisp (\link{Hearn 1969}; \link{Griss 1981}) was a Lisp dialect designed to
-be easily portable between different machines.  MacLisp spawned a number of
+be easily portable between different machines. MacLisp spawned a number of
 subdialects, such as Franz Lisp, which was developed at the University of
 California at Berkeley, and Zetalisp (\link{Moon and Weinreb 1981}), which was based on a
 special-purpose processor designed at the \acronym{MIT} Artificial Intelligence
-Laboratory to run Lisp very efficiently.  The Lisp dialect used in this book,
+Laboratory to run Lisp very efficiently. The Lisp dialect used in this book,
 called Scheme (\link{Steele and Sussman 1975}), was invented in 1975 by Guy Lewis Steele Jr. and
 Gerald Jay Sussman of the \acronym{MIT} Artificial Intelligence Laboratory and
-later reimplemented for instructional use at \acronym{MIT}.  Scheme became an
-\acronym{IEEE} standard in 1990 (\link{IEEE 1990}).  The Common Lisp dialect
+later reimplemented for instructional use at \acronym{MIT}. Scheme became an
+\acronym{IEEE} standard in 1990 (\link{IEEE 1990}). The Common Lisp dialect
 (\link{Steele 1982}, \link{Steele 1990}) was developed by the Lisp community to combine
 features from the earlier Lisp dialects to make an industrial standard for
-Lisp.  Common Lisp became an \acronym{ANSI} standard in 1994 (\link{ANSI 1994}).}
+Lisp. Common Lisp became an \acronym{ANSI} standard in 1994 (\link{ANSI 1994}).}
 
 Because of its experimental character and its emphasis on symbol manipulation,
 Lisp was at first very inefficient for numerical computations, at least in
-comparison with Fortran.  Over the years, however, Lisp compilers have been
+comparison with Fortran. Over the years, however, Lisp compilers have been
 developed that translate programs into machine code that can perform numerical
-computations reasonably efficiently.  And for special applications, Lisp has
+computations reasonably efficiently. And for special applications, Lisp has
 been used with great effectiveness.\footnote{One such special application was a
 breakthrough computation of scientific importance---an integration of the
 motion of the Solar System that extended previous results by nearly two orders
 of magnitude, and demonstrated that the dynamics of the Solar System is
-chaotic.  This computation was made possible by new integration algorithms, a
+chaotic. This computation was made possible by new integration algorithms, a
 special-purpose compiler, and a special-purpose computer all implemented with
 the aid of software tools written in Lisp (\link{Abelson et al. 1992}; \link{Sussman and Wisdom 1992}).}
 Although Lisp has not yet overcome its old reputation as
 hopelessly inefficient, Lisp is now used in many applications where efficiency
-is not the central concern.  For example, Lisp has become a language of choice
+is not the central concern. For example, Lisp has become a language of choice
 for operating-system shell languages and for extension languages for editors
 and computer-aided design systems.
 
-\enlargethispage{\baselineskip}
-
 If Lisp is not a mainstream language, why are we using it as the framework for
-our discussion of programming?  Because the language possesses unique features
+our discussion of programming? Because the language possesses unique features
 that make it an excellent medium for studying important programming constructs
 and data structures and for relating them to the linguistic features that
-support them.  The most significant of these features is the fact that Lisp
+support them. The most significant of these features is the fact that Lisp
 descriptions of processes, called \newterm{procedures}, can themselves be
-represented and manipulated as Lisp data.  The importance of this is that there
+represented and manipulated as Lisp data. The importance of this is that there
 are powerful program-design techniques that rely on the ability to blur the
-traditional distinction between ``passive'' data and ``active'' processes.  As
+traditional distinction between ``passive'' data and ``active'' processes. As
 we shall discover, Lisp's flexibility in handling procedures as data makes it
 one of the most convenient languages in existence for exploring these
-techniques.  The ability to represent procedures as data also makes Lisp an
+techniques. The ability to represent procedures as data also makes Lisp an
 excellent language for writing programs that must manipulate other programs as
 data, such as the interpreters and compilers that support computer languages.
 Above and beyond these considerations, programming in Lisp is great fun.
-
-
 
 \section{The Elements of Programming}
 \label{Section 1.1}
 
 A powerful programming language is more than just a means for instructing a
-computer to perform tasks.  The language also serves as a framework within
-which we organize our ideas about processes.  Thus, when we describe a
+computer to perform tasks. The language also serves as a framework within
+which we organize our ideas about processes. Thus, when we describe a
 language, we should pay particular attention to the means that the language
-provides for combining simple ideas to form more complex ideas.  Every powerful
+provides for combining simple ideas to form more complex ideas. Every powerful
 language has three mechanisms for accomplishing this:
 
 \begin{itemize}
@@ -175,50 +171,48 @@ by which compound elements can be named and manipulated as units.
 
 \noindent
 In programming, we deal with two kinds of elements: procedures and data. (Later
-we will discover that they are really not so distinct.)  Informally, data is
+we will discover that they are really not so distinct.) Informally, data is
 ``stuff\( \kern0.1em \)'' that we want to manipulate, and procedures are descriptions of the
-rules for manipulating the data.  Thus, any powerful programming language
+rules for manipulating the data. Thus, any powerful programming language
 should be able to describe primitive data and primitive procedures and should
 have methods for combining and abstracting procedures and data.
 
 In this chapter we will deal only with simple numerical data so that we can
 focus on the rules for building procedures.\footnote{The characterization of
-numbers as ``simple data'' is a barefaced bluff.  In fact, the treatment of
+numbers as ``simple data'' is a barefaced bluff. In fact, the treatment of
 numbers is one of the trickiest and most confusing aspects of any programming
-language.  Some typical issues involved are these: Some computer systems
+language. Some typical issues involved are these: Some computer systems
 distinguish \newterm{integers}, such as 2, from \newterm{real numbers}, such as
-2.71.  Is the real number 2.00 different from the integer 2?  Are the
+2.71. Is the real number 2.00 different from the integer 2? Are the
 arithmetic operations used for integers the same as the operations used for
-real numbers?  Does 6 divided by 2 produce 3, or 3.0?  How large a number can
-we represent?  How many decimal places of accuracy can we represent?  Is the
-range of integers the same as the range of real numbers?  Above and beyond
+real numbers? Does 6 divided by 2 produce 3, or 3.0? How large a number can
+we represent? How many decimal places of accuracy can we represent? Is the
+range of integers the same as the range of real numbers? Above and beyond
 these questions, of course, lies a collection of issues concerning roundoff and
-truncation errors---the entire science of numerical analysis.  Since our focus
+truncation errors---the entire science of numerical analysis. Since our focus
 in this book is on large-scale program design rather than on numerical
-techniques, we are going to ignore these problems.  The numerical examples in
+techniques, we are going to ignore these problems. The numerical examples in
 this chapter will exhibit the usual roundoff behavior that one observes when
 using arithmetic operations that preserve a limited number of decimal places of
 accuracy in noninteger operations.} In later chapters we will see that these
 same rules allow us to build procedures to manipulate compound data as well.
 
-
-
 \subsection{Expressions}
 \label{Section 1.1.1}
 
 One easy way to get started at programming is to examine some typical
-interactions with an interpreter for the Scheme dialect of Lisp.  Imagine that
-you are sitting at a computer terminal.  You type an \newterm{expression}, and
+interactions with an interpreter for the Scheme dialect of Lisp. Imagine that
+you are sitting at a computer terminal. You type an \newterm{expression}, and
 the interpreter responds by displaying the result of its \newterm{evaluating}
 that expression.
 
-One kind of primitive expression you might type is a number.  (More precisely,
+One kind of primitive expression you might type is a number. (More precisely,
 the expression that you type consists of the numerals that represent the number
-in base 10.)  If you present Lisp with a number
+in base 10.) If you present Lisp with a number
 
-\begin{scheme}
+\begin{codeBlock}
 486
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 the interpreter will respond by printing\footnote{Throughout this book, when
@@ -226,65 +220,65 @@ we wish to emphasize the distinction between the input typed by the user and
 the response printed by the interpreter, we will show the latter in slanted
 characters.}
 
-\begin{scheme}
+\begin{codeBlock}
 ~\textit{486}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Expressions representing numbers may be combined with an expression
 representing a primitive procedure (such as \code{+} or \code{*}) to form a
 compound expression that represents the application of the procedure to those
-numbers.  For example:
+numbers. For example:
 
-\begin{scheme}
+\begin{codeBlock}
 (+ 137 349)
 ~\textit{486}~
-\end{scheme}
+\end{codeBlock}
 
-\begin{scheme}
+\begin{codeBlock}
 (- 1000 334)
 ~\textit{666}~
-\end{scheme}
+\end{codeBlock}
 
-\begin{scheme}
+\begin{codeBlock}
 (* 5 99)
 ~\textit{495}~
-\end{scheme}
+\end{codeBlock}
 
-\begin{scheme}
+\begin{codeBlock}
 (/ 10 5)
 ~\textit{2}~
-\end{scheme}
+\end{codeBlock}
 
-\begin{scheme}
+\begin{codeBlock}
 (+ 2.7 10)
 ~\textit{12.7}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Expressions such as these, formed by delimiting a list of expressions within
 parentheses in order to denote procedure application, are called
-\newterm{combinations}.  The leftmost element in the list is called the
-\newterm{operator}, and the other elements are called \newterm{operands}.  The
+\newterm{combinations}. The leftmost element in the list is called the
+\newterm{operator}, and the other elements are called \newterm{operands}. The
 value of a combination is obtained by applying the procedure specified by the
 operator to the \newterm{arguments} that are the values of the operands.
 
 The convention of placing the operator to the left of the operands is known as
 \newterm{prefix notation}, and it may be somewhat confusing at first because it
-departs significantly from the customary mathematical convention.  Prefix
-notation has several advantages, however.  One of them is that it can
+departs significantly from the customary mathematical convention. Prefix
+notation has several advantages, however. One of them is that it can
 accommodate procedures that may take an arbitrary number of arguments, as in
 the following examples:
 
-\begin{scheme}
+\begin{codeBlock}
 (+ 21 35 12 7)
 ~\textit{75}~
-\end{scheme}
+\end{codeBlock}
 
-\begin{scheme}
+\begin{codeBlock}
 (* 25 4 12)
 ~\textit{1200}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 No ambiguity can arise, because the operator is always the leftmost element and
@@ -294,31 +288,31 @@ A second advantage of prefix notation is that it extends in a straightforward
 way to allow combinations to be \textit{nested}, that is, to have combinations whose
 elements are themselves combinations:
 
-\begin{scheme}
+\begin{codeBlock}
 (+ (* 3 5) (- 10 6))
 ~\textit{19}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 There is no limit (in principle) to the depth of such nesting and to the
 overall complexity of the expressions that the Lisp interpreter can evaluate.
 It is we humans who get confused by still relatively simple expressions such as
 
-\begin{scheme}
+\begin{codeBlock}
 (+ (* 3 (+ (* 2 4) (+ 3 5))) (+ (- 10 7) 6))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 which the interpreter would readily evaluate to be 57.  We can help ourselves
 by writing such an expression in the form
 
-\begin{scheme}
+\begin{codeBlock}
 (+ (* 3
       (+ (* 2 4)
          (+ 3 5)))
    (+ (- 10 7)
       6))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 following a formatting convention known as \newterm{pretty-printing}, in which
@@ -350,9 +344,9 @@ names to refer to computational objects.  We say that the name identifies a
 
 In the Scheme dialect of Lisp, we name things with \code{define}.  Typing
 
-\begin{scheme}
+\begin{codeBlock}
 (define size 2)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 causes the interpreter to associate the value 2 with the name
@@ -361,20 +355,20 @@ to evaluating definitions, since this is highly implementation-dependent.} Once
 the name \code{size} has been associated with the number 2, we can refer to the
 value 2 by name:
 
-\begin{scheme}
+\begin{codeBlock}
 size
 ~\textit{2}~
-\end{scheme}
+\end{codeBlock}
 
-\begin{scheme}
+\begin{codeBlock}
 (* 5 size)
 ~\textit{10}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Here are further examples of the use of \code{define}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define pi 3.14159)
 (define radius 10)
 (* pi (* radius radius))
@@ -382,7 +376,7 @@ Here are further examples of the use of \code{define}:
 (define circumference (* 2 pi radius))
 circumference
 ~\textit{62.8318}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{define} is our language's simplest means of abstraction, for it allows us
@@ -446,10 +440,10 @@ Notice how succinctly the idea of recursion can be used to express what, in the
 case of a deeply nested combination, would otherwise be viewed as a rather
 complicated process.  For example, evaluating
 
-\begin{scheme}
+\begin{codeBlock}
 (* (+ 2 (* 4 6))
    (+ 3 5 7))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 requires that the evaluation rule be applied to four different combinations.
@@ -465,8 +459,9 @@ technique for dealing with hierarchical, treelike objects.  In fact, the
 ``percolate values upward'' form of the evaluation rule is an example of a
 general kind of process known as \newterm{tree accumulation}.
 
+% figure 1.1
 \begin{imageFigure}{Tree representation, showing the value of each subcombination.}
-  \includegraphics[width=31mm]{assets/figures/chapter_1/figure_1.1g.pdf}
+  \includegraphics[width=34mm]{assets/figures/chapter_1/figure_1.1g.pdf}
 \end{imageFigure}
 
 Next, observe that the repeated application of the first step brings us to the
@@ -558,18 +553,18 @@ We begin by examining how to express the idea of ``squaring.''  We might say,
 ``To square something, multiply it by itself.''  This is expressed in our
 language as
 
-\begin{scheme}
+\begin{codeBlock}
 (define (square x) (* x x))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We can understand this in the following way:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (square    x)         (*      x         x))
   |        |       |           |      |         |
  To     square  something,  multiply  it  by  itself.
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We have here a \newterm{compound procedure}, which has been given the name
@@ -586,10 +581,10 @@ procedures that have already been created.  We will see how to do this in
 
 The general form of a procedure definition is
 
-\begin{scheme}
-(define (~\( \dark \langle \)~~\var{\dark name}~~\( \dark \kern0.03em\rangle \)~ ~\( \dark \langle \)~~\var{\dark formal parameters}~~\( \dark \kern0.02em\rangle \)~)
-  ~\( \dark \langle\kern0.08em \)~~\var{\dark body}~~\( \dark \rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(define (~\(\langle \)~~\var{name}~~\(\kern0.03em\rangle \)~ ~\(\langle \)~~\var{formal parameters}~~\(\kern0.02em\rangle \)~)
+  ~\(\langle\kern0.08em \)~~\var{body}~~\(\rangle \)~)
+\end{codeBlock}
 
 \noindent
 The \( \langle \text{\textsl{name}} \rangle \) is a symbol to be associated with the procedure definition in
@@ -609,44 +604,44 @@ would be in an actual call to the procedure being defined.
 
 Having defined \code{square}, we can now use it:
 
-\begin{scheme}
+\begin{codeBlock}
 (square 21)
 ~\textit{441}~
 (square (+ 2 5))
 ~\textit{49}~
 (square (square 3))
 ~\textit{81}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We can also use \code{square} as a building block in defining other procedures.
 For example, \( x^2 + y^2 \) can be expressed as
 
-\begin{scheme}
+\begin{codeBlock}
 (+ (square x) (square y))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
-We can easily define a procedure \code{sum\-/of\-/squares} that, given any two
+We can easily define a procedure \code{sum-of-squares} that, given any two
 numbers as arguments, produces the sum of their squares:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sum-of-squares x y)
   (+ (square x) (square y)))
 (sum-of-squares 3 4)
 ~\textit{25}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Now we can use \code{sum\-/of\-/squares} as a building block in constructing
 further procedures:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (f a)
   (sum-of-squares (+ a 1) (* a 2)))
 (f 5)
 ~\textit{136}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Compound procedures are used in exactly the same way as primitive procedures.
@@ -668,32 +663,32 @@ We can assume that the mechanism for applying primitive procedures to arguments
 is built into the interpreter.  For compound procedures, the application
 process is as follows:
 
-\begin{quote}
+\begin{niceQuote}
 To apply a compound procedure to arguments, evaluate the body of the procedure
 with each formal parameter replaced by the corresponding argument.
-\end{quote}
+\end{niceQuote}
 
 \noindent
 To illustrate this process, let's evaluate the combination
 
-\begin{scheme}
+\begin{codeBlock}
 (f 5)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 where \code{f} is the procedure defined in \link{Section 1.1.4}.  We begin by
 retrieving the body of \code{f}:
 
-\begin{scheme}
+\begin{codeBlock}
 (sum-of-squares (+ a 1) (* a 2))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Then we replace the formal parameter \code{a} by the argument 5:
 
-\begin{scheme}
+\begin{codeBlock}
 (sum-of-squares (+ 5 1) (* 5 2))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Thus the problem reduces to the evaluation of a combination with two operands
@@ -705,30 +700,30 @@ applied, and we must evaluate the operands to get the arguments.  Now \code{(+
 the formal parameters \code{x} and \code{y} in the body of
 \code{sum\-/of\-/squares}, reducing the expression to
 
-\begin{scheme}
+\begin{codeBlock}
 (+ (square 6) (square 10))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 If we use the definition of \code{square}, this reduces to
 
-\begin{scheme}
+\begin{codeBlock}
 (+ (* 6 6) (* 10 10))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 which reduces by multiplication to
 
-\begin{scheme}
+\begin{codeBlock}
 (+ 36 100)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 and finally to
 
-\begin{scheme}
+\begin{codeBlock}
 136
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The process we have just described is called the \newterm{substitution model}
@@ -782,20 +777,20 @@ only primitive operators, and would then perform the evaluation.  If we used
 this method, the evaluation of \code{(f 5)} would proceed according to the
 sequence of expansions
 
-\begin{scheme}
+\begin{codeBlock}
 (sum-of-squares (+ 5 1) (* 5 2))
 (+   (square (+ 5 1))      (square (* 5 2))  )
 (+   (* (+ 5 1) (+ 5 1))   (* (* 5 2) (* 5 2)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 followed by the reductions
 
-\begin{scheme}
+\begin{codeBlock}
 (+      (* 6 6)      (* 10 10))
 (+         36           100)
                 136
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This gives the same answer as our previous evaluation model, but the process is
@@ -836,17 +831,6 @@ different operations depending on the result of a test.  For instance, we
 cannot define a procedure that computes the absolute value of a number by
 testing whether the number is positive, negative, or zero and taking different
 actions in the different cases according to the rule
-\begin{comment}
-
-\begin{example}
-      /
-      |   x  if x > 0
-|x| = <   0  if x = 0
-      |  -x  if x < 0
-      \
-\end{example}
-
-\end{comment}
 
 $$
  |x| = \left\{ \begin{array}{r@{\quad \mathrm{if} \quad}l}
@@ -859,30 +843,30 @@ This construct is called a \newterm{case analysis}, and there is a special form
 in Lisp for notating such a case analysis.  It is called \code{cond} (which
 stands for ``conditional''), and it is used as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (abs x)
   (cond ((> x 0) x)
         ((= x 0) 0)
         ((< x 0) (- x))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The general form of a conditional expression is
 
-\begin{scheme}
-(cond (~\( \dark \langle \)~~\var{\dark p}~~\( \dark _{\mono{1}}\rangle \)~ ~\( \dark \langle \)~~\var{\dark e}~~\( \dark _{\mono{1}}\rangle \)~)
-      (~\( \dark \langle \)~~\var{\dark p}~~\( \dark _{\mono{2}}\rangle \)~ ~\( \dark \langle \)~~\var{\dark e}~~\( \dark _{\mono{2}}\rangle \)~)
+\begin{codeBlock}
+(cond (~\(\langle \)~~\var{p}~~\(_{\mono{1}}\rangle \)~ ~\(\langle \)~~\var{e}~~\(_{\mono{1}}\rangle \)~)
+      (~\(\langle \)~~\var{p}~~\(_{\mono{2}}\rangle \)~ ~\(\langle \)~~\var{e}~~\(_{\mono{2}}\rangle \)~)
       ~\( \dots \)~
-      (~\( \dark \langle \)~~\var{\dark p}~~\( \dark _{\monoit{n}}\rangle \)~ ~\( \dark \langle \)~~\var{\dark e}~~\( \dark _{\monoit{n}}\rangle \)~))
-\end{scheme}
+      (~\(\langle \)~~\var{p}~~\(_{\monoItalic{n}}\rangle \)~ ~\(\langle \)~~\var{e}~~\(_{\monoItalic{n}}\rangle \)~))
+\end{codeBlock}
 
 \noindent
 consisting of the symbol \code{cond} followed by parenthesized pairs of
 expressions
 
-\begin{scheme}
-(~\( \dark \langle \)~~\var{\dark p}~~\( \dark \rangle \)~ ~\( \dark \langle \)~~\var{\dark e}~~\( \dark \rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(~\(\langle \)~~\var{p}~~\(\rangle \)~ ~\(\langle \)~~\var{e}~~\(\rangle \)~)
+\end{codeBlock}
 
 \noindent
 called \newterm{clauses}. The first expression in each pair is a
@@ -915,11 +899,11 @@ number, returning true or false accordingly.
 
 Another way to write the absolute-value procedure is
 
-\begin{scheme}
+\begin{codeBlock}
 (define (abs x)
   (cond ((< x 0) (- x))
         (else x)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 which could be expressed in English as ``If \( x \) is less than zero return
@@ -932,21 +916,21 @@ here.
 
 Here is yet another way to write the absolute-value procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (abs x)
   (if (< x 0)
       (- x)
       x))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This uses the special form \code{if}, a restricted type of conditional that can
 be used when there are precisely two cases in the case analysis.  The general
 form of an \code{if} expression is
 
-\begin{scheme}
-(if ~\( \dark \langle\kern0.07em \)~~\var{\dark predicate}~~\( \dark \kern0.06em\rangle \)~ ~\( \dark \langle\kern0.07em \)~~\var{\dark consequent}~~\( \dark \kern0.05em\rangle \)~ ~\( \dark \langle\kern0.06em \)~~\var{\dark alternative}~~\( \dark \kern0.06em\rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(if ~\(\langle\kern0.07em \)~~\var{predicate}~~\(\kern0.06em\rangle \)~ ~\(\langle\kern0.07em \)~~\var{consequent}~~\(\kern0.05em\rangle \)~ ~\(\langle\kern0.06em \)~~\var{alternative}~~\(\kern0.06em\rangle \)~)
+\end{codeBlock}
 
 \noindent
 To evaluate an \code{if} expression, the interpreter starts by evaluating the
@@ -1001,32 +985,32 @@ ordinary procedure.
 As an example of how these are used, the condition that a number \( x \) be in
 the range \( 5 < x < 10 \) may be expressed as
 
-\begin{scheme}
+\begin{codeBlock}
 (and (> x 5) (< x 10))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 As another example, we can define a predicate to test whether one number is
 greater than or equal to another as
 
-\begin{scheme}
+\begin{codeBlock}
 (define (>= x y) (or (> x y) (= x y)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 or alternatively as
 
-\begin{scheme}
+\begin{codeBlock}
 (define (>= x y) (not (< x y)))
-\end{scheme}
+\end{codeBlock}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 1.1}Exercise 1.1:} Below is a sequence of expressions.
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 1.1}Exercise 1.1:} Below is a sequence of expressions.
 What is the result printed by the interpreter in response to each expression?
 Assume that the sequence is to be evaluated in the order in which it is
 presented.
 
-\begin{scheme}
+\begin{codeBlock}
 10
 (+ 5 3 4)
 (- 9 1)
@@ -1039,69 +1023,60 @@ presented.
 (if (and (> b a) (< b (* a b)))
     b
     a)
-\end{scheme}
+\end{codeBlock}
 
-\begin{scheme}
+\begin{codeBlock}
 (cond ((= a 4) 6)
       ((= b 4) (+ 6 7 a))
       (else 25))
-\end{scheme}
+\end{codeBlock}
 
-\begin{scheme}
+\begin{codeBlock}
 (+ 2 (if (> b a) b a))
-\end{scheme}
+\end{codeBlock}
 
-\begin{scheme}
+\begin{codeBlock}
 (* (cond ((> a b) a)
          ((< a b) b)
          (else -1))
    (+ a 1))
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 1.2}Exercise 1.2:} Translate the following expression
+\exerciseHeading{\phantomsection\label{Exercise 1.2}Exercise 1.2:} Translate the following expression
 into prefix form:
-\begin{comment}
-
-\begin{example}
-5 + 4 + (2 - (3 - (6 + 4/5)))
------------------------------
-       3(6 - 2)(2 - 7)
-\end{example}
-
-\end{comment}
 
 $$\frac{5 + 4 + (2 - (3 - (6 + \frac{4}{5})))}{3(6 - 2)(2 - 7)}.$$
 
 
-\heading{\phantomsection\label{Exercise 1.3}Exercise 1.3:} Define a procedure that takes three
+\exerciseHeading{\phantomsection\label{Exercise 1.3}Exercise 1.3:} Define a procedure that takes three
 numbers as arguments and returns the sum of the squares of the two larger
 numbers.
 
-\heading{\phantomsection\label{Exercise 1.4}Exercise 1.4:} Observe that our model of
+\exerciseHeading{\phantomsection\label{Exercise 1.4}Exercise 1.4:} Observe that our model of
 evaluation allows for combinations whose operators are compound expressions.
 Use this observation to describe the behavior of the following procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (a-plus-abs-b a b)
   ((if (> b 0) + -) a b))
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 1.5}Exercise 1.5:} Ben Bitdiddle has invented a test
+\exerciseHeading{\phantomsection\label{Exercise 1.5}Exercise 1.5:} Ben Bitdiddle has invented a test
 to determine whether the interpreter he is faced with is using
 applicative-order evaluation or normal-order evaluation.  He defines the
 following two procedures:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (p) (p))
 (define (test x y)
   (if (= x 0) 0 y))
-\end{scheme}
+\end{codeBlock}
 
 Then he evaluates the expression
 
-\begin{scheme}
+\begin{codeBlock}
 (test 0 (p))
-\end{scheme}
+\end{codeBlock}
 
 What behavior will Ben observe with an interpreter that uses applicative-order
 evaluation?  What behavior will he observe with an interpreter that uses
@@ -1110,7 +1085,7 @@ rule for the special form \code{if} is the same whether the interpreter is
 using normal or applicative order: The predicate expression is evaluated first,
 and the result determines whether to evaluate the consequent or the alternative
 expression.)
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Example: Square Roots by Newton's Method}
 \label{Section 1.1.7}
@@ -1122,13 +1097,6 @@ procedures.  Procedures must be effective.
 
 As a case in point, consider the problem of computing square roots.  We can
 define the square-root function as
-\begin{comment}
-
-\begin{example}
-sqrt(x) = the y such that y >= 0 and y^2 = x
-\end{example}
-
-\end{comment}
 
 $$\sqrt{x}\;\; = {\rm\;\; the\;\;} y
 {\rm\;\; such\;\; that\;\;} y \ge 0 {\rm\;\; and\;\;} y^2 = x.$$
@@ -1140,11 +1108,11 @@ not describe a procedure.  Indeed, it tells us almost nothing about how to
 actually find the square root of a given number.  It will not help matters to
 rephrase this definition in pseudo-Lisp:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sqrt x)
   (the y (and (>= y 0)
               (= (square y) x))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This only begs the question.
@@ -1183,14 +1151,13 @@ express the general Newton's method as a Lisp procedure in \link{Section 1.3.4}.
 For example, we can compute the square root of 2 as follows.
 Suppose our initial guess is 1:
 
-\vspace{-0.8em}
-\begin{smallexample}
+\begin{compactExample}
 Guess       Quotient                 Average
 1           (2/1) = 2                ((2 + 1)/2) = 1.5
 1.5         (2/1.5) = 1.3333         ((1.3333 + 1.5)/2) = 1.4167
 1.4167      (2/1.4167) = 1.4118      ((1.4167 + 1.4118)/2) = 1.4142
 1.4142      ...                      ...
-\end{smallexample}
+\end{compactExample}
 
 \noindent
 Continuing this process, we obtain better and better approximations to the
@@ -1202,29 +1169,29 @@ value for the guess.  If the guess is good enough for our purposes, we are
 done; if not, we must repeat the process with an improved guess.  We write this
 basic strategy as a procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sqrt-iter guess x)
   (if (good-enough? guess x)
       guess
       (sqrt-iter (improve guess x) x)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 A guess is improved by averaging it with the quotient of the radicand and the
 old guess:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (improve guess x)
   (average guess (/ x guess)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 where
 
-\begin{scheme}
+\begin{codeBlock}
 (define (average x y)
   (/ (+ x y) 2))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We also have to say what we mean by ``good enough.''  The following will do for
@@ -1236,10 +1203,10 @@ names ending with question marks, to help us remember that they are predicates.
 This is just a stylistic convention.  As far as the interpreter is concerned,
 the question mark is just an ordinary character.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (good-enough? guess x)
   (< (abs (- (square guess) x)) 0.001))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Finally, we need a way to get started.  For instance, we can always guess that
@@ -1256,16 +1223,16 @@ will be rational numbers rather than decimals.  Mixed operations on rational
 numbers and decimals always yield decimals, so starting with an initial guess
 of 1.0 forces all subsequent values to be decimals.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sqrt x)
   (sqrt-iter 1.0 x))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 If we type these definitions to the interpreter, we can use \code{sqrt} just as
 we can use any procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (sqrt 9)
 ~\textit{3.00009155413138}~
 
@@ -1277,7 +1244,7 @@ we can use any procedure:
 
 (square (sqrt 1000))
 ~\textit{1000.000369924366}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The \code{sqrt} program also illustrates that the simple procedural language we
@@ -1291,41 +1258,41 @@ who are worried about the efficiency issues involved in using procedure calls
 to implement iteration should note the remarks on ``tail recursion'' in
 \link{Section 1.2.1}.}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 1.6}Exercise 1.6:} Alyssa P. Hacker doesn't see why
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 1.6}Exercise 1.6:} Alyssa P. Hacker doesn't see why
 \code{if} needs to be provided as a special form.  ``Why can't I just define it
 as an ordinary procedure in terms of \code{cond}?'' she asks.  Alyssa's friend
 Eva Lu Ator claims this can indeed be done, and she defines a new version of
 \code{if}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (new-if predicate then-clause else-clause)
   (cond (predicate then-clause)
         (else else-clause)))
-\end{scheme}
+\end{codeBlock}
 
 Eva demonstrates the program for Alyssa:
 
-\begin{scheme}
+\begin{codeBlock}
 (new-if (= 2 3) 0 5)
 ~\textit{5}~
 (new-if (= 1 1) 0 5)
 ~\textit{0}~
-\end{scheme}
+\end{codeBlock}
 
 Delighted, Alyssa uses \code{new\-/if} to rewrite the square-root program:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sqrt-iter guess x)
   (new-if (good-enough? guess x)
           guess
           (sqrt-iter (improve guess x) x)))
-\end{scheme}
+\end{codeBlock}
 
 What happens when Alyssa attempts to use this to compute square roots?
 Explain.
 
-\heading{\phantomsection\label{Exercise 1.7}Exercise 1.7:} The \code{good\-/enough?} test used
+\exerciseHeading{\phantomsection\label{Exercise 1.7}Exercise 1.7:} The \code{good\-/enough?} test used
 in computing square roots will not be very effective for finding the square
 roots of very small numbers.  Also, in real computers, arithmetic operations
 are almost always performed with limited precision.  This makes our test
@@ -1336,18 +1303,9 @@ changes from one iteration to the next and to stop when the change is a very
 small fraction of the guess.  Design a square-root procedure that uses this
 kind of end test.  Does this work better for small and large numbers?
 
-\heading{\phantomsection\label{Exercise 1.8}Exercise 1.8:} Newton's method for cube roots is
+\exerciseHeading{\phantomsection\label{Exercise 1.8}Exercise 1.8:} Newton's method for cube roots is
 based on the fact that if \( y \) is an approximation to the cube root of \( x \),
 then a better approximation is given by the value
-\begin{comment}
-
-\begin{example}
-x/y^2 + 2y
-----------
-    3
-\end{example}
-
-\end{comment}
 
 $$\frac{{x / y^2} + 2y}{3}.$$
 
@@ -1356,7 +1314,7 @@ Use this formula to implement a cube-root procedure analogous to the
 square-root procedure.  (In \link{Section 1.3.4} we will see how to implement
 Newton's method in general as an abstraction of these square-root and cube-root
 procedures.)
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Procedures as Black-Box Abstractions}
 \label{Section 1.1.8}
@@ -1405,11 +1363,11 @@ depends upon the hardware available.  There are machines for which the
 has extensive tables of logarithms and antilogarithms stored in a very
 efficient manner.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (square x) (* x x))
 (define (square x) (exp (double (log x))))
 (define (double x) (+ x x))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 So a procedure definition should be able to suppress detail.  The users of the
@@ -1424,10 +1382,10 @@ of the procedure is the implementer's choice of names for the procedure's
 formal parameters.  Thus, the following procedures should not be
 distinguishable:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (square x) (* x x))
 (define (square y) (* y y))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This principle---that the meaning of a procedure should be independent of the
@@ -1437,11 +1395,11 @@ parameter names of a procedure must be local to the body of the procedure.  For
 example, we used \code{square} in the definition of \code{good\-/enough?} in our
 square-root procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (good-enough? guess x)
   (< (abs (- (square guess) x))
      0.001))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The intention of the author of \code{good\-/enough?} is to determine if the
@@ -1495,7 +1453,7 @@ parameters of a procedure are local to the body of the procedure.  The
 square-root program illustrates another way in which we would like to control
 the use of names.  The existing program consists of separate procedures:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sqrt x)
   (sqrt-iter 1.0 x))
 (define (sqrt-iter guess x)
@@ -1506,7 +1464,7 @@ the use of names.  The existing program consists of separate procedures:
   (< (abs (- (square guess) x)) 0.001))
 (define (improve guess x)
   (average guess (/ x guess)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The problem with this program is that the only procedure that is important to
@@ -1525,17 +1483,18 @@ own private \code{good\-/enough?} procedure.  To make this possible, we allow a
 procedure to have internal definitions that are local to that procedure.  For
 example, in the square-root problem we can write
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sqrt x)
   (define (good-enough? guess x)
     (< (abs (- (square guess) x)) 0.001))
-  (define (improve guess x) (average guess (/ x guess)))
+  (define (improve guess x) (average guess
+                                     (/ x guess)))
   (define (sqrt-iter guess x)
     (if (good-enough? guess x)
         guess
         (sqrt-iter (improve guess x) x)))
   (sqrt-iter 1.0 x))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Such nesting of definitions, called \newterm{block structure}, is basically the
@@ -1554,7 +1513,7 @@ procedure definitions; that is, they are looked up in the environment in which t
 procedure was defined. We will see how this works in detail in chapter 3 when we study
 environments and the detailed behavior of the interpreter.\label{Footnote 28}}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sqrt x)
   (define (good-enough? guess)
     (< (abs (- (square guess) x)) 0.001))
@@ -1565,9 +1524,7 @@ environments and the detailed behavior of the interpreter.\label{Footnote 28}}
         guess
         (sqrt-iter (improve guess))))
   (sqrt-iter 1.0))
-\end{scheme}
-
-\enlargethispage{\baselineskip}
+\end{codeBlock}
 
 \noindent
 We will use block structure extensively to help us break up large
@@ -1626,26 +1583,12 @@ than practical examples in their own right.
 \label{Section 1.2.1}
 
 We begin by considering the factorial function, defined by
-\begin{comment}
-
-\begin{example}
-n! = n * (n - 1) * (n - 2) ... 3 * 2 * 1
-\end{example}
-
-\end{comment}
 
 $$n! = n \cdot (n - 1) \cdot (n - 2) \cdots 3 \cdot 2 \cdot 1.$$
 
 There are many ways to compute factorials.  One way is to make use of the
 observation that \( n! \) is equal to \( n \) times \( (n - 1)! \) for any positive
 integer \( n \):
-\begin{comment}
-
-\begin{example}
-n! = n * [(n - 1) * (n - 2) ... 3 * 2 * 1] = n * (n - 1)!
-\end{example}
-
-\end{comment}
 
 $$n! = n \cdot [(n - 1) \cdot (n - 2) \cdots 3 \cdot 2 \cdot 1] = n \cdot (n - 1)!.$$
 
@@ -1653,12 +1596,12 @@ Thus, we can compute \( n! \) by computing \( (n - 1)! \) and multiplying the
 result by \( n \).  If we add the stipulation that 1! is equal to 1, this
 observation translates directly into a procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (factorial n)
   (if (= n 1)
       1
       (* n (factorial (- n 1)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We can use the substitution model of \link{Section 1.1.5} to watch this
@@ -1677,23 +1620,23 @@ counts from 1 up to \( n \).  We can describe the computation by saying that the
 counter and the product simultaneously change from one step to the next
 according to the rule
 
-\begin{scheme}
-product ~\( \dark \gets \)~ counter * product
-counter ~\( \dark \gets \)~ counter + 1
-\end{scheme}
+\begin{codeBlock}
+product ~\(\gets \)~ counter * product
+counter ~\(\gets \)~ counter + 1
+\end{codeBlock}
 
 \noindent
 and stipulating that \( n! \) is the value of the product when the counter
 exceeds \( n \).
 
-% \enlargethispage{\baselineskip}
-
 Once again, we can recast our description as a procedure for computing
-factorials:\footnote{In a real program we would probably use the block
+factorials:%
+\footnote{%
+In a real program we would probably use the block
 structure introduced in the last section to hide the definition of
-\code{fact\-/iter}:
+\code{fact-iter}:
 
-\begin{smallscheme}
+\begin{compactCodeBlock}
 (define (factorial n)
   (define (iter product counter)
     (if (> counter n)
@@ -1701,12 +1644,13 @@ structure introduced in the last section to hide the definition of
         (iter (* counter product)
               (+ counter 1))))
   (iter 1 1))
-\end{smallscheme}
+\end{compactCodeBlock}
 
 We avoided doing this here so as to minimize the number of things to think
-about at once.}
+about at once.%
+}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (factorial n)
   (fact-iter 1 1 n))
 (define (fact-iter product counter max-count)
@@ -1715,7 +1659,7 @@ about at once.}
       (fact-iter (* counter product)
                  (+ counter 1)
                  max-count)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 As before, we can use the substitution model to visualize the process of
@@ -1786,8 +1730,6 @@ really is iterative: Its state is captured completely by its three state
 variables, and an interpreter need keep track of only three variables in order
 to execute the process.
 
-\enlargethispage{\baselineskip}
-
 One reason that the distinction between process and procedure may be confusing
 is that most implementations of common languages (including Ada, Pascal, and C)
 are designed in such a way that the interpretation of any recursive procedure
@@ -1811,56 +1753,56 @@ Scheme.  Steele later showed how tail recursion is a consequence of the natural
 way to compile procedure calls (\link{Steele 1977}).  The \acronym{IEEE} standard for
 Scheme requires that Scheme implementations be tail-recursive.}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 1.9}Exercise 1.9:} Each of the following two
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 1.9}Exercise 1.9:} Each of the following two
 procedures defines a method for adding two positive integers in terms of the
 procedures \code{inc}, which increments its argument by 1, and \code{dec},
 which decrements its argument by 1.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (+ a b)
   (if (= a 0) b (inc (+ (dec a) b))))
 (define (+ a b)
   (if (= a 0) b (+ (dec a) (inc b))))
-\end{scheme}
+\end{codeBlock}
 
 Using the substitution model, illustrate the process generated by each
 procedure in evaluating \code{(+ 4 5)}.  Are these processes iterative or
 recursive?
 
-\heading{\phantomsection\label{Exercise 1.10}Exercise 1.10:} The following procedure computes
+\exerciseHeading{\phantomsection\label{Exercise 1.10}Exercise 1.10:} The following procedure computes
 a mathematical function called Ackermann's function.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (A x y)
   (cond ((= y 0) 0)
         ((= x 0) (* 2 y))
         ((= y 1) 2)
         (else (A (- x 1) (A x (- y 1))))))
-\end{scheme}
+\end{codeBlock}
 
 What are the values of the following expressions?
 
-\begin{scheme}
+\begin{codeBlock}
 (A 1 10)
 (A 2 4)
 (A 3 3)
-\end{scheme}
+\end{codeBlock}
 
 Consider the following procedures, where \code{A} is the procedure
 defined above:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (f n) (A 0 n))
 (define (g n) (A 1 n))
 (define (h n) (A 2 n))
 (define (k n) (* 5 n n))
-\end{scheme}
+\end{codeBlock}
 
 Give concise mathematical definitions for the functions computed by the
 procedures \code{f}, \code{g}, and \code{h} for positive integer values of
 \( n \).  For example, \code{(k n)} computes \( 5n^2 \).
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Tree Recursion}
 \label{Section 1.2.2}
@@ -1875,17 +1817,6 @@ number is the sum of the preceding two:
 $$ 0,\; 1,\; 1,\; 2,\; 3,\; 5,\; 8,\; 13,\; 21,\; \dots. $$
 
 In general, the Fibonacci numbers can be defined by the rule
-\begin{comment}
-
-\begin{example}
-         /
-         |  0                        if n = 0
-Fib(n) = <  1                        if n = 1
-         |  Fib(n - 1) + Fib(n - 2)  otherwise
-         \
-\end{example}
-
-\end{comment}
 
 $$ {\rm Fib}(n) =
 \begin{cases}
@@ -1897,13 +1828,13 @@ $$ {\rm Fib}(n) =
 We can immediately translate this definition into a recursive procedure for
 computing Fibonacci numbers:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (fib n)
   (cond ((= n 0) 0)
         ((= n 1) 1)
         (else (+ (fib (- n 1))
                  (fib (- n 2))))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Consider the pattern of this computation.  To compute \code{(fib 5)}, we
@@ -1923,25 +1854,11 @@ precisely Fib(\( n+1 \)).  To get an idea of how bad this is, one can
 show that the value of Fib(\( n \)) grows exponentially with \( n \).  More
 precisely (see \link{Exercise 1.13}), Fib(\( n \)) is the closest integer
 to \( \varphi^n / \sqrt{5} \), where
-\begin{comment}
-
-\begin{example}
-[phi] = (1 + [sqrt]5)/2 ~= 1.6180
-\end{example}
-
-\end{comment}
 
 $$\varphi = \frac{1 + \sqrt{5}}{2} \approx 1.6180 $$
 
 \noindent
 is the \newterm{golden ratio}, which satisfies the equation
-\begin{comment}
-
-\begin{example}
-[phi]^2 = [phi] + 1
-\end{example}
-
-\end{comment}
 
 $$\varphi^2 = \varphi + 1. $$
 
@@ -1962,14 +1879,6 @@ We can also formulate an iterative process for computing the Fibonacci numbers.
 The idea is to use a pair of integers \( a \) and \( b \), initialized to
 Fib(1) = 1 and Fib(0) = 0, and to repeatedly apply the
 simultaneous transformations
-\begin{comment}
-
-\begin{example}
-a <- a + b
-b <- a
-\end{example}
-
-\end{comment}
 
 $$
 \begin{array}{l@{\;\;\gets\;\;}l}
@@ -1984,14 +1893,14 @@ It is not hard to show that, after applying this transformation \( n \) times,
 Fib(\( n \)).  Thus, we can compute Fibonacci numbers iteratively using
 the procedure
 
-\begin{scheme}
+\begin{codeBlock}
 (define (fib n)
   (fib-iter 1 0 n))
 (define (fib-iter a b count)
   (if (= count 0)
       b
       (fib-iter (+ a b) a (- count 1))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This second method for computing Fib(\( n \)) is a linear iteration.  The
@@ -2071,7 +1980,7 @@ If \( n \) is 0, we should count that as 0 ways to make change.
 \noindent
 We can easily translate this description into a recursive procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (count-change amount) (cc amount 5))
 (define (cc amount kinds-of-coins)
   (cond ((= amount 0) 1)
@@ -2088,7 +1997,7 @@ We can easily translate this description into a recursive procedure:
         ((= kinds-of-coins 3) 10)
         ((= kinds-of-coins 4) 25)
         ((= kinds-of-coins 5) 50)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 (The \code{first\-/denomination} procedure takes as input the number of kinds of
@@ -2097,10 +2006,10 @@ thinking of the coins as arranged in order from largest to smallest, but any
 order would do as well.)  We can now answer our original question about
 changing a dollar:
 
-\begin{scheme}
+\begin{codeBlock}
 (count-change 100)
 ~\textit{292}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{count\-/change} generates a tree-recursive process with redundancies
@@ -2122,8 +2031,8 @@ transform processes that require an exponential number of steps (such as
 \code{count\-/change}) into processes whose space and time requirements grow
 linearly with the input.  See \link{Exercise 3.27}.}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 1.11}Exercise 1.11:} A function \( f \) is defined by
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 1.11}Exercise 1.11:} A function \( f \) is defined by
 the rule that
 
 $$
@@ -2137,7 +2046,7 @@ $$
 Write a procedure that computes \( f \) by means of a recursive process.  Write a procedure that
 computes \( f \) by means of an iterative process.
 
-\heading{\phantomsection\label{Exercise 1.12}Exercise 1.12:} The following pattern of numbers
+\exerciseHeading{\phantomsection\label{Exercise 1.12}Exercise 1.12:} The following pattern of numbers
 is called \newterm{Pascal's triangle}.
 
 \begin{example}
@@ -2163,12 +2072,12 @@ and in the works of the twelfth-century Hindu mathematician Bh\'ascara
 \'Ach\'arya.} Write a procedure that computes elements of Pascal's triangle by
 means of a recursive process.
 
-\heading{\phantomsection\label{Exercise 1.13}Exercise 1.13:} Prove that Fib(\( n \)) is
+\exerciseHeading{\phantomsection\label{Exercise 1.13}Exercise 1.13:} Prove that Fib(\( n \)) is
 the closest integer to \( \varphi^n / \sqrt{5} \), where \( \varphi = (1 +
 \sqrt{5}) / 2 \).  Hint: Let \( \psi = (1 - \sqrt{5}) / 2 \).
 Use induction and the definition of the Fibonacci numbers (see \link{Section 1.2.2})
 to prove that \( \text{Fib}(n) = (\varphi^n - \psi^n) / \sqrt{5} \).
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Orders of Growth}
 \label{Section 1.2.3}
@@ -2201,8 +2110,6 @@ for any sufficiently large value of \( n \).  (In other words, for large \( n \)
 the value \( R(n) \) is sandwiched between \( k_1f(n) \) and
 \( k_2f(n) \).)
 
-\enlargethispage{\baselineskip}
-
 For instance, with the linear recursive process for computing factorial
 described in \link{Section 1.2.1} the number of steps grows proportionally to
 the input \( n \).  Thus, the steps required for this process grows as
@@ -2233,25 +2140,16 @@ the resource utilization by a constant factor.  In the remainder of
 so that doubling the problem size increases the resource requirement by a
 constant amount.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 1.14}Exercise 1.14:} Draw the tree illustrating the
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 1.14}Exercise 1.14:} Draw the tree illustrating the
 process generated by the \code{count\-/change} procedure of \link{Section 1.2.2}
 in making change for 11 cents.  What are the orders of growth of the space and
 number of steps used by this process as the amount to be changed increases?
 
-\heading{\phantomsection\label{Exercise 1.15}Exercise 1.15:} The sine of an angle (specified
+\exerciseHeading{\phantomsection\label{Exercise 1.15}Exercise 1.15:} The sine of an angle (specified
 in radians) can be computed by making use of the approximation
 \mbox{\( \sin x \approx x \)} if \( x \) is sufficiently small, and the trigonometric
 identity
-\begin{comment}
-
-\begin{example}
-               x             x
-sin x = 3 sin --- - 4 sin^3 ---
-               3             3
-\end{example}
-
-\end{comment}
 
 $$\sin x = 3\sin \frac{x}{3} - 4\sin^3 \frac{x}{3} $$
 
@@ -2261,14 +2159,14 @@ exercise an angle is considered ``sufficiently small'' if its magnitude is not
 greater than 0.1 radians.) These ideas are incorporated in the following
 procedures:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (cube x) (* x x x))
 (define (p x) (- (* 3 x) (* 4 (cube x))))
 (define (sine angle)
    (if (not (> (abs angle) 0.1))
        angle
        (p (sine (/ angle 3.0)))))
-\end{scheme}
+\end{codeBlock}
 
 \begin{enumerate}[a.]
 
@@ -2282,7 +2180,7 @@ What is the order of growth in space and number of steps (as a function of
 \code{(sine a)} is evaluated?
 
 \end{enumerate}
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Exponentiation}
 \label{Section 1.2.4}
@@ -2291,14 +2189,6 @@ Consider the problem of computing the exponential of a given number.  We would
 like a procedure that takes as arguments a base \( b \) and a positive integer
 exponent \( n \) and computes \( b^n \).  One way to do this is via the
 recursive definition
-\begin{comment}
-
-\begin{example}
-b^n = b * b^(n - 1)
-b^0 = 1
-\end{example}
-
-\end{comment}
 
 $$
 \begin{array}{l@{{}={}}l}
@@ -2309,19 +2199,19 @@ $$
 
 which translates readily into the procedure
 
-\begin{scheme}
+\begin{codeBlock}
 (define (expt b n)
   (if (= n 0)
       1
       (* b (expt b (- n 1)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This is a linear recursive process, which requires \( \Theta(n) \) steps and
 \( \Theta(n) \) space.  Just as with factorial, we can readily formulate an
 equivalent linear iteration:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (expt b n)
   (expt-iter b n 1))
 (define (expt-iter b counter product)
@@ -2330,33 +2220,17 @@ equivalent linear iteration:
       (expt-iter b
                  (- counter 1)
                  (* b product))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This version requires \( \Theta(n) \) steps and \( \Theta(1) \) space.
 
 We can compute exponentials in fewer steps by using successive squaring.  For
 instance, rather than computing \( b^8 \) as
-\begin{comment}
-
-\begin{example}
-b * (b * (b * (b * (b * (b * (b * b))))))
-\end{example}
-
-\end{comment}
 
 $$ b\cdot (b\cdot (b\cdot (b\cdot (b\cdot (b\cdot (b\cdot b))))))\,, $$
 
 we can compute it using three multiplications:
-\begin{comment}
-
-\begin{example}
-b^2 = b * b
-b^4 = b^2 * b^2
-b^8 = b^4 * b^4
-\end{example}
-
-\end{comment}
 
 $$
 \begin{array}{l@{{}={}}l}
@@ -2369,14 +2243,6 @@ $$
 This method works fine for exponents that are powers of 2.  We can also take
 advantage of successive squaring in computing exponentials in general if we use
 the rule
-\begin{comment}
-
-\begin{example}
-b^n = (b^(n/2))^2    if n is even
-b^n = b * b^(n - 1)  if n is odd
-\end{example}
-
-\end{comment}
 
 $$
 \begin{array}{l@{{}={}}lr@{\ n\ }l}
@@ -2387,21 +2253,21 @@ $$
 
 We can express this method as a procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (fast-expt b n)
   (cond ((= n 0) 1)
         ((even? n) (square (fast-expt b (/ n 2))))
         (else (* b (fast-expt b (- n 1))))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 where the predicate to test whether an integer is even is defined in terms of
 the primitive procedure \code{remainder} by
 
-\begin{scheme}
+\begin{codeBlock}
 (define (even? n)
   (= (remainder n 2) 0))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The process evolved by \code{fast\-/expt} grows logarithmically with \( n \) in
@@ -2433,8 +2299,8 @@ iterative algorithm is ancient.  It appears in the \textit{Chandah-sutra} by
 4.6.3, for a full discussion and analysis of this and other methods of
 exponentiation.}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 1.16}Exercise 1.16:} Design a procedure that evolves
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 1.16}Exercise 1.16:} Design a procedure that evolves
 an iterative exponentiation process that uses successive squaring and uses a
 logarithmic number of steps, as does \code{fast\-/expt}.  (Hint: Using the
 observation that \( (b^{n / 2})^2 = (b^2)^{n / 2} \), keep, along with
@@ -2446,19 +2312,19 @@ end of the process.  In general, the technique of defining an
 \newterm{invariant quantity} that remains unchanged from state to state is a
 powerful way to think about the design of iterative algorithms.)
 
-\heading{\phantomsection\label{Exercise 1.17}Exercise 1.17:} The exponentiation algorithms in
+\exerciseHeading{\phantomsection\label{Exercise 1.17}Exercise 1.17:} The exponentiation algorithms in
 this section are based on performing exponentiation by means of repeated
 multiplication.  In a similar way, one can perform integer multiplication by
 means of repeated addition.  The following multiplication procedure (in which
 it is assumed that our language can only add, not multiply) is analogous to the
 \code{expt} procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (* a b)
   (if (= b 0)
       0
       (+ a (* a (- b 1)))))
-\end{scheme}
+\end{codeBlock}
 
 This algorithm takes a number of steps that is linear in \code{b}.  Now suppose
 we include, together with addition, operations \code{double}, which doubles an
@@ -2466,7 +2332,7 @@ integer, and \code{halve}, which divides an (even) integer by 2.  Using these,
 design a multiplication procedure analogous to \code{fast\-/expt} that uses a
 logarithmic number of steps.
 
-\heading{\phantomsection\label{Exercise 1.18}Exercise 1.18:} Using the results of
+\exerciseHeading{\phantomsection\label{Exercise 1.18}Exercise 1.18:} Using the results of
 \link{Exercise 1.16} and \link{Exercise 1.17}, devise a procedure that generates
 an iterative process for multiplying two integers in terms of adding, doubling,
 and halving and uses a logarithmic number of steps.\footnote{This algorithm,
@@ -2475,9 +2341,7 @@ is ancient.  Examples of its use are found in the Rhind Papyrus, one of the two
 oldest mathematical documents in existence, written about 1700 \acronym{B.C.}
 (and copied from an even older document) by an Egyptian scribe named A\( \! \)'h-mose.}
 
-\enlargethispage{\baselineskip}
-
-\heading{\phantomsection\label{Exercise 1.19}Exercise 1.19:} There is a clever algorithm for
+\exerciseHeading{\phantomsection\label{Exercise 1.19}Exercise 1.19:} There is a clever algorithm for
 computing the Fibonacci numbers in a logarithmic number of steps.  Recall the
 transformation of the state variables \( a \) and \( b \) in the \code{fib\-/iter}
 process of \link{Section 1.2.2}: \( a \gets a + b \) and \( b \gets a \).
@@ -2498,7 +2362,7 @@ procedure.  Put this all together to complete the following procedure, which
 runs in a logarithmic number of steps:\footnote{This exercise was suggested to
 us by Joe Stoy, based on an example in \link{Kaldewaij 1990}.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (fib n)
   (fib-iter 1 0 0 1 n))
 (define (fib-iter a b p q count)
@@ -2506,16 +2370,16 @@ us by Joe Stoy, based on an example in \link{Kaldewaij 1990}.}
         ((even? count)
          (fib-iter a
                    b
-                   ~\( \dark \langle \)~??~\( \dark \rangle \)~   ~\textrm{; compute \( p' \)}~
-                   ~\( \dark \langle \)~??~\( \dark \rangle \)~   ~\textrm{; compute \( q' \)}~
+                   ~\(\langle \)~??~\(\rangle \)~   ~\textrm{; compute \( p' \)}~
+                   ~\(\langle \)~??~\(\rangle \)~   ~\textrm{; compute \( q' \)}~
                    (/ count 2)))
         (else (fib-iter (+ (* b q) (* a q) (* a p))
                         (+ (* b p) (* a q))
                         p
                         q
                         (- count 1)))))
-\end{scheme}
-\end{exercises}
+\end{codeBlock}
+\end{exerciseGroup}
 
 \subsection{Greatest Common Divisors}
 \label{Section 1.2.5}
@@ -2569,12 +2433,12 @@ examples.}
 
 It is easy to express Euclid's Algorithm as a procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (gcd a b)
   (if (= b 0)
       a
       (gcd b (remainder a b))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This generates an iterative process, whose number of steps grows as the
@@ -2583,8 +2447,8 @@ logarithm of the numbers involved.
 The fact that the number of steps required by Euclid's Algorithm has
 logarithmic growth bears an interesting relation to the Fibonacci numbers:
 
-\begin{quote}
-\heading{Lam\'e's Theorem:} If Euclid's Algorithm requires \( k \) steps to
+\begin{niceQuote}
+\textbf{Lam\'e's Theorem:} If Euclid's Algorithm requires \( k \) steps to
 compute the \acronym{GCD} of some pair, then the smaller number in the pair
 must be greater than or equal to the \( k^{\mathrm{th}} \) Fibonacci number.\footnote{This
 theorem was proved in 1845 by Gabriel Lam\'e, a French mathematician and
@@ -2614,7 +2478,7 @@ induction hypotheses, we have \( b_{k-1} \ge {\rm Fib}(k - 1) \) and
 together with the definition of the Fibonacci numbers gives \( b_{k+1} \ge
 b_k + b_{k-1} \ge {\rm Fib}(k) + {\rm Fib}(k-1) =
 {\rm Fib}(k+1) \), which completes the proof of Lam\'e's Theorem.}
-\end{quote}
+\end{niceQuote}
 
 \noindent
 We can use this theorem to get an order-of-growth estimate for Euclid's
@@ -2624,8 +2488,8 @@ the process takes \( k \) steps, then we must have \( n \ge {\rm Fib}(k)
 grows as the logarithm (to the base \( \varphi \)) of \( n \).  Hence, the order of
 growth is \( \Theta(\log n) \).
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 1.20}Exercise 1.20:} The process that a procedure
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 1.20}Exercise 1.20:} The process that a procedure
 generates is of course dependent on the rules used by the interpreter.  As an
 example, consider the iterative \code{gcd} procedure given above.  Suppose we
 were to interpret this procedure using normal-order evaluation, as discussed in
@@ -2635,7 +2499,7 @@ order), illustrate the process generated in evaluating \code{(gcd 206 40)} and
 indicate the \code{remainder} operations that are actually performed.  How many
 \code{remainder} operations are actually performed in the normal-order
 evaluation of \code{(gcd 206 40)}?  In the applicative-order evaluation?
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Example: Testing for Primality}
 \label{Section 1.2.6}
@@ -2656,23 +2520,23 @@ divisor (greater than 1) of a given number \( n \).  It does this in a
 straightforward way, by testing \( n \) for divisibility by successive integers
 starting with 2.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (smallest-divisor n) (find-divisor n 2))
 (define (find-divisor n test-divisor)
   (cond ((> (square test-divisor) n) n)
         ((divides? test-divisor n) test-divisor)
         (else (find-divisor n (+ test-divisor 1)))))
 (define (divides? a b) (= (remainder b a) 0))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We can test whether a number is prime as follows: \( n \) is prime if and only if
 \( n \) is its own smallest divisor.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (prime? n)
   (= n (smallest-divisor n)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The end test for \code{find\-/divisor} is based on the fact that if \( n \) is not
@@ -2701,11 +2565,11 @@ small to contain it.''  Finding a proof of Fermat's Last Theorem became one of
 the most famous challenges in number theory.  A complete solution was finally
 given in 1995 by Andrew Wiles of Princeton University.}
 
-\begin{quote}
-\heading{Fermat's Little Theorem:} If \( n \) is a prime number and \( a \) is any
+\begin{niceQuote}
+\textbf{Fermat's Little Theorem:} If \( n \) is a prime number and \( a \) is any
 positive integer less than \( n \), then \( a \) raised to the \( n^{\mathrm{th}} \) power is
 congruent to \( a \) modulo \( n \).
-\end{quote}
+\end{niceQuote}
 
 \noindent
 (Two numbers are said to be \newterm{congruent modulo} \( n \) if they both have
@@ -2727,7 +2591,7 @@ Fermat test.
 To implement the Fermat test, we need a procedure that computes the exponential
 of a number modulo another number:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (expmod base exp m)
   (cond ((= exp 0) 1)
         ((even? exp)
@@ -2738,7 +2602,7 @@ of a number modulo another number:
          (remainder
           (* base (expmod base (- exp 1) m))
           m))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This is very similar to the \code{fast\-/expt} procedure of \link{Section 1.2.4}.
@@ -2762,24 +2626,24 @@ in Scheme. \code{random} returns a nonnegative integer less than its integer
 input.  Hence, to obtain a random number between 1 and \( n-1 \), we call
 \code{random} with an input of \( n-1 \) and add 1 to the result:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (fermat-test n)
   (define (try-it a)
     (= (expmod a n n) a))
   (try-it (+ 1 (random (- n 1)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The following procedure runs the test a given number of times, as specified by
 a parameter.  Its value is true if the test succeeds every time, and false
 otherwise.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (fast-prime? n times)
   (cond ((= times 0) true)
         ((fermat-test n) (fast-prime? n (- times 1)))
         (else false)))
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection*{Probabilistic methods}
 
@@ -2837,12 +2701,12 @@ epitome of a topic in ``pure'' mathematics to be studied only for its own sake,
 now turns out to have important practical applications to cryptography,
 electronic funds transfer, and information retrieval.}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 1.21}Exercise 1.21:} Use the \code{smallest\-/divisor}
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 1.21}Exercise 1.21:} Use the \code{smallest\-/divisor}
 procedure to find the smallest divisor of each of the following numbers: 199,
 1999, 19999.
 
-\heading{\phantomsection\label{Exercise 1.22}Exercise 1.22:} Most Lisp implementations include
+\exerciseHeading{\phantomsection\label{Exercise 1.22}Exercise 1.22:} Most Lisp implementations include
 a primitive called \code{runtime} that returns an integer that specifies the
 amount of time the system has been running (measured, for example, in
 microseconds).  The following \code{timed\-/prime\-/test} procedure, when called
@@ -2850,7 +2714,7 @@ with an integer \( n \), prints \( n \) and checks to see if \( n \) is prime.  
 \( n \) is prime, the procedure prints three asterisks followed by the amount of
 time used in performing the test.
 
-\begin{scheme}
+\begin{codeBlock}
 (define (timed-prime-test n)
   (newline)
   (display n)
@@ -2861,7 +2725,7 @@ time used in performing the test.
 (define (report-prime elapsed-time)
   (display " *** ")
   (display elapsed-time))
-\end{scheme}
+\end{codeBlock}
 
 Using this procedure, write a procedure \code{search\-/for\-/primes} that checks
 the primality of consecutive odd integers in a specified range.  Use your
@@ -2875,7 +2739,7 @@ for 100,000 and 1,000,000 support the \( \Theta(\sqrt{n}) \) prediction?  Is you
 result compatible with the notion that programs on your machine run in time
 proportional to the number of steps required for the computation?
 
-\heading{\phantomsection\label{Exercise 1.23}Exercise 1.23:} The \code{smallest\-/divisor}
+\exerciseHeading{\phantomsection\label{Exercise 1.23}Exercise 1.23:} The \code{smallest\-/divisor}
 procedure shown at the start of this section does lots of needless testing:
 After it checks to see if the number is divisible by 2 there is no point in
 checking to see if it is divisible by any larger even numbers.  This suggests
@@ -2891,7 +2755,7 @@ you should expect it to run about twice as fast.  Is this expectation
 confirmed?  If not, what is the observed ratio of the speeds of the two
 algorithms, and how do you explain the fact that it is different from 2?
 
-\heading{\phantomsection\label{Exercise 1.24}Exercise 1.24:} Modify the
+\exerciseHeading{\phantomsection\label{Exercise 1.24}Exercise 1.24:} Modify the
 \code{timed\-/prime\-/test} procedure of \link{Exercise 1.22} to use
 \code{fast\-/prime?} (the Fermat method), and test each of the 12 primes you
 found in that exercise.  Since the Fermat test has \( \Theta(\log n) \)
@@ -2899,26 +2763,26 @@ growth, how would you expect the time to test primes near 1,000,000 to
 compare with the time needed to test primes near 1000?  Do your data bear this
 out?  Can you explain any discrepancy you find?
 
-\heading{\phantomsection\label{Exercise 1.25}Exercise 1.25:} Alyssa P. Hacker complains that
+\exerciseHeading{\phantomsection\label{Exercise 1.25}Exercise 1.25:} Alyssa P. Hacker complains that
 we went to a lot of extra work in writing \code{expmod}.  After all, she says,
 since we already know how to compute exponentials, we could have simply written
 
-\begin{scheme}
+\begin{codeBlock}
 (define (expmod base exp m)
   (remainder (fast-expt base exp) m))
-\end{scheme}
+\end{codeBlock}
 
 Is she correct?  Would this procedure serve as well for our fast prime tester?
 Explain.
 
-\heading{\phantomsection\label{Exercise 1.26}Exercise 1.26:} Louis Reasoner is having great
+\exerciseHeading{\phantomsection\label{Exercise 1.26}Exercise 1.26:} Louis Reasoner is having great
 difficulty doing \link{Exercise 1.24}.  His \code{fast\-/prime?} test seems to run
 more slowly than his \code{prime?} test.  Louis calls his friend Eva Lu Ator
 over to help.  When they examine Louis's code, they find that he has rewritten
 the \code{expmod} procedure to use an explicit multiplication, rather than
 calling \code{square}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (expmod base exp m)
   (cond ((= exp 0) 1)
         ((even? exp)
@@ -2929,20 +2793,20 @@ calling \code{square}:
          (remainder (* base
                        (expmod base (- exp 1) m))
                     m))))
-\end{scheme}
+\end{codeBlock}
 
 ``I don't see what difference that could make,'' says Louis.  ``I do.''  says
 Eva.  ``By writing the procedure like that, you have transformed the
 \( \Theta(\log n) \) process into a \( \Theta(n) \) process.''
 Explain.
 
-\heading{\phantomsection\label{Exercise 1.27}Exercise 1.27:} Demonstrate that the Carmichael
+\exerciseHeading{\phantomsection\label{Exercise 1.27}Exercise 1.27:} Demonstrate that the Carmichael
 numbers listed in \link{Footnote 1.47} really do fool the Fermat test.  That is,
 write a procedure that takes an integer \( n \) and tests whether \( a^n \) is
 congruent to \( a \) modulo \( n \) for every \( a < n \), and try your procedure
 on the given Carmichael numbers.
 
-\heading{\phantomsection\label{Exercise 1.28}Exercise 1.28:} One variant of the Fermat test
+\exerciseHeading{\phantomsection\label{Exercise 1.28}Exercise 1.28:} One variant of the Fermat test
 that cannot be fooled is called the \newterm{Miller-Rabin test} (\link{Miller 1976};
 \link{Rabin 1980}).  This starts from an alternate form of Fermat's Little Theorem,
 which states that if \( n \) is a prime number and \( a \) is any positive integer
@@ -2963,9 +2827,8 @@ is not prime, then, for at least half the numbers \( a < n \), computing
 to \code{fermat\-/test}.  Check your procedure by testing various known primes
 and non-primes.  Hint: One convenient way to make \code{expmod} signal is to
 have it return 0.
-\end{exercises}
+\end{exerciseGroup}
 
-\vspace{0.5em}
 \section{Formulating Abstractions with Higher-Order Procedures}
 \label{Section 1.3}
 
@@ -2973,20 +2836,20 @@ We have seen that procedures are, in effect, abstractions that describe
 compound operations on numbers independent of the particular numbers.  For
 example, when we
 
-\begin{scheme}
+\begin{codeBlock}
 (define (cube x) (* x x x))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 we are not talking about the cube of a particular number, but rather about a
 method for obtaining the cube of any number.  Of course we could get along
 without ever defining this procedure, by always writing expressions such as
 
-\begin{scheme}
+\begin{codeBlock}
 (* 3 3 3)
 (* x x x)
 (* y y y)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 and never mentioning \code{cube} explicitly.  This would place us at a serious
@@ -3018,35 +2881,26 @@ expressive power of our language.
 Consider the following three procedures.  The first computes the sum of the
 integers from \code{a} through \code{b}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sum-integers a b)
   (if (> a b)
       0
       (+ a (sum-integers (+ a 1) b))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The second computes the sum of the cubes of the integers in the given range:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sum-cubes a b)
   (if (> a b)
       0
       (+ (cube a)
          (sum-cubes (+ a 1) b))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The third computes the sum of a sequence of terms in the series
-\begin{comment}
-
-\begin{example}
-  1       1       1
------ + ----- + ------ + ...
-1 * 3   5 * 7   9 * 11
-\end{example}
-
-\end{comment}
 
 $$ \frac{1}{1\cdot 3} +  \frac{1}{5\cdot 7} + \frac{1}{9\cdot 11} + \dots, $$
 
@@ -3057,13 +2911,13 @@ written in the equivalent form
 is due to Leibniz.  We'll see how to use this as the basis for some
 fancy numerical tricks in \link{Section 3.5.3}.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (pi-sum a b)
   (if (> a b)
       0
       (+ (/ 1.0 (* a (+ a 2)))
          (pi-sum (+ a 4) b))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 These three procedures clearly share a common underlying pattern.  They are for
@@ -3072,30 +2926,19 @@ function of \code{a} used to compute the term to be added, and the function
 that provides the next value of \code{a}.  We could generate each of the
 procedures by filling in slots in the same template:
 
-\begin{scheme}
-(define (~\( \dark \langle \)~~\var{\dark name}~~\( \dark \rangle \)~ a b)
+\begin{codeBlock}
+(define (~\(\langle \)~~\var{name}~~\(\rangle \)~ a b)
   (if (> a b)
       0
-      (+ (~\( \dark \langle \)~~\var{\dark term}~~\( \dark \rangle \)~ a)
-         (~\( \dark \langle \)~~\var{\dark name}~~\( \dark \rangle \)~ (~\( \dark \langle \)~~\var{\dark next}~~\( \dark \rangle \)~ a) b))))
-\end{scheme}
+      (+ (~\(\langle \)~~\var{term}~~\(\rangle \)~ a)
+         (~\(\langle \)~~\var{name}~~\(\rangle \)~ (~\(\langle \)~~\var{next}~~\(\rangle \)~ a) b))))
+\end{codeBlock}
 
 \noindent
 The presence of such a common pattern is strong evidence that there is a useful
 abstraction waiting to be brought to the surface.  Indeed, mathematicians long
 ago identified the abstraction of \newterm{summation of a series} and invented
 ``sigma notation,'' for example
-\begin{comment}
-
-\begin{example}
-  b
- ---
- >    f(n) = f(a) + ... + f(b)
- ---
- n=a
-\end{example}
-
-\end{comment}
 
 $$ \sum\limits_{n=a}^b f(n) = f(a) + \dots + f(b), $$
 
@@ -3111,13 +2954,13 @@ itself rather than only procedures that compute particular sums.  We can do so
 readily in our procedural language by taking the common template shown above
 and transforming the ``slots'' into formal parameters:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sum term a next b)
   (if (> a b)
       0
       (+ (term a)
          (sum term (next a) next b))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Notice that \code{sum} takes as its arguments the lower and upper bounds
@@ -3126,37 +2969,37 @@ We can use \code{sum} just as we would any procedure.  For example, we can use
 it (along with a procedure \code{inc} that increments its argument by 1) to
 define \code{sum\-/cubes}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (inc n) (+ n 1))
 (define (sum-cubes a b)
   (sum cube a inc b))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Using this, we can compute the sum of the cubes of the integers from 1 to 10:
 
-\begin{scheme}
+\begin{codeBlock}
 (sum-cubes 1 10)
 ~\textit{3025}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 With the aid of an identity procedure to compute the term, we can define
 \code{sum\-/integers} in terms of \code{sum}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (identity x) x)
 (define (sum-integers a b)
   (sum identity a inc b))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Then we can add up the integers from 1 to 10:
 
-\begin{scheme}
+\begin{codeBlock}
 (sum-integers 1 10)
 ~\textit{55}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We can also define \code{pi\-/sum} in the same way:\footnote{Notice that we have
@@ -3165,37 +3008,28 @@ used block structure (\link{Section 1.1.8}) to embed the definitions of
 are unlikely to be useful for any other purpose.  We will see how to get rid of
 them altogether in \link{Section 1.3.2}.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (pi-sum a b)
   (define (pi-term x)
     (/ 1.0 (* x (+ x 2))))
   (define (pi-next x)
     (+ x 4))
   (sum pi-term a pi-next b))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Using these procedures, we can compute an approximation to \( \pi \):
 
-\begin{scheme}
+\begin{codeBlock}
 (* 8 (pi-sum 1 1000))
 ~\textit{3.139592655589783}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Once we have \code{sum}, we can use it as a building block in formulating
 further concepts.  For instance, the definite integral of a function \( f \)
 between the limits \( a \) and \( b \) can be approximated numerically using the
 formula
-\begin{comment}
-
-\begin{example}
-/b     /  /     dx \    /          dx \    /           dx \      \
-|  f = | f| a + -- | + f| a + dx + -- | + f| a + 2dx + -- | + ...| dx
-/a     \  \     2  /    \          2  /    \           2  /      /
-\end{example}
-
-\end{comment}
 
 $${\int_a^b \!\!\! f} = {\left[\;f\! \left(a + \frac{dx}{2}\right)
 		+ f\! \left(a + dx + \frac{dx}{2}\right)
@@ -3204,7 +3038,7 @@ $${\int_a^b \!\!\! f} = {\left[\;f\! \left(a + \frac{dx}{2}\right)
 \noindent
 for small values of \( dx \).  We can express this directly as a procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (integral f a b dx)
   (define (add-dx x)
     (+ x dx))
@@ -3216,25 +3050,16 @@ for small values of \( dx \).  We can express this directly as a procedure:
 
 (integral cube 0 1 0.001)
 ~\textit{.249999875000001}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 (The exact value of the integral of \code{cube} between 0 and 1 is 1/4.)
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 1.29}Exercise 1.29:} Simpson's Rule is a more accurate
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 1.29}Exercise 1.29:} Simpson's Rule is a more accurate
 method of numerical integration than the method illustrated above.  Using
 Simpson's Rule, the integral of a function \( f \) between \( a \) and \( b \) is
 approximated as
-\begin{comment}
-
-\begin{example}
-h
-- (y_0 + 4y_1 + 2y_2 + 4y_3 + 2y_4 + ... + 2y_(n-2) + 4y_(n-1) + y_n)
-3
-\end{example}
-
-\end{comment}
 
 $$ \frac{h}{3}(y_0 + 4y_1 + 2y_2 + 4y_3 + 2y_4 + \dots + 2y_{n-2} + 4y_{n-1} + y_n), $$
 
@@ -3247,22 +3072,21 @@ using Simpson's Rule.  Use your procedure to integrate \code{cube} between 0
 and 1 (with \( n = 100 \) and \( n = 1000 \)), and compare the results to those of
 the \code{integral} procedure shown above.
 
-\heading{\phantomsection\label{Exercise 1.30}Exercise 1.30:} The \code{sum} procedure above
+\exerciseHeading{\phantomsection\label{Exercise 1.30}Exercise 1.30:} The \code{sum} procedure above
 generates a linear recursion.  The procedure can be rewritten so that the sum
 is performed iteratively.  Show how to do this by filling in the missing
 expressions in the following definition:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sum term a next b)
   (define (iter a result)
-    (if ~\( \dark \langle \)~??~\( \dark \rangle \)~
-        ~\( \dark \langle \)~??~\( \dark \rangle \)~
-        (iter ~\( \dark \langle \)~??~\( \dark \rangle \)~ ~\( \dark \langle \)~??~\( \dark \rangle \)~)))
-  (iter ~\( \dark \langle \)~??~\( \dark \rangle \)~ ~\( \dark \langle \)~??~\( \dark \rangle \)~))
-\end{scheme}
+    (if ~\(\langle \)~??~\(\rangle \)~
+        ~\(\langle \)~??~\(\rangle \)~
+        (iter ~\(\langle \)~??~\(\rangle \)~ ~\(\langle \)~??~\(\rangle \)~)))
+  (iter ~\(\langle \)~??~\(\rangle \)~ ~\(\langle \)~??~\(\rangle \)~))
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 1.31}Exercise 1.31:} \begin{enumerate}[a.]
-
+\exerciseHeading{\phantomsection\label{Exercise 1.31}Exercise 1.31:} \begin{enumerate}[a.]
 \item
 The \code{sum} procedure is only the simplest of a vast number of similar
 abstractions that can be captured as higher-order procedures.\footnote{The
@@ -3281,15 +3105,6 @@ function at points over a given range.  Show how to define \code{factorial} in
 terms of \code{product}.  Also use \code{product} to compute approximations to
 \( \pi \) using the formula\footnote{This formula was discovered by the
 seventeenth-century English mathematician John Wallis.}
-\begin{comment}
-
-\begin{example}
-pi   2 * 4 * 4 * 6 * 6 * 8 ...
--- = -------------------------
- 4   3 * 3 * 5 * 5 * 7 * 7 ...
-\end{example}
-
-\end{comment}
 
 $$ \frac{\pi}{4}
 =
@@ -3303,16 +3118,16 @@ one that generates a recursive process.
 
 \end{enumerate}
 
-\heading{\phantomsection\label{Exercise 1.32}Exercise 1.32:} \begin{enumerate}[a.]
+\exerciseHeading{\phantomsection\label{Exercise 1.32}Exercise 1.32:} \begin{enumerate}[a.]
 
 \item
 Show that \code{sum} and \code{product} (\link{Exercise 1.31}) are both special
 cases of a still more general notion called \code{accumulate} that combines a
 collection of terms, using some general accumulation function:
 
-\begin{scheme}
+\begin{codeBlock}
 (accumulate combiner null-value term a next b)
-\end{scheme}
+\end{codeBlock}
 
 \code{accumulate} takes as arguments the same term and range specifications as
 \code{sum} and \code{product}, together with a \code{combiner} procedure (of
@@ -3329,7 +3144,7 @@ write one that generates a recursive process.
 
 \end{enumerate}
 
-\heading{\phantomsection\label{Exercise 1.33}Exercise 1.33:} You can obtain an even more
+\exerciseHeading{\phantomsection\label{Exercise 1.33}Exercise 1.33:} You can obtain an even more
 general version of \code{accumulate} (\link{Exercise 1.32}) by introducing the
 notion of a \newterm{filter} on the terms to be combined.  That is, combine
 only those terms derived from values in the range that satisfy a specified
@@ -3350,7 +3165,7 @@ prime to \( n \) (i.e., all positive integers \( i < n \) such that
 \( \textsc{gcd}(i, n) = 1 \)).
 
 \end{enumerate}
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Constructing Procedures Using \code{lambda}}
 \label{Section 1.3.2}
@@ -3365,84 +3180,84 @@ times its input plus 2.''  We can do this by introducing the special form
 \code{lambda}, which creates procedures.  Using \code{lambda} we can describe
 what we want as
 
-\begin{scheme}
+\begin{codeBlock}
 (lambda (x) (+ x 4))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 and
 
-\begin{scheme}
+\begin{codeBlock}
 (lambda (x) (/ 1.0 (* x (+ x 2))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Then our \code{pi\-/sum} procedure can be expressed without defining any
 auxiliary procedures as
 
-\begin{scheme}
+\begin{codeBlock}
 (define (pi-sum a b)
   (sum (lambda (x) (/ 1.0 (* x (+ x 2))))
        a
        (lambda (x) (+ x 4))
        b))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Again using \code{lambda}, we can write the \code{integral} procedure without
 having to define the auxiliary procedure \code{add\-/dx}:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (integral f a b dx)
   (* (sum f
           (+ a (/ dx 2.0))
           (lambda (x) (+ x dx))
           b)
      dx))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 In general, \code{lambda} is used to create procedures in the same way as
 \code{define}, except that no name is specified for the procedure:
 
-\begin{scheme}
-(lambda (~\( \dark \langle \)~~\var{\dark formal-parameters}~~\( \dark \rangle \)~) ~\( \dark \langle \)~~\var{\dark body}~~\( \dark \rangle \)~)
-\end{scheme}
+\begin{codeBlock}
+(lambda (~\(\langle \)~~\var{formal-parameters}~~\(\rangle \)~) ~\(\langle \)~~\var{body}~~\(\rangle \)~)
+\end{codeBlock}
 
 \noindent
 The resulting procedure is just as much a procedure as one that is created
 using \code{define}.  The only difference is that it has not been associated
 with any name in the environment.  In fact,
 
-\begin{scheme}
+\begin{codeBlock}
 (define (plus4 x) (+ x 4))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 is equivalent to
 
-\begin{scheme}
+\begin{codeBlock}
 (define plus4 (lambda (x) (+ x 4)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We can read a \code{lambda} expression as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (lambda                     (x)     (+   x     4))
     |                        |       |   |     |
 the procedure of an argument x that adds x and 4
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Like any expression that has a procedure as its value, a \code{lambda}
 expression can be used as the operator in a combination such as
 
-\begin{scheme}
+\begin{codeBlock}
 ((lambda (x y z) (+ x y (square z)))
  1 2 3)
 ~\textit{12}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 or, more generally, in any context where we would normally use a procedure
@@ -3461,27 +3276,11 @@ for mathematical investigations of the semantics of programming languages.}
 Another use of \code{lambda} is in creating local variables.  We often need
 local variables in our procedures other than those that have been bound as
 formal parameters.  For example, suppose we wish to compute the function
-\begin{comment}
-
-\begin{example}
-f(x,y) = x(1 + xy)^2 + y(1 - y) + (1 + xy)(1 - y)
-\end{example}
-
-\end{comment}
 
 $$ f(x,y) = x(1 + xy)^2 + y(1 - y) + (1 + xy)(1 - y), $$
 
 \noindent
 which we could also express as
-\begin{comment}
-
-\begin{example}
-     a = 1 + xy
-     b = 1 - y
-f(x,y) = xa^2 + yb + ab
-\end{example}
-
-\end{comment}
 
 $$
 \begin{array}{r@{{}={}}l}
@@ -3496,7 +3295,7 @@ variables not only \( x \) and \( y \) but also the names of intermediate
 quantities like \( a \) and \( b \).  One way to accomplish this is to use an
 auxiliary procedure to bind the local variables:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (f x y)
   (define (f-helper a b)
     (+ (* x (square a))
@@ -3504,14 +3303,14 @@ auxiliary procedure to bind the local variables:
        (* a b)))
   (f-helper (+ 1 (* x y))
             (- 1 y)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Of course, we could use a \code{lambda} expression to specify an anonymous
 procedure for binding our local variables.  The body of \code{f} then becomes a
 single call to that procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (f x y)
   ((lambda (a b)
      (+ (* x (square a))
@@ -3519,43 +3318,43 @@ single call to that procedure:
         (* a b)))
    (+ 1 (* x y))
    (- 1 y)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This construct is so useful that there is a special form called \code{let} to
 make its use more convenient.  Using \code{let}, the \code{f} procedure could
 be written as
 
-\begin{scheme}
+\begin{codeBlock}
 (define (f x y)
   (let ((a (+ 1 (* x y)))
         (b (- 1 y)))
     (+ (* x (square a))
        (* y b)
        (* a b))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The general form of a \code{let} expression is
 
-\begin{scheme}
-(let ((~\( \dark \langle \)~~\var{\dark var}~~\( \dark _{\mono{1}}\rangle \)~ ~\( \dark \langle \)~~\var{\dark exp}~~\( \dark _{\mono{1}}\rangle \)~)
-      (~\( \dark \langle \)~~\var{\dark var}~~\( \dark _{\mono{2}}\rangle \)~ ~\( \dark \langle \)~~\var{\dark exp}~~\( \dark _{\mono{2}}\rangle \)~)
+\begin{codeBlock}
+(let ((~\(\langle \)~~\var{var}~~\(_{\mono{1}}\rangle \)~ ~\(\langle \)~~\var{exp}~~\(_{\mono{1}}\rangle \)~)
+      (~\(\langle \)~~\var{var}~~\(_{\mono{2}}\rangle \)~ ~\(\langle \)~~\var{exp}~~\(_{\mono{2}}\rangle \)~)
       ~\( \dots \)~
-      (~\( \dark \langle \)~~\var{\dark var}~~\( \dark _{\monoit{n}}\rangle \)~ ~\( \dark \langle \)~~\var{\dark exp}~~\( \dark _{\monoit{n}}\rangle \)~))
-   ~\( \dark \langle \)~~\var{\dark body}~~\( \dark \rangle \)~)
-\end{scheme}
+      (~\(\langle \)~~\var{var}~~\(_{\monoItalic{n}}\rangle \)~ ~\(\langle \)~~\var{exp}~~\(_{\monoItalic{n}}\rangle \)~))
+   ~\(\langle \)~~\var{body}~~\(\rangle \)~)
+\end{codeBlock}
 
 \noindent
 which can be thought of as saying
 
-\begin{scheme}
-~\mbox{let}~ ~\( \dark \langle \)~~\var{\dark var}~~\( \dark _{\mono{1}}\rangle \)~ ~\mbox{have the value}~ ~\( \dark \langle \)~~\var{\dark exp}~~\( \dark _{\mono{1}}\rangle \)~ ~\mbox{and}~
-    ~\( \dark \langle \)~~\var{\dark var}~~\( \dark _{\mono{2}}\rangle \)~ ~\mbox{have the value}~ ~\( \dark \langle \)~~\var{\dark exp}~~\( \dark _{\mono{2}}\rangle \)~ ~\mbox{and}~
+\begin{codeBlock}
+~\mbox{let}~ ~\(\langle \)~~\var{var}~~\(_{\mono{1}}\rangle \)~ ~\mbox{have the value}~ ~\(\langle \)~~\var{exp}~~\(_{\mono{1}}\rangle \)~ ~\mbox{and}~
+    ~\(\langle \)~~\var{var}~~\(_{\mono{2}}\rangle \)~ ~\mbox{have the value}~ ~\(\langle \)~~\var{exp}~~\(_{\mono{2}}\rangle \)~ ~\mbox{and}~
     ~\( \dots \)~
-    ~\( \dark \langle \)~~\var{\dark var}~~\( \dark _{\monoit{n}}\rangle \)~ ~\mbox{have the value}~ ~\( \dark \langle \)~~\var{\dark exp}~~\( \dark _{\monoit{n}}\rangle \)~
-~\mbox{in}~  ~\( \dark \langle \)~~\var{\dark body}~~\( \dark \rangle \)~
-\end{scheme}
+    ~\(\langle \)~~\var{var}~~\(_{\monoItalic{n}}\rangle \)~ ~\mbox{have the value}~ ~\(\langle \)~~\var{exp}~~\(_{\monoItalic{n}}\rangle \)~
+~\mbox{in}~  ~\(\langle \)~~\var{body}~~\(\rangle \)~
+\end{codeBlock}
 
 \noindent
 The first part of the \code{let} expression is a list of name-expression pairs.
@@ -3564,13 +3363,13 @@ corresponding expression.  The body of the \code{let} is evaluated with these
 names bound as local variables.  The way this happens is that the \code{let}
 expression is interpreted as an alternate syntax for
 
-\begin{scheme}
-((lambda (~\( \dark \langle \)~~\var{\dark var}~~\( \dark _{\mono{1}}\rangle \)~ ~\( \dots \)~ ~\( \dark \langle \)~~\var{\dark var}~~\( \dark _{\monoit{n}}\rangle \)~)
-    ~\( \dark \langle \)~~\var{\dark body}~~\( \dark \rangle \)~)
- ~\( \dark \langle \)~~\var{\dark exp}~~\( \dark _{\mono{1}}\rangle \)~
+\begin{codeBlock}
+((lambda (~\(\langle \)~~\var{var}~~\(_{\mono{1}}\rangle \)~ ~\( \dots \)~ ~\(\langle \)~~\var{var}~~\(_{\monoItalic{n}}\rangle \)~)
+    ~\(\langle \)~~\var{body}~~\(\rangle \)~)
+ ~\(\langle \)~~\var{exp}~~\(_{\mono{1}}\rangle \)~
  ~\( \dots \)~
- ~\( \dark \langle \)~~\var{\dark exp}~~\( \dark _{\monoit{n}}\rangle \)~)
-\end{scheme}
+ ~\(\langle \)~~\var{exp}~~\(_{\monoItalic{n}}\rangle \)~)
+\end{codeBlock}
 
 \noindent
 No new mechanism is required in the interpreter in order to provide local
@@ -3588,11 +3387,11 @@ We can see from this equivalence that the scope of a variable specified by a
 are to be used.  For example, if the value of \code{x} is 5, the value of the
 expression
 
-\begin{scheme}
+\begin{codeBlock}
 (+ (let ((x 3))
      (+ x (* x 10)))
    x)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 is 38.  Here, the \code{x} in the body of the \code{let} is 3, so the value of
@@ -3605,11 +3404,11 @@ the expressions that provide the values for the local variables depend upon
 variables having the same names as the local variables themselves.  For
 example, if the value of \code{x} is 2, the expression
 
-\begin{scheme}
+\begin{codeBlock}
 (let ((x 3)
       (y (+ x 2)))
   (* x y))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 will have the value 12 because, inside the body of the \code{let}, \code{x}
@@ -3621,14 +3420,14 @@ will be 3 and \code{y} will be 4 (which is the outer \code{x} plus 2).
 Sometimes we can use internal definitions to get the same effect as with
 \code{let}.  For example, we could have defined the procedure \code{f} above as
 
-\begin{scheme}
+\begin{codeBlock}
 (define (f x y)
   (define a (+ 1 (* x y)))
   (define b (- 1 y))
   (+ (* x (square a))
      (* y b)
      (* a b)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We prefer, however, to use \code{let} in situations like this and to use
@@ -3639,25 +3438,25 @@ presented in this chapter.  The subtleties do not arise with internal
 definitions of procedures, however.  We will return to this issue in
 \link{Section 4.1.6}, after we learn more about evaluation.}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 1.34}Exercise 1.34:} Suppose we define the procedure
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 1.34}Exercise 1.34:} Suppose we define the procedure
 
-\begin{scheme}
+\begin{codeBlock}
 (define (f g) (g 2))
-\end{scheme}
+\end{codeBlock}
 
 Then we have
 
-\begin{scheme}
+\begin{codeBlock}
 (f square)
 ~\textit{4}~
 (f (lambda (z) (* z (+ z 1))))
 ~\textit{6}~
-\end{scheme}
+\end{codeBlock}
 
 What happens if we (perversely) ask the interpreter to evaluate the combination
 \code{(f f)}?  Explain.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Procedures as General Methods}
 \label{Section 1.3.3}
@@ -3690,7 +3489,7 @@ length of the original interval and \( T \) is the error tolerance (that is, the
 size of the interval we will consider ``small enough'').  Here is a procedure
 that implements this strategy:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (search f neg-point pos-point)
   (let ((midpoint (average neg-point pos-point)))
     (if (close-enough? neg-point pos-point)
@@ -3701,7 +3500,7 @@ that implements this strategy:
                 ((negative? test-value)
                  (search f midpoint pos-point))
                 (else midpoint))))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We assume that we are initially given the function \( f \) together with points
@@ -3724,9 +3523,9 @@ solved and the limitations of the computer and the algorithm.  This is often a
 very subtle consideration, requiring help from a numerical analyst or some
 other kind of magician.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (close-enough? x y) (< (abs (- x y)) 0.001))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{search} is awkward to use directly, because we can accidentally give it
@@ -3739,7 +3538,7 @@ half-interval method cannot be used, in which case the procedure signals an
 error.\footnote{This can be accomplished using \code{error}, which takes as
 arguments a number of items that are printed as error messages.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (half-interval-method f a b)
   (let ((a-value (f a))
         (b-value (f b)))
@@ -3749,27 +3548,27 @@ arguments a number of items that are printed as error messages.}
            (search f b a))
           (else
            (error "Values are not of opposite sign" a b)))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The following example uses the half-interval method to approximate \( \pi \) as
 the root between 2 and 4 of \( \sin x = 0 \):
 
-\begin{scheme}
+\begin{codeBlock}
 (half-interval-method sin 2.0 4.0)
 ~\textit{3.14111328125}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Here is another example, using the half-interval method to search for a root of
 the equation \( x^3 - 2x - 3 = 0 \) between 1 and 2:
 
-\begin{scheme}
+\begin{codeBlock}
 (half-interval-method (lambda (x) (- (* x x x) (* 2 x) 3))
                       1.0
                       2.0)
 ~\textit{1.89306640625}~
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection*{Finding fixed points of functions}
 
@@ -3777,13 +3576,6 @@ A number \( x \) is called a \newterm{fixed point} of a function \( f \) if \( x
 satisfies the equation \( f(x) = x \).  For some functions \( f \) we can
 locate a fixed point by beginning with an initial guess and applying \( f \)
 repeatedly,
-\begin{comment}
-
-\begin{example}
-f(x), f(f(x)), f(f(f(x))), ...
-\end{example}
-
-\end{comment}
 
 $$ f(x),\quad f(f(x)),\quad f(f(f(x))), \quad\dots, $$
 
@@ -3794,7 +3586,7 @@ guess and produces an approximation to a fixed point of the function.  We apply
 the function repeatedly until we find two successive values whose difference is
 less than some prescribed tolerance:
 
-\begin{scheme}
+\begin{codeBlock}
 (define tolerance 0.00001)
 (define (fixed-point f first-guess)
   (define (close-enough? v1 v2)
@@ -3806,7 +3598,7 @@ less than some prescribed tolerance:
           next
           (try next))))
   (try first-guess))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 For example, we can use this method to approximate the fixed point of the
@@ -3814,20 +3606,20 @@ cosine function, starting with 1 as an initial approximation:\footnote{Try this
 during a boring lecture: Set your calculator to radians mode and then
 repeatedly press the \code{cos} button until you obtain the fixed point.}
 
-\begin{scheme}
+\begin{codeBlock}
 (fixed-point cos 1.0)
 ~\textit{.7390822985224023}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Similarly, we can find a solution to the equation
 \( y = \sin y + \cos y \):
 
-\begin{scheme}
+\begin{codeBlock}
 (fixed-point (lambda (y) (+ (sin y) (cos y)))
              1.0)
 ~\textit{1.2587315962971173}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The fixed-point process is reminiscent of the process we used for finding
@@ -3842,11 +3634,11 @@ writing \code{lambda}.  \( y \mapsto x / y \) means \code{(lambda (y) (/ x y))},
 that is, the function whose value at \( y \) is \( x / y \).} \( y \mapsto x / y \),
 and we can therefore try to compute square roots as
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sqrt x)
   (fixed-point (lambda (y) (/ x y))
                1.0))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Unfortunately, this fixed-point search does not converge.  Consider an initial
@@ -3864,11 +3656,11 @@ instead of \( x / y \).  The process of making such a sequence of
 guesses is simply the process of looking for a fixed point of
 \( y \mapsto \frac{1}{2}(y + x / y) \):
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sqrt x)
   (fixed-point (lambda (y) (average y (/ x y)))
                1.0))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 (Note that \( y = \frac{1}{2}(y + x / y) \) is a simple transformation of the
@@ -3882,13 +3674,13 @@ original square-root procedure of \link{Section 1.1.7}.  This approach of
 averaging successive approximations to a solution, a technique that we call
 \newterm{average damping}, often aids the convergence of fixed-point searches.
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 1.35}Exercise 1.35:} Show that the golden ratio
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 1.35}Exercise 1.35:} Show that the golden ratio
 \( \varphi \) (\link{Section 1.2.2}) is a fixed point of the transformation
 \( x \mapsto 1 + 1 / x \), and use this fact to compute \( \varphi \) by means
 of the \code{fixed\-/point} procedure.
 
-\heading{\phantomsection\label{Exercise 1.36}Exercise 1.36:} Modify \code{fixed\-/point} so that
+\exerciseHeading{\phantomsection\label{Exercise 1.36}Exercise 1.36:} Modify \code{fixed\-/point} so that
 it prints the sequence of approximations it generates, using the \code{newline}
 and \code{display} primitives shown in \link{Exercise 1.22}.  Then find a
 solution to \( x^x = 1000 \) by finding a fixed point of \( x \mapsto
@@ -3898,23 +3690,10 @@ this takes with and without average damping.  (Note that you cannot start
 \code{fixed\-/point} with a guess of 1, as this would cause division by
 \( \log(1) = 0 \).)
 
-\heading{\phantomsection\label{Exercise 1.37}Exercise 1.37:} \begin{enumerate}[a.]
+\exerciseHeading{\phantomsection\label{Exercise 1.37}Exercise 1.37:} \begin{enumerate}[a.]
 
 \item
 An infinite \newterm{continued fraction} is an expression of the form
-\begin{comment}
-
-\begin{example}
-           N_1
-f = ---------------------
-               N_2
-    D_1 + ---------------
-                   N_3
-          D_2 + ---------
-                D_3 + ...
-\end{example}
-
-\end{comment}
 
 $$ {f} = \cfrac{N_1}{D_1 + \cfrac{N_2}{D_2 + \cfrac{N_3}{D_3 + \dots}}}\,. $$
 
@@ -3924,19 +3703,6 @@ the \( N_i \) and the \( D_i \) all equal to 1 produces \( 1 / \varphi \), where
 approximate an infinite continued fraction is to truncate the expansion after a
 given number of terms.  Such a truncation---a so-called \newterm{\textit{k}-term
 finite continued fraction}---has the form
-\begin{comment}
-
-\begin{example}
-       N_1
------------------
-          N_2
-D_1 + -----------
-      ...    N_K
-          + -----
-             D_K
-\end{example}
-
-\end{comment}
 
 $$ \cfrac{N_1}{D_1 + \cfrac{N_2}{\ddots + \cfrac{N_k}{D_k}}}\,. $$
 
@@ -3946,11 +3712,11 @@ continued fraction.  Define a procedure \code{cont\-/frac} such that evaluating
 \code{(cont\-/frac n d k)} computes the value of the \( k \)-term finite continued
 fraction.  Check your procedure by approximating \( 1 / \varphi \) using
 
-\begin{scheme}
+\begin{codeBlock}
 (cont-frac (lambda (i) 1.0)
            (lambda (i) 1.0)
            k)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 for successive values of \code{k}.  How large must you make \code{k} in order
@@ -3963,7 +3729,7 @@ write one that generates a recursive process.
 
 \end{enumerate}
 
-\heading{\phantomsection\label{Exercise 1.38}Exercise 1.38:} In 1737, the Swiss mathematician
+\exerciseHeading{\phantomsection\label{Exercise 1.38}Exercise 1.38:} In 1737, the Swiss mathematician
 Leonhard Euler published a memoir \textit{De Fractionibus Continuis}, which
 included a continued fraction expansion for \( e - 2 \), where \( e \) is the base
 of the natural logarithms.  In this fraction, the \( N_i \) are all 1, and
@@ -3971,22 +3737,9 @@ the \( D_i \) are successively 1, 2, 1, 1, 4, 1, 1, 6, 1, 1, 8, \( \dots \).
 Write a program that uses your \code{cont\-/frac} procedure from \link{Exercise 1.37}
 to approximate \( e \), based on Euler's expansion.
 
-\heading{\phantomsection\label{Exercise 1.39}Exercise 1.39:} A continued fraction
+\exerciseHeading{\phantomsection\label{Exercise 1.39}Exercise 1.39:} A continued fraction
 representation of the tangent function was published in 1770 by the German
 mathematician J.H. Lambert:
-\begin{comment}
-
-\begin{example}
-              x
-tan x = ---------------
-                x^2
-        1 - -----------
-                  x^2
-            3 - -------
-                5 - ...
-\end{example}
-
-\end{comment}
 
 $$ {\tan x} = \cfrac{x}{1 - \cfrac{x^2}{3 - \cfrac{x^2}{5 - \dots}}}\,, $$
 
@@ -3994,7 +3747,7 @@ $$ {\tan x} = \cfrac{x}{1 - \cfrac{x^2}{3 - \cfrac{x^2}{5 - \dots}}}\,, $$
 where \( x \) is in radians.  Define a procedure \code{(tan\-/cf x k)} that
 computes an approximation to the tangent function based on Lambert's formula.
 \code{k} specifies the number of terms to compute, as in \link{Exercise 1.37}.
-\end{exercises}
+\end{exerciseGroup}
 
 \subsection{Procedures as Returned Values}
 \label{Section 1.3.4}
@@ -4015,10 +3768,10 @@ average of \( x \) and \( f(x) \).
 
 We can express the idea of average damping by means of the following procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (average-damp f)
   (lambda (x) (average x (f x))))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 \code{average\-/damp} is a procedure that takes as its argument a procedure
@@ -4033,20 +3786,20 @@ ability to form such combinations, but that was only a toy example.  Here we
 begin to see the real need for such combinations---when applying a procedure
 that is obtained as the value returned by a higher-order procedure.}
 
-\begin{scheme}
+\begin{codeBlock}
 ((average-damp square) 10)
 ~\textit{55}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Using \code{average\-/damp}, we can reformulate the square-root procedure as
 follows:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sqrt x)
   (fixed-point (average-damp (lambda (y) (/ x y)))
                1.0))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Notice how this formulation makes explicit the three ideas in the method:
@@ -4064,11 +3817,11 @@ function \( y \mapsto x / y^2 \), so we can immediately generalize our
 square-root procedure to one that extracts cube roots:\footnote{See
 \link{Exercise 1.45} for a further generalization.}
 
-\begin{scheme}
+\begin{codeBlock}
 (define (cube-root x)
   (fixed-point (average-damp (lambda (y) (/ x (square y))))
                1.0))
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection*{Newton's method}
 
@@ -4076,15 +3829,6 @@ When we first introduced the square-root procedure, in \link{Section 1.1.7}, we
 mentioned that this was a special case of \newterm{Newton's method}.  If \( x
 \mapsto g(x) \) is a differentiable function, then a solution of the equation
 \( g(x) = 0 \) is a fixed point of the function \( x \mapsto f(x) \), where
-\begin{comment}
-
-\begin{example}
-           g(x)
-f(x) = x - -----
-           Dg(x)
-\end{example}
-
-\end{comment}
 
 $$ {f(x) = x} - \frac{g(x)}{Dg(x)} $$
 
@@ -4111,15 +3855,6 @@ derivative of the function \( x \mapsto x^3 \) is the function \( x \mapsto 3x^2
 In general, if \( g \) is a function and \( dx \) is a small number,
 then the derivative \( Dg \) of \( g \) is the function whose value at any
 number \( x \) is given (in the limit of small \( dx \)) by
-\begin{comment}
-
-\begin{example}
-        g(x + dx) - g(x)
-Dg(x) = ----------------
-               dx
-\end{example}
-
-\end{comment}
 
 $$ {Dg(x)} = \frac{g(x + {\it dx}) - g(x)}{{\it dx}}\,. $$
 
@@ -4127,39 +3862,39 @@ $$ {Dg(x)} = \frac{g(x + {\it dx}) - g(x)}{{\it dx}}\,. $$
 Thus, we can express the idea of derivative (taking \( dx \) to be, say,
 0.00001) as the procedure
 
-\begin{scheme}
+\begin{codeBlock}
 (define (deriv g)
   (lambda (x) (/ (- (g (+ x dx)) (g x)) dx)))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 along with the definition
 
-\begin{scheme}
+\begin{codeBlock}
 (define dx 0.00001)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Like \code{average\-/damp}, \code{deriv} is a procedure that takes a procedure as
 argument and returns a procedure as value.  For example, to approximate the
 derivative of \( x \mapsto x^3 \) at 5 (whose exact value is 75) we can evaluate
 
-\begin{scheme}
+\begin{codeBlock}
 (define (cube x) (* x x x))
 ((deriv cube) 5)
 ~\textit{75.00014999664018}~
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 With the aid of \code{deriv}, we can express Newton's method as a fixed-point
 process:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (newton-transform g)
   (lambda (x) (- x (/ (g x) ((deriv g) x)))))
 (define (newtons-method g guess)
   (fixed-point (newton-transform g) guess))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 The \code{newton\-/transform} procedure expresses the formula at the beginning of
@@ -4173,11 +3908,11 @@ from any starting point.}
 
 This provides yet another form of the square-root procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sqrt x)
   (newtons-method
    (lambda (y) (- (square y) x)) 1.0))
-\end{scheme}
+\end{codeBlock}
 
 \subsubsection*{Abstractions and first-class procedures}
 
@@ -4188,10 +3923,10 @@ we actually saw two ways to compute square roots as fixed points.  Each method
 begins with a function and finds a fixed point of some transformation of the
 function.  We can express this general idea itself as a procedure:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (fixed-point-of-transform g transform guess)
   (fixed-point (transform g) guess))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 This very general procedure takes as its arguments a procedure \code{g} that
@@ -4202,22 +3937,22 @@ Using this abstraction, we can recast the first square-root computation from
 this section (where we look for a fixed point of the average-damped version of
 \( y \mapsto x / y \)) as an instance of this general method:
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sqrt x)
   (fixed-point-of-transform
    (lambda (y) (/ x y)) average-damp 1.0))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 Similarly, we can express the second square-root computation from this section
 (an instance of Newton's method that finds a fixed point of the Newton
 transform of \( y \mapsto y^2 - x \)) as
 
-\begin{scheme}
+\begin{codeBlock}
 (define (sqrt x)
   (fixed-point-of-transform
    (lambda (y) (- (square y) x)) newton-transform 1.0))
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 We began \link{Section 1.3} with the observation that compound procedures are a
@@ -4271,40 +4006,40 @@ even while the procedure is not executing.  In the Scheme implementation we
 will study in \link{Section 4.1}, these variables are stored in the procedure's
 environment.}
 
-\begin{exercises}
-\heading{\phantomsection\label{Exercise 1.40}Exercise 1.40:} Define a procedure \code{cubic}
+\begin{exerciseGroup}
+\exerciseHeading{\phantomsection\label{Exercise 1.40}Exercise 1.40:} Define a procedure \code{cubic}
 that can be used together with the \code{newtons\-/method} procedure in
 expressions of the form
 
-\begin{scheme}
+\begin{codeBlock}
 (newtons-method (cubic a b c) 1)
-\end{scheme}
+\end{codeBlock}
 
 \noindent
 to approximate zeros of the cubic \( x^3 + ax^2 + bx + c \).
 
-\heading{\phantomsection\label{Exercise 1.41}Exercise 1.41:} Define a procedure \code{double}
+\exerciseHeading{\phantomsection\label{Exercise 1.41}Exercise 1.41:} Define a procedure \code{double}
 that takes a procedure of one argument as argument and returns a procedure that
 applies the original procedure twice.  For example, if \code{inc} is a
 procedure that adds 1 to its argument, then \code{(double inc)} should be a
 procedure that adds 2.  What value is returned by
 
-\begin{scheme}
+\begin{codeBlock}
 (((double (double double)) inc) 5)
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 1.42}Exercise 1.42:} Let \( f \) and \( g \) be two
+\exerciseHeading{\phantomsection\label{Exercise 1.42}Exercise 1.42:} Let \( f \) and \( g \) be two
 one-argument functions.  The \newterm{composition} \( f \) after \( g \) is defined
 to be the function \( x \mapsto f(g(x)) \).  Define a procedure
 \code{compose} that implements composition.  For example, if \code{inc} is a
 procedure that adds 1 to its argument,
 
-\begin{scheme}
+\begin{codeBlock}
 ((compose square inc) 6)
 ~\textit{49}~
-\end{scheme}
+\end{codeBlock}
 
-\heading{\phantomsection\label{Exercise 1.43}Exercise 1.43:} If \( f \) is a numerical function
+\exerciseHeading{\phantomsection\label{Exercise 1.43}Exercise 1.43:} If \( f \) is a numerical function
 and \( n \) is a positive integer, then we can form the \( n^{\mathrm{th}} \) repeated
 application of \( f \), which is defined to be the function whose value at \( x \)
 is \( f(f(\dots (f(x))\dots )) \).  For example, if \( f \) is the
@@ -4316,14 +4051,14 @@ inputs a procedure that computes \( f \) and a positive integer \( n \) and retu
 the procedure that computes the \( n^{\mathrm{th}} \) repeated application of \( f \).  Your
 procedure should be able to be used as follows:
 
-\begin{scheme}
+\begin{codeBlock}
 ((repeated square 2) 5)
 ~\textit{625}~
-\end{scheme}
+\end{codeBlock}
 
 Hint: You may find it convenient to use \code{compose} from \link{Exercise 1.42}.
 
-\heading{\phantomsection\label{Exercise 1.44}Exercise 1.44:} The idea of \newterm{smoothing} a
+\exerciseHeading{\phantomsection\label{Exercise 1.44}Exercise 1.44:} The idea of \newterm{smoothing} a
 function is an important concept in signal processing.  If \( f \) is a function
 and \( dx \) is some small number, then the smoothed version of \( f \) is the
 function whose value at a point \( x \) is the average of \( f(x - dx) \),
@@ -4335,7 +4070,7 @@ to obtain the \newterm{\textit{n}-fold smoothed function}.  Show how to generate
 the \textit{n}-fold smoothed function of any given function using \code{smooth} and
 \code{repeated} from \link{Exercise 1.43}.
 
-\heading{\phantomsection\label{Exercise 1.45}Exercise 1.45:} We saw in \link{Section 1.3.3}
+\exerciseHeading{\phantomsection\label{Exercise 1.45}Exercise 1.45:} We saw in \link{Section 1.3.3}
 that attempting to compute square roots by naively finding a fixed point of
 \( y \mapsto x / y \) does not converge, and that this can be fixed by average
 damping.  The same method works for finding cube roots as fixed points of the
@@ -4351,7 +4086,7 @@ Use this to implement a simple procedure for computing
 \code{repeated} procedure of \link{Exercise 1.43}.  Assume that any arithmetic
 operations you need are available as primitives.
 
-\heading{\phantomsection\label{Exercise 1.46}Exercise 1.46:} Several of the numerical methods
+\exerciseHeading{\phantomsection\label{Exercise 1.46}Exercise 1.46:} Several of the numerical methods
 described in this chapter are instances of an extremely general computational
 strategy known as \newterm{iterative improvement}.  Iterative improvement says
 that, to compute something, we start with an initial guess for the answer, test
@@ -4364,4 +4099,4 @@ guess as argument and keeps improving the guess until it is good enough.
 Rewrite the \code{sqrt} procedure of \link{Section 1.1.7} and the
 \code{fixed\-/point} procedure of \link{Section 1.3.3} in terms of
 \code{iterative\-/improve}.
-\end{exercises}
+\end{exerciseGroup}
