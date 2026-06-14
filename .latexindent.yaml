@@ -20,3 +20,4 @@ verbatimEnvironments:
 verbatimCommands:
   verb: 1
   lstinline: 1
+  code: 1

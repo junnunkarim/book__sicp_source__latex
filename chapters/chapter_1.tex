@@ -633,7 +633,7 @@ numbers as arguments, produces the sum of their squares:
 \end{codeBlock}
 
 \noindent
-Now we can use \code{sum\-/of\-/squares} as a building block in constructing
+Now we can use \code{sum-of-squares} as a building block in constructing
 further procedures:
 
 \begin{codeBlock}
@@ -646,7 +646,7 @@ further procedures:
 \noindent
 Compound procedures are used in exactly the same way as primitive procedures.
 Indeed, one could not tell by looking at the definition of
-\code{sum\-/of\-/squares} given above whether \code{square} was built into the
+\code{sum-of-squares} given above whether \code{square} was built into the
 interpreter, like \code{+} and \code{*}, or defined as a compound procedure.
 
 \subsection{The Substitution Model for Procedure Application}
@@ -692,13 +692,13 @@ Then we replace the formal parameter \code{a} by the argument 5:
 
 \noindent
 Thus the problem reduces to the evaluation of a combination with two operands
-and an operator \code{sum\-/of\-/squares}.  Evaluating this combination involves
+and an operator \code{sum-of-squares}.  Evaluating this combination involves
 three subproblems.  We must evaluate the operator to get the procedure to be
 applied, and we must evaluate the operands to get the arguments.  Now \code{(+
 5 1)} produces 6 and \code{(* 5 2)} produces 10, so we must apply the
-\code{sum\-/of\-/squares} procedure to 6 and 10.  These values are substituted for
+\code{sum-of-squares} procedure to 6 and 10.  These values are substituted for
 the formal parameters \code{x} and \code{y} in the body of
-\code{sum\-/of\-/squares}, reducing the expression to
+\code{sum-of-squares}, reducing the expression to
 
 \begin{codeBlock}
 (+ (square 6) (square 10))
@@ -1251,7 +1251,7 @@ The \code{sqrt} program also illustrates that the simple procedural language we
 have introduced so far is sufficient for writing any purely numerical program
 that one could write in, say, C or Pascal.  This might seem surprising, since
 we have not included in our language any iterative (looping) constructs that
-direct the computer to do something over and over again.  \code{sqrt\-/iter}, on
+direct the computer to do something over and over again.  \code{sqrt-iter}, on
 the other hand, demonstrates how iteration can be accomplished using no special
 construct other than the ordinary ability to call a procedure.\footnote{Readers
 who are worried about the efficiency issues involved in using procedure calls
@@ -1280,7 +1280,7 @@ Eva demonstrates the program for Alyssa:
 ~\textit{0}~
 \end{codeBlock}
 
-Delighted, Alyssa uses \code{new\-/if} to rewrite the square-root program:
+Delighted, Alyssa uses \code{new-if} to rewrite the square-root program:
 
 \begin{codeBlock}
 (define (sqrt-iter guess x)
@@ -1292,13 +1292,13 @@ Delighted, Alyssa uses \code{new\-/if} to rewrite the square-root program:
 What happens when Alyssa attempts to use this to compute square roots?
 Explain.
 
-\exerciseHeading{\phantomsection\label{Exercise 1.7}Exercise 1.7:} The \code{good\-/enough?} test used
+\exerciseHeading{\phantomsection\label{Exercise 1.7}Exercise 1.7:} The \code{good-enough?} test used
 in computing square roots will not be very effective for finding the square
 roots of very small numbers.  Also, in real computers, arithmetic operations
 are almost always performed with limited precision.  This makes our test
 inadequate for very large numbers.  Explain these statements, with examples
 showing how the test fails for small and large numbers.  An alternative
-strategy for implementing \code{good\-/enough?} is to watch how \code{guess}
+strategy for implementing \code{good-enough?} is to watch how \code{guess}
 changes from one iteration to the next and to stop when the change is a very
 small fraction of the guess.  Design a square-root procedure that uses this
 kind of end test.  Does this work better for small and large numbers?
@@ -1320,7 +1320,7 @@ procedures.)
 \label{Section 1.1.8}
 
 \code{sqrt} is our first example of a process defined by a set of mutually
-defined procedures.  Notice that the definition of \code{sqrt\-/iter} is
+defined procedures.  Notice that the definition of \code{sqrt-iter} is
 \newterm{recursive}; that is, the procedure is defined in terms of itself.  The
 idea of being able to define a procedure in terms of itself may be disturbing;
 it may seem unclear how such a ``circular'' definition could make sense at all,
@@ -1344,12 +1344,12 @@ dividing the program into parts.  After all, we could take any large program
 and divide it into parts---the first ten lines, the next ten lines, the next
 ten lines, and so on.  Rather, it is crucial that each procedure accomplishes
 an identifiable task that can be used as a module in defining other procedures.
-For example, when we define the \code{good\-/enough?} procedure in terms of
+For example, when we define the \code{good-enough?} procedure in terms of
 \code{square}, we are able to regard the \code{square} procedure as a ``black
 box.''  We are not at that moment concerned with \emph{how} the procedure
 computes its result, only with the fact that it computes the square.  The
 details of how the square is computed can be suppressed, to be considered at a
-later time.  Indeed, as far as the \code{good\-/enough?} procedure is concerned,
+later time.  Indeed, as far as the \code{good-enough?} procedure is concerned,
 \code{square} is not quite a procedure but rather an abstraction of a
 procedure, a so-called \newterm{procedural abstraction}.  At this level of
 abstraction, any procedure that computes the square is equally good.
@@ -1392,7 +1392,7 @@ This principle---that the meaning of a procedure should be independent of the
 parameter names used by its author---seems on the surface to be self-evident,
 but its consequences are profound.  The simplest consequence is that the
 parameter names of a procedure must be local to the body of the procedure.  For
-example, we used \code{square} in the definition of \code{good\-/enough?} in our
+example, we used \code{square} in the definition of \code{good-enough?} in our
 square-root procedure:
 
 \begin{codeBlock}
@@ -1402,22 +1402,22 @@ square-root procedure:
 \end{codeBlock}
 
 \noindent
-The intention of the author of \code{good\-/enough?} is to determine if the
+The intention of the author of \code{good-enough?} is to determine if the
 square of the first argument is within a given tolerance of the second
-argument.  We see that the author of \code{good\-/enough?} used the name
+argument.  We see that the author of \code{good-enough?} used the name
 \code{guess} to refer to the first argument and \code{x} to refer to the second
 argument.  The argument of \code{square} is \code{guess}.  If the author of
 \code{square} used \code{x} (as above) to refer to that argument, we see that
-the \code{x} in \code{good\-/enough?} must be a different \code{x} than the one
+the \code{x} in \code{good-enough?} must be a different \code{x} than the one
 in \code{square}.  Running the procedure \code{square} must not affect the
-value of \code{x} that is used by \code{good\-/enough?}, because that value of
-\code{x} may be needed by \code{good\-/enough?} after \code{square} is done
+value of \code{x} that is used by \code{good-enough?}, because that value of
+\code{x} may be needed by \code{good-enough?} after \code{square} is done
 computing.
 
 If the parameters were not local to the bodies of their respective procedures,
 then the parameter \code{x} in \code{square} could be confused with the
-parameter \code{x} in \code{good\-/enough?}, and the behavior of
-\code{good\-/enough?} would depend upon which version of \code{square} we used.
+parameter \code{x} in \code{good-enough?}, and the behavior of
+\code{good-enough?} would depend upon which version of \code{square} we used.
 Thus, \code{square} would not be the black box we desired.
 
 A formal parameter of a procedure has a very special role in the procedure
@@ -1433,17 +1433,17 @@ The set of expressions for which a binding defines a name is called the
 declared as the formal parameters of the procedure have the body of the
 procedure as their scope.
 
-In the definition of \code{good\-/enough?} above, \code{guess} and \code{x} are
+In the definition of \code{good-enough?} above, \code{guess} and \code{x} are
 bound variables but \code{<}, \code{-}, \code{abs}, and \code{square} are free.
-The meaning of \code{good\-/enough?} should be independent of the names we choose
+The meaning of \code{good-enough?} should be independent of the names we choose
 for \code{guess} and \code{x} so long as they are distinct and different from
 \code{<}, \code{-}, \code{abs}, and \code{square}.  (If we renamed \code{guess}
 to \code{abs} we would have introduced a bug by \newterm{capturing} the
 variable \code{abs}.  It would have changed from free to bound.)  The meaning
-of \code{good\-/enough?} is not independent of the names of its free variables,
+of \code{good-enough?} is not independent of the names of its free variables,
 however.  It surely depends upon the fact (external to this definition) that
 the symbol \code{abs} names a procedure for computing the absolute value of a
-number.  \code{good\-/enough?} will compute a different function if we substitute
+number.  \code{good-enough?} will compute a different function if we substitute
 \code{cos} for \code{abs} in its definition.
 
 \subsubsection*{Internal definitions and block structure}
@@ -1468,18 +1468,18 @@ the use of names.  The existing program consists of separate procedures:
 
 \noindent
 The problem with this program is that the only procedure that is important to
-users of \code{sqrt} is \code{sqrt}.  The other procedures (\code{sqrt\-/iter},
-\code{good\-/enough?}, and \code{improve}) only clutter up their minds.  They may
-not define any other procedure called \code{good\-/enough?} as part of another
+users of \code{sqrt} is \code{sqrt}.  The other procedures (\code{sqrt-iter},
+\code{good-enough?}, and \code{improve}) only clutter up their minds.  They may
+not define any other procedure called \code{good-enough?} as part of another
 program to work together with the square-root program, because \code{sqrt}
 needs it.  The problem is especially severe in the construction of large
 systems by many separate programmers.  For example, in the construction of a
 large library of numerical procedures, many numerical functions are computed as
 successive approximations and thus might have procedures named
-\code{good\-/enough?} and \code{improve} as auxiliary procedures.  We would like
+\code{good-enough?} and \code{improve} as auxiliary procedures.  We would like
 to localize the subprocedures, hiding them inside \code{sqrt} so that
 \code{sqrt} could coexist with other successive approximations, each having its
-own private \code{good\-/enough?} procedure.  To make this possible, we allow a
+own private \code{good-enough?} procedure.  To make this possible, we allow a
 procedure to have internal definitions that are local to that procedure.  For
 example, in the square-root problem we can write
 
@@ -1501,8 +1501,8 @@ Such nesting of definitions, called \newterm{block structure}, is basically the
 right solution to the simplest name-packaging problem.  But there is a better
 idea lurking here.  In addition to internalizing the definitions of the
 auxiliary procedures, we can simplify them.  Since \code{x} is bound in the
-definition of \code{sqrt}, the procedures \code{good\-/enough?}, \code{improve},
-and \code{sqrt\-/iter}, which are defined internally to \code{sqrt}, are in the
+definition of \code{sqrt}, the procedures \code{good-enough?}, \code{improve},
+and \code{sqrt-iter}, which are defined internally to \code{sqrt}, are in the
 scope of \code{x}.  Thus, it is not necessary to pass \code{x} explicitly to
 each of these procedures.  Instead, we allow \code{x} to be a free variable in
 the internal definitions, as shown below. Then \code{x} gets its value from the
@@ -1693,7 +1693,7 @@ needed to keep track of it, grows linearly with \( n \) (is proportional to
 
 By contrast, the second process does not grow and shrink.  At each step, all we
 need to keep track of, for any \( n \), are the current values of the variables
-\code{product}, \code{counter}, and \code{max\-/count}.  We call this an
+\code{product}, \code{counter}, and \code{max-count}.  We call this an
 \newterm{iterative process}.  In general, an iterative process is one whose
 state can be summarized by a fixed number of \newterm{state variables},
 together with a fixed rule that describes how the state variables should be
@@ -1725,7 +1725,7 @@ directly or indirectly) to the procedure itself.  But when we describe a
 process as following a pattern that is, say, linearly recursive, we are
 speaking about how the process evolves, not about the syntax of how a procedure
 is written.  It may seem disturbing that we refer to a recursive procedure such
-as \code{fact\-/iter} as generating an iterative process.  However, the process
+as \code{fact-iter} as generating an iterative process.  However, the process
 really is iterative: Its state is captured completely by its three state
 variables, and an interpreter need keep track of only three variables in order
 to execute the process.
@@ -2000,7 +2000,7 @@ We can easily translate this description into a recursive procedure:
 \end{codeBlock}
 
 \noindent
-(The \code{first\-/denomination} procedure takes as input the number of kinds of
+(The \code{first-denomination} procedure takes as input the number of kinds of
 coins available and returns the denomination of the first kind.  Here we are
 thinking of the coins as arranged in order from largest to smallest, but any
 order would do as well.)  We can now answer our original question about
@@ -2012,7 +2012,7 @@ changing a dollar:
 \end{codeBlock}
 
 \noindent
-\code{count\-/change} generates a tree-recursive process with redundancies
+\code{count-change} generates a tree-recursive process with redundancies
 similar to those in our first implementation of \code{fib}.  (It will take
 quite a while for that 292 to be computed.)  On the other hand, it is not
 obvious how to design a better algorithm for computing the result, and we leave
@@ -2028,7 +2028,7 @@ in the table, in which case we avoid performing the redundant computation.
 This strategy, known as \newterm{tabulation} or \newterm{memoization}, can be
 implemented in a straightforward way.  Tabulation can sometimes be used to
 transform processes that require an exponential number of steps (such as
-\code{count\-/change}) into processes whose space and time requirements grow
+\code{count-change}) into processes whose space and time requirements grow
 linearly with the input.  See \link{Exercise 3.27}.}
 
 \begin{exerciseGroup}
@@ -2142,7 +2142,7 @@ constant amount.
 
 \begin{exerciseGroup}
 \exerciseHeading{\phantomsection\label{Exercise 1.14}Exercise 1.14:} Draw the tree illustrating the
-process generated by the \code{count\-/change} procedure of \link{Section 1.2.2}
+process generated by the \code{count-change} procedure of \link{Section 1.2.2}
 in making change for 11 cents.  What are the orders of growth of the space and
 number of steps used by this process as the amount to be changed increases?
 
@@ -2270,9 +2270,9 @@ the primitive procedure \code{remainder} by
 \end{codeBlock}
 
 \noindent
-The process evolved by \code{fast\-/expt} grows logarithmically with \( n \) in
+The process evolved by \code{fast-expt} grows logarithmically with \( n \) in
 both space and number of steps.  To see this, observe that computing
-\( b^{2n} \) using \code{fast\-/expt} requires only one more multiplication
+\( b^{2n} \) using \code{fast-expt} requires only one more multiplication
 than computing \( b^n \).  The size of the exponent we can compute therefore
 doubles (approximately) with every new multiplication we are allowed.  Thus,
 the number of multiplications required for an exponent of \( n \) grows about as
@@ -2287,7 +2287,7 @@ processes are described as \( \Theta(\log n) \).}
 
 The difference between \( \Theta(\log n) \) growth and
 \( \Theta(n) \) growth becomes striking as \( n \) becomes large.  For
-example, \code{fast\-/expt} for \( n \) = 1000 requires only 14
+example, \code{fast-expt} for \( n \) = 1000 requires only 14
 multiplications.\footnote{You may wonder why anyone would care about raising
 numbers to the 1000th power.  See \link{Section 1.2.6}.} It is also possible to
 use the idea of successive squaring to devise an iterative algorithm that
@@ -2302,7 +2302,7 @@ exponentiation.}
 \begin{exerciseGroup}
 \exerciseHeading{\phantomsection\label{Exercise 1.16}Exercise 1.16:} Design a procedure that evolves
 an iterative exponentiation process that uses successive squaring and uses a
-logarithmic number of steps, as does \code{fast\-/expt}.  (Hint: Using the
+logarithmic number of steps, as does \code{fast-expt}.  (Hint: Using the
 observation that \( (b^{n / 2})^2 = (b^2)^{n / 2} \), keep, along with
 the exponent \( n \) and the base \( b \), an additional state variable \( a \), and
 define the state transformation in such a way that the product \( ab^n \)
@@ -2329,7 +2329,7 @@ it is assumed that our language can only add, not multiply) is analogous to the
 This algorithm takes a number of steps that is linear in \code{b}.  Now suppose
 we include, together with addition, operations \code{double}, which doubles an
 integer, and \code{halve}, which divides an (even) integer by 2.  Using these,
-design a multiplication procedure analogous to \code{fast\-/expt} that uses a
+design a multiplication procedure analogous to \code{fast-expt} that uses a
 logarithmic number of steps.
 
 \exerciseHeading{\phantomsection\label{Exercise 1.18}Exercise 1.18:} Using the results of
@@ -2343,7 +2343,7 @@ oldest mathematical documents in existence, written about 1700 \acronym{B.C.}
 
 \exerciseHeading{\phantomsection\label{Exercise 1.19}Exercise 1.19:} There is a clever algorithm for
 computing the Fibonacci numbers in a logarithmic number of steps.  Recall the
-transformation of the state variables \( a \) and \( b \) in the \code{fib\-/iter}
+transformation of the state variables \( a \) and \( b \) in the \code{fib-iter}
 process of \link{Section 1.2.2}: \( a \gets a + b \) and \( b \gets a \).
 Call this transformation \( T \), and observe that applying \( T \) over and over
 again \( n \) times, starting with 1 and 0, produces the pair Fib(\( n+1 \)) and
@@ -2357,7 +2357,7 @@ Show that if we apply such a transformation \( T_{pq} \) twice, the
 effect is the same as using a single transformation \( T_{p'\!q'} \) of the
 same form, and compute \( p'\! \) and \( q'\! \) in terms of \( p \) and \( q \).  This
 gives us an explicit way to square these transformations, and thus we can
-compute \( T^n \) using successive squaring, as in the \code{fast\-/expt}
+compute \( T^n \) using successive squaring, as in the \code{fast-expt}
 procedure.  Put this all together to complete the following procedure, which
 runs in a logarithmic number of steps:\footnote{This exercise was suggested to
 us by Joe Stoy, based on an example in \link{Kaldewaij 1990}.}
@@ -2539,7 +2539,7 @@ We can test whether a number is prime as follows: \( n \) is prime if and only i
 \end{codeBlock}
 
 \noindent
-The end test for \code{find\-/divisor} is based on the fact that if \( n \) is not
+The end test for \code{find-divisor} is based on the fact that if \( n \) is not
 prime it must have a divisor less than or equal to
 \( \sqrt{n} \).\footnote{If \( d \) is a divisor of \( n \), then so is
 \( n / d \).  But \( d \) and \( n / d \) cannot both be greater than
@@ -2605,7 +2605,7 @@ of a number modulo another number:
 \end{codeBlock}
 
 \noindent
-This is very similar to the \code{fast\-/expt} procedure of \link{Section 1.2.4}.
+This is very similar to the \code{fast-expt} procedure of \link{Section 1.2.4}.
 It uses successive squaring, so that the number of steps grows logarithmically
 with the exponent.\footnote{The reduction steps in the cases where the exponent
 \( e \) is greater than 1 are based on the fact that, for any integers \( x \),
@@ -2702,14 +2702,14 @@ now turns out to have important practical applications to cryptography,
 electronic funds transfer, and information retrieval.}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 1.21}Exercise 1.21:} Use the \code{smallest\-/divisor}
+\exerciseHeading{\phantomsection\label{Exercise 1.21}Exercise 1.21:} Use the \code{smallest-divisor}
 procedure to find the smallest divisor of each of the following numbers: 199,
 1999, 19999.
 
 \exerciseHeading{\phantomsection\label{Exercise 1.22}Exercise 1.22:} Most Lisp implementations include
 a primitive called \code{runtime} that returns an integer that specifies the
 amount of time the system has been running (measured, for example, in
-microseconds).  The following \code{timed\-/prime\-/test} procedure, when called
+microseconds).  The following \code{timed-prime-test} procedure, when called
 with an integer \( n \), prints \( n \) and checks to see if \( n \) is prime.  If
 \( n \) is prime, the procedure prints three asterisks followed by the amount of
 time used in performing the test.
@@ -2727,7 +2727,7 @@ time used in performing the test.
   (display elapsed-time))
 \end{codeBlock}
 
-Using this procedure, write a procedure \code{search\-/for\-/primes} that checks
+Using this procedure, write a procedure \code{search-for-primes} that checks
 the primality of consecutive odd integers in a specified range.  Use your
 procedure to find the three smallest primes larger than 1000; larger than
 10,000; larger than 100,000; larger than 1,000,000.  Note the time needed to
@@ -2739,25 +2739,25 @@ for 100,000 and 1,000,000 support the \( \Theta(\sqrt{n}) \) prediction?  Is you
 result compatible with the notion that programs on your machine run in time
 proportional to the number of steps required for the computation?
 
-\exerciseHeading{\phantomsection\label{Exercise 1.23}Exercise 1.23:} The \code{smallest\-/divisor}
+\exerciseHeading{\phantomsection\label{Exercise 1.23}Exercise 1.23:} The \code{smallest-divisor}
 procedure shown at the start of this section does lots of needless testing:
 After it checks to see if the number is divisible by 2 there is no point in
 checking to see if it is divisible by any larger even numbers.  This suggests
-that the values used for \code{test\-/divisor} should not be 2, 3, 4, 5, 6,
+that the values used for \code{test-divisor} should not be 2, 3, 4, 5, 6,
 \( \dots \), but rather 2, 3, 5, 7, 9, \( \dots \).  To implement this change, define a
 procedure \code{next} that returns 3 if its input is equal to 2 and otherwise
-returns its input plus 2.  Modify the \code{smallest\-/divisor} procedure to use
-\code{(next test\-/divisor)} instead of \code{(+ test\-/divisor 1)}.  With
-\code{timed\-/prime\-/test} incorporating this modified version of
-\code{smallest\-/divisor}, run the test for each of the 12 primes found in
+returns its input plus 2.  Modify the \code{smallest-divisor} procedure to use
+\code{(next test-divisor)} instead of \code{(+ test-divisor 1)}.  With
+\code{timed-prime-test} incorporating this modified version of
+\code{smallest-divisor}, run the test for each of the 12 primes found in
 \link{Exercise 1.22}.  Since this modification halves the number of test steps,
 you should expect it to run about twice as fast.  Is this expectation
 confirmed?  If not, what is the observed ratio of the speeds of the two
 algorithms, and how do you explain the fact that it is different from 2?
 
 \exerciseHeading{\phantomsection\label{Exercise 1.24}Exercise 1.24:} Modify the
-\code{timed\-/prime\-/test} procedure of \link{Exercise 1.22} to use
-\code{fast\-/prime?} (the Fermat method), and test each of the 12 primes you
+\code{timed-prime-test} procedure of \link{Exercise 1.22} to use
+\code{fast-prime?} (the Fermat method), and test each of the 12 primes you
 found in that exercise.  Since the Fermat test has \( \Theta(\log n) \)
 growth, how would you expect the time to test primes near 1,000,000 to
 compare with the time needed to test primes near 1000?  Do your data bear this
@@ -2776,7 +2776,7 @@ Is she correct?  Would this procedure serve as well for our fast prime tester?
 Explain.
 
 \exerciseHeading{\phantomsection\label{Exercise 1.26}Exercise 1.26:} Louis Reasoner is having great
-difficulty doing \link{Exercise 1.24}.  His \code{fast\-/prime?} test seems to run
+difficulty doing \link{Exercise 1.24}.  His \code{fast-prime?} test seems to run
 more slowly than his \code{prime?} test.  Louis calls his friend Eva Lu Ator
 over to help.  When they examine Louis's code, they find that he has rewritten
 the \code{expmod} procedure to use an explicit multiplication, rather than
@@ -2824,7 +2824,7 @@ is not prime, then, for at least half the numbers \( a < n \), computing
 \( n \).  (This is why the Miller-Rabin test cannot be fooled.)  Modify the
 \code{expmod} procedure to signal if it discovers a nontrivial square root of
 1, and use this to implement the Miller-Rabin test with a procedure analogous
-to \code{fermat\-/test}.  Check your procedure by testing various known primes
+to \code{fermat-test}.  Check your procedure by testing various known primes
 and non-primes.  Hint: One convenient way to make \code{expmod} signal is to
 have it return 0.
 \end{exerciseGroup}
@@ -2967,7 +2967,7 @@ Notice that \code{sum} takes as its arguments the lower and upper bounds
 \code{a} and \code{b} together with the procedures \code{term} and \code{next}.
 We can use \code{sum} just as we would any procedure.  For example, we can use
 it (along with a procedure \code{inc} that increments its argument by 1) to
-define \code{sum\-/cubes}:
+define \code{sum-cubes}:
 
 \begin{codeBlock}
 (define (inc n) (+ n 1))
@@ -2985,7 +2985,7 @@ Using this, we can compute the sum of the cubes of the integers from 1 to 10:
 
 \noindent
 With the aid of an identity procedure to compute the term, we can define
-\code{sum\-/integers} in terms of \code{sum}:
+\code{sum-integers} in terms of \code{sum}:
 
 \begin{codeBlock}
 (define (identity x) x)
@@ -3002,9 +3002,9 @@ Then we can add up the integers from 1 to 10:
 \end{codeBlock}
 
 \noindent
-We can also define \code{pi\-/sum} in the same way:\footnote{Notice that we have
+We can also define \code{pi-sum} in the same way:\footnote{Notice that we have
 used block structure (\link{Section 1.1.8}) to embed the definitions of
-\code{pi\-/next} and \code{pi\-/term} within \code{pi\-/sum}, since these procedures
+\code{pi-next} and \code{pi-term} within \code{pi-sum}, since these procedures
 are unlikely to be useful for any other purpose.  We will see how to get rid of
 them altogether in \link{Section 1.3.2}.}
 
@@ -3132,7 +3132,7 @@ collection of terms, using some general accumulation function:
 \code{accumulate} takes as arguments the same term and range specifications as
 \code{sum} and \code{product}, together with a \code{combiner} procedure (of
 two arguments) that specifies how the current term is to be combined with the
-accumulation of the preceding terms and a \code{null\-/value} that specifies what
+accumulation of the preceding terms and a \code{null-value} that specifies what
 base value to use when the terms run out.  Write \code{accumulate} and show how
 \code{sum} and \code{product} can both be defined as simple calls to
 \code{accumulate}.
@@ -3148,10 +3148,10 @@ write one that generates a recursive process.
 general version of \code{accumulate} (\link{Exercise 1.32}) by introducing the
 notion of a \newterm{filter} on the terms to be combined.  That is, combine
 only those terms derived from values in the range that satisfy a specified
-condition.  The resulting \code{filtered\-/accumulate} abstraction takes the same
+condition.  The resulting \code{filtered-accumulate} abstraction takes the same
 arguments as accumulate, together with an additional predicate of one argument
-that specifies the filter.  Write \code{filtered\-/accumulate} as a procedure.
-Show how to express the following using \code{filtered\-/accumulate}:
+that specifies the filter.  Write \code{filtered-accumulate} as a procedure.
+Show how to express the following using \code{filtered-accumulate}:
 
 \begin{enumerate}[a.]
 
@@ -3171,9 +3171,9 @@ prime to \( n \) (i.e., all positive integers \( i < n \) such that
 \label{Section 1.3.2}
 
 In using \code{sum} as in \link{Section 1.3.1}, it seems terribly awkward to
-have to define trivial procedures such as \code{pi\-/term} and \code{pi\-/next}
+have to define trivial procedures such as \code{pi-term} and \code{pi-next}
 just so we can use them as arguments to our higher-order procedure.  Rather
-than define \code{pi\-/next} and \code{pi\-/term}, it would be more convenient to
+than define \code{pi-next} and \code{pi-term}, it would be more convenient to
 have a way to directly specify ``the procedure that returns its input
 incremented by 4'' and ``the procedure that returns the reciprocal of its input
 times its input plus 2.''  We can do this by introducing the special form
@@ -3192,7 +3192,7 @@ and
 \end{codeBlock}
 
 \noindent
-Then our \code{pi\-/sum} procedure can be expressed without defining any
+Then our \code{pi-sum} procedure can be expressed without defining any
 auxiliary procedures as
 
 \begin{codeBlock}
@@ -3205,7 +3205,7 @@ auxiliary procedures as
 
 \noindent
 Again using \code{lambda}, we can write the \code{integral} procedure without
-having to define the auxiliary procedure \code{add\-/dx}:
+having to define the auxiliary procedure \code{add-dx}:
 
 \begin{codeBlock}
 (define (integral f a b dx)
@@ -3262,7 +3262,7 @@ expression can be used as the operator in a combination such as
 \noindent
 or, more generally, in any context where we would normally use a procedure
 name.\footnote{It would be clearer and less intimidating to people learning
-Lisp if a name more obvious than \code{lambda}, such as \code{make\-/procedure},
+Lisp if a name more obvious than \code{lambda}, such as \code{make-procedure},
 were used.  But the convention is firmly entrenched.  The notation is adopted
 from the λ-calculus, a mathematical formalism introduced by the
 mathematical logician Alonzo \link{Church (1941)}.  Church developed the
@@ -3581,7 +3581,7 @@ $$ f(x),\quad f(f(x)),\quad f(f(f(x))), \quad\dots, $$
 
 \noindent
 until the value does not change very much.  Using this idea, we can devise a
-procedure \code{fixed\-/point} that takes as inputs a function and an initial
+procedure \code{fixed-point} that takes as inputs a function and an initial
 guess and produces an approximation to a fixed point of the function.  We apply
 the function repeatedly until we find two successive values whose difference is
 less than some prescribed tolerance:
@@ -3678,16 +3678,16 @@ averaging successive approximations to a solution, a technique that we call
 \exerciseHeading{\phantomsection\label{Exercise 1.35}Exercise 1.35:} Show that the golden ratio
 \( \varphi \) (\link{Section 1.2.2}) is a fixed point of the transformation
 \( x \mapsto 1 + 1 / x \), and use this fact to compute \( \varphi \) by means
-of the \code{fixed\-/point} procedure.
+of the \code{fixed-point} procedure.
 
-\exerciseHeading{\phantomsection\label{Exercise 1.36}Exercise 1.36:} Modify \code{fixed\-/point} so that
+\exerciseHeading{\phantomsection\label{Exercise 1.36}Exercise 1.36:} Modify \code{fixed-point} so that
 it prints the sequence of approximations it generates, using the \code{newline}
 and \code{display} primitives shown in \link{Exercise 1.22}.  Then find a
 solution to \( x^x = 1000 \) by finding a fixed point of \( x \mapsto
 \log(1000) / \log(x) \).  (Use Scheme's primitive \code{log}
 procedure, which computes natural logarithms.)  Compare the number of steps
 this takes with and without average damping.  (Note that you cannot start
-\code{fixed\-/point} with a guess of 1, as this would cause division by
+\code{fixed-point} with a guess of 1, as this would cause division by
 \( \log(1) = 0 \).)
 
 \exerciseHeading{\phantomsection\label{Exercise 1.37}Exercise 1.37:} \begin{enumerate}[a.]
@@ -3708,8 +3708,8 @@ $$ \cfrac{N_1}{D_1 + \cfrac{N_2}{\ddots + \cfrac{N_k}{D_k}}}\,. $$
 
 Suppose that \code{n} and \code{d} are procedures of one argument (the term
 index \( i \)) that return the \( N_i \) and \( D_i \) of the terms of the
-continued fraction.  Define a procedure \code{cont\-/frac} such that evaluating
-\code{(cont\-/frac n d k)} computes the value of the \( k \)-term finite continued
+continued fraction.  Define a procedure \code{cont-frac} such that evaluating
+\code{(cont-frac n d k)} computes the value of the \( k \)-term finite continued
 fraction.  Check your procedure by approximating \( 1 / \varphi \) using
 
 \begin{codeBlock}
@@ -3723,7 +3723,7 @@ for successive values of \code{k}.  How large must you make \code{k} in order
 to get an approximation that is accurate to 4 decimal places?
 
 \item
-If your \code{cont\-/frac} procedure generates a recursive process, write one
+If your \code{cont-frac} procedure generates a recursive process, write one
 that generates an iterative process.  If it generates an iterative process,
 write one that generates a recursive process.
 
@@ -3734,7 +3734,7 @@ Leonhard Euler published a memoir \textit{De Fractionibus Continuis}, which
 included a continued fraction expansion for \( e - 2 \), where \( e \) is the base
 of the natural logarithms.  In this fraction, the \( N_i \) are all 1, and
 the \( D_i \) are successively 1, 2, 1, 1, 4, 1, 1, 6, 1, 1, 8, \( \dots \).
-Write a program that uses your \code{cont\-/frac} procedure from \link{Exercise 1.37}
+Write a program that uses your \code{cont-frac} procedure from \link{Exercise 1.37}
 to approximate \( e \), based on Euler's expansion.
 
 \exerciseHeading{\phantomsection\label{Exercise 1.39}Exercise 1.39:} A continued fraction
@@ -3744,7 +3744,7 @@ mathematician J.H. Lambert:
 $$ {\tan x} = \cfrac{x}{1 - \cfrac{x^2}{3 - \cfrac{x^2}{5 - \dots}}}\,, $$
 
 \noindent
-where \( x \) is in radians.  Define a procedure \code{(tan\-/cf x k)} that
+where \( x \) is in radians.  Define a procedure \code{(tan-cf x k)} that
 computes an approximation to the tangent function based on Lambert's formula.
 \code{k} specifies the number of terms to compute, as in \link{Exercise 1.37}.
 \end{exerciseGroup}
@@ -3774,10 +3774,10 @@ We can express the idea of average damping by means of the following procedure:
 \end{codeBlock}
 
 \noindent
-\code{average\-/damp} is a procedure that takes as its argument a procedure
+\code{average-damp} is a procedure that takes as its argument a procedure
 \code{f} and returns as its value a procedure (produced by the \code{lambda})
 that, when applied to a number \code{x}, produces the average of \code{x} and
-\code{(f x)}.  For example, applying \code{average\-/damp} to the \code{square}
+\code{(f x)}.  For example, applying \code{average-damp} to the \code{square}
 procedure produces a procedure whose value at some number \( x \) is the average
 of \( x \) and \( x^2 \).  Applying this resulting procedure to 10 returns the
 average of 10 and 100, or 55:\footnote{Observe that this is a combination whose
@@ -3792,7 +3792,7 @@ that is obtained as the value returned by a higher-order procedure.}
 \end{codeBlock}
 
 \noindent
-Using \code{average\-/damp}, we can reformulate the square-root procedure as
+Using \code{average-damp}, we can reformulate the square-root procedure as
 follows:
 
 \begin{codeBlock}
@@ -3875,7 +3875,7 @@ along with the definition
 \end{codeBlock}
 
 \noindent
-Like \code{average\-/damp}, \code{deriv} is a procedure that takes a procedure as
+Like \code{average-damp}, \code{deriv} is a procedure that takes a procedure as
 argument and returns a procedure as value.  For example, to approximate the
 derivative of \( x \mapsto x^3 \) at 5 (whose exact value is 75) we can evaluate
 
@@ -3897,8 +3897,8 @@ process:
 \end{codeBlock}
 
 \noindent
-The \code{newton\-/transform} procedure expresses the formula at the beginning of
-this section, and \code{newtons\-/method} is readily defined in terms of this.
+The \code{newton-transform} procedure expresses the formula at the beginning of
+this section, and \code{newtons-method} is readily defined in terms of this.
 It takes as arguments a procedure that computes the function for which we want
 to find a zero, together with an initial guess.  For instance, to find the
 square root of \( x \), we can use Newton's method to find a zero of the function
@@ -4008,7 +4008,7 @@ environment.}
 
 \begin{exerciseGroup}
 \exerciseHeading{\phantomsection\label{Exercise 1.40}Exercise 1.40:} Define a procedure \code{cubic}
-that can be used together with the \code{newtons\-/method} procedure in
+that can be used together with the \code{newtons-method} procedure in
 expressions of the form
 
 \begin{codeBlock}
@@ -4082,7 +4082,7 @@ we average damp twice (i.e., use the average damp of the average damp of
 to determine how many average damps are required to compute \( n^{\mathrm{th}} \) roots as a
 fixed-point search based upon repeated average damping of \( y \mapsto x / y^{n-1} \).
 Use this to implement a simple procedure for computing
-\( n^{\mathrm{th}} \) roots using \code{fixed\-/point}, \code{average\-/damp}, and the
+\( n^{\mathrm{th}} \) roots using \code{fixed-point}, \code{average-damp}, and the
 \code{repeated} procedure of \link{Exercise 1.43}.  Assume that any arithmetic
 operations you need are available as primitives.
 
@@ -4092,11 +4092,11 @@ strategy known as \newterm{iterative improvement}.  Iterative improvement says
 that, to compute something, we start with an initial guess for the answer, test
 if the guess is good enough, and otherwise improve the guess and continue the
 process using the improved guess as the new guess.  Write a procedure
-\code{iterative\-/improve} that takes two procedures as arguments: a method for
+\code{iterative-improve} that takes two procedures as arguments: a method for
 telling whether a guess is good enough and a method for improving a guess.
-\code{iterative\-/improve} should return as its value a procedure that takes a
+\code{iterative-improve} should return as its value a procedure that takes a
 guess as argument and keeps improving the guess until it is good enough.
 Rewrite the \code{sqrt} procedure of \link{Section 1.1.7} and the
-\code{fixed\-/point} procedure of \link{Section 1.3.3} in terms of
-\code{iterative\-/improve}.
+\code{fixed-point} procedure of \link{Section 1.3.3} in terms of
+\code{iterative-improve}.
 \end{exerciseGroup}
