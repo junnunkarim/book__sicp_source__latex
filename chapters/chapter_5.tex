@@ -1613,17 +1613,17 @@ condition is called, the result is assigned to the \code{flag} register, and
 the \code{pc} is advanced:
 
 \begin{codeBlock}
-
 (define (make-test inst machine labels operations flag pc)
   (let ((condition (test-condition inst)))
     (if (operation-exp? condition)
         (let ((condition-proc
-               (make-operation-exp
-                condition machine labels operations)))
+                (make-operation-exp
+                  condition machine labels operations)))
           (lambda ()
             (set-contents! flag (condition-proc))
             (advance-pc pc)))
-        (error "Bad TEST instruction: ASSEMBLE" inst))))
+        (error "Bad TEST instruction: ASSEMBLE"
+               inst))))
 (define (test-condition test-instruction)
   (cdr test-instruction))
 \end{codeBlock}
@@ -1642,14 +1642,15 @@ each time the \code{branch} instruction is simulated.
   (let ((dest (branch-dest inst)))
     (if (label-exp? dest)
         (let ((insts
-               (lookup-label
-                labels
-                (label-exp-label dest))))
+                (lookup-label
+                  labels
+                  (label-exp-label dest))))
           (lambda ()
             (if (get-contents flag)
                 (set-contents! pc insts)
                 (advance-pc pc))))
-        (error "Bad BRANCH instruction: ASSEMBLE" inst))))
+        (error "Bad BRANCH instruction: ASSEMBLE"
+               inst))))
 (define (branch-dest branch-instruction)
   (cadr branch-instruction))
 \end{codeBlock}
@@ -1664,16 +1665,17 @@ to check---the \code{pc} is always set to the new destination.
   (let ((dest (goto-dest inst)))
     (cond ((label-exp? dest)
            (let ((insts (lookup-label
-                         labels
-                         (label-exp-label dest))))
+                          labels
+                          (label-exp-label dest))))
              (lambda () (set-contents! pc insts))))
           ((register-exp? dest)
            (let ((reg (get-register
-                       machine
-                       (register-exp-reg dest))))
+                        machine
+                        (register-exp-reg dest))))
              (lambda ()
                (set-contents! pc (get-contents reg)))))
-          (else (error "Bad GOTO instruction: ASSEMBLE" inst)))))
+          (else (error "Bad GOTO instruction: ASSEMBLE"
+                       inst)))))
 (define (goto-dest goto-instruction)
   (cadr goto-instruction))
 \end{codeBlock}
@@ -1685,14 +1687,16 @@ the designated register and advance the \code{pc}:
 
 \begin{codeBlock}
 (define (make-save inst machine stack pc)
-  (let ((reg (get-register machine
-                           (stack-inst-reg-name inst))))
+  (let ((reg
+          (get-register machine
+                        (stack-inst-reg-name inst))))
     (lambda ()
       (push stack (get-contents reg))
       (advance-pc pc))))
 (define (make-restore inst machine stack pc)
-  (let ((reg (get-register machine
-                           (stack-inst-reg-name inst))))
+  (let ((reg
+          (get-register machine
+                        (stack-inst-reg-name inst))))
     (lambda ()
       (set-contents! reg (pop stack))
       (advance-pc pc))))
@@ -1706,14 +1710,19 @@ execution procedure for the action to be performed.  At simulation time, the
 action procedure is executed and the \code{pc} advanced.
 
 \begin{codeBlock}
-(define (make-perform inst machine labels operations pc)
+(define (make-perform inst
+                      machine
+                      labels
+                      operations
+                      pc)
   (let ((action (perform-action inst)))
     (if (operation-exp? action)
         (let ((action-proc
-               (make-operation-exp
-                action machine labels operations)))
+                (make-operation-exp
+                  action machine labels operations)))
           (lambda () (action-proc) (advance-pc pc)))
-        (error "Bad PERFORM instruction: ASSEMBLE" inst))))
+        (error "Bad PERFORM instruction: ASSEMBLE"
+               inst))))
 (define (perform-action inst) (cdr inst))
 \end{codeBlock}
 
@@ -1732,13 +1741,16 @@ the simulation:
            (lambda () c)))
         ((label-exp? exp)
          (let ((insts (lookup-label
-                       labels
-                       (label-exp-label exp))))
+                        labels
+                        (label-exp-label exp))))
            (lambda () insts)))
         ((register-exp? exp)
-         (let ((r (get-register machine (register-exp-reg exp))))
+         (let ((r
+                 (get-register machine
+                               (register-exp-reg exp))))
            (lambda () (get-contents r))))
-        (else (error "Unknown expression type: ASSEMBLE" exp))))
+        (else (error "Unknown expression type: ASSEMBLE"
+                     exp))))
 \end{codeBlock}
 
 \noindent
@@ -1763,13 +1775,18 @@ expression''---a list containing the operation and operand expressions from the
 instruction:
 
 \begin{codeBlock}
-(define (make-operation-exp exp machine labels operations)
+(define (make-operation-exp exp
+                            machine
+                            labels
+                            operations)
   (let ((op (lookup-prim (operation-exp-op exp)
                          operations))
         (aprocs
-         (map (lambda (e)
-                (make-primitive-exp e machine labels))
-              (operation-exp-operands exp))))
+          (map (lambda (e)
+                 (make-primitive-exp e
+                                     machine
+                                     labels))
+               (operation-exp-operands exp))))
     (lambda ()
       (apply op (map (lambda (p) (p)) aprocs)))))
 \end{codeBlock}
@@ -1937,7 +1954,7 @@ Here is the new version of \code{make\-/stack}:
       'done)
     (define (print-statistics)
       (newline)
-      (display (list 'total-pushes  '= number-pushes
+      (display (list 'total-pushes '= number-pushes
                      'maximum-depth '= max-depth)))
     (define (dispatch message)
       (cond ((eq? message 'push) push)
@@ -1945,7 +1962,8 @@ Here is the new version of \code{make\-/stack}:
             ((eq? message 'initialize) (initialize))
             ((eq? message 'print-statistics)
              (print-statistics))
-            (else (error "Unknown request: STACK" message))))
+            (else (error "Unknown request: STACK"
+                         message))))
     dispatch))
 \end{codeBlock}
 
@@ -2227,8 +2245,14 @@ For example, we can make a register machine support the instructions
 if we implement these, respectively, as
 
 \begin{codeBlock}
-(assign ~\(\langle \)~~\var{reg}~~\(_{\mono{1}}\rangle \)~ (op vector-ref) (reg the-cars) (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{2}}\rangle \)~))
-(assign ~\(\langle \)~~\var{reg}~~\(_{\mono{1}}\rangle \)~ (op vector-ref) (reg the-cdrs) (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{2}}\rangle \)~))
+(assign ~\(\langle \)~~\var{reg}~~\(_{\mono{1}}\rangle \)~
+        (op vector-ref)
+        (reg the-cars)
+        (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{2}}\rangle \)~))
+(assign ~\(\langle \)~~\var{reg}~~\(_{\mono{1}}\rangle \)~
+        (op vector-ref)
+        (reg the-cdrs)
+        (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{2}}\rangle \)~))
 \end{codeBlock}
 
 \noindent
@@ -2243,10 +2267,14 @@ The instructions
 are implemented as
 
 \begin{codeBlock}
-(perform
- (op vector-set!) (reg the-cars) (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{1}}\rangle \)~) (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{2}}\rangle \)~))
-(perform
- (op vector-set!) (reg the-cdrs) (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{1}}\rangle \)~) (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{2}}\rangle \)~))
+(perform (op vector-set!)
+         (reg the-cars)
+         (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{1}}\rangle \)~)
+         (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{2}}\rangle \)~))
+(perform (op vector-set!)
+         (reg the-cdrs)
+         (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{1}}\rangle \)~)
+         (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{2}}\rangle \)~))
 \end{codeBlock}
 
 \noindent
@@ -2273,10 +2301,14 @@ essentially the implementation of \code{cons} in terms of \code{set\-/car!} and
 \code{free} pointer.}
 
 \begin{codeBlock}
-(perform
- (op vector-set!) (reg the-cars) (reg free) (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{2}}\rangle \)~))
-(perform
- (op vector-set!) (reg the-cdrs) (reg free) (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{3}}\rangle \)~))
+(perform (op vector-set!)
+         (reg the-cars)
+         (reg free)
+         (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{2}}\rangle \)~))
+(perform (op vector-set!)
+         (reg the-cdrs)
+         (reg free)
+         (reg ~\(\langle \)~~\var{reg}~~\(_{\mono{3}}\rangle \)~))
 (assign ~\(\langle \)~~\var{reg}~~\(_{\mono{1}}\rangle \)~ (reg free))
 (assign free (op +) (reg free) (const 1))
 \end{codeBlock}
@@ -2574,8 +2606,11 @@ set up so that the subroutine will return to update the \code{car} pointer.
 gc-loop
   (test (op =) (reg scan) (reg free))
   (branch (label gc-flip))
-  (assign old (op vector-ref) (reg new-cars) (reg scan))
-  (assign relocate-continue (label update-car))
+  (assign old (op vector-ref)
+          (reg new-cars)
+          (reg scan))
+  (assign relocate-continue
+          (label update-car))
   (goto (label relocate-old-result-in-new))
 \end{codeBlock}
 
@@ -2636,7 +2671,10 @@ relocate-old-result-in-new
   (assign new (reg old))
   (goto (reg relocate-continue))
 pair
-  (assign oldcr (op vector-ref) (reg the-cars) (reg old))
+  (assign oldcr
+          (op vector-ref)
+          (reg the-cars)
+          (reg old))
   (test (op broken-heart?) (reg oldcr))
   (branch (label already-moved))
   (assign new (reg free)) ~\textrm{; new location for pair}~
@@ -2644,18 +2682,32 @@ pair
   (assign free (op +) (reg free) (const 1))
   ~\textrm{;; Copy the \code{car} and \code{cdr} to new memory.}~
   (perform (op vector-set!)
-           (reg new-cars) (reg new) (reg oldcr))
-  (assign oldcr (op vector-ref) (reg the-cdrs) (reg old))
+           (reg new-cars)
+           (reg new)
+           (reg oldcr))
+  (assign oldcr
+          (op vector-ref)
+          (reg the-cdrs)
+          (reg old))
   (perform (op vector-set!)
-           (reg new-cdrs) (reg new) (reg oldcr))
+           (reg new-cdrs)
+           (reg new)
+           (reg oldcr))
   ~\textrm{;; Construct the broken heart.}~
   (perform (op vector-set!)
-           (reg the-cars) (reg old) (const broken-heart))
-  (perform
-   (op vector-set!) (reg the-cdrs) (reg old) (reg new))
+           (reg the-cars)
+           (reg old)
+           (const broken-heart))
+  (perform (op vector-set!)
+           (reg the-cdrs)
+           (reg old)
+           (reg new))
   (goto (reg relocate-continue))
 already-moved
-  (assign new (op vector-ref) (reg the-cdrs) (reg old))
+  (assign new
+          (op vector-ref)
+          (reg the-cdrs)
+          (reg old))
   (goto (reg relocate-continue))
 \end{codeBlock}
 
@@ -2798,15 +2850,26 @@ ev-self-eval
   (assign val (reg exp))
   (goto (reg continue))
 ev-variable
-  (assign val (op lookup-variable-value) (reg exp) (reg env))
+  (assign val
+          (op lookup-variable-value)
+          (reg exp)
+          (reg env))
   (goto (reg continue))
 ev-quoted
-  (assign val (op text-of-quotation) (reg exp))
+  (assign val
+          (op text-of-quotation)
+          (reg exp))
   (goto (reg continue))
 ev-lambda
-  (assign unev (op lambda-parameters) (reg exp))
+  (assign unev
+          (op lambda-parameters)
+          (reg exp))
   (assign exp (op lambda-body) (reg exp))
-  (assign val (op make-procedure) (reg unev) (reg exp) (reg env))
+  (assign val
+          (op make-procedure)
+          (reg unev)
+          (reg exp)
+          (reg env))
   (goto (reg continue))
 \end{codeBlock}
 
@@ -3017,7 +3080,6 @@ to perform the application, just as we did for the metacircular evaluator in
 we restore \code{continue} and go to the designated entry point.
 
 \begin{codeBlock}
-
 primitive-apply
   (assign val (op apply-primitive-procedure)
               (reg proc)
@@ -3245,7 +3307,6 @@ have the correct environment and to continue at the right place to receive the
 value of the \code{if} expression.
 
 \begin{codeBlock}
-
 ev-if-decide
   (restore continue)
   (restore env)
@@ -3281,8 +3342,10 @@ ev-assignment-1
   (restore continue)
   (restore env)
   (restore unev)
-  (perform
-   (op set-variable-value!) (reg unev) (reg val) (reg env))
+  (perform (op set-variable-value!)
+           (reg unev)
+           (reg val)
+           (reg env))
   (assign val (const ok))
   (goto (reg continue))
 \end{codeBlock}
@@ -3303,8 +3366,10 @@ ev-definition-1
   (restore continue)
   (restore env)
   (restore unev)
-  (perform
-   (op define-variable!) (reg unev) (reg val) (reg env))
+  (perform (op define-variable!)
+           (reg unev)
+           (reg val)
+           (reg env))
   (assign val (const ok))
   (goto (reg continue))
 \end{codeBlock}
@@ -3376,7 +3441,8 @@ read-eval-print-loop
   (assign continue (label print-result))
   (goto (label eval-dispatch))
 print-result
-  (perform (op announce-output) (const ";;EC-Eval value:"))
+  (perform (op announce-output)
+           (const ";;EC-Eval value:"))
   (perform (op user-print) (reg val))
   (goto (label read-eval-print-loop))
 \end{codeBlock}
@@ -3830,7 +3896,8 @@ type of expression, it dispatches to a specialized \newterm{code generator}:
 (define (compile exp target linkage)
   (cond ((self-evaluating? exp)
          (compile-self-evaluating exp target linkage))
-        ((quoted? exp) (compile-quoted exp target linkage))
+        ((quoted? exp)
+         (compile-quoted exp target linkage))
         ((variable? exp)
          (compile-variable exp target linkage))
         ((assignment? exp)
@@ -3838,16 +3905,18 @@ type of expression, it dispatches to a specialized \newterm{code generator}:
         ((definition? exp)
          (compile-definition exp target linkage))
         ((if? exp) (compile-if exp target linkage))
-        ((lambda? exp) (compile-lambda exp target linkage))
+        ((lambda? exp)
+         (compile-lambda exp target linkage))
         ((begin? exp)
          (compile-sequence
-          (begin-actions exp) target linkage))
+           (begin-actions exp) target linkage))
         ((cond? exp)
          (compile (cond->if exp) target linkage))
         ((application? exp)
          (compile-application exp target linkage))
         (else
-         (error "Unknown expression type: COMPILE" exp))))
+          (error "Unknown expression type: COMPILE"
+                 exp))))
 \end{codeBlock}
 
 \subsubsection*{Targets and linkages}
@@ -4021,11 +4090,13 @@ therefore be constructed as
 
 \begin{codeBlock}
 (make-instruction-sequence
- '(env continue)
- '(val)
- '((assign val
-           (op lookup-variable-value) (const x) (reg env))
-   (goto (reg continue))))
+  '(env continue)
+  '(val)
+  '((assign val
+            (op lookup-variable-value)
+            (const x)
+            (reg env))
+    (goto (reg continue))))
 \end{codeBlock}
 
 \noindent
@@ -4164,21 +4235,30 @@ construct instruction sequences that assign the required value to the target
 register and then proceed as specified by the linkage descriptor.
 
 \begin{codeBlock}
-(define (compile-self-evaluating exp target linkage)
-  (end-with-linkage linkage
-   (make-instruction-sequence '() (list target)
-    `((assign ,target (const ,exp))))))
+(define (compile-self-evaluating exp
+                                 target
+                                 linkage)
+  (end-with-linkage
+    linkage
+    (make-instruction-sequence
+      '() (list target)
+      `((assign ,target (const ,exp))))))
 (define (compile-quoted exp target linkage)
-  (end-with-linkage linkage
-   (make-instruction-sequence '() (list target)
-    `((assign ,target (const ,(text-of-quotation exp)))))))
+  (end-with-linkage
+    linkage
+    (make-instruction-sequence
+      '() (list target)
+      `((assign ,target
+                (const ,(text-of-quotation exp)))))))
 (define (compile-variable exp target linkage)
-  (end-with-linkage linkage
-   (make-instruction-sequence '(env) (list target)
-    `((assign ,target
-              (op lookup-variable-value)
-              (const ,exp)
-              (reg env))))))
+  (end-with-linkage
+    linkage
+    (make-instruction-sequence
+      '(env) (list target)
+      `((assign ,target
+                (op lookup-variable-value)
+                (const ,exp)
+                (reg env))))))
 \end{codeBlock}
 
 \noindent
@@ -4198,32 +4278,41 @@ compilation of a complex expression that might modify the registers in
 arbitrary ways.
 
 \begin{codeBlock}
-(define (compile-assignment exp target linkage)
-  (let ((var (assignment-variable exp))
-        (get-value-code
-         (compile (assignment-value exp) 'val 'next)))
-    (end-with-linkage linkage
-     (preserving '(env)
-      get-value-code
-      (make-instruction-sequence '(env val) (list target)
-       `((perform (op set-variable-value!)
-                  (const ,var)
-                  (reg val)
-                  (reg env))
-         (assign ,target (const ok))))))))
-(define (compile-definition exp target linkage)
-  (let ((var (definition-variable exp))
-        (get-value-code
-         (compile (definition-value exp) 'val 'next)))
-    (end-with-linkage linkage
-     (preserving '(env)
-      get-value-code
-      (make-instruction-sequence '(env val) (list target)
-       `((perform (op define-variable!)
-                  (const ,var)
-                  (reg val)
-                  (reg env))
-         (assign ,target (const ok))))))))
+(define (compile-if exp target linkage)
+  (let ((t-branch (make-label 'true-branch))
+        (f-branch (make-label 'false-branch))
+        (after-if (make-label 'after-if)))
+    (let ((consequent-linkage
+            (if (eq? linkage 'next)
+                after-if
+                linkage)))
+      (let ((p-code
+              (compile (if-predicate exp)
+                       'val
+                       'next))
+            (c-code
+              (compile
+                (if-consequent exp)
+                target
+                consequent-linkage))
+            (a-code
+              (compile (if-alternative exp)
+                       target
+                       linkage)))
+        (preserving
+          '(env continue)
+          p-code
+          (append-instruction-sequences
+            (make-instruction-sequence
+              '(val) '()
+              `((test (op false?) (reg val))
+                (branch (label ,f-branch))))
+            (parallel-instruction-sequences
+              (append-instruction-sequences
+                t-branch c-code)
+              (append-instruction-sequences
+                f-branch a-code))
+            after-if))))))
 \end{codeBlock}
 
 \noindent
@@ -4268,12 +4357,14 @@ generation of unique variable names in the query language, as follows:
 \begin{compactCodeBlock}
 (define label-counter 0)
 (define (new-label-number)
-  (set! label-counter (+ 1 label-counter))
+  (set! label-counter
+        (+ 1 label-counter))
   label-counter)
 (define (make-label name)
   (string->symbol
-    (string-append (symbol->string name)
-                   (number->string (new-label-number)))))
+    (string-append
+      (symbol->string name)
+      (number->string (new-label-number)))))
 \end{compactCodeBlock}
 } In this arrangement of code, we must branch around the true branch if the
 test is false.  The only slight complication is in how the linkage for the true
@@ -4288,24 +4379,35 @@ for the false branch to the label at the end of the conditional.
         (f-branch (make-label 'false-branch))
         (after-if (make-label 'after-if)))
     (let ((consequent-linkage
-           (if (eq? linkage 'next) after-if linkage)))
-      (let ((p-code (compile (if-predicate exp) 'val 'next))
+            (if (eq? linkage 'next)
+                after-if
+                linkage)))
+      (let ((p-code
+              (compile (if-predicate exp)
+                       'val
+                       'next))
             (c-code
-             (compile
-              (if-consequent exp) target
-                                  consequent-linkage))
+              (compile
+                (if-consequent exp) target
+                consequent-linkage))
             (a-code
-             (compile (if-alternative exp) target linkage)))
-        (preserving '(env continue)
-         p-code
-         (append-instruction-sequences
-          (make-instruction-sequence '(val) '()
-           `((test (op false?) (reg val))
-             (branch (label ,f-branch))))
-          (parallel-instruction-sequences
-           (append-instruction-sequences t-branch c-code)
-           (append-instruction-sequences f-branch a-code))
-          after-if))))))
+              (compile (if-alternative exp)
+                       target
+                       linkage)))
+        (preserving
+          '(env continue)
+          p-code
+          (append-instruction-sequences
+            (make-instruction-sequence
+              '(val) '()
+              `((test (op false?) (reg val))
+                (branch (label ,f-branch))))
+            (parallel-instruction-sequences
+              (append-instruction-sequences
+                t-branch c-code)
+              (append-instruction-sequences
+                f-branch a-code))
+            after-if))))))
 \end{codeBlock}
 
 \noindent
@@ -4332,13 +4434,21 @@ for the rest of the sequence) and \code{continue} (possibly needed for the
 linkage at the end of the sequence) are preserved.
 
 \begin{codeBlock}
-(define (compile-sequence seq target linkage)
+(define (compile-sequence seq
+                          target
+                          linkage)
   (if (last-exp? seq)
-      (compile (first-exp seq) target linkage)
+      (compile (first-exp seq)
+               target
+               linkage)
       (preserving
-       '(env continue)
-       (compile (first-exp seq) target 'next)
-       (compile-sequence (rest-exps seq) target linkage))))
+        '(env continue)
+        (compile (first-exp seq)
+                 target
+                 'next)
+        (compile-sequence (rest-exps seq)
+                          target
+                          linkage))))
 \end{codeBlock}
 
 \subsubsection*{Compiling \code{lambda} expressions}
@@ -4393,17 +4503,21 @@ procedures, analogous to the structure for compound procedures described in
   (let ((proc-entry (make-label 'entry))
         (after-lambda (make-label 'after-lambda)))
     (let ((lambda-linkage
-           (if (eq? linkage 'next) after-lambda linkage)))
+            (if (eq? linkage 'next)
+                after-lambda
+                linkage)))
       (append-instruction-sequences
-       (tack-on-instruction-sequence
-        (end-with-linkage lambda-linkage
-         (make-instruction-sequence '(env) (list target)
-          `((assign ,target
-                    (op make-compiled-procedure)
-                    (label ,proc-entry)
-                    (reg env)))))
-        (compile-lambda-body exp proc-entry))
-       after-lambda))))
+        (tack-on-instruction-sequence
+          (end-with-linkage
+            lambda-linkage
+            (make-instruction-sequence
+              '(env) (list target)
+              `((assign ,target
+                        (op make-compiled-procedure)
+                        (label ,proc-entry)
+                        (reg env)))))
+          (compile-lambda-body exp proc-entry))
+        after-lambda))))
 \end{codeBlock}
 
 \noindent
@@ -4430,17 +4544,20 @@ procedure result in \code{val}.
 (define (compile-lambda-body exp proc-entry)
   (let ((formals (lambda-parameters exp)))
     (append-instruction-sequences
-     (make-instruction-sequence '(env proc argl) '(env)
-      `(,proc-entry
-        (assign env
-                (op compiled-procedure-env)
-                (reg proc))
-        (assign env
-                (op extend-environment)
-                (const ,formals)
-                (reg argl)
-                (reg env))))
-     (compile-sequence (lambda-body exp) 'val 'return))))
+      (make-instruction-sequence
+        '(env proc argl) '(env)
+        `(,proc-entry
+           (assign env
+                   (op compiled-procedure-env)
+                   (reg proc))
+           (assign env
+                   (op extend-environment)
+                   (const ,formals)
+                   (reg argl)
+                   (reg env))))
+      (compile-sequence (lambda-body exp)
+                        'val
+                        'return))))
 \end{codeBlock}
 
 \subsection{Compiling Combinations}
@@ -4479,16 +4596,24 @@ linkage in the procedure call.
 
 \begin{codeBlock}
 (define (compile-application exp target linkage)
-  (let ((proc-code (compile (operator exp) 'proc 'next))
+  (let ((proc-code (compile (operator exp)
+                            'proc
+                            'next))
         (operand-codes
-         (map (lambda
-                (operand) (compile operand 'val 'next))
-              (operands exp))))
-    (preserving '(env continue)
-     proc-code
-     (preserving '(proc continue)
-      (construct-arglist operand-codes)
-      (compile-procedure-call target linkage)))))
+          (map (lambda
+                 (operand)
+                 (compile operand
+                          'val
+                          'next))
+               (operands exp))))
+    (preserving
+      '(env continue)
+      proc-code
+      (preserving
+        '(proc continue)
+        (construct-arglist operand-codes)
+        (compile-procedure-call target
+                                linkage)))))
 \end{codeBlock}
 
 \noindent
@@ -4539,32 +4664,43 @@ sequences from the order supplied by \code{compile\-/application}.
 (define (construct-arglist operand-codes)
   (let ((operand-codes (reverse operand-codes)))
     (if (null? operand-codes)
-        (make-instruction-sequence '() '(argl)
-         '((assign argl (const ()))))
+        (make-instruction-sequence
+          '() '(argl)
+          '((assign argl (const ()))))
         (let ((code-to-get-last-arg
-               (append-instruction-sequences
-                (car operand-codes)
-                (make-instruction-sequence '(val) '(argl)
-                 '((assign argl (op list) (reg val)))))))
+                (append-instruction-sequences
+                  (car operand-codes)
+                  (make-instruction-sequence
+                    '(val) '(argl)
+                    '((assign argl
+                              (op list)
+                              (reg val)))))))
           (if (null? (cdr operand-codes))
               code-to-get-last-arg
-              (preserving '(env)
-               code-to-get-last-arg
-               (code-to-get-rest-args
-                (cdr operand-codes))))))))
+              (preserving
+                '(env)
+                code-to-get-last-arg
+                (code-to-get-rest-args
+                  (cdr operand-codes))))))))
 
 (define (code-to-get-rest-args operand-codes)
   (let ((code-for-next-arg
-         (preserving '(argl)
-          (car operand-codes)
-          (make-instruction-sequence '(val argl) '(argl)
-           '((assign argl
-              (op cons) (reg val) (reg argl)))))))
+          (preserving
+            '(argl)
+            (car operand-codes)
+            (make-instruction-sequence
+              '(val argl) '(argl)
+              '((assign argl
+                        (op cons)
+                        (reg val)
+                        (reg argl)))))))
     (if (null? (cdr operand-codes))
         code-for-next-arg
-        (preserving '(env)
-         code-for-next-arg
-         (code-to-get-rest-args (cdr operand-codes))))))
+        (preserving
+          '(env)
+          code-for-next-arg
+          (code-to-get-rest-args
+            (cdr operand-codes))))))
 \end{codeBlock}
 
 \subsubsection*{Applying procedures}
@@ -4603,30 +4739,42 @@ in \code{compile\-/if}.)
 
 \begin{codeBlock}
 (define (compile-procedure-call target linkage)
-  (let ((primitive-branch (make-label 'primitive-branch))
-        (compiled-branch (make-label 'compiled-branch))
-        (after-call (make-label 'after-call)))
+  (let ((primitive-branch
+          (make-label 'primitive-branch))
+        (compiled-branch
+          (make-label 'compiled-branch))
+        (after-call
+          (make-label 'after-call)))
 
     (let ((compiled-linkage
-           (if (eq? linkage 'next) after-call linkage)))
+            (if (eq? linkage 'next)
+                after-call
+                linkage)))
       (append-instruction-sequences
-       (make-instruction-sequence '(proc) '()
-        `((test (op primitive-procedure?) (reg proc))
-          (branch (label ,primitive-branch))))
-       (parallel-instruction-sequences
-        (append-instruction-sequences
-         compiled-branch
-         (compile-proc-appl target compiled-linkage))
-        (append-instruction-sequences
-         primitive-branch
-         (end-with-linkage linkage
-          (make-instruction-sequence '(proc argl)
-                                     (list target)
-           `((assign ,target
-                     (op apply-primitive-procedure)
-                     (reg proc)
-                     (reg argl)))))))
-       after-call))))
+        (make-instruction-sequence
+          '(proc) '()
+          `((test (op primitive-procedure?)
+                  (reg proc))
+            (branch (label ,primitive-branch))))
+        (parallel-instruction-sequences
+          (append-instruction-sequences
+            compiled-branch
+            (compile-proc-appl target
+                               compiled-linkage))
+          (append-instruction-sequences
+            primitive-branch
+            (end-with-linkage
+              linkage
+              (make-instruction-sequence
+                '(proc argl)
+                (list target)
+                `((assign
+                    ,target
+                    (op
+                      apply-primitive-procedure)
+                    (reg proc)
+                    (reg argl)))))))
+        after-call))))
 \end{codeBlock}
 
 \noindent
@@ -4766,34 +4914,44 @@ compiled procedure.
 
 \begin{codeBlock}
 (define (compile-proc-appl target linkage)
-  (cond ((and (eq? target 'val) (not (eq? linkage 'return)))
-         (make-instruction-sequence '(proc) all-regs
+  (cond ((and (eq? target 'val)
+              (not (eq? linkage 'return)))
+         (make-instruction-sequence
+           '(proc) all-regs
            `((assign continue (label ,linkage))
-             (assign val (op compiled-procedure-entry)
-                         (reg proc))
+             (assign val
+                     (op compiled-procedure-entry)
+                     (reg proc))
              (goto (reg val)))))
         ((and (not (eq? target 'val))
               (not (eq? linkage 'return)))
          (let ((proc-return (make-label 'proc-return)))
-           (make-instruction-sequence '(proc) all-regs
-            `((assign continue (label ,proc-return))
-              (assign val (op compiled-procedure-entry)
-                          (reg proc))
-              (goto (reg val))
-              ,proc-return
-              (assign ,target (reg val))
-              (goto (label ,linkage))))))
-        ((and (eq? target 'val) (eq? linkage 'return))
+           (make-instruction-sequence
+             '(proc) all-regs
+             `((assign continue
+                       (label ,proc-return))
+               (assign val
+                       (op compiled-procedure-entry)
+                       (reg proc))
+               (goto (reg val))
+               ,proc-return
+               (assign ,target
+                       (reg val))
+               (goto (label ,linkage))))))
+        ((and (eq? target 'val)
+              (eq? linkage 'return))
          (make-instruction-sequence
-          '(proc continue)
-          all-regs
-          '((assign val (op compiled-procedure-entry)
-                        (reg proc))
-            (goto (reg val)))))
+           '(proc continue)
+           all-regs
+           '((assign val
+                     (op compiled-procedure-entry)
+                     (reg proc))
+             (goto (reg val)))))
         ((and (not (eq? target 'val))
               (eq? linkage 'return))
-         (error "return linkage, target not val: COMPILE"
-                target))))
+         (error
+           "return linkage, target not val: COMPILE"
+           target))))
 \end{codeBlock}
 
 \subsection{Combining Instruction Sequences}
@@ -4882,13 +5040,23 @@ lists, similar to the (unordered) set representation described in
 \begin{codeBlock}
 (define (list-union s1 s2)
   (cond ((null? s1) s2)
-        ((memq (car s1) s2) (list-union (cdr s1) s2))
-        (else (cons (car s1) (list-union (cdr s1) s2)))))
+        ((memq (car s1)
+               s2)
+         (list-union (cdr s1)
+                     s2))
+        (else (cons (car s1)
+                    (list-union (cdr s1)
+                                s2)))))
 (define (list-difference s1 s2)
   (cond ((null? s1) '())
-        ((memq (car s1) s2) (list-difference (cdr s1) s2))
-        (else (cons (car s1)
-                    (list-difference (cdr s1) s2)))))
+        ((memq (car s1)
+               s2)
+         (list-difference (cdr s1)
+                          s2))
+        (else
+          (cons (car s1)
+                (list-difference (cdr s1)
+                                 s2)))))
 \end{codeBlock}
 
 \noindent
@@ -4916,19 +5084,26 @@ shown in this book accepts only two arguments, Scheme standardly provides an
   (if (null? regs)
       (append-instruction-sequences seq1 seq2)
       (let ((first-reg (car regs)))
-        (if (and (needs-register? seq2 first-reg)
-                 (modifies-register? seq1 first-reg))
-            (preserving (cdr regs)
-             (make-instruction-sequence
-              (list-union (list first-reg)
-                          (registers-needed seq1))
-              (list-difference (registers-modified seq1)
-                               (list first-reg))
-              (append `((save ,first-reg))
-                      (statements seq1)
-                      `((restore ,first-reg))))
-             seq2)
-            (preserving (cdr regs) seq1 seq2)))))
+        (if
+          (and (needs-register? seq2 first-reg)
+               (modifies-register? seq1 first-reg))
+          (preserving
+            (cdr regs)
+            (make-instruction-sequence
+              (list-union
+                (list first-reg)
+                (registers-needed seq1))
+              (list-difference
+                (registers-modified seq1)
+                (list first-reg))
+              (append
+                `((save ,first-reg))
+                (statements seq1)
+                `((restore ,first-reg))))
+            seq2)
+          (preserving (cdr regs)
+                      seq1
+                      seq2)))))
 \end{codeBlock}
 
 \noindent
@@ -5099,17 +5274,30 @@ the registers in question.
 
 \begin{codeBlock}
   (assign proc
-          (op lookup-variable-value) (const =) (reg env))
-  (assign val (const 1))
-  (assign argl (op list) (reg val))
+          (op lookup-variable-value)
+          (const =)
+          (reg env))
   (assign val
-          (op lookup-variable-value) (const n) (reg env))
-  (assign argl (op cons) (reg val) (reg argl))
+          (const 1))
+  (assign argl
+          (op list)
+          (reg val))
+  (assign val
+          (op lookup-variable-value)
+          (const n)
+          (reg env))
+  (assign argl
+          (op cons)
+          (reg val)
+          (reg argl))
   (test (op primitive-procedure?) (reg proc))
   (branch (label primitive-branch17))
 compiled-branch16
-  (assign continue (label after-call15))
-  (assign val (op compiled-procedure-entry) (reg proc))
+  (assign continue
+          (label after-call15))
+  (assign val
+          (op compiled-procedure-entry)
+          (reg proc))
   (goto (reg val))
 primitive-branch17
   (assign val
