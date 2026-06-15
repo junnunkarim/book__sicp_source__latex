@@ -45,11 +45,11 @@ compound data objects enables us to deal with data at a higher conceptual level
 than that of the primitive data objects of the language.
 
 Consider the task of designing a system to perform arithmetic with rational
-numbers.  We could imagine an operation \code{add-rat} that takes two rational
+numbers.  We could imagine an operation \code{add\-/rat} that takes two rational
 numbers and produces their sum.  In terms of simple data, a rational number can
 be thought of as two integers: a numerator and a denominator.  Thus, we could
 design a program in which each rational number would be represented by two
-integers (a numerator and a denominator) and where \code{add-rat} would be
+integers (a numerator and a denominator) and where \code{add\-/rat} would be
 implemented by two procedures (one producing the numerator of the sum and one
 producing the denominator).  But this would be awkward, because we would then
 need to explicitly keep track of which numerators corresponded to which
@@ -101,15 +101,15 @@ where \code{add} and \code{mul} are not the primitive procedures \code{+} and
 \code{*} but rather more complex things that will perform the appropriate
 operations for whatever kinds of data we pass in as the arguments \code{a},
 \code{b}, \code{x}, and \code{y}. The key point is that the only thing
-\code{linear-combination} should need to know about \code{a}, \code{b},
+\code{linear\-/combination} should need to know about \code{a}, \code{b},
 \code{x}, and \code{y} is that the procedures \code{add} and \code{mul} will
 perform the appropriate manipulations.  From the perspective of the procedure
-\code{linear-combination}, it is irrelevant what \code{a}, \code{b}, \code{x},
+\code{linear\-/combination}, it is irrelevant what \code{a}, \code{b}, \code{x},
 and \code{y} are and even more irrelevant how they might happen to be
 represented in terms of more primitive data.  This same example shows why it is
 important that our programming language provide the ability to manipulate
 compound objects directly: Without this, there is no way for a procedure such
-as \code{linear-combination} to pass its arguments along to \code{add} and
+as \code{linear\-/combination} to pass its arguments along to \code{add} and
 \code{mul} without having to know their detailed structure.\footnote{The
 ability to directly manipulate procedures provides an analogous increase in the
 expressive power of a programming language.  For example, in
@@ -236,7 +236,7 @@ the denominator of the rational number \( \langle x \rangle \).
 \noindent
 We are using here a powerful strategy of synthesis: \newterm{wishful thinking}.
 We haven't yet said how a rational number is represented, or how the procedures
-\code{numer}, \code{denom}, and \code{make-rat} should be implemented.  Even
+\code{numer}, \code{denom}, and \code{make\-/rat} should be implemented.  Even
 so, if we did have these three procedures, we could then add, subtract,
 multiply, divide, and test equality by using the following relations:
 
@@ -274,7 +274,7 @@ We can express these rules as procedures:
 \end{codeBlock}
 
 Now we have the operations on rational numbers defined in terms of the selector
-and constructor procedures \code{numer}, \code{denom}, and \code{make-rat}.
+and constructor procedures \code{numer}, \code{denom}, and \code{make\-/rat}.
 But we haven't yet defined these.  What we need is some way to glue together a
 numerator and a denominator to form a rational number.
 
@@ -329,7 +329,7 @@ only glue we need.  Data objects constructed from pairs are called
 
 Pairs offer a natural way to complete the rational-number system.  Simply
 represent a rational number as a pair of two integers: a numerator and a
-denominator.  Then \code{make-rat}, \code{numer}, and \code{denom} are readily
+denominator.  Then \code{make\-/rat}, \code{numer}, and \code{denom} are readily
 implemented as follows:\footnote{Another way to define the selectors and
 constructor is
 
@@ -339,17 +339,17 @@ constructor is
 (define denom cdr)
 \end{compactCodeBlock}
 
-The first definition associates the name \code{make-rat} with the value of the
+The first definition associates the name \code{make\-/rat} with the value of the
 expression \code{cons}, which is the primitive procedure that constructs pairs.
-Thus \code{make-rat} and \code{cons} are names for the same primitive
+Thus \code{make\-/rat} and \code{cons} are names for the same primitive
 constructor.
 
 Defining selectors and constructors in this way is efficient: Instead of
-\code{make-rat} \emph{calling} \code{cons}, \code{make-rat} \emph{is}
+\code{make\-/rat} \emph{calling} \code{cons}, \code{make\-/rat} \emph{is}
 \code{cons}, so there is only one procedure called, not two, when
-\code{make-rat} is called.  On the other hand, doing this defeats debugging
+\code{make\-/rat} is called.  On the other hand, doing this defeats debugging
 aids that trace procedure calls or put breakpoints on procedure calls: You may
-want to watch \code{make-rat} being called, but you certainly don't want to
+want to watch \code{make\-/rat} being called, but you certainly don't want to
 watch every call to \code{cons}.
 
 We have chosen not to use this style of definition in this book.}
@@ -365,9 +365,9 @@ Also, in order to display the results of our computations, we can print
 rational numbers by printing the numerator, a slash, and the
 denominator:\footnote{\code{display} is the Scheme primitive for printing data.
 The Scheme primitive \code{newline} starts a new line for printing.  Neither of
-these procedures returns a useful value, so in the uses of \code{print-rat}
-below, we show only what \code{print-rat} prints, not what the interpreter
-prints as the value returned by \code{print-rat}.}
+these procedures returns a useful value, so in the uses of \code{print\-/rat}
+below, we show only what \code{print\-/rat} prints, not what the interpreter
+prints as the value returned by \code{print\-/rat}.}
 
 \begin{codeBlock}
 (define (print-rat x)
@@ -396,7 +396,7 @@ Now we can try our rational-number procedures:
 \noindent
 As the final example shows, our rational-number implementation does not reduce
 rational numbers to lowest terms.  We can remedy this by changing
-\code{make-rat}. If we have a \code{gcd} procedure like the one in
+\code{make\-/rat}. If we have a \code{gcd} procedure like the one in
 \link{Section 1.2.5} that produces the greatest common divisor of two integers, we can
 use \code{gcd} to reduce the numerator and the denominator to lowest terms
 before constructing the pair:
@@ -417,13 +417,13 @@ Now we have
 
 \noindent
 as desired.  This modification was accomplished by changing the constructor
-\code{make-rat} without changing any of the procedures (such as \code{add-rat}
-and \code{mul-rat}) that implement the actual operations.
+\code{make\-/rat} without changing any of the procedures (such as \code{add\-/rat}
+and \code{mul\-/rat}) that implement the actual operations.
 
 \begin{exerciseGroup}
 \exerciseHeading{\phantomsection\label{Exercise 2.1}Exercise 2.1:} Define a better version of
-\code{make-rat} that handles both positive and negative arguments.
-\code{make-rat} should normalize the sign so that if the rational number is
+\code{make\-/rat} that handles both positive and negative arguments.
+\code{make\-/rat} should normalize the sign so that if the rational number is
 positive, both the numerator and denominator are positive, and if the rational
 number is negative, only the numerator is negative.
 \end{exerciseGroup}
@@ -434,7 +434,7 @@ number is negative, only the numerator is negative.
 Before continuing with more examples of compound data and data abstraction, let
 us consider some of the issues raised by the rational-number example.  We
 defined the rational-number operations in terms of a constructor
-\code{make-rat} and selectors \code{numer} and \code{denom}.  In general, the
+\code{make\-/rat} and selectors \code{numer} and \code{denom}.  In general, the
 underlying idea of data abstraction is to identify for each type of data object
 a basic set of operations in terms of which all manipulations of data objects
 of that type will be expressed, and then to use only those operations in
@@ -451,10 +451,10 @@ barriers} that isolate different ``levels'' of the system.  At each level, the
 barrier separates the programs (above) that use the data abstraction from the
 programs (below) that implement the data abstraction.  Programs that use
 rational numbers manipulate them solely in terms of the procedures supplied
-``for public use'' by the rational-number package: \code{add-rat},
-\code{sub-rat}, \code{mul-rat}, \code{div-rat}, and \code{equal-rat?}. These,
+``for public use'' by the rational-number package: \code{add\-/rat},
+\code{sub\-/rat}, \code{mul\-/rat}, \code{div\-/rat}, and \code{equal\-/rat?}. These,
 in turn, are implemented solely in terms of the constructor and selectors
-\code{make-rat}, \code{numer}, and \code{denom}, which themselves are
+\code{make\-/rat}, \code{numer}, and \code{denom}, which themselves are
 implemented in terms of pairs.  The details of how pairs are implemented are
 irrelevant to the rest of the rational-number package so long as pairs can be
 manipulated by the use of \code{cons}, \code{car}, and \code{cdr}.  In effect,
@@ -493,7 +493,7 @@ the numerators and denominators of the same rational numbers many times, it
 would be preferable to compute the \code{gcd} when the rational numbers are
 constructed.  If not, we may be better off waiting until access time to compute
 the \code{gcd}.  In any case, when we change from one representation to the
-other, the procedures \code{add-rat}, \code{sub-rat}, and so on do not have to
+other, the procedures \code{add\-/rat}, \code{sub\-/rat}, and so on do not have to
 be modified at all.
 
 Constraining the dependence on the representation to a few interface procedures
@@ -509,13 +509,13 @@ the system.
 \exerciseHeading{\phantomsection\label{Exercise 2.2}Exercise 2.2:} Consider the problem of
 representing line segments in a plane.  Each segment is represented as a pair
 of points: a starting point and an ending point.  Define a constructor
-\code{make-segment} and selectors \code{start-segment} and \code{end-segment}
+\code{make\-/segment} and selectors \code{start\-/segment} and \code{end\-/segment}
 that define the representation of segments in terms of points.  Furthermore, a
 point can be represented as a pair of numbers: the \( x \) coordinate and the
-\( y \) coordinate.  Accordingly, specify a constructor \code{make-point} and
-selectors \code{x-point} and \code{y-point} that define this representation.
+\( y \) coordinate.  Accordingly, specify a constructor \code{make\-/point} and
+selectors \code{x\-/point} and \code{y\-/point} that define this representation.
 Finally, using your selectors and constructors, define a procedure
-\code{midpoint-segment} that takes a line segment as argument and returns its
+\code{midpoint\-/segment} that takes a line segment as argument and returns its
 midpoint (the point whose coordinates are the average of the coordinates of the
 endpoints).  To try your procedures, you'll need a way to print points:
 
@@ -542,8 +542,8 @@ using either representation?
 \label{Section 2.1.3}
 
 We began the rational-number implementation in \link{Section 2.1.1} by
-implementing the rational-number operations \code{add-rat}, \code{sub-rat}, and
-so on in terms of three unspecified procedures: \code{make-rat}, \code{numer},
+implementing the rational-number operations \code{add\-/rat}, \code{sub\-/rat}, and
+so on in terms of three unspecified procedures: \code{make\-/rat}, \code{numer},
 and \code{denom}.  At that point, we could think of the operations as being
 defined in terms of data objects---numerators, denominators, and rational
 numbers---whose behavior was specified by the latter three procedures.
@@ -555,9 +555,9 @@ for the rational-number implementation.  We need to guarantee that, if we
 construct a rational number \code{x} from a pair of integers \code{n} and
 \code{d}, then extracting the \code{numer} and the \code{denom} of \code{x} and
 dividing them should yield the same result as dividing \code{n} by \code{d}.
-In other words, \code{make-rat}, \code{numer}, and \code{denom} must satisfy
+In other words, \code{make\-/rat}, \code{numer}, and \code{denom} must satisfy
 the condition that, for any integer \code{n} and any non-zero integer \code{d},
-if \code{x} is \code{(make-rat n d)}, then
+if \code{x} is \code{(make\-/rat n d)}, then
 
 \[
 \frac{\texttt{(numer x)}}{\texttt{(denom x)}}
@@ -565,7 +565,7 @@ if \code{x} is \code{(make-rat n d)}, then
 \frac{\texttt{n}}{\texttt{d}}\,.
 \]
 
-In fact, this is the only condition \code{make-rat}, \code{numer}, and
+In fact, this is the only condition \code{make\-/rat}, \code{numer}, and
 \code{denom} must fulfill in order to form a suitable basis for a
 rational-number representation.  In general, we can think of data as defined by
 some collection of selectors and constructors, together with specified
@@ -687,9 +687,9 @@ This representation is known as \newterm{Church numerals}, after its inventor,
 Alonzo Church, the logician who invented the λ-calculus.
 
 Define \code{one} and \code{two} directly (not in terms of \code{zero} and
-\code{add-1}).  (Hint: Use substitution to evaluate \code{(add-1 zero)}).  Give
+\code{add\-/1}).  (Hint: Use substitution to evaluate \code{(add\-/1 zero)}).  Give
 a direct definition of the addition procedure \code{+} (not in terms of
-repeated application of \code{add-1}).
+repeated application of \code{add\-/1}).
 \end{exerciseGroup}
 
 \subsection{Extended Exercise: Interval Arithmetic}
@@ -726,7 +726,7 @@ range of the result.
 Alyssa postulates the existence of an abstract object called an ``interval''
 that has two endpoints: a lower bound and an upper bound.  She also presumes
 that, given the endpoints of an interval, she can construct the interval using
-the data constructor \code{make-interval}.  Alyssa first writes a procedure for
+the data constructor \code{make\-/interval}.  Alyssa first writes a procedure for
 adding two intervals.  She reasons that the minimum value the sum could be is
 the sum of the two lower bounds and the maximum value it could be is the sum of
 the two upper bounds:
@@ -775,12 +775,12 @@ Here is a definition of the interval constructor:
 (define (make-interval a b) (cons a b))
 \end{codeBlock}
 
-Define selectors \code{upper-bound} and \code{lower-bound} to complete the
+Define selectors \code{upper\-/bound} and \code{lower\-/bound} to complete the
 implementation.
 
 \exerciseHeading{\phantomsection\label{Exercise 2.8}Exercise 2.8:} Using reasoning analogous to
 Alyssa's, describe how the difference of two intervals may be computed.  Define
-a corresponding subtraction procedure, called \code{sub-interval}.
+a corresponding subtraction procedure, called \code{sub\-/interval}.
 
 \exerciseHeading{\phantomsection\label{Exercise 2.9}Exercise 2.9:} The \newterm{width} of an interval
 is half of the difference between its upper and lower bounds.  The width is a
@@ -799,7 +799,7 @@ check for this condition and to signal an error if it occurs.
 
 \exerciseHeading{\phantomsection\label{Exercise 2.11}Exercise 2.11:} In passing, Ben also cryptically
 comments: ``By testing the signs of the endpoints of the intervals, it is
-possible to break \code{mul-interval} into nine cases, only one of which
+possible to break \code{mul\-/interval} into nine cases, only one of which
 requires more than two multiplications.''  Rewrite this procedure using Ben's
 suggestion.
 
@@ -826,7 +826,7 @@ Engineers usually specify percentage tolerances on the parameters of devices,
 as in the resistor specifications given earlier.
 
 \exerciseHeading{\phantomsection\label{Exercise 2.12}Exercise 2.12:} Define a constructor
-\code{make-center-percent} that takes a center and a percentage tolerance and
+\code{make\-/center\-/percent} that takes a center and a percentage tolerance and
 produces the desired interval.  You must also define a selector \code{percent}
 that produces the percentage tolerance for a given interval.  The \code{center}
 selector is the same as the one shown above.
@@ -1084,18 +1084,18 @@ introduced quotation in \link{Section 2.3}, we will denote the empty list as
 
 The use of pairs to represent sequences of elements as lists is accompanied by
 conventional programming techniques for manipulating lists by successively
-``\code{cdr}ing down'' the lists.  For example, the procedure \code{list-ref}
+``\code{cdr}ing down'' the lists.  For example, the procedure \code{list\-/ref}
 takes as arguments a list and a number \( n \) and returns the \( n^{\mathrm{th}} \) item of
 the list.  It is customary to number the elements of the list beginning with 0.
-The method for computing \code{list-ref} is the following:
+The method for computing \code{list\-/ref} is the following:
 
 \begin{itemize}
 
 \item
-For \( n = 0 \), \code{list-ref} should return the \code{car} of the list.
+For \( n = 0 \), \code{list\-/ref} should return the \code{car} of the list.
 
 \item
-Otherwise, \code{list-ref} should return  the \( (n - 1) \)-st item of the
+Otherwise, \code{list\-/ref} should return  the \( (n - 1) \)-st item of the
 \code{cdr} of the list.
 
 \end{itemize}
@@ -1196,7 +1196,7 @@ Otherwise, \code{append} the \code{cdr} of \code{list1} and \code{list2}, and
 
 \begin{exerciseGroup}
 \exerciseHeading{\phantomsection\label{Exercise 2.17}Exercise 2.17:} Define a procedure
-\code{last-pair} that returns the list that contains only the last element of a
+\code{last\-/pair} that returns the list that contains only the last element of a
 given (nonempty) list:
 
 \begin{codeBlock}
@@ -1218,7 +1218,7 @@ program of \link{Section 1.2.2}.  It would be nice to be able to easily change
 the currency used by the program, so that we could compute the number of ways
 to change a British pound, for example.  As the program is written, the
 knowledge of the currency is distributed partly into the procedure
-\code{first-denomination} and partly into the procedure \code{count-change}
+\code{first\-/denomination} and partly into the procedure \code{count\-/change}
 (which knows that there are five kinds of U.S. coins).  It would be nicer to be
 able to supply a list of coins to be used for making change.
 
@@ -1256,9 +1256,9 @@ follows:
                 coin-values)))))
 \end{codeBlock}
 
-Define the procedures \code{first-denomination},
-\code{except-first-denomination}, and \code{no-more?} in terms of primitive
-operations on list structures.  Does the order of the list \code{coin-values}
+Define the procedures \code{first\-/denomination},
+\code{except\-/first\-/denomination}, and \code{no\-/more?} in terms of primitive
+operations on list structures.  Does the order of the list \code{coin\-/values}
 affect the answer produced by \code{cc}?  Why or why not?
 
 \exerciseHeading{\phantomsection\label{Exercise 2.20}Exercise 2.20:} The procedures \code{+},
@@ -1309,7 +1309,7 @@ write
 \end{compactCodeBlock}
 }
 
-Use this notation to write a procedure \code{same-parity} that takes one or
+Use this notation to write a procedure \code{same\-/parity} that takes one or
 more integers and returns a list of all the arguments that have the same
 even-odd parity as the first argument.  For example,
 
@@ -1373,7 +1373,7 @@ of the lists, and so on, returning a list of the results.  For example:
 \end{codeBlock}
 
 \noindent
-Now we can give a new definition of \code{scale-list} in terms of \code{map}:
+Now we can give a new definition of \code{scale\-/list} in terms of \code{map}:
 
 \begin{codeBlock}
 (define (scale-list items factor)
@@ -1384,9 +1384,9 @@ Now we can give a new definition of \code{scale-list} in terms of \code{map}:
 \noindent
 \code{map} is an important construct, not only because it captures a common
 pattern, but because it establishes a higher level of abstraction in dealing
-with lists.  In the original definition of \code{scale-list}, the recursive
+with lists.  In the original definition of \code{scale\-/list}, the recursive
 structure of the program draws attention to the element-by-element processing
-of the list.  Defining \code{scale-list} in terms of \code{map} suppresses that
+of the list.  Defining \code{scale\-/list} in terms of \code{map} suppresses that
 level of detail and emphasizes that scaling transforms a list of elements to a
 list of results.  The difference between the two definitions is not that the
 computer is performing a different process (it isn't) but that we think about
@@ -1400,7 +1400,7 @@ sequences to sequences.  \link{Section 2.2.3} expands on this use of sequences
 as a framework for organizing programs.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 2.21}Exercise 2.21:} The procedure \code{square-list}
+\exerciseHeading{\phantomsection\label{Exercise 2.21}Exercise 2.21:} The procedure \code{square\-/list}
 takes a list of numbers as argument and returns a list of the squares of those
 numbers.
 
@@ -1409,7 +1409,7 @@ numbers.
 ~\textit{(1 4 9 16)}~
 \end{codeBlock}
 
-Here are two different definitions of \code{square-list}.  Complete both of
+Here are two different definitions of \code{square\-/list}.  Complete both of
 them by filling in the missing expressions:
 
 \begin{codeBlock}
@@ -1422,7 +1422,7 @@ them by filling in the missing expressions:
 \end{codeBlock}
 
 \exerciseHeading{\phantomsection\label{Exercise 2.22}Exercise 2.22:} Louis Reasoner tries to rewrite
-the first \code{square-list} procedure of \link{Exercise 2.21} so that it
+the first \code{square\-/list} procedure of \link{Exercise 2.21} so that it
 evolves an iterative process:
 
 \begin{codeBlock}
@@ -1436,7 +1436,7 @@ evolves an iterative process:
   (iter items nil))
 \end{codeBlock}
 
-Unfortunately, defining \code{square-list} this way produces the answer list in
+Unfortunately, defining \code{square\-/list} this way produces the answer list in
 the reverse order of the one desired.  Why?
 
 Louis then tries to fix his bug by interchanging the arguments to \code{cons}:
@@ -1454,12 +1454,12 @@ Louis then tries to fix his bug by interchanging the arguments to \code{cons}:
 
 This doesn't work either.  Explain.
 
-\exerciseHeading{\phantomsection\label{Exercise 2.23}Exercise 2.23:} The procedure \code{for-each} is
+\exerciseHeading{\phantomsection\label{Exercise 2.23}Exercise 2.23:} The procedure \code{for\-/each} is
 similar to \code{map}.  It takes as arguments a procedure and a list of
-elements.  However, rather than forming a list of the results, \code{for-each}
+elements.  However, rather than forming a list of the results, \code{for\-/each}
 just applies the procedure to each of the elements in turn, from left to right.
 The values returned by applying the procedure to the elements are not used at
-all---\code{for-each} is used with procedures that perform an action, such as
+all---\code{for\-/each} is used with procedures that perform an action, such as
 printing.  For example,
 
 \begin{codeBlock}
@@ -1472,9 +1472,9 @@ printing.  For example,
 ~\textit{88}~
 \end{codeBlock}
 
-The value returned by the call to \code{for-each} (not illustrated above) can
+The value returned by the call to \code{for\-/each} (not illustrated above) can
 be something arbitrary, such as true.  Give an implementation of
-\code{for-each}.
+\code{for\-/each}.
 \end{exerciseGroup}
 
 \subsection{Hierarchical Structures}
@@ -1513,7 +1513,7 @@ Recursion is a natural tool for dealing with tree structures, since we can
 often reduce operations on trees to operations on their branches, which reduce
 in turn to operations on the branches of the branches, and so on, until we
 reach the leaves of the tree.  As an example, compare the \code{length}
-procedure of \link{Section 2.2.1} with the \code{count-leaves} procedure, which
+procedure of \link{Section 2.2.1} with the \code{count\-/leaves} procedure, which
 returns the total number of leaves of a tree:
 
 \begin{codeBlock}
@@ -1531,7 +1531,7 @@ returns the total number of leaves of a tree:
 \end{codeBlock}
 
 \noindent
-To implement \code{count-leaves}, recall the recursive plan for computing
+To implement \code{count\-/leaves}, recall the recursive plan for computing
 \code{length}:
 
 \begin{itemize}
@@ -1546,12 +1546,12 @@ To implement \code{count-leaves}, recall the recursive plan for computing
 \end{itemize}
 
 \noindent
-\code{count-leaves} is similar.  The value for the empty list is the same:
+\code{count\-/leaves} is similar.  The value for the empty list is the same:
 
 \begin{itemize}
 
 \item
-\code{count-leaves} of the empty list is 0.
+\code{count\-/leaves} of the empty list is 0.
 
 \end{itemize}
 
@@ -1563,8 +1563,8 @@ need to count.  Thus, the appropriate reduction step is
 \begin{itemize}
 
 \item
-\code{count-leaves} of a tree \code{x} is \code{count-leaves} of the \code{car}
-of \code{x} plus \code{count-leaves} of the \code{cdr} of \code{x}.
+\code{count\-/leaves} of a tree \code{x} is \code{count\-/leaves} of the \code{car}
+of \code{x} plus \code{count\-/leaves} of the \code{cdr} of \code{x}.
 
 \end{itemize}
 
@@ -1575,7 +1575,7 @@ case:
 \begin{itemize}
 
 \item
-\code{count-leaves} of a leaf is 1.
+\code{count\-/leaves} of a leaf is 1.
 
 \end{itemize}
 
@@ -1627,7 +1627,7 @@ following expressions:
 \end{codeBlock}
 
 \exerciseHeading{\phantomsection\label{Exercise 2.27}Exercise 2.27:} Modify your \code{reverse}
-procedure of \link{Exercise 2.18} to produce a \code{deep-reverse} procedure
+procedure of \link{Exercise 2.18} to produce a \code{deep\-/reverse} procedure
 that takes a list as argument and returns as its value the list with its
 elements reversed and with all sublists deep-reversed as well.  For example,
 
@@ -1677,12 +1677,12 @@ weight) or another mobile:
 \begin{enumerate}[a.]
 
 \item
-Write the corresponding selectors \code{left-branch} and \code{right-branch},
-which return the branches of a mobile, and \code{branch-length} and
-\code{branch-structure}, which return the components of a branch.
+Write the corresponding selectors \code{left\-/branch} and \code{right\-/branch},
+which return the branches of a mobile, and \code{branch\-/length} and
+\code{branch\-/structure}, which return the components of a branch.
 
 \item
-Using your selectors, define a procedure \code{total-weight} that returns the
+Using your selectors, define a procedure \code{total\-/weight} that returns the
 total weight of a mobile.
 
 \item
@@ -1712,11 +1712,11 @@ representation?
 
 Just as \code{map} is a powerful abstraction for dealing with sequences,
 \code{map} together with recursion is a powerful abstraction for dealing with
-trees.  For instance, the \code{scale-tree} procedure, analogous to
-\code{scale-list} of \link{Section 2.2.1}, takes as arguments a numeric factor
+trees.  For instance, the \code{scale\-/tree} procedure, analogous to
+\code{scale\-/list} of \link{Section 2.2.1}, takes as arguments a numeric factor
 and a tree whose leaves are numbers.  It returns a tree of the same shape,
 where each number is multiplied by the factor.  The recursive plan for
-\code{scale-tree} is similar to the one for \code{count-leaves}:
+\code{scale\-/tree} is similar to the one for \code{count\-/leaves}:
 
 \begin{codeBlock}
 (define (scale-tree tree factor)
@@ -1730,7 +1730,7 @@ where each number is multiplied by the factor.  The recursive plan for
 \end{codeBlock}
 
 \noindent
-Another way to implement \code{scale-tree} is to regard the tree as a sequence
+Another way to implement \code{scale\-/tree} is to regard the tree as a sequence
 of sub-trees and use \code{map}.  We map over the sequence, scaling each
 sub-tree in turn, and return the list of results.  In the base case, where the
 tree is a leaf, we simply multiply by the factor:
@@ -1750,8 +1750,8 @@ operations and recursion.
 
 \begin{exerciseGroup}
 \exerciseHeading{\phantomsection\label{Exercise 2.30}Exercise 2.30:} Define a procedure
-\code{square-tree} analogous to the \code{square-list} procedure of
-\link{Exercise 2.21}.  That is, \code{square-tree} should behave as follows:
+\code{square\-/tree} analogous to the \code{square\-/list} procedure of
+\link{Exercise 2.21}.  That is, \code{square\-/tree} should behave as follows:
 
 \begin{codeBlock}
 (square-tree
@@ -1761,12 +1761,12 @@ operations and recursion.
 ~\textit{(1 (4 (9 16) 25) (36 49))}~
 \end{codeBlock}
 
-Define \code{square-tree} both directly (i.e., without using any higher-order
+Define \code{square\-/tree} both directly (i.e., without using any higher-order
 procedures) and also by using \code{map} and recursion.
 
 \exerciseHeading{\phantomsection\label{Exercise 2.31}Exercise 2.31:} Abstract your answer to
-\link{Exercise 2.30} to produce a procedure \code{tree-map} with the property
-that \code{square-tree} could be defined as
+\link{Exercise 2.30} to produce a procedure \code{tree\-/map} with the property
+that \code{square\-/tree} could be defined as
 
 \begin{codeBlock}
 (define (square-tree tree) (tree-map square tree))
@@ -1803,7 +1803,7 @@ higher-order procedures, can capture common patterns in programs that deal with
 numerical data.  Our ability to formulate analogous operations for working with
 compound data depends crucially on the style in which we manipulate our data
 structures.  Consider, for example, the following procedure, analogous to the
-\code{count-leaves} procedure of \link{Section 2.2.2}, which takes a tree as
+\code{count\-/leaves} procedure of \link{Section 2.2.2}, which takes a tree as
 argument and computes the sum of the squares of the leaves that are odd:
 
 \begin{codeBlock}
@@ -1874,7 +1874,7 @@ empty list.
 \end{itemize}
 
 % figure 2.7
-\begin{imageFigure}{The signal-flow plans for the procedures \code{sum-odd-squares} (top) and \code{even-fibs} (bottom) reveal the commonality between the two programs.}
+\begin{imageFigure}{The signal-flow plans for the procedures \code{sum\-/odd\-/squares} (top) and \code{even\-/fibs} (bottom) reveal the commonality between the two programs.}
   \includegraphics[width=111mm]{assets/figures/chapter_2/figure_2.7d.pdf}
 \end{imageFigure}
 
@@ -1882,17 +1882,17 @@ empty list.
 A signal-processing engineer would find it natural to conceptualize these
 processes in terms of signals flowing through a cascade of stages, each of
 which implements part of the program plan, as shown in \link{Figure 2.7}.  In
-\code{sum-odd-squares}, we begin with an \newterm{enumerator}, which generates
+\code{sum\-/odd\-/squares}, we begin with an \newterm{enumerator}, which generates
 a ``signal'' consisting of the leaves of a given tree.  This signal is passed
 through a \newterm{filter}, which eliminates all but the odd elements.  The
 resulting signal is in turn passed through a \newterm{map}, which is a
 ``transducer'' that applies the \code{square} procedure to each element.  The
 output of the map is then fed to an \newterm{accumulator}, which combines the
 elements using \code{+}, starting from an initial 0.  The plan for
-\code{even-fibs} is analogous.
+\code{even\-/fibs} is analogous.
 
 Unfortunately, the two procedure definitions above fail to exhibit this
-signal-flow structure.  For instance, if we examine the \code{sum-odd-squares}
+signal-flow structure.  For instance, if we examine the \code{sum\-/odd\-/squares}
 procedure, we find that the enumeration is implemented partly by the
 \code{null?} and \code{pair?} tests and partly by the tree-recursive structure
 of the procedure.  Similarly, the accumulation is found partly in the tests and
@@ -1958,7 +1958,7 @@ Accumulations can be implemented by
 
 \noindent
 All that remains to implement signal-flow diagrams is to enumerate the sequence
-of elements to be processed.  For \code{even-fibs}, we need to generate the
+of elements to be processed.  For \code{even\-/fibs}, we need to generate the
 sequence of integers in a given range, which we can do as follows:
 
 \begin{codeBlock}
@@ -1987,8 +1987,8 @@ sequence-manipulation procedures.}
 \end{codeBlock}
 
 \noindent
-Now we can reformulate \code{sum-odd-squares} and \code{even-fibs} as in the
-signal-flow diagrams.  For \code{sum-odd-squares}, we enumerate the sequence of
+Now we can reformulate \code{sum\-/odd\-/squares} and \code{even\-/fibs} as in the
+signal-flow diagrams.  For \code{sum\-/odd\-/squares}, we enumerate the sequence of
 leaves of the tree, filter this to keep only the odd numbers in the sequence,
 square each element, and sum the results:
 
@@ -2001,7 +2001,7 @@ square each element, and sum the results:
 \end{codeBlock}
 
 \noindent
-For \code{even-fibs}, we enumerate the integers from 0 to \( n \), generate the
+For \code{even\-/fibs}, we enumerate the integers from 0 to \( n \), generate the
 Fibonacci number for each of these integers, filter the resulting sequence to
 keep only the even elements, and accumulate the results into a list:
 
@@ -2025,8 +2025,8 @@ engineering design.  In real signal-processing applications, for example,
 designers regularly build systems by cascading elements selected from
 standardized families of filters and transducers.  Similarly, sequence
 operations provide a library of standard program elements that we can mix and
-match.  For instance, we can reuse pieces from the \code{sum-odd-squares} and
-\code{even-fibs} procedures in a program that constructs a list of the squares
+match.  For instance, we can reuse pieces from the \code{sum\-/odd\-/squares} and
+\code{even\-/fibs} procedures in a program that constructs a list of the squares
 of the first \( n + 1 \) Fibonacci numbers:
 
 \begin{codeBlock}
@@ -2155,7 +2155,7 @@ would evaluate
 (horner-eval 2 (list 1 3 0 5 0 1))
 \end{codeBlock}
 
-\exerciseHeading{\phantomsection\label{Exercise 2.35}Exercise 2.35:} Redefine \code{count-leaves} from
+\exerciseHeading{\phantomsection\label{Exercise 2.35}Exercise 2.35:} Redefine \code{count\-/leaves} from
 \link{Section 2.2.2} as an accumulation:
 
 \begin{codeBlock}
@@ -2163,16 +2163,16 @@ would evaluate
   (accumulate ~\(\langle \)~??~\(\rangle \)~ ~\(\langle \)~??~\(\rangle \)~ (map ~\(\langle \)~??~\(\rangle \)~ ~\(\langle \)~??~\(\rangle \)~)))
 \end{codeBlock}
 
-\exerciseHeading{\phantomsection\label{Exercise 2.36}Exercise 2.36:} The procedure \code{accumulate-n}
+\exerciseHeading{\phantomsection\label{Exercise 2.36}Exercise 2.36:} The procedure \code{accumulate\-/n}
 is similar to \code{accumulate} except that it takes as its third argument a
 sequence of sequences, which are all assumed to have the same number of
 elements.  It applies the designated accumulation procedure to combine all the
 first elements of the sequences, all the second elements of the sequences, and
 so on, and returns a sequence of the results.  For instance, if \code{s} is a
 sequence containing four sequences, \code{((1 2 3) (4 5 6) (7 8 9) (10 11
-12)),} then the value of \code{(accumulate-n + 0 s)} should be the sequence
+12)),} then the value of \code{(accumulate\-/n + 0 s)} should be the sequence
 \code{(22 26 30)}.  Fill in the missing expressions in the following definition
-of \code{accumulate-n}:
+of \code{accumulate\-/n}:
 
 \begin{codeBlock}
 (define (accumulate-n op init seqs)
@@ -2224,7 +2224,7 @@ version of \code{map} described in \link{Footnote 12}.}
 \end{codeBlock}
 
 Fill in the missing expressions in the following procedures for computing the
-other matrix operations.  (The procedure \code{accumulate-n} is defined in
+other matrix operations.  (The procedure \code{accumulate\-/n} is defined in
 \link{Exercise 2.36}.)
 
 \begin{codeBlock}
@@ -2238,9 +2238,9 @@ other matrix operations.  (The procedure \code{accumulate-n} is defined in
 \end{codeBlock}
 
 \exerciseHeading{\phantomsection\label{Exercise 2.38}Exercise 2.38:} The \code{accumulate} procedure
-is also known as \code{fold-right}, because it combines the first element of
+is also known as \code{fold\-/right}, because it combines the first element of
 the sequence with the result of combining all the elements to the right.  There
-is also a \code{fold-left}, which is similar to \code{fold-right}, except that
+is also a \code{fold\-/left}, which is similar to \code{fold\-/right}, except that
 it combines elements working in the opposite direction:
 
 \begin{codeBlock}
@@ -2263,12 +2263,12 @@ What are the values of
 \end{codeBlock}
 
 Give a property that \code{op} should satisfy to guarantee that
-\code{fold-right} and \code{fold-left} will produce the same values for any
+\code{fold\-/right} and \code{fold\-/left} will produce the same values for any
 sequence.
 
 \exerciseHeading{\phantomsection\label{Exercise 2.39}Exercise 2.39:} Complete the following
 definitions of \code{reverse} (\link{Exercise 2.18}) in terms of
-\code{fold-right} and \code{fold-left} from \link{Exercise 2.38}:
+\code{fold\-/right} and \code{fold\-/left} from \link{Exercise 2.38}:
 
 \begin{codeBlock}
 (define (reverse sequence)
@@ -2310,8 +2310,8 @@ that passes through the filter, produce the triple \( (i, j, i + j) \).
 Here is a way to generate the sequence of pairs: For each integer \( i \le n \),
 enumerate the integers \( j < i \), and for each such \( i \) and \( j \)
 generate the pair \( (i, j) \).  In terms of sequence operations, we map along
-the sequence \code{(enumerate-interval 1 n)}.  For each \( i \) in this sequence,
-we map along the sequence \code{(enumerate-interval 1 (- i 1))}.  For each
+the sequence \code{(enumerate\-/interval 1 n)}.  For each \( i \) in this sequence,
+we map along the sequence \code{(enumerate\-/interval 1 (- i 1))}.  For each
 \( j \) in this latter sequence, we generate the pair \code{(list i j)}.  This
 gives us a sequence of pairs for each \( i \).  Combining all the sequences for
 all the \( i \) (by accumulating with \code{append}) produces the required
@@ -2418,9 +2418,9 @@ filter:
 
 \begin{exerciseGroup}
 \exerciseHeading{\phantomsection\label{Exercise 2.40}Exercise 2.40:} Define a procedure
-\code{unique-pairs} that, given an integer \( n \), generates the sequence of
-pairs \( (i, j) \) with \( 1 \le j < i \le n \).  Use \code{unique-pairs}
-to simplify the definition of \code{prime-sum-pairs} given above.
+\code{unique\-/pairs} that, given an integer \( n \), generates the sequence of
+pairs \( (i, j) \) with \( 1 \le j < i \le n \).  Use \code{unique\-/pairs}
+to simplify the definition of \code{prime\-/sum\-/pairs} given above.
 
 \exerciseHeading{\phantomsection\label{Exercise 2.41}Exercise 2.41:} Write a procedure to find all
 ordered triples of distinct positive integers \( i \), \( j \), and \( k \) less than
@@ -2450,7 +2450,7 @@ produce not only one solution, but all solutions to the puzzle.
 We implement this solution as a procedure \code{queens}, which returns a
 sequence of all solutions to the problem of placing \( n \) queens on an
 \( n \times n \) chessboard.  \code{queens} has an internal procedure
-\code{queen-cols} that returns the sequence of all ways to place queens in the
+\code{queen\-/cols} that returns the sequence of all ways to place queens in the
 first \( k \) columns of the board.
 
 \begin{codeBlock}
@@ -2471,12 +2471,12 @@ first \( k \) columns of the board.
   (queen-cols board-size))
 \end{codeBlock}
 
-In this procedure \code{rest-of-queens} is a way to place \( k - 1 \) queens in
-the first \( k - 1 \) columns, and \code{new-row} is a proposed row in which to
+In this procedure \code{rest\-/of\-/queens} is a way to place \( k - 1 \) queens in
+the first \( k - 1 \) columns, and \code{new\-/row} is a proposed row in which to
 place the queen for the \( k^{\mathrm{th}} \) column.  Complete the program by implementing
 the representation for sets of board positions, including the procedure
-\code{adjoin-position}, which adjoins a new row-column position to a set of
-positions, and \code{empty-board}, which represents an empty set of positions.
+\code{adjoin\-/position}, which adjoins a new row-column position to a set of
+positions, and \code{empty\-/board}, which represents an empty set of positions.
 You must also write the procedure \code{safe?}, which determines for a set of
 positions, whether the queen in the \( k^{\mathrm{th}} \) column is safe with respect to the
 others.  (Note that we need only check whether the new queen is safe---the
@@ -2514,7 +2514,7 @@ composed of repeated elements that are shifted and scaled.\footnote{The picture
 language is based on the language Peter Henderson created to construct images
 like M.C. Escher's ``Square Limit'' woodcut (see \link{Henderson 1982}).  The woodcut
 incorporates a repeated scaled pattern, similar to the arrangements drawn using
-the \code{square-limit} procedure in this section.} In this language, the data
+the \code{square\-/limit} procedure in this section.} In this language, the data
 objects being combined are represented as procedures rather than as list
 structure.  Just as \code{cons}, which satisfies the closure property, allowed
 us to easily build arbitrarily complicated list structure, the operations in
@@ -2626,8 +2626,8 @@ the left half of the frame and the second painter's image in the right half of
 the frame.  Similarly, \code{below} takes two painters and produces a compound
 painter that draws the first painter's image below the second painter's image.
 Some operations transform a single painter to produce a new painter.  For
-example, \code{flip-vert} takes a painter and produces a painter that draws its
-image upside-down, and \code{flip-horiz} produces a painter that draws the
+example, \code{flip\-/vert} takes a painter and produces a painter that draws its
+image upside-down, and \code{flip\-/horiz} produces a painter that draws the
 original painter's image left-to-right reversed.
 
 \link{Figure 2.12} shows the drawing of a painter called
@@ -2678,7 +2678,7 @@ and define \code{wave4} as an instance of this pattern:
 \end{codeBlock}
 
 % figure 2.13
-\begin{imageFigure}{Recursive plans for \code{right-split} and \code{corner-split}.}
+\begin{imageFigure}{Recursive plans for \code{right\-/split} and \code{corner\-/split}.}
   \includegraphics[width=111mm]{assets/figures/chapter_2/figure_2.13a.pdf}
 \end{imageFigure}
 
@@ -2713,8 +2713,8 @@ right (see exercise \link{Exercise 2.44} and figures \link{Figure 2.13} and \lin
 \end{codeBlock}
 
 \noindent
-By placing four copies of a \code{corner-split} appropriately, we obtain a
-pattern called \code{square-limit}, whose application to \code{wave} and
+By placing four copies of a \code{corner\-/split} appropriately, we obtain a
+pattern called \code{square\-/limit}, whose application to \code{wave} and
 \code{rogers} is shown in \link{Figure 2.9}:
 
 \begin{codeBlock}
@@ -2726,17 +2726,17 @@ pattern called \code{square-limit}, whose application to \code{wave} and
 
 \begin{exerciseGroup}
 \exerciseHeading{\phantomsection\label{Exercise 2.44}Exercise 2.44:} Define the procedure
-\code{up-split} used by \code{corner-split}.  It is similar to
-\code{right-split}, except that it switches the roles of \code{below} and
+\code{up\-/split} used by \code{corner\-/split}.  It is similar to
+\code{right\-/split}, except that it switches the roles of \code{below} and
 \code{beside}.
 \end{exerciseGroup}
 
 % figure 2.14
 \begin{imageFigure}
   {%
-    The recursive operations \code{right-split} and \code{corner-split}
+    The recursive operations \code{right\-/split} and \code{corner\-/split}
     applied to the painters \code{wave} and \code{rogers}. Combining four
-    \code{corner-split} figures produces symmetric \code{square-limit}
+    \code{corner\-/split} figures produces symmetric \code{square\-/limit}
     designs as shown in \link{Figure 2.9}.
   }%
   \includegraphics[width=91mm]{assets/figures/chapter_2/figure_2.14b.pdf}
@@ -2750,7 +2750,7 @@ we can view the painter operations as elements to manipulate and can write
 means of combination for these elements---procedures that take painter
 operations as arguments and create new painter operations.
 
-For example, \code{flipped-pairs} and \code{square-limit} each arrange four
+For example, \code{flipped\-/pairs} and \code{square\-/limit} each arrange four
 copies of a painter's image in a square pattern; they differ only in how they
 orient the copies.  One way to abstract this pattern of painter combination is
 with the following procedure, which takes four one-argument painter operations
@@ -2769,7 +2769,7 @@ respectively.
 \end{codeBlock}
 
 \noindent
-Then \code{flipped-pairs} can be defined in terms of \code{square-of-four} as
+Then \code{flipped\-/pairs} can be defined in terms of \code{square\-/of\-/four} as
 follows:\footnote{Equivalently, we could write
 
 \begin{compactCodeBlock}
@@ -2786,9 +2786,9 @@ follows:\footnote{Equivalently, we could write
 \end{codeBlock}
 
 \noindent
-and \code{square-limit} can be expressed as\footnote{\code{rotate180} rotates a
+and \code{square\-/limit} can be expressed as\footnote{\code{rotate180} rotates a
 painter by 180 degrees (see \link{Exercise 2.50}).  Instead of \code{rotate180}
-we could say \code{(compose flip-vert flip-horiz)}, using the \code{compose}
+we could say \code{(compose flip\-/vert flip\-/horiz)}, using the \code{compose}
 procedure from \link{Exercise 1.42}.}
 
 \begin{codeBlock}
@@ -2801,8 +2801,8 @@ procedure from \link{Exercise 1.42}.}
 \end{codeBlock}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 2.45}Exercise 2.45:} \code{right-split} and
-\code{up-split} can be expressed as instances of a general splitting operation.
+\exerciseHeading{\phantomsection\label{Exercise 2.45}Exercise 2.45:} \code{right\-/split} and
+\code{up\-/split} can be expressed as instances of a general splitting operation.
 Define a procedure \code{split} with the property that evaluating
 
 \begin{codeBlock}
@@ -2811,7 +2811,7 @@ Define a procedure \code{split} with the property that evaluating
 \end{codeBlock}
 
 \noindent
-produces procedures \code{right-split} and \code{up-split} with the same
+produces procedures \code{right\-/split} and \code{up\-/split} with the same
 behaviors as the ones already defined.
 \end{exerciseGroup}
 
@@ -2828,9 +2828,9 @@ more general parallelogram.
 \link{Figure 2.15} shows a frame and its associated vectors.
 In accordance with data abstraction, we need not be specific yet about how
 frames are represented, other than to say that there is a constructor
-\code{make-frame}, which takes three vectors and produces a frame, and three
-corresponding selectors \code{origin-frame}, \code{edge1-frame}, and
-\code{edge2-frame} (see \link{Exercise 2.47}).
+\code{make\-/frame}, which takes three vectors and produces a frame, and three
+corresponding selectors \code{origin\-/frame}, \code{edge1\-/frame}, and
+\code{edge2\-/frame} (see \link{Exercise 2.47}).
 
 % figure 2.15
 \begin{imageFigure}{A frame is described by three vectors --- an origin and two edges.}
@@ -2849,7 +2849,7 @@ $$ {\rm Origin(Frame)} + x \cdot {\rm Edge_1(Frame)} + y \cdot {\rm Edge_2(Frame
 For example, (0, 0) is mapped to the origin of the frame, (1, 1) to the vertex
 diagonally opposite the origin, and (0.5, 0.5) to the center of the frame.  We
 can create a frame's coordinate map with the following
-procedure:\footnote{\code{frame-coord-map} uses the vector operations described
+procedure:\footnote{\code{frame\-/coord\-/map} uses the vector operations described
 in \link{Exercise 2.46} below, which we assume have been implemented using some
 representation for vectors.  Because of data abstraction, it doesn't matter
 what this vector representation is, so long as the vector operations behave
@@ -2867,7 +2867,7 @@ correctly.}
 \end{codeBlock}
 
 \noindent
-Observe that applying \code{frame-coord-map} to a frame returns a procedure
+Observe that applying \code{frame\-/coord\-/map} to a frame returns a procedure
 that, given a vector, returns a vector.  If the argument vector is in the unit
 square, the result vector will be in the frame.  For example,
 
@@ -2886,10 +2886,10 @@ returns the same vector as
 \exerciseHeading{\phantomsection\label{Exercise 2.46}Exercise 2.46:} A two-dimensional vector \( \mathbf{v} \)
 running from the origin to a point can be represented as a pair consisting of
 an \( x \)-coordinate and a \( y \)-coordinate.  Implement a data abstraction for
-vectors by giving a constructor \code{make-vect} and corresponding selectors
-\code{xcor-vect} and \code{ycor-vect}.  In terms of your selectors and
-constructor, implement procedures \code{add-vect}, \code{sub-vect}, and
-\code{scale-vect} that perform the operations vector addition, vector
+vectors by giving a constructor \code{make\-/vect} and corresponding selectors
+\code{xcor\-/vect} and \code{ycor\-/vect}.  In terms of your selectors and
+constructor, implement procedures \code{add\-/vect}, \code{sub\-/vect}, and
+\code{scale\-/vect} that perform the operations vector addition, vector
 subtraction, and multiplying a vector by a scalar:
 
 $$
@@ -2924,12 +2924,12 @@ in \code{f} by calling \code{p} with \code{f} as argument.
 
 The details of how primitive painters are implemented depend on the particular
 characteristics of the graphics system and the type of image to be drawn.  For
-instance, suppose we have a procedure \code{draw-line} that draws a line on the
+instance, suppose we have a procedure \code{draw\-/line} that draws a line on the
 screen between two specified points.  Then we can create painters for line
 drawings, such as the \code{wave} painter in \link{Figure 2.10}, from lists of
-line segments as follows:\footnote{\code{segments->painter} uses the
+line segments as follows:\footnote{\code{segments\-/>painter} uses the
 representation for line segments described in \link{Exercise 2.48} below.  It
-also uses the \code{for-each} procedure described in \link{Exercise 2.23}.}
+also uses the \code{for\-/each} procedure described in \link{Exercise 2.23}.}
 
 \begin{codeBlock}
 (define (segments->painter segment-list)
@@ -2972,9 +2972,9 @@ plane can be represented as a pair of vectors---the vector running from the
 origin to the start-point of the segment, and the vector running from the
 origin to the end-point of the segment.  Use your vector representation from
 \link{Exercise 2.46} to define a representation for segments with a constructor
-\code{make-segment} and selectors \code{start-segment} and \code{end-segment}.
+\code{make\-/segment} and selectors \code{start\-/segment} and \code{end\-/segment}.
 
-\exerciseHeading{\phantomsection\label{Exercise 2.49}Exercise 2.49:} Use \code{segments->painter}
+\exerciseHeading{\phantomsection\label{Exercise 2.49}Exercise 2.49:} Use \code{segments\-/>painter}
 to define the following primitive painters:
 
 \begin{enumerate}[a.]
@@ -2997,18 +2997,18 @@ The \code{wave} painter.
 
 \subsubsection*{Transforming and combining painters}
 
-An operation on painters (such as \code{flip-vert} or \code{beside}) works by
+An operation on painters (such as \code{flip\-/vert} or \code{beside}) works by
 creating a painter that invokes the original painters with respect to frames
-derived from the argument frame.  Thus, for example, \code{flip-vert} doesn't
+derived from the argument frame.  Thus, for example, \code{flip\-/vert} doesn't
 have to know how a painter works in order to flip it---it just has to know how
 to turn a frame upside down: The flipped painter just uses the original
 painter, but in the inverted frame.
 
-Painter operations are based on the procedure \code{transform-painter}, which
+Painter operations are based on the procedure \code{transform\-/painter}, which
 takes as arguments a painter and information on how to transform a frame and
 produces a new painter.  The transformed painter, when called on a frame,
 transforms the frame and calls the original painter on the transformed frame.
-The arguments to \code{transform-painter} are points (represented as vectors)
+The arguments to \code{transform\-/painter} are points (represented as vectors)
 that specify the corners of the new frame: When mapped into the frame, the
 first point specifies the new frame's origin and the other two specify the ends
 of its edge vectors.  Thus, arguments within the unit square specify a frame
@@ -3043,7 +3043,7 @@ Here's how to flip painter images vertically:
 \end{codeBlock}
 
 \noindent
-Using \code{transform-painter}, we can easily define new transformations.
+Using \code{transform\-/painter}, we can easily define new transformations.
 For example, we can define a painter that shrinks its image to the
 upper-right quarter of the frame it is given:
 
@@ -3070,7 +3070,7 @@ because it also stretches and shrinks the image to fit into the rotated frame.}
 \noindent
 or squash images towards the center of the frame:\footnote{The diamond-shaped
 images in \link{Figure 2.10} and \link{Figure 2.11} were created with
-\code{squash-inwards} applied to \code{wave} and \code{rogers}.}
+\code{squash\-/inwards} applied to \code{wave} and \code{rogers}.}
 
 \begin{codeBlock}
 (define (squash-inwards painter)
@@ -3118,7 +3118,7 @@ designated frame.
 
 \begin{exerciseGroup}
 \exerciseHeading{\phantomsection\label{Exercise 2.50}Exercise 2.50:} Define the transformation
-\code{flip-horiz}, which flips painters horizontally, and transformations that
+\code{flip\-/horiz}, which flips painters horizontally, and transformations that
 rotate painters counterclockwise by 180 degrees and 270 degrees.
 
 \exerciseHeading{\phantomsection\label{Exercise 2.51}Exercise 2.51:} Define the \code{below} operation
@@ -3162,12 +3162,12 @@ languages appropriate for describing network interconnections, and so on.
 As a tiny example of stratification, our picture language uses primitive
 elements (primitive painters) that are created using a language that specifies
 points and lines to provide the lists of line segments for
-\code{segments->painter}, or the shading details for a painter like
+\code{segments\-/>painter}, or the shading details for a painter like
 \code{rogers}.  The bulk of our description of the picture language focused on
 combining these primitives, using geometric combiners such as \code{beside} and
 \code{below}.  We also worked at a higher level, regarding \code{beside} and
 \code{below} as primitives to be manipulated in a language whose operations,
-such as \code{square-of-four}, capture common patterns of combining geometric
+such as \code{square\-/of\-/four}, capture common patterns of combining geometric
 combiners.
 
 Stratified design helps make programs \newterm{robust}, that is, it makes it
@@ -3175,9 +3175,9 @@ likely that small changes in a specification will require correspondingly small
 changes in the program.  For instance, suppose we wanted to change the image
 based on \code{wave} shown in \link{Figure 2.9}.  We could work at the lowest
 level to change the detailed appearance of the \code{wave} element; we could
-work at the middle level to change the way \code{corner-split} replicates the
+work at the middle level to change the way \code{corner\-/split} replicates the
 \code{wave}; we could work at the highest level to change how
-\code{square-limit} arranges the four copies of the corner.  In general, each
+\code{square\-/limit} arranges the four copies of the corner.  In general, each
 level of a stratified design provides a different vocabulary for expressing the
 characteristics of the system, and a different kind of ability to change it.
 
@@ -3193,12 +3193,12 @@ Add some segments to the primitive \code{wave} painter of \link{Exercise 2.49}
 (to add a smile, for example).
 
 \item
-Change the pattern constructed by \code{corner-split} (for example, by using
-only one copy of the \code{up-split} and \code{right-split} images instead of
+Change the pattern constructed by \code{corner\-/split} (for example, by using
+only one copy of the \code{up\-/split} and \code{right\-/split} images instead of
 two).
 
 \item
-Modify the version of \code{square-limit} that uses \code{square-of-four} so as
+Modify the version of \code{square\-/limit} that uses \code{square\-/of\-/four} so as
 to assemble the corners in a different pattern.  (For example, you might make
 the big Mr. Rogers look outward from each corner of the square.)
 
@@ -3639,9 +3639,9 @@ Our difficulty is much like the one we encountered with the rational-number
 implementation: we haven't reduced answers to simplest form.  To accomplish the
 rational-number reduction, we needed to change only the constructors and the
 selectors of the implementation.  We can adopt a similar strategy here.  We
-won't change \code{deriv} at all.  Instead, we will change \code{make-sum} so
-that if both summands are numbers, \code{make-sum} will add them and return
-their sum.  Also, if one of the summands is 0, then \code{make-sum} will return
+won't change \code{deriv} at all.  Instead, we will change \code{make\-/sum} so
+that if both summands are numbers, \code{make\-/sum} will add them and return
+their sum.  Also, if one of the summands is 0, then \code{make\-/sum} will return
 the other summand.
 
 \begin{codeBlock}
@@ -3662,7 +3662,7 @@ equal to a given number:
 \end{codeBlock}
 
 \noindent
-Similarly, we will change \code{make-product} to build in the rules that 0
+Similarly, we will change \code{make\-/product} to build in the rules that 0
 times anything is 0 and 1 times anything is the thing itself:
 
 \begin{codeBlock}
@@ -3703,7 +3703,7 @@ $$ \frac{{\it d\,(u^n\,)}}{{\it dx}} = nu^{n-1} \frac{{\it du}}{{\it dx}} $$
 \noindent
 by adding a new clause to the \code{deriv} program and defining appropriate
 procedures \code{exponentiation?}, \code{base}, \code{exponent}, and
-\code{make-exponentiation}.  (You may use the symbol \code{**} to denote
+\code{make\-/exponentiation}.  (You may use the symbol \code{**} to denote
 exponentiation.)  Build in the rules that anything raised to the power 0 is 1
 and anything raised to the power 1 is the thing itself.
 
@@ -3761,13 +3761,13 @@ differ significantly from one another in several ways.
 Informally, a set is simply a collection of distinct objects.  To give a more
 precise definition we can employ the method of data abstraction.  That is, we
 define ``set'' by specifying the operations that are to be used on sets.  These
-are \code{union-set}, \code{intersection-set}, \code{element-of-set?}, and
-\code{adjoin-set}.  \code{element-of-set?} is a predicate that determines
-whether a given element is a member of a set.  \code{adjoin-set} takes an
+are \code{union\-/set}, \code{intersection\-/set}, \code{element\-/of\-/set?}, and
+\code{adjoin\-/set}.  \code{element\-/of\-/set?} is a predicate that determines
+whether a given element is a member of a set.  \code{adjoin\-/set} takes an
 object and a set as arguments and returns a set that contains the elements of
-the original set and also the adjoined element.  \code{union-set} computes the
+the original set and also the adjoined element.  \code{union\-/set} computes the
 union of two sets, which is the set containing each element that appears in
-either argument.  \code{intersection-set} computes the intersection of two
+either argument.  \code{intersection\-/set} computes the intersection of two
 sets, which is the set containing only elements that appear in both arguments.
 From the viewpoint of data abstraction, we are free to design any
 representation that implements these operations in a way consistent with the
@@ -3777,21 +3777,21 @@ operations satisfy a collection of rules such as these:
 
 \noindent
 \( \bullet \) For any set \code{S} and any object \code{x},
-\code{(element-of-set? x (adjoin-set x S))}
+\code{(element\-/of\-/set? x (adjoin\-/set x S))}
 is true (informally: ``Adjoining an object to a
 set produces a set that contains the object'').
 
 \noindent
 \( \bullet \) For any sets \code{S} and \code{T} and any object \code{x},
-\code{(element-of-set? x (union-set S T))}
+\code{(element\-/of\-/set? x (union\-/set S T))}
 is equal to
-\code{(or (element-of-set? x S) (element-of-set? x T))}
+\code{(or (element\-/of\-/set? x S) (element\-/of\-/set? x T))}
 (informally: ``The elements of \code{(union S T)} are the elements that
 are in \code{S} or in \code{T}'').
 
 \noindent
 \( \bullet \) For any object \code{x},
-\code{(element-of-set? x '())}
+\code{(element\-/of\-/set? x '())}
 is false (informally: ``No object is an element of the empty set'').
 }
 
@@ -3799,7 +3799,7 @@ is false (informally: ``No object is an element of the empty set'').
 
 One way to represent a set is as a list of its elements in which no element
 appears more than once.  The empty set is represented by the empty list.  In
-this representation, \code{element-of-set?} is similar to the procedure
+this representation, \code{element\-/of\-/set?} is similar to the procedure
 \code{memq} of \link{Section 2.3.1}.  It uses \code{equal?}  instead of
 \code{eq?} so that the set elements need not be symbols:
 
@@ -3811,7 +3811,7 @@ this representation, \code{element-of-set?} is similar to the procedure
 \end{codeBlock}
 
 \noindent
-Using this, we can write \code{adjoin-set}.  If the object to be adjoined is
+Using this, we can write \code{adjoin\-/set}.  If the object to be adjoined is
 already in the set, we just return the set.  Otherwise, we use \code{cons} to
 add the object to the list that represents the set:
 
@@ -3823,7 +3823,7 @@ add the object to the list that represents the set:
 \end{codeBlock}
 
 \noindent
-For \code{intersection-set} we can use a recursive strategy.  If we know how to
+For \code{intersection\-/set} we can use a recursive strategy.  If we know how to
 form the intersection of \code{set2} and the \code{cdr} of \code{set1}, we only
 need to decide whether to include the \code{car} of \code{set1} in this.  But
 this depends on whether \code{(car set1)} is also in \code{set2}.  Here is the
@@ -3841,28 +3841,28 @@ resulting procedure:
 \noindent
 In designing a representation, one of the issues we should be concerned with is
 efficiency.  Consider the number of steps required by our set operations.
-Since they all use \code{element-of-set?}, the speed of this operation has a
+Since they all use \code{element\-/of\-/set?}, the speed of this operation has a
 major impact on the efficiency of the set implementation as a whole.  Now, in
-order to check whether an object is a member of a set, \code{element-of-set?}
+order to check whether an object is a member of a set, \code{element\-/of\-/set?}
 may have to scan the entire set. (In the worst case, the object turns out not
 to be in the set.)  Hence, if the set has \( n \) elements,
-\code{element-of-set?}  might take up to \( n \) steps.  Thus, the number of
+\code{element\-/of\-/set?}  might take up to \( n \) steps.  Thus, the number of
 steps required grows as \( \Theta(n) \).  The number of steps required by
-\code{adjoin-set}, which uses this operation, also grows as \( \Theta(n) \).
-For \code{intersection-set}, which does an \code{element-of-set?} check for
+\code{adjoin\-/set}, which uses this operation, also grows as \( \Theta(n) \).
+For \code{intersection\-/set}, which does an \code{element\-/of\-/set?} check for
 each element of \code{set1}, the number of steps required grows as the product
 of the sizes of the sets involved, or \( \Theta(n^2) \) for two sets of size
-\( n \).  The same will be true of \code{union-set}.
+\( n \).  The same will be true of \code{union\-/set}.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 2.59}Exercise 2.59:} Implement the \code{union-set}
+\exerciseHeading{\phantomsection\label{Exercise 2.59}Exercise 2.59:} Implement the \code{union\-/set}
 operation for the unordered-list representation of sets.
 
 \exerciseHeading{\phantomsection\label{Exercise 2.60}Exercise 2.60:} We specified that a set would be
 represented as a list with no duplicates.  Now suppose we allow duplicates.
 For instance, the set \( \{1, 2, 3\} \) could be represented as the list \code{(2 3 2 1
-3 2 2)}.  Design procedures \code{element-of-set?}, \code{adjoin-set},
-\code{union-set}, and \code{intersection-set} that operate on this
+3 2 2)}.  Design procedures \code{element\-/of\-/set?}, \code{adjoin\-/set},
+\code{union\-/set}, and \code{intersection\-/set} that operate on this
 representation.  How does the efficiency of each compare with the corresponding
 procedure for the non-duplicate representation?  Are there applications for
 which you would use this representation in preference to the non-duplicate one?
@@ -3883,7 +3883,7 @@ representation above allowed us to represent the set \( \{1, 3, 6, 10\} \) by li
 the elements in any order, our new representation allows only the list \code{(1
 3 6 10)}.
 
-One advantage of ordering shows up in \code{element-of-set?}: In checking for
+One advantage of ordering shows up in \code{element\-/of\-/set?}: In checking for
 the presence of an item, we no longer have to scan the entire set.  If we reach
 a set element that is larger than the item we are looking for, then we know
 that the item is not in the set:
@@ -3908,7 +3908,7 @@ number of steps required will be about \( n / 2 \).  This is still
 \( \Theta(n) \) growth, but it does save us, on the average, a factor of 2
 in number of steps over the previous implementation.
 
-We obtain a more impressive speedup with \code{intersection-set}.  In the
+We obtain a more impressive speedup with \code{intersection\-/set}.  In the
 unordered representation this operation required \( \Theta(n^2) \) steps,
 because we performed a complete scan of \code{set2} for each element of
 \code{set1}.  But with the ordered representation, we can use a more clever
@@ -3949,13 +3949,13 @@ unordered representation.  This is \( \Theta(n) \) growth rather than
 
 \begin{exerciseGroup}
 \exerciseHeading{\phantomsection\label{Exercise 2.61}Exercise 2.61:} Give an implementation of
-\code{adjoin-set} using the ordered representation.  By analogy with
-\code{element-of-set?} show how to take advantage of the ordering to produce a
+\code{adjoin\-/set} using the ordered representation.  By analogy with
+\code{element\-/of\-/set?} show how to take advantage of the ordering to produce a
 procedure that requires on the average about half as many steps as with the
 unordered representation.
 
 \exerciseHeading{\phantomsection\label{Exercise 2.62}Exercise 2.62:} Give a \( \Theta(n) \)
-implementation of \code{union-set} for sets represented as ordered lists.
+implementation of \code{union\-/set} for sets represented as ordered lists.
 \end{exerciseGroup}
 
 \subsubsection*{Sets as binary trees}
@@ -3997,8 +3997,8 @@ or a right subtree of the empty list will indicate that there is no subtree
 connected there.  We can describe this representation by the following
 procedures:\footnote{We are representing sets in terms of trees, and trees in
 terms of lists---in effect, a data abstraction built upon a data abstraction.
-We can regard the procedures \code{entry}, \code{left-branch},
-\code{right-branch}, and \code{make-tree} as a way of isolating the abstraction
+We can regard the procedures \code{entry}, \code{left\-/branch},
+\code{right\-/branch}, and \code{make\-/tree} as a way of isolating the abstraction
 of a ``binary tree'' from the particular way we might wish to represent such a
 tree in terms of list structure.}
 
@@ -4011,7 +4011,7 @@ tree in terms of list structure.}
 \end{codeBlock}
 
 \noindent
-Now we can write the \code{element-of-set?} procedure using the strategy
+Now we can write the \code{element\-/of\-/set?} procedure using the strategy
 described above:
 
 \begin{codeBlock}
@@ -4060,7 +4060,7 @@ that the left and the right subtree of every tree have approximately the same
 number of elements, so that each subtree contains about half the elements of
 its parent.  But how can we be certain that the trees we construct will be
 balanced?  Even if we start with a balanced tree, adding elements with
-\code{adjoin-set} may produce an unbalanced result.  Since the position of a
+\code{adjoin\-/set} may produce an unbalanced result.  Since the position of a
 newly adjoined element depends on how the element compares with the items
 already in the set, we can expect that if we add elements ``randomly'' the tree
 will tend to be balanced on the average.  But this is not a guarantee.  For
@@ -4069,7 +4069,7 @@ sequence we end up with the highly unbalanced tree shown in \link{Figure 2.17}.
 In this tree all the left subtrees are empty, so it has no advantage over a
 simple ordered list.  One way to solve this problem is to define an operation
 that transforms an arbitrary tree into a balanced tree with the same elements.
-Then we can perform this transformation after every few \code{adjoin-set}
+Then we can perform this transformation after every few \code{adjoin\-/set}
 operations to keep our set in balance.  There are also other ways to solve this
 problem, most of which involve designing new data structures for which
 searching and insertion both can be done in \( \Theta(\log n) \)
@@ -4116,10 +4116,10 @@ which one grows more slowly?
 \end{enumerate}
 
 \exerciseHeading{\phantomsection\label{Exercise 2.64}Exercise 2.64:} The following procedure
-\code{list->tree} converts an ordered list to a balanced binary tree.  The
-helper procedure \code{partial-tree} takes as arguments an integer \( n \) and
+\code{list\-/>tree} converts an ordered list to a balanced binary tree.  The
+helper procedure \code{partial\-/tree} takes as arguments an integer \( n \) and
 list of at least \( n \) elements and constructs a balanced tree containing the
-first \( n \) elements of the list.  The result returned by \code{partial-tree}
+first \( n \) elements of the list.  The result returned by \code{partial\-/tree}
 is a pair (formed with \code{cons}) whose \code{car} is the constructed tree
 and whose \code{cdr} is the list of elements not included in the tree.
 
@@ -4153,18 +4153,18 @@ and whose \code{cdr} is the list of elements not included in the tree.
 
 \item
 Write a short paragraph explaining as clearly as you can how
-\code{partial-tree} works.  Draw the tree produced by \code{list->tree} for
+\code{partial\-/tree} works.  Draw the tree produced by \code{list\-/>tree} for
 the list \code{(1 3 5 7 9 11)}.
 
 \item
 What is the order of growth in the number of steps required by
-\code{list->tree} to convert a list of \( n \) elements?
+\code{list\-/>tree} to convert a list of \( n \) elements?
 
 \end{enumerate}
 
 \exerciseHeading{\phantomsection\label{Exercise 2.65}Exercise 2.65:} Use the results of \link{Exercise 2.63}
 and \link{Exercise 2.64} to give \( \Theta(n) \) implementations of
-\code{union-set} and \code{intersection-set} for sets implemented as (balanced)
+\code{union\-/set} and \code{intersection\-/set} for sets implemented as (balanced)
 binary trees.\footnote{\link{Exercise 2.63} through \link{Exercise 2.65} are due
 to Paul Hilfinger.}
 \end{exerciseGroup}
@@ -4193,7 +4193,7 @@ Now we represent the data base as a set of records. To locate the record with a
 given key we use a procedure \code{lookup}, which takes as arguments a key and
 a data base and which returns the record that has that key, or false if there
 is no such record.  \code{lookup} is implemented in almost the same way as
-\code{element-of-set?}.  For example, if the set of records is implemented as
+\code{element\-/of\-/set?}.  For example, if the set of records is implemented as
 an unordered list, we could use
 
 \begin{codeBlock}
@@ -4468,14 +4468,14 @@ arguments a list of zeros and ones, together with a Huffman tree.
 \end{codeBlock}
 
 \noindent
-The procedure \code{decode-1} takes two arguments: the list of remaining bits
+The procedure \code{decode\-/1} takes two arguments: the list of remaining bits
 and the current position in the tree.  It keeps moving ``down'' the tree,
 choosing a left or a right branch according to whether the next bit in the list
-is a zero or a one.  (This is done with the procedure \code{choose-branch}.)
+is a zero or a one.  (This is done with the procedure \code{choose\-/branch}.)
 When it reaches a leaf, it returns the symbol at that leaf as the next symbol
 in the message by \code{cons}ing it onto the result of decoding the rest of the
 message, starting at the root of the tree.  Note the error check in the final
-clause of \code{choose-branch}, which complains if the procedure finds
+clause of \code{choose\-/branch}, which complains if the procedure finds
 something other than a zero or a one in the input data.
 
 \subsubsection*{Sets of weighted elements}
@@ -4488,7 +4488,7 @@ to repeatedly find the smallest item in a set, it is convenient to use an
 ordered representation for this kind of set.
 
 We will represent a set of leaves and trees as a list of elements, arranged in
-increasing order of weight.  The following \code{adjoin-set} procedure for
+increasing order of weight.  The following \code{adjoin\-/set} procedure for
 constructing sets is similar to the one described in \link{Exercise 2.61};
 however, items are compared by their weights, and the element being added to
 the set is never already in it.
@@ -4546,9 +4546,9 @@ encoded message.
               (encode (cdr message) tree))))
 \end{codeBlock}
 
-\code{encode-symbol} is a procedure, which you must write, that returns the
+\code{encode\-/symbol} is a procedure, which you must write, that returns the
 list of bits that encodes a given symbol according to a given tree.  You should
-design \code{encode-symbol} so that it signals an error if the symbol is not in
+design \code{encode\-/symbol} so that it signals an error if the symbol is not in
 the tree at all.  Test your procedure by encoding the result you obtained in
 \link{Exercise 2.67} with the sample tree and seeing whether it is the same as
 the original sample message.
@@ -4563,9 +4563,9 @@ algorithm.
   (successive-merge (make-leaf-set pairs)))
 \end{codeBlock}
 
-\code{make-leaf-set} is the procedure given above that transforms the list of
-pairs into an ordered set of leaves.  \code{successive-merge} is the procedure
-you must write, using \code{make-code-tree} to successively merge the
+\code{make\-/leaf\-/set} is the procedure given above that transforms the list of
+pairs into an ordered set of leaves.  \code{successive\-/merge} is the procedure
+you must write, using \code{make\-/code\-/tree} to successively merge the
 smallest-weight elements of the set until there is only one element left, which
 is the desired Huffman tree.  (This procedure is slightly tricky, but not
 really complicated.  If you find yourself designing a complex procedure, then
@@ -4582,7 +4582,7 @@ A    2   GET 2   SHA 3   WAH 1
 BOOM 1   JOB 2   NA 16   YIP 9
 \end{example}
 
-Use \code{generate-huffman-tree} (\link{Exercise 2.69}) to generate a
+Use \code{generate\-/huffman\-/tree} (\link{Exercise 2.69}) to generate a
 corresponding Huffman tree, and use \code{encode} (\link{Exercise 2.68}) to
 encode the following message:
 
@@ -4627,11 +4627,11 @@ program that uses rational numbers from the task of implementing rational
 numbers in terms of the computer language's primitive mechanisms for
 constructing compound data.  The key idea was to erect an abstraction
 barrier---in this case, the selectors and constructors for rational numbers
-(\code{make-rat}, \code{numer}, \code{denom})---that isolates the way rational
+(\code{make\-/rat}, \code{numer}, \code{denom})---that isolates the way rational
 numbers are used from their underlying representation in terms of list
 structure.  A similar abstraction barrier isolates the details of the
-procedures that perform rational arithmetic (\code{add-rat}, \code{sub-rat},
-\code{mul-rat}, and \code{div-rat}) from the ``higher-level'' procedures that
+procedures that perform rational arithmetic (\code{add\-/rat}, \code{sub\-/rat},
+\code{mul\-/rat}, and \code{div\-/rat}) from the ``higher-level'' procedures that
 use rational numbers.  The resulting program has the structure shown in
 \link{Figure 2.1}.
 
@@ -4678,8 +4678,8 @@ We begin with the simple complex-number example. We will see how type tags and
 data-directed style enable us to design separate rectangular and polar
 representations for complex numbers while maintaining the notion of an abstract
 ``complex-number'' data object.  We will accomplish this by defining arithmetic
-procedures for complex numbers (\code{add-complex}, \code{sub-complex},
-\code{mul-complex}, and \code{div-complex}) in terms of generic selectors that
+procedures for complex numbers (\code{add\-/complex}, \code{sub\-/complex},
+\code{mul\-/complex}, and \code{div\-/complex}) in terms of generic selectors that
 access parts of a complex number independent of how the number is represented.
 The resulting complex-number system, as shown in \link{Figure 2.19}, contains
 two different kinds of abstraction barriers.  The ``horizontal'' abstraction
@@ -4769,10 +4769,10 @@ specified by polar coordinates.
 To design such a system, we can follow the same data-abstraction strategy we
 followed in designing the rational-number package in \link{Section 2.1.1}.
 Assume that the operations on complex numbers are implemented in terms of four
-selectors: \code{real-part}, \code{imag-part}, \code{magnitude} and
+selectors: \code{real\-/part}, \code{imag\-/part}, \code{magnitude} and
 \code{angle}.  Also assume that we have two procedures for constructing complex
-numbers: \code{make-from-real-imag} returns a complex number with specified
-real and imaginary parts, and \code{make-from-mag-ang} returns a complex number
+numbers: \code{make\-/from\-/real\-/imag} returns a complex number with specified
+real and imaginary parts, and \code{make\-/from\-/mag\-/ang} returns a complex number
 with specified magnitude and angle.  These procedures have the property that,
 for any complex number \code{z}, both
 
@@ -4886,8 +4886,8 @@ representation is:
 
 \noindent
 The discipline of data abstraction ensures that the same implementation of
-\code{add-complex}, \code{sub-complex}, \code{mul-complex}, and
-\code{div-complex} will work with either Ben's representation or Alyssa's
+\code{add\-/complex}, \code{sub\-/complex}, \code{mul\-/complex}, and
+\code{div\-/complex} will work with either Ben's representation or Alyssa's
 representation.
 
 \subsection{Tagged data}
@@ -4916,9 +4916,9 @@ when we need to manipulate a complex number we can use the tag to decide which
 selector to apply.
 
 In order to manipulate tagged data, we will assume that we have procedures
-\code{type-tag} and \code{contents} that extract from a data object the tag and
+\code{type\-/tag} and \code{contents} that extract from a data object the tag and
 the actual contents (the polar or rectangular coordinates, in the case of a
-complex number).  We will also postulate a procedure \code{attach-tag} that
+complex number).  We will also postulate a procedure \code{attach\-/tag} that
 takes a tag and contents and produces a tagged data object.  A straightforward
 way to implement this is to use ordinary list structure:
 
@@ -4993,9 +4993,9 @@ and here is Alyssa's revised polar representation:
 \noindent
 Each generic selector is implemented as a procedure that checks the tag of its
 argument and calls the appropriate procedure for handling data of that type.
-For example, to obtain the real part of a complex number, \code{real-part}
-examines the tag to determine whether to use Ben's \code{real-part-rectangular}
-or Alyssa's \code{real-part-polar}.  In either case, we use \code{contents} to
+For example, to obtain the real part of a complex number, \code{real\-/part}
+examines the tag to determine whether to use Ben's \code{real\-/part\-/rectangular}
+or Alyssa's \code{real\-/part\-/polar}.  In either case, we use \code{contents} to
 extract the bare, untagged datum and send this to the rectangular or polar
 procedure as required:
 
@@ -5028,10 +5028,10 @@ procedure as required:
 
 \noindent
 To implement the complex-number arithmetic operations, we can use the same
-procedures \code{add-complex}, \code{sub-complex}, \code{mul-complex}, and
-\code{div-complex} from \link{Section 2.4.1}, because the selectors they call
+procedures \code{add\-/complex}, \code{sub\-/complex}, \code{mul\-/complex}, and
+\code{div\-/complex} from \link{Section 2.4.1}, because the selectors they call
 are generic, and so will work with either representation.  For example, the
-procedure \code{add-complex} is still
+procedure \code{add\-/complex} is still
 
 \begin{codeBlock}
 (define (add-complex z1 z2)
@@ -5089,8 +5089,8 @@ The general strategy of checking the type of a datum and calling an appropriate
 procedure is called \newterm{dispatching on type}.  This is a powerful strategy
 for obtaining modularity in system design.  On the other hand, implementing the
 dispatch as in \link{Section 2.4.2} has two significant weaknesses.  One
-weakness is that the generic interface procedures (\code{real-part},
-\code{imag-part}, \code{magnitude}, and \code{angle}) must know about all the
+weakness is that the generic interface procedures (\code{real\-/part},
+\code{imag\-/part}, \code{magnitude}, and \code{angle}) must know about all the
 different representations.  For instance, suppose we wanted to incorporate a
 new representation for complex numbers into our complex-number system.  We
 would need to identify this new representation with a type, and then add a
@@ -5209,8 +5209,8 @@ necessary in order to interface them to the rest of the system.  Moreover,
 since these procedure definitions are internal to the installation procedure,
 Ben needn't worry about name conflicts with other procedures outside the
 rectangular package.  To interface these to the rest of the system, Ben
-installs his \code{real-part} procedure under the operation name
-\code{real-part} and the type \code{(rectangular)}, and similarly for the other
+installs his \code{real\-/part} procedure under the operation name
+\code{real\-/part} and the type \code{(rectangular)}, and similarly for the other
 selectors.\footnote{We use the list \code{(rectangular)} rather than the symbol
 \code{rectangular} to allow for the possibility of operations with multiple
 arguments, not all of the same type.}  The interface also defines the
@@ -5251,21 +5251,21 @@ Alyssa's polar package is analogous:
 
 \noindent
 Even though Ben and Alyssa both still use their original procedures defined
-with the same names as each other's (e.g., \code{real-part}), these definitions
+with the same names as each other's (e.g., \code{real\-/part}), these definitions
 are now internal to different procedures (see \link{Section 1.1.8}), so there is
 no name conflict.
 
 The complex-arithmetic selectors access the table by means of a general
-``operation'' procedure called \code{apply-generic}, which applies a generic
-operation to some arguments.  \code{apply-generic} looks in the table under the
+``operation'' procedure called \code{apply\-/generic}, which applies a generic
+operation to some arguments.  \code{apply\-/generic} looks in the table under the
 name of the operation and the types of the arguments and applies the resulting
-procedure if one is present:\footnote{\code{apply-generic} uses the dotted-tail
+procedure if one is present:\footnote{\code{apply\-/generic} uses the dotted-tail
 notation described in \link{Exercise 2.20}, because different generic operations
-may take different numbers of arguments.  In \code{apply-generic}, \code{op}
-has as its value the first argument to \code{apply-generic} and \code{args} has
+may take different numbers of arguments.  In \code{apply\-/generic}, \code{op}
+has as its value the first argument to \code{apply\-/generic} and \code{args} has
 as its value a list of the remaining arguments.
 
-\code{apply-generic} also uses the primitive procedure \code{apply}, which
+\code{apply\-/generic} also uses the primitive procedure \code{apply}, which
 takes two arguments, a procedure and a list.  \code{apply} applies the
 procedure, using the elements in the list as arguments.  For example,
 
@@ -5288,7 +5288,7 @@ returns 10.}
 \end{codeBlock}
 
 \noindent
-Using \code{apply-generic}, we can define our generic selectors as follows:
+Using \code{apply\-/generic}, we can define our generic selectors as follows:
 
 \begin{codeBlock}
 (define (real-part z) (apply-generic 'real-part z))
@@ -5409,20 +5409,20 @@ contains information keyed under identifiers such as \code{address} and
 \begin{enumerate}[a.]
 
 \item
-Implement for headquarters a \code{get-record} procedure that retrieves a
+Implement for headquarters a \code{get\-/record} procedure that retrieves a
 specified employee's record from a specified personnel file.  The procedure
 should be applicable to any division's file.  Explain how the individual
 divisions' files should be structured.  In particular, what type information
 must be supplied?
 
 \item
-Implement for headquarters a \code{get-salary} procedure that returns the
+Implement for headquarters a \code{get\-/salary} procedure that returns the
 salary information from a given employee's record from any division's personnel
 file.  How should the record be structured in order to make this operation
 work?
 
 \item
-Implement for headquarters a \code{find-employee-record} procedure.  This
+Implement for headquarters a \code{find\-/employee\-/record} procedure.  This
 should search all the divisions' files for the record of a given employee and
 return the record.  Assume that this procedure takes as arguments an employee's
 name and a list of all the divisions' files.
@@ -5450,7 +5450,7 @@ to work with ``intelligent data objects'' that dispatch on operation names.  We
 can do this by arranging things so that a data object, such as a rectangular
 number, is represented as a procedure that takes as input the required
 operation name and performs the operation indicated.  In such a discipline,
-\code{make-from-real-imag} could be written as
+\code{make\-/from\-/real\-/imag} could be written as
 
 \begin{codeBlock}
 (define (make-from-real-imag x y)
@@ -5466,7 +5466,7 @@ operation name and performs the operation indicated.  In such a discipline,
 \end{codeBlock}
 
 \noindent
-The corresponding \code{apply-generic} procedure, which applies a generic
+The corresponding \code{apply\-/generic} procedure, which applies a generic
 operation to an argument, now simply feeds the operation's name to the data
 object and lets the object do the work:\footnote{One limitation of this
 organization is it permits only generic procedures of one argument.}
@@ -5476,9 +5476,9 @@ organization is it permits only generic procedures of one argument.}
 \end{codeBlock}
 
 \noindent
-Note that the value returned by \code{make-from-real-imag} is a procedure---the
+Note that the value returned by \code{make\-/from\-/real\-/imag} is a procedure---the
 internal \code{dispatch} procedure.  This is the procedure that is invoked when
-\code{apply-generic} requests an operation to be performed.
+\code{apply\-/generic} requests an operation to be performed.
 
 This style of programming is called \newterm{message passing}.  The name comes
 from the image that a data object is an entity that receives the requested
@@ -5494,8 +5494,8 @@ simulation programs.
 
 \begin{exerciseGroup}
 \exerciseHeading{\phantomsection\label{Exercise 2.75}Exercise 2.75:} Implement the constructor
-\code{make-from-mag-ang} in message-passing style.  This procedure should be
-analogous to the \code{make-from-real-imag} procedure given above.
+\code{make\-/from\-/mag\-/ang} in message-passing style.  This procedure should be
+analogous to the \code{make\-/from\-/real\-/imag} procedure given above.
 
 \exerciseHeading{\phantomsection\label{Exercise 2.76}Exercise 2.76:} As a large system with generic
 operations evolves, new types of data objects or new operations may be needed.
@@ -5518,8 +5518,8 @@ only to define operations that are generic over different representations but
 also to define operations that are generic over different kinds of arguments.
 We have already seen several different packages of arithmetic operations: the
 primitive arithmetic (\code{+}, \code{-}, \code{*}, \code{/}) built into our
-language, the rational-number arithmetic (\code{add-rat}, \code{sub-rat},
-\code{mul-rat}, \code{div-rat}) of \link{Section 2.1.1}, and the complex-number
+language, the rational-number arithmetic (\code{add\-/rat}, \code{sub\-/rat},
+\code{mul\-/rat}, \code{div\-/rat}) of \link{Section 2.1.1}, and the complex-number
 arithmetic that we implemented in \link{Section 2.4.3}.  We will now use
 data-directed techniques to construct a package of arithmetic operations that
 incorporates all the arithmetic packages we have already constructed.
@@ -5538,7 +5538,7 @@ ordinary-arithmetic, rational-arithmetic, and complex-arithmetic
 packages to be
 accessed uniformly by programs that use numbers.  Any individual arithmetic
 package (such as the complex package) may itself be accessed through generic
-procedures (such as \code{add-complex}) that combine packages designed for
+procedures (such as \code{add\-/complex}) that combine packages designed for
 different representations (such as rectangular and polar).  Moreover, the
 structure of the system is additive, so that one can design the individual
 arithmetic packages separately and combine them to produce a generic arithmetic
@@ -5552,8 +5552,8 @@ system.
 The task of designing generic arithmetic operations is analogous to that of
 designing the generic complex-number operations.  We would like, for instance,
 to have a generic addition procedure \code{add} that acts like ordinary
-primitive addition \code{+} on ordinary numbers, like \code{add-rat} on
-rational numbers, and like \code{add-complex} on complex numbers.  We can
+primitive addition \code{+} on ordinary numbers, like \code{add\-/rat} on
+rational numbers, and like \code{add\-/complex} on complex numbers.  We can
 implement \code{add}, and the other generic arithmetic operations, by following
 the same strategy we used in \link{Section 2.4.3} to implement the generic
 selectors for complex numbers.  We will attach a type tag to each kind of
@@ -5572,11 +5572,11 @@ The generic arithmetic procedures are defined as follows:
 \noindent
 We begin by installing a package for handling \newterm{ordinary} numbers, that
 is, the primitive numbers of our language.  We will tag these with the symbol
-\code{scheme-number}.  The arithmetic operations in this package are the
+\code{scheme\-/number}.  The arithmetic operations in this package are the
 primitive arithmetic procedures (so there is no need to define extra procedures
 to handle the untagged numbers).  Since these operations each take two
 arguments, they are installed in the table keyed by the list
-\code{(scheme-number scheme-number)}:
+\code{(scheme\-/number scheme\-/number)}:
 
 \begin{codeBlock}
 (define (install-scheme-number-package)
@@ -5651,10 +5651,10 @@ procedures in the package:
 \noindent
 We can install a similar package to handle complex numbers, using the tag
 \code{complex}.  In creating the package, we extract from the table the
-operations \code{make-from-real-imag} and \code{make-from-mag-ang} that were
+operations \code{make\-/from\-/real\-/imag} and \code{make\-/from\-/mag\-/ang} that were
 defined by the rectangular and polar packages.  Additivity permits us to use,
-as the internal operations, the same \code{add-complex}, \code{sub-complex},
-\code{mul-complex}, and \code{div-complex} procedures from \link{Section 2.4.1}.
+as the internal operations, the same \code{add\-/complex}, \code{sub\-/complex},
+\code{mul\-/complex}, and \code{div\-/complex} procedures from \link{Section 2.4.1}.
 
 \begin{codeBlock}
 (define (install-complex-package)
@@ -5732,7 +5732,7 @@ package is stripped off (by applying \code{contents}) and the next level of tag
   \includegraphics[width=64mm]{assets/figures/chapter_2/figure_2.24c.pdf}
 \end{imageFigure}
 
-In the above packages, we used \code{add-rat}, \code{add-complex}, and the
+In the above packages, we used \code{add\-/rat}, \code{add\-/complex}, and the
 other arithmetic procedures exactly as originally written.  Once these
 definitions are internal to different installation procedures, however, they no
 longer need names that are distinct from each other: we could simply name them
@@ -5742,7 +5742,7 @@ longer need names that are distinct from each other: we could simply name them
 \exerciseHeading{\phantomsection\label{Exercise 2.77}Exercise 2.77:} Louis Reasoner tries to evaluate
 the expression \code{(magnitude z)} where \code{z} is the object shown in
 \link{Figure 2.24}.  To his surprise, instead of the answer 5 he gets an error
-message from \code{apply-generic}, saying there is no method for the operation
+message from \code{apply\-/generic}, saying there is no method for the operation
 \code{magnitude} on the types \code{(complex)}.  He shows this interaction to
 Alyssa P. Hacker, who says ``The problem is that the complex-number selectors
 were never defined for \code{complex} numbers, just for \code{polar} and
@@ -5759,22 +5759,22 @@ following to the \code{complex} package:''
 Describe in detail why this works.  As an example, trace through all the
 procedures called in evaluating the expression \code{(magnitude z)} where
 \code{z} is the object shown in \link{Figure 2.24}.  In particular, how many
-times is \code{apply-generic} invoked?  What procedure is dispatched to in each
+times is \code{apply\-/generic} invoked?  What procedure is dispatched to in each
 case?
 
 \exerciseHeading{\phantomsection\label{Exercise 2.78}Exercise 2.78:} The internal procedures in the
-\code{scheme-number} package are essentially nothing more than calls to the
+\code{scheme\-/number} package are essentially nothing more than calls to the
 primitive procedures \code{+}, \code{-}, etc.  It was not possible to use the
 primitives of the language directly because our type-tag system requires that
 each data object have a type attached to it.  In fact, however, all Lisp
 implementations do have a type system, which they use internally.  Primitive
 predicates such as \code{symbol?} and \code{number?}  determine whether data
-objects have particular types.  Modify the definitions of \code{type-tag},
-\code{contents}, and \code{attach-tag} from \link{Section 2.4.2} so that our
+objects have particular types.  Modify the definitions of \code{type\-/tag},
+\code{contents}, and \code{attach\-/tag} from \link{Section 2.4.2} so that our
 generic system takes advantage of Scheme's internal type system.  That is to
 say, the system should work as before except that ordinary numbers should be
 represented simply as Scheme numbers rather than as pairs whose \code{car} is
-the symbol \code{scheme-number}.
+the symbol \code{scheme\-/number}.
 
 \exerciseHeading{\phantomsection\label{Exercise 2.79}Exercise 2.79:} Define a generic equality
 predicate \code{equ?} that tests the equality of two numbers, and install it in
@@ -5807,9 +5807,9 @@ One way to handle cross-type operations is to design a different procedure for
 each possible combination of types for which the operation is valid.  For
 example, we could extend the complex-number package so that it provides a
 procedure for adding complex numbers to ordinary numbers and installs this in
-the table using the tag \code{(complex scheme-number)}:\footnote{We also have
+the table using the tag \code{(complex scheme\-/number)}:\footnote{We also have
 to supply an almost identical procedure to handle the types
-\code{(scheme-number complex)}.}
+\code{(scheme\-/number complex)}.}
 
 \begin{codeBlock}
 ~\textrm{;; to be included in the complex package}~
@@ -5874,16 +5874,16 @@ the names of the two types:
 \end{codeBlock}
 
 \noindent
-(We assume that there are \code{put-coercion} and \code{get-coercion}
+(We assume that there are \code{put\-/coercion} and \code{get\-/coercion}
 procedures available for manipulating this table.)  Generally some of the slots
 in the table will be empty, because it is not generally possible to coerce an
 arbitrary data object of each type into all other types.  For example, there is
 no way to coerce an arbitrary complex number to an ordinary number, so there
-will be no general \code{complex->scheme-number} procedure included in the
+will be no general \code{complex\-/>scheme\-/number} procedure included in the
 table.
 
 Once the coercion table has been set up, we can handle coercion in a uniform
-manner by modifying the \code{apply-generic} procedure of \link{Section 2.4.3}.
+manner by modifying the \code{apply\-/generic} procedure of \link{Section 2.4.3}.
 When asked to apply an operation, we first check whether the operation is
 defined for the arguments' types, just as before.  If so, we dispatch to the
 procedure found in the operation-and-type table.  Otherwise, we try coercion.
@@ -5985,13 +5985,13 @@ adding a new type to the hierarchy, for we need only specify how the new type
 is embedded in the next supertype above it and how it is the supertype of the
 type below it.  For example, if we want to add an integer to a complex number,
 we need not explicitly define a special coercion procedure
-\code{integer->complex}.  Instead, we define how an integer can be transformed
+\code{integer\-/>complex}.  Instead, we define how an integer can be transformed
 into a rational number, how a rational number is transformed into a real
 number, and how a real number is transformed into a complex number.  We then
 allow the system to transform the integer into a complex number through these
 steps and then add the two complex numbers.
 
-We can redesign our \code{apply-generic} procedure in the following way: For
+We can redesign our \code{apply\-/generic} procedure in the following way: For
 each type, we need to supply a \code{raise} procedure, which ``raises'' objects
 of that type one level in the tower.  Then when the system is required to
 operate on objects of different types it can successively raise the lower types
@@ -6001,10 +6001,10 @@ and \link{Exercise 2.84} concern the details of implementing such a strategy.)
 Another advantage of a tower is that we can easily implement the notion that
 every type ``inherits'' all operations defined on a supertype.  For instance,
 if we do not supply a special procedure for finding the real part of an
-integer, we should nevertheless expect that \code{real-part} will be defined
+integer, we should nevertheless expect that \code{real\-/part} will be defined
 for integers by virtue of the fact that integers are a subtype of complex
 numbers.  In a tower, we can arrange for this to happen in a uniform way by
-modifying \code{apply-generic}.  If the required operation is not directly
+modifying \code{apply\-/generic}.  If the required operation is not directly
 defined for the type of the object given, we raise the object to its supertype
 and try again.  We thus crawl up the tower, transforming our argument as we go,
 until we either find a level at which the desired operation can be performed or
@@ -6038,7 +6038,7 @@ triangle.  This multiple-supertypes issue is particularly thorny, since it
 means that there is no unique way to ``raise'' a type in the hierarchy.
 Finding the ``correct'' supertype in which to apply an operation to an object
 may involve considerable searching through the entire type network on the part
-of a procedure such as \code{apply-generic}.  Since there generally are
+of a procedure such as \code{apply\-/generic}.  Since there generally are
 multiple subtypes for a type, there is a similar problem in coercing a value
 ``down'' the type hierarchy.  Dealing with large numbers of interrelated types
 while still preserving modularity in the design of large systems is very
@@ -6063,11 +6063,11 @@ work in knowledge representation and automated reasoning.}
 
 \begin{exerciseGroup}
 \exerciseHeading{\phantomsection\label{Exercise 2.81}Exercise 2.81:} Louis Reasoner has noticed that
-\code{apply-generic} may try to coerce the arguments to each other's type even
+\code{apply\-/generic} may try to coerce the arguments to each other's type even
 if they already have the same type.  Therefore, he reasons, we need to put
 procedures in the coercion table to \newterm{coerce} arguments of each type to
 their own type.  For example, in addition to the
-\code{scheme-number->complex} coercion shown above, he would do:
+\code{scheme\-/number\-/>complex} coercion shown above, he would do:
 
 \begin{codeBlock}
 (define (scheme-number->scheme-number n) n)
@@ -6082,7 +6082,7 @@ their own type.  For example, in addition to the
 
 \item
 With Louis's coercion procedures installed, what happens if
-\code{apply-generic} is called with two arguments of type \code{scheme-number}
+\code{apply\-/generic} is called with two arguments of type \code{scheme\-/number}
 or two arguments of type \code{complex} for an operation that is not found in
 the table for those types?  For example, assume that we've defined a generic
 exponentiation operation:
@@ -6107,16 +6107,16 @@ What happens if we call \code{exp} with two complex numbers as arguments?
 
 \item
 Is Louis correct that something had to be done about coercion with arguments of
-the same type, or does \code{apply-generic} work correctly as is?
+the same type, or does \code{apply\-/generic} work correctly as is?
 
 \item
-Modify \code{apply-generic} so that it doesn't try coercion if the two
+Modify \code{apply\-/generic} so that it doesn't try coercion if the two
 arguments have the same type.
 
 \end{enumerate}
 
 \exerciseHeading{\phantomsection\label{Exercise 2.82}Exercise 2.82:} Show how to generalize
-\code{apply-generic} to handle coercion in the general case of multiple
+\code{apply\-/generic} to handle coercion in the general case of multiple
 arguments.  One strategy is to attempt to coerce all the arguments to the type
 of the first argument, then to the type of the second argument, and so on.
 Give an example of a situation where this strategy (and likewise the
@@ -6132,7 +6132,7 @@ tower.  Show how to install a generic \code{raise} operation that will work for
 each type (except complex).
 
 \exerciseHeading{\phantomsection\label{Exercise 2.84}Exercise 2.84:} Using the \code{raise} operation
-of \link{Exercise 2.83}, modify the \code{apply-generic} procedure so that it
+of \link{Exercise 2.83}, modify the \code{apply\-/generic} procedure so that it
 coerces its arguments to have the same type by the method of successive
 raising, as discussed in this section.  You will need to devise a way to test
 which of two types is higher in the tower.  Do this in a manner that is
@@ -6158,7 +6158,7 @@ operations\footnote{A real number can be projected to an integer using the
 \code{round} primitive, which returns the closest integer to its argument.} and
 install \code{project} as a generic operation in the system.  You will also
 need to make use of a generic equality predicate, such as described in
-\link{Exercise 2.79}.  Finally, use \code{drop} to rewrite \code{apply-generic}
+\link{Exercise 2.79}.  Finally, use \code{drop} to rewrite \code{apply\-/generic}
 from \link{Exercise 2.84} so that it ``simplifies'' its answers.
 
 \exerciseHeading{\phantomsection\label{Exercise 2.86}Exercise 2.86:} Suppose we want to handle complex
@@ -6253,10 +6253,10 @@ indeterminate.
 We will approach the design of our system by following the familiar discipline
 of data abstraction.  We will represent polynomials using a data structure
 called a \newterm{poly}, which consists of a variable and a collection of
-terms.  We assume that we have selectors \code{variable} and \code{term-list}
-that extract those parts from a poly and a constructor \code{make-poly} that
+terms.  We assume that we have selectors \code{variable} and \code{term\-/list}
+that extract those parts from a poly and a constructor \code{make\-/poly} that
 assembles a poly from a given variable and a term list.  A variable will be
-just a symbol, so we can use the \code{same-variable?}  procedure of
+just a symbol, so we can use the \code{same\-/variable?}  procedure of
 \link{Section 2.3.2} to compare variables.  The following procedures define addition and
 multiplication of polys:
 
@@ -6322,13 +6322,13 @@ order in the other addend are simply accumulated into the sum polynomial being
 constructed.
 
 In order to manipulate term lists, we will assume that we have a constructor
-\code{the-empty-termlist} that returns an empty term list and a constructor
-\code{adjoin-term} that adjoins a new term to a term list.  We will also assume
-that we have a predicate \code{empty-termlist?} that tells if a given term list
-is empty, a selector \code{first-term} that extracts the highest-order term
-from a term list, and a selector \code{rest-terms} that returns all but the
+\code{the\-/empty\-/termlist} that returns an empty term list and a constructor
+\code{adjoin\-/term} that adjoins a new term to a term list.  We will also assume
+that we have a predicate \code{empty\-/termlist?} that tells if a given term list
+is empty, a selector \code{first\-/term} that extracts the highest-order term
+from a term list, and a selector \code{rest\-/terms} that returns all but the
 highest-order term.  To manipulate terms, we will suppose that we have a
-constructor \code{make-term} that constructs a term with given order and
+constructor \code{make\-/term} that constructs a term with given order and
 coefficient, and selectors \code{order} and \code{coeff} that return,
 respectively, the order and the coefficient of the term.  These operations
 allow us to consider both terms and term lists as data abstractions, whose
@@ -6336,10 +6336,10 @@ concrete representations we can worry about separately.
 
 Here is the procedure that constructs the term list for the sum of two
 polynomials:\footnote{This operation is very much like the ordered
-\code{union-set} operation we developed in \link{Exercise 2.62}.  In
+\code{union\-/set} operation we developed in \link{Exercise 2.62}.  In
 fact, if we think of the terms of the polynomial as a set ordered according to
 the power of the indeterminate, then the program that produces the term list
-for a sum is almost identical to \code{union-set}.}
+for a sum is almost identical to \code{union\-/set}.}
 
 \begin{codeBlock}
 (define (add-terms L1 L2)
@@ -6369,7 +6369,7 @@ procedure \code{add} to add together the coefficients of the terms being
 combined.  This has powerful consequences, as we will see below.
 
 In order to multiply two term lists, we multiply each term of the first list by
-all the terms of the other list, repeatedly using \code{mul-term-by-all-terms},
+all the terms of the other list, repeatedly using \code{mul\-/term\-/by\-/all\-/terms},
 which multiplies a given term by all terms in a given term list.  The resulting
 term lists (one for each term of the first list) are accumulated into a sum.
 Multiplying two terms forms a term whose order is the sum of the orders of the
@@ -6406,7 +6406,7 @@ polynomials of different coefficient types, such as
 $$ [3x^2 + (2 + 3i)x + 7] \cdot \! \left[ x^4 + \frac{2}{3} x^2 + (5 + 3i) \right]\!. $$
 
 Because we installed the polynomial addition and multiplication procedures
-\code{add-poly} and \code{mul-poly} in the generic arithmetic system as the
+\code{add\-/poly} and \code{mul\-/poly} in the generic arithmetic system as the
 \code{add} and \code{mul} operations for type \code{polynomial}, our system is
 also automatically able to handle polynomial operations such as
 
@@ -6414,10 +6414,10 @@ $$ \Big[(y + 1)x^2 + (y^2 + 1)x + (y - 1)\Big] \cdot \Big[(y - 2)x + (y^3 + 7)\B
 
 The reason is that when the system tries to combine coefficients, it will
 dispatch through \code{add} and \code{mul}.  Since the coefficients are
-themselves polynomials (in \( y \)), these will be combined using \code{add-poly}
-and \code{mul-poly}.  The result is a kind of ``data-directed recursion'' in
-which, for example, a call to \code{mul-poly} will result in recursive calls to
-\code{mul-poly} in order to multiply the coefficients.  If the coefficients of
+themselves polynomials (in \( y \)), these will be combined using \code{add\-/poly}
+and \code{mul\-/poly}.  The result is a kind of ``data-directed recursion'' in
+which, for example, a call to \code{mul\-/poly} will result in recursive calls to
+\code{mul\-/poly} in order to multiply the coefficients.  If the coefficients of
 the coefficients were themselves polynomials (as might be used to represent
 polynomials in three variables), the data direction would ensure that the
 system would follow through another level of recursive calls, and so on through
@@ -6438,7 +6438,7 @@ Finally, we must confront the job of implementing a good representation for
 term lists.  A term list is, in effect, a set of coefficients keyed by the
 order of the term.  Hence, any of the methods for representing sets, as
 discussed in \link{Section 2.3.3}, can be applied to this task.  On the other
-hand, our procedures \code{add-terms} and \code{mul-terms} always access term
+hand, our procedures \code{add\-/terms} and \code{mul\-/terms} always access term
 lists sequentially from highest to lowest order.  Thus, we will use some kind
 of ordered list representation.
 
@@ -6466,7 +6466,7 @@ length of the sublist beginning with that term's coefficient, decremented by
 the generic arithmetic system using the type mechanism suggested in
 \link{Exercise 2.78}.  Thus, coefficients that are ordinary numbers will be
 represented as the numbers themselves rather than as pairs whose \code{car} is
-the symbol \code{scheme-number}.}  This would be a terrible representation for
+the symbol \code{scheme\-/number}.}  This would be a terrible representation for
 a sparse polynomial such as \( B \): There would be a giant list of zeros
 punctuated by a few lonely nonzero terms.  A more reasonable representation of
 the term list of a sparse polynomial is as a list of the nonzero terms, where
@@ -6478,12 +6478,12 @@ are represented as lists of terms, arranged from highest-order to lowest-order
 term.  Once we have made this decision, implementing the selectors and
 constructors for terms and term lists is straightforward:\footnote{Although we
 are assuming that term lists are ordered, we have implemented
-\code{adjoin-term} to simply \code{cons} the new term onto the existing term
+\code{adjoin\-/term} to simply \code{cons} the new term onto the existing term
 list.  We can get away with this so long as we guarantee that the procedures
-(such as \code{add-terms}) that use \code{adjoin-term} always call it with a
+(such as \code{add\-/terms}) that use \code{adjoin\-/term} always call it with a
 higher-order term than appears in the list.  If we did not want to make such a
-guarantee, we could have implemented \code{adjoin-term} to be similar to the
-\code{adjoin-set} constructor for the ordered-list representation of sets
+guarantee, we could have implemented \code{adjoin\-/term} to be similar to the
+\code{adjoin\-/set} constructor for the ordered-list representation of sets
 (\link{Exercise 2.61}).}
 
 \begin{codeBlock}
@@ -6515,7 +6515,7 @@ the procedure:
 \begin{exerciseGroup}
 \exerciseHeading{\phantomsection\label{Exercise 2.87}Exercise 2.87:} Install \code{=zero?} for
 polynomials in the generic arithmetic package.  This will allow
-\code{adjoin-term} to work for polynomials with coefficients that are
+\code{adjoin\-/term} to work for polynomials with coefficients that are
 themselves polynomials.
 
 \exerciseHeading{\phantomsection\label{Exercise 2.88}Exercise 2.88:} Extend the polynomial system to
@@ -6550,18 +6550,18 @@ divisor exceeds the order of the dividend and declare the dividend to be the
 remainder.  Also, if the dividend ever becomes zero, return zero as both
 quotient and remainder.
 
-We can design a \code{div-poly} procedure on the model of \code{add-poly} and
-\code{mul-poly}. The procedure checks to see if the two polys have the same
-variable.  If so, \code{div-poly} strips off the variable and passes the
-problem to \code{div-terms}, which performs the division operation on term
-lists. \code{div-poly} finally reattaches the variable to the result supplied
-by \code{div-terms}.  It is convenient to design \code{div-terms} to compute
-both the quotient and the remainder of a division.  \code{div-terms} can take
+We can design a \code{div\-/poly} procedure on the model of \code{add\-/poly} and
+\code{mul\-/poly}. The procedure checks to see if the two polys have the same
+variable.  If so, \code{div\-/poly} strips off the variable and passes the
+problem to \code{div\-/terms}, which performs the division operation on term
+lists. \code{div\-/poly} finally reattaches the variable to the result supplied
+by \code{div\-/terms}.  It is convenient to design \code{div\-/terms} to compute
+both the quotient and the remainder of a division.  \code{div\-/terms} can take
 two term lists as arguments and return a list of the quotient term list and the
 remainder term list.
 
-Complete the following definition of \code{div-terms} by filling in the missing
-expressions.  Use this to implement \code{div-poly}, which takes two polys as
+Complete the following definition of \code{div\-/terms} by filling in the missing
+expressions.  Use this to implement \code{div\-/poly}, which takes two polys as
 arguments and returns a list of the quotient and remainder polys.
 
 \begin{compactCodeBlock}
@@ -6650,9 +6650,9 @@ fractions to lowest terms.
 
 \begin{exerciseGroup}
 \exerciseHeading{\phantomsection\label{Exercise 2.93}Exercise 2.93:} Modify the rational-arithmetic
-package to use generic operations, but change \code{make-rat} so that it does
+package to use generic operations, but change \code{make\-/rat} so that it does
 not attempt to reduce fractions to lowest terms.  Test your system by calling
-\code{make-rational} on two polynomials to produce a rational function:
+\code{make\-/rational} on two polynomials to produce a rational function:
 
 \begin{codeBlock}
 (define p1 (make-polynomial 'x '((2 1) (0 1))))
@@ -6666,7 +6666,7 @@ addition procedure does not reduce fractions to lowest terms.
 
 \noindent
 We can reduce polynomial fractions to lowest terms using the same idea we used
-with integers: modifying \code{make-rat} to divide both the numerator and the
+with integers: modifying \code{make\-/rat} to divide both the numerator and the
 denominator by their greatest common divisor.  The notion of ``greatest common
 divisor'' makes sense for polynomials.  In fact, we can compute the
 \acronym{GCD} of two polynomials using essentially the same Euclid's Algorithm
@@ -6703,17 +6703,17 @@ operation that works on term lists:
 \end{codeBlock}
 
 \noindent
-where \code{remainder-terms} picks out the remainder component of the list
-returned by the term-list division operation \code{div-terms} that was
+where \code{remainder\-/terms} picks out the remainder component of the list
+returned by the term-list division operation \code{div\-/terms} that was
 implemented in \link{Exercise 2.91}.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 2.94}Exercise 2.94:} Using \code{div-terms}, implement
-the procedure \code{remainder-terms} and use this to define \code{gcd-terms} as
-above.  Now write a procedure \code{gcd-poly} that computes the polynomial
+\exerciseHeading{\phantomsection\label{Exercise 2.94}Exercise 2.94:} Using \code{div\-/terms}, implement
+the procedure \code{remainder\-/terms} and use this to define \code{gcd\-/terms} as
+above.  Now write a procedure \code{gcd\-/poly} that computes the polynomial
 \acronym{GCD} of two polys.  (The procedure should signal an error if the two
 polys are not in the same variable.)  Install in the system a generic operation
-\code{greatest-common-divisor} that reduces to \code{gcd-poly} for polynomials
+\code{greatest\-/common\-/divisor} that reduces to \code{gcd\-/poly} for polynomials
 and to ordinary \code{gcd} for ordinary numbers.  As a test, try
 
 \begin{codeBlock}
@@ -6738,7 +6738,7 @@ $$
 $$
 
 Now define \( Q_1 \) to be the product of \( P_1 \) and \( P_2 \) and \( Q_2 \) to be
-the product of \( P_1 \) and \( P_3 \), and use \code{greatest-common-divisor}
+the product of \( P_1 \) and \( P_3 \), and use \code{greatest\-/common\-/divisor}
 (\link{Exercise 2.94}) to compute the \acronym{GCD} of \( Q_1 \)
 and \( Q_2 \).
 Note that the answer is not the same as \( P_1 \).  This example introduces
@@ -6748,7 +6748,7 @@ Scheme, this produces a polynomial that is indeed a divisor of \( Q_1 \) and
 \( Q_2 \), but with rational coefficients.  In many other Scheme systems, in
 which division of integers can produce limited-precision decimal numbers, we
 may fail to get a valid divisor.}  To understand what is happening, try tracing
-\code{gcd-terms} while computing the \acronym{GCD} or try performing the
+\code{gcd\-/terms} while computing the \acronym{GCD} or try performing the
 division by hand.
 \end{exerciseGroup}
 
@@ -6769,7 +6769,7 @@ More precisely, if \( P \) and \( Q \) are polynomials, let \( O_1 \) be the ord
 order of \( Q \).  Let \( c \) be the leading coefficient of \( Q \).  Then it can be
 shown that, if we multiply \( P \) by the \newterm{integerizing factor}
 \( c^{1 + O_1 - O_2} \), the resulting polynomial can be divided by \( Q \) by
-using the \code{div-terms} algorithm without introducing any fractions.  The
+using the \code{div\-/terms} algorithm without introducing any fractions.  The
 operation of multiplying the dividend by this constant and then dividing is
 sometimes called the \newterm{pseudodivision} of \( P \) by \( Q \).  The remainder
 of the division is called the \newterm{pseudoremainder}.
@@ -6779,16 +6779,16 @@ of the division is called the \newterm{pseudoremainder}.
 \begin{enumerate}[a.]
 
 \item
-Implement the procedure \code{pseudoremainder-terms}, which is just like
-\code{remainder-terms} except that it multiplies the dividend by the
-integerizing factor described above before calling \code{div-terms}.  Modify
-\code{gcd-terms} to use \code{pseudoremainder-terms}, and verify that
-\code{greatest-common-divisor} now produces an answer with integer coefficients
+Implement the procedure \code{pseudoremainder\-/terms}, which is just like
+\code{remainder\-/terms} except that it multiplies the dividend by the
+integerizing factor described above before calling \code{div\-/terms}.  Modify
+\code{gcd\-/terms} to use \code{pseudoremainder\-/terms}, and verify that
+\code{greatest\-/common\-/divisor} now produces an answer with integer coefficients
 on the example in \link{Exercise 2.95}.
 
 \item
 The \acronym{GCD} now has integer coefficients, but they are larger than those
-of \( P_1 \).  Modify \code{gcd-terms} so that it removes common factors from the
+of \( P_1 \).  Modify \code{gcd\-/terms} so that it removes common factors from the
 coefficients of the answer by dividing all the coefficients by their (integer)
 greatest common divisor.
 
@@ -6802,7 +6802,7 @@ Thus, here is how to reduce a rational function to lowest terms:
 
 \item
 Compute the \acronym{GCD} of the numerator and denominator, using the version
-of \code{gcd-terms} from \link{Exercise 2.96}.
+of \code{gcd\-/terms} from \link{Exercise 2.96}.
 
 \item
 When you obtain the \acronym{GCD}, multiply both numerator and denominator by
@@ -6828,18 +6828,18 @@ the numerator and the denominator and dividing through by this factor.
 \begin{enumerate}[a.]
 
 \item
-Implement this algorithm as a procedure \code{reduce-terms} that takes two term
+Implement this algorithm as a procedure \code{reduce\-/terms} that takes two term
 lists \code{n} and \code{d} as arguments and returns a list \code{nn},
 \code{dd}, which are \code{n} and \code{d} reduced to lowest terms via the
-algorithm given above.  Also write a procedure \code{reduce-poly}, analogous to
-\code{add-poly}, that checks to see if the two polys have the same variable.
-If so, \code{reduce-poly} strips off the variable and passes the problem to
-\code{reduce-terms}, then reattaches the variable to the two term lists
-supplied by \code{reduce-terms}.
+algorithm given above.  Also write a procedure \code{reduce\-/poly}, analogous to
+\code{add\-/poly}, that checks to see if the two polys have the same variable.
+If so, \code{reduce\-/poly} strips off the variable and passes the problem to
+\code{reduce\-/terms}, then reattaches the variable to the two term lists
+supplied by \code{reduce\-/terms}.
 
 \item
-Define a procedure analogous to \code{reduce-terms} that does what the original
-\code{make-rat} did for integers:
+Define a procedure analogous to \code{reduce\-/terms} that does what the original
+\code{make\-/rat} did for integers:
 
 \begin{codeBlock}
 (define (reduce-integers n d)
@@ -6848,11 +6848,11 @@ Define a procedure analogous to \code{reduce-terms} that does what the original
 \end{codeBlock}
 
 \noindent
-and define \code{reduce} as a generic operation that calls \code{apply-generic}
-to dispatch to either \code{reduce-poly} (for \code{polynomial} arguments) or
-\code{reduce-integers} (for \code{scheme-number} arguments).  You can now
+and define \code{reduce} as a generic operation that calls \code{apply\-/generic}
+to dispatch to either \code{reduce\-/poly} (for \code{polynomial} arguments) or
+\code{reduce\-/integers} (for \code{scheme\-/number} arguments).  You can now
 easily make the rational-arithmetic package reduce fractions to lowest terms by
-having \code{make-rat} call \code{reduce} before combining the given numerator
+having \code{make\-/rat} call \code{reduce} before combining the given numerator
 and denominator to form a rational number.  The system now handles rational
 expressions in either integers or polynomials.  To test your program, try the
 example at the beginning of this extended exercise:

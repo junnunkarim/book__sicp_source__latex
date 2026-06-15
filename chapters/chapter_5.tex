@@ -479,7 +479,7 @@ roots using Newton's method, as described in \link{Section 1.1.7}:
   (sqrt-iter 1.0))
 \end{codeBlock}
 
-Begin by assuming that \code{good-enough?} and \code{improve} operations are
+Begin by assuming that \code{good\-/enough?} and \code{improve} operations are
 available as primitives.  Then show how to expand these in terms of arithmetic
 operations.  Describe each version of the \code{sqrt} machine design by drawing
 a data-path diagram and writing a controller definition in the register-machine
@@ -516,7 +516,7 @@ box, this will not be an economical way to build the machine.  We can avoid
 duplicating the data-path components by using the same components for both
 \acronym{GCD} computations, provided that doing so will not affect the rest of
 the larger machine's computation.  If the values in registers \code{a} and
-\code{b} are not needed by the time the controller gets to \code{gcd-2} (or if
+\code{b} are not needed by the time the controller gets to \code{gcd\-/2} (or if
 these values can be moved to other registers for safekeeping), we can change
 the machine so that it uses registers \code{a} and \code{b}, rather than
 registers \code{c} and \code{d}, in computing the second \acronym{GCD} as well
@@ -559,7 +559,7 @@ replace these two sequences by branches to a single sequence---a \code{gcd}
 in the main instruction sequence.  We can accomplish this as follows: Before
 branching to \code{gcd}, we place a distinguishing value (such as 0 or 1) into
 a special register, \code{continue}.  At the end of the \code{gcd} subroutine
-we return either to \code{after-gcd-1} or to \code{after-gcd-2}, depending on
+we return either to \code{after\-/gcd\-/1} or to \code{after\-/gcd\-/2}, depending on
 the value of the \code{continue} register. \link{Figure 5.9} shows the relevant
 portion of the resulting controller sequence, which includes only a single copy
 of the \code{gcd} instructions.
@@ -655,7 +655,7 @@ after-gcd-2
 
 \noindent
 A machine with more than one subroutine could use multiple continuation
-registers (e.g., \code{gcd-continue}, \code{factorial-continue}) or we could
+registers (e.g., \code{gcd\-/continue}, \code{factorial\-/continue}) or we could
 have all subroutines share a single \code{continue} register.  Sharing is more
 economical, but we must be careful if we have a subroutine (\code{sub1}) that
 calls another subroutine (\code{sub2}).  Unless \code{sub1} saves the contents
@@ -783,13 +783,13 @@ simplify the data-path diagram, we have not named the register-assignment
 buttons, only the stack-operation buttons (\code{sc} and \code{sn} to save
 registers, \code{rc} and \code{rn} to restore registers).  To operate the
 machine, we put in register \code{n} the number whose factorial we wish to
-compute and start the machine.  When the machine reaches \code{fact-done}, the
+compute and start the machine.  When the machine reaches \code{fact\-/done}, the
 computation is finished and the answer will be found in the \code{val}
 register.  In the controller sequence, \code{n} and \code{continue} are saved
 before each recursive call and restored upon return from the call.  Returning
 from a call is accomplished by branching to the location stored in
 \code{continue}.  \code{continue} is initialized when the machine starts so
-that the last return will go to \code{fact-done}.  The \code{val} register,
+that the last return will go to \code{fact\-/done}.  The \code{val} register,
 which holds the result of the factorial computation, is not saved before the
 recursive call, because the old contents of \code{val} is not useful after the
 subroutine returns.  Only the new value, which is the value produced by the
@@ -836,8 +836,8 @@ calls---once to compute \( {\rm Fib}(n - 1) \) and once to compute \( {\rm Fib}(
 set up for each of these calls, we save the registers whose values will be
 needed later, set the \code{n} register to the number whose Fib we need to
 compute recursively (\( n - 1 \) or \( n - 2 \)), and assign to \code{continue} the
-entry point in the main sequence to which to return (\code{afterfib-n-1} or
-\code{afterfib-n-2}, respectively).  We then go to \code{fib-loop}.  When we
+entry point in the main sequence to which to return (\code{afterfib\-/n\-/1} or
+\code{afterfib\-/n\-/2}, respectively).  We then go to \code{fib\-/loop}.  When we
 return from the recursive call, the answer is in \code{val}.  \link{Figure 5.12}
 shows the controller sequence for this machine.
 
@@ -853,7 +853,7 @@ shows the controller sequence for this machine.
    (save continue)
    (assign continue (label afterfib-n-1))
    (save n)                 ~\textrm{; save old value of \code{n}}~
-   (assign n (op -) (reg n) (const 1)) ~\textrm{; clobber \code{n} to \code{n-1}}~
+   (assign n (op -) (reg n) (const 1)) ~\textrm{; clobber \code{n} to \code{n\-/1}}~
    (goto (label fib-loop))  ~\textrm{; perform recursive call}~
  afterfib-n-1     ~\textrm{; upon return, \code{val} contains Fib\( (n-1) \)}~
    (restore n)
@@ -926,7 +926,7 @@ instructions?
 
 A controller instruction in our register-machine language has one of the
 following forms, where each \( \langle \)\var{input}\( _i\rangle \) is either \code{(reg
-\( \langle \)\var{register-name}\( \rangle \))} or \code{(const \( \langle \)\var{constant-value}\( \rangle \))}.  These
+\( \langle \)\var{register\-/name}\( \rangle \))} or \code{(const \( \langle \)\var{constant\-/value}\( \rangle \))}.  These
 instructions were introduced in \link{Section 5.1.1}:
 
 \begin{codeBlock}
@@ -1022,7 +1022,7 @@ the controller sequence and stopping when it reaches the end of the sequence.
 
 \noindent
 As an example of how these procedures are used, we can define
-\code{gcd-machine} to be a model of the \acronym{GCD} machine of
+\code{gcd\-/machine} to be a model of the \acronym{GCD} machine of
 \link{Section 5.1.1} as follows:
 
 \begin{codeBlock}
@@ -1040,7 +1040,7 @@ As an example of how these procedures are used, we can define
 \end{codeBlock}
 
 \noindent
-The first argument to \code{make-machine} is a list of register names.  The
+The first argument to \code{make\-/machine} is a list of register names.  The
 next argument is a table (a list of two-element lists) that pairs each
 operation name with a Scheme procedure that implements the operation (that is,
 produces the same output value given the same input values).  The last argument
@@ -1076,23 +1076,23 @@ machines you designed in \link{Exercise 5.4}.
 \subsection{The Machine Model}
 \label{Section 5.2.1}
 
-The machine model generated by \code{make-machine} is represented as a
+The machine model generated by \code{make\-/machine} is represented as a
 procedure with local state using the message-passing techniques developed in
-\link{Chapter 3}.  To build this model, \code{make-machine} begins by calling
-the procedure \code{make-new-machine} to construct the parts of the machine
+\link{Chapter 3}.  To build this model, \code{make\-/machine} begins by calling
+the procedure \code{make\-/new\-/machine} to construct the parts of the machine
 model that are common to all register machines.  This basic machine model
-constructed by \code{make-new-machine} is essentially a container for some
+constructed by \code{make\-/new\-/machine} is essentially a container for some
 registers and a stack, together with an execution mechanism that processes the
 controller instructions one by one.
 
-\code{make-machine} then extends this basic model (by sending it messages) to
+\code{make\-/machine} then extends this basic model (by sending it messages) to
 include the registers, operations, and controller of the particular machine
 being defined.  First it allocates a register in the new machine for each of
 the supplied register names and installs the designated operations in the
 machine.  Then it uses an \newterm{assembler} (described below in
 \link{Section 5.2.2}) to transform the controller list into instructions for the new
 machine and installs these as the machine's instruction sequence.
-\code{make-machine} returns as its value the modified machine model.
+\code{make\-/machine} returns as its value the modified machine model.
 
 \begin{codeBlock}
 (define (make-machine register-names
@@ -1112,7 +1112,7 @@ machine and installs these as the machine's instruction sequence.
 \subsubsection*{Registers}
 
 We will represent a register as a procedure with local state, as in
-\link{Chapter 3}.  The procedure \code{make-register} creates a register that
+\link{Chapter 3}.  The procedure \code{make\-/register} creates a register that
 holds a value that can be accessed or changed:
 
 \begin{codeBlock}
@@ -1140,7 +1140,7 @@ The following procedures are used to access registers:
 \subsubsection*{The stack}
 
 We can also represent a stack as a procedure with local state.  The procedure
-\code{make-stack} creates a stack whose local state consists of a list of the
+\code{make\-/stack} creates a stack whose local state consists of a list of the
 items on the stack.  A stack accepts requests to \code{push} an item onto the
 stack, to \code{pop} the top item off the stack and return it, and to
 \code{initialize} the stack to empty.
@@ -1177,13 +1177,13 @@ The following procedures are used to access stacks:
 
 \subsubsection*{The basic machine}
 
-The \code{make-new-machine} procedure, shown in \link{Figure 5.13}, constructs
+The \code{make\-/new\-/machine} procedure, shown in \link{Figure 5.13}, constructs
 an object whose local state consists of a stack, an initially empty instruction
 sequence, a list of operations that initially contains an operation to
 initialize the stack, and a \newterm{register table} that initially contains
 two registers, named \code{flag} and \code{pc} (for ``program counter'').  The
-internal procedure \code{allocate-register} adds new entries to the register
-table, and the internal procedure \code{lookup-register} looks up registers in
+internal procedure \code{allocate\-/register} adds new entries to the register
+table, and the internal procedure \code{lookup\-/register} looks up registers in
 the table.
 
 The \code{flag} register is used to control branching in the simulated machine.
@@ -1206,7 +1206,7 @@ instruction sequence).
 % figure 5.13
 \begin{codeFigure}
   {%
-    The \code{make-new-machine} procedure, which implements the basic
+    The \code{make\-/new\-/machine} procedure, which implements the basic
     machine model.
   }%
 \begin{codeBlock}
@@ -1275,7 +1275,7 @@ instruction in the sequence.  Observe that each call to \code{execute} calls
 \code{execute} again, but this does not produce an infinite loop because
 running the instruction execution procedure changes the contents of \code{pc}.
 
-\code{make-new-machine} returns a \code{dispatch} procedure that implements
+\code{make\-/new\-/machine} returns a \code{dispatch} procedure that implements
 message-passing access to the internal state.  Notice that starting the machine
 is accomplished by setting \code{pc} to the beginning of the instruction
 sequence and calling \code{execute}.
@@ -1334,10 +1334,10 @@ list by inserting the execution procedure for each instruction.
 The \code{assemble} procedure is the main entry to the assembler.  It takes the
 controller text and the machine model as arguments and returns the instruction
 sequence to be stored in the model.  \code{assemble} calls
-\code{extract-labels} to build the initial instruction list and label table
+\code{extract\-/labels} to build the initial instruction list and label table
 from the supplied controller text.  The second argument to
-\code{extract-labels} is a procedure to be called to process these results:
-This procedure uses \code{update-insts!} to generate the instruction execution
+\code{extract\-/labels} is a procedure to be called to process these results:
+This procedure uses \code{update\-/insts!} to generate the instruction execution
 procedures and insert them into the instruction list, and returns the modified
 list.
 
@@ -1351,7 +1351,7 @@ list.
 \end{codeBlock}
 
 \noindent
-\code{extract-labels} takes as arguments a list \code{text} (the sequence of
+\code{extract\-/labels} takes as arguments a list \code{text} (the sequence of
 controller instruction expressions) and a \code{receive} procedure.
 \code{receive} will be called with two values: (1) a list \code{insts} of
 instruction data structures, each containing an instruction from \code{text};
@@ -1380,12 +1380,12 @@ designates.
 \end{codeBlock}
 
 \noindent
-\code{extract-labels} works by sequentially scanning the elements of the
+\code{extract\-/labels} works by sequentially scanning the elements of the
 \code{text} and accumulating the \code{insts} and the \code{labels}.  If an
 element is a symbol (and thus a label) an appropriate entry is added to the
 \code{labels} table.  Otherwise the element is accumulated onto the
 \code{insts} list.\footnote{Using the \code{receive} procedure here is a way to
-get \code{extract-labels} to effectively return two values---\code{labels} and
+get \code{extract\-/labels} to effectively return two values---\code{labels} and
 \code{insts}---without explicitly making a compound data structure to hold
 them.  An alternative implementation, which returns an explicit pair of values,
 is
@@ -1425,7 +1425,7 @@ called a ``continuation.''  Recall that we also used continuations to implement
 the backtracking control structure in the \code{amb} evaluator in
 \link{Section 4.3.3}.}
 
-\code{update-insts!} modifies the instruction list, which initially contains
+\code{update\-/insts!} modifies the instruction list, which initially contains
 only the text of the instructions, to include the corresponding execution
 procedures:
 
@@ -1448,8 +1448,8 @@ procedures:
 \noindent
 The machine instruction data structure simply pairs the instruction text with
 the corresponding execution procedure.  The execution procedure is not yet
-available when \code{extract-labels} constructs the instruction, and is
-inserted later by \code{update-insts!}.
+available when \code{extract\-/labels} constructs the instruction, and is
+inserted later by \code{update\-/insts!}.
 
 \begin{codeBlock}
 (define (make-instruction text) (cons text '()))
@@ -1499,7 +1499,7 @@ there
 \end{codeBlock}
 
 With the simulator as written, what will the contents of register \code{a} be
-when control reaches \code{there}?  Modify the \code{extract-labels} procedure
+when control reaches \code{there}?  Modify the \code{extract\-/labels} procedure
 so that the assembler will signal an error if the same label name is used to
 indicate two different locations.
 \end{exerciseGroup}
@@ -1507,7 +1507,7 @@ indicate two different locations.
 \subsection{Generating Execution Procedures for Instructions}
 \label{Section 5.2.3}
 
-The assembler calls \code{make-execution-procedure} to generate the execution
+The assembler calls \code{make\-/execution\-/procedure} to generate the execution
 procedure for an instruction.  Like the \code{analyze} procedure in the
 evaluator of \link{Section 4.1.7}, this dispatches on the type of instruction to
 generate the appropriate execution procedure.
@@ -1545,7 +1545,7 @@ procedures to extract and classify the parts of an instruction.
 
 \subsubsection*{\code{assign} instructions}
 
-The \code{make-assign} procedure handles \code{assign} instructions:
+The \code{make\-/assign} procedure handles \code{assign} instructions:
 
 \begin{codeBlock}
 (define (make-assign inst machine labels operations pc)
@@ -1564,7 +1564,7 @@ The \code{make-assign} procedure handles \code{assign} instructions:
 \end{codeBlock}
 
 \noindent
-\code{make-assign} extracts the target register name (the second element of the
+\code{make\-/assign} extracts the target register name (the second element of the
 instruction) and the value expression (the rest of the list that forms the
 instruction) from the \code{assign} instruction using the selectors
 
@@ -1576,12 +1576,12 @@ instruction) from the \code{assign} instruction using the selectors
 \end{codeBlock}
 
 \noindent
-The register name is looked up with \code{get-register} to produce the target
-register object.  The value expression is passed to \code{make-operation-exp}
-if the value is the result of an operation, and to \code{make-primitive-exp}
+The register name is looked up with \code{get\-/register} to produce the target
+register object.  The value expression is passed to \code{make\-/operation\-/exp}
+if the value is the result of an operation, and to \code{make\-/primitive\-/exp}
 otherwise.  These procedures (shown below) parse the value expression and
 produce an execution procedure for the value.  This is a procedure of no
-arguments, called \code{value-proc}, which will be evaluated during the
+arguments, called \code{value\-/proc}, which will be evaluated during the
 simulation to produce the actual value to be assigned to the register.  Notice
 that the work of looking up the register name and parsing the value expression
 is performed just once, at assembly time, not every time the instruction is
@@ -1589,10 +1589,10 @@ simulated.  This saving of work is the reason we use execution procedures, and
 corresponds directly to the saving in work we obtained by separating program
 analysis from execution in the evaluator of \link{Section 4.1.7}.
 
-The result returned by \code{make-assign} is the execution procedure for the
+The result returned by \code{make\-/assign} is the execution procedure for the
 \code{assign} instruction.  When this procedure is called (by the machine
 model's \code{execute} procedure), it sets the contents of the target register
-to the result obtained by executing \code{value-proc}.  Then it advances the
+to the result obtained by executing \code{value\-/proc}.  Then it advances the
 \code{pc} to the next instruction by running the procedure
 
 \begin{codeBlock}
@@ -1601,12 +1601,12 @@ to the result obtained by executing \code{value-proc}.  Then it advances the
 \end{codeBlock}
 
 \noindent
-\code{advance-pc} is the normal termination for all instructions except
+\code{advance\-/pc} is the normal termination for all instructions except
 \code{branch} and \code{goto}.
 
 \subsubsection*{\code{test}, \code{branch}, and \code{goto} instructions}
 
-\code{make-test} handles \code{test} instructions in a similar way.  It
+\code{make\-/test} handles \code{test} instructions in a similar way.  It
 extracts the expression that specifies the condition to be tested and generates
 an execution procedure for it.  At simulation time, the procedure for the
 condition is called, the result is assigned to the \code{flag} register, and
@@ -1633,7 +1633,7 @@ The execution procedure for a \code{branch} instruction checks the contents of
 the \code{flag} register and either sets the contents of the \code{pc} to the
 branch destination (if the branch is taken) or else just advances the \code{pc}
 (if the branch is not taken).  Notice that the indicated destination in a
-\code{branch} instruction must be a label, and the \code{make-branch} procedure
+\code{branch} instruction must be a label, and the \code{make\-/branch} procedure
 enforces this.  Notice also that the label is looked up at assembly time, not
 each time the \code{branch} instruction is simulated.
 
@@ -1701,7 +1701,7 @@ the designated register and advance the \code{pc}:
 \end{codeBlock}
 
 \noindent
-The final instruction type, handled by \code{make-perform}, generates an
+The final instruction type, handled by \code{make\-/perform}, generates an
 execution procedure for the action to be performed.  At simulation time, the
 action procedure is executed and the \code{pc} advanced.
 
@@ -1720,8 +1720,8 @@ action procedure is executed and the \code{pc} advanced.
 \subsubsection*{Execution procedures for subexpressions}
 
 The value of a \code{reg}, \code{label}, or \code{const} expression may be
-needed for assignment to a register (\code{make-assign}) or for input to an
-operation (\code{make-operation-exp}, below).  The following procedure
+needed for assignment to a register (\code{make\-/assign}) or for input to an
+operation (\code{make\-/operation\-/exp}, below).  The following procedure
 generates execution procedures to produce values for these expressions during
 the simulation:
 
@@ -1788,7 +1788,7 @@ The syntax of operation expressions is determined by
 
 \noindent
 Observe that the treatment of operation expressions is very much like the
-treatment of procedure applications by the \code{analyze-application} procedure
+treatment of procedure applications by the \code{analyze\-/application} procedure
 in the evaluator of \link{Section 4.1.7} in that we generate an execution
 procedure for each operand.  At simulation time, we call the operand procedures
 and apply the Scheme procedure that simulates the operation to the resulting
@@ -1844,7 +1844,7 @@ to put the register name on the stack along with the value.
 \code{(restore y)} puts into \code{y} the last value saved from \code{y}
 regardless of what other registers were saved after \code{y} and not restored.
 Modify the simulator to behave this way.  You will have to associate a separate
-stack with each register.  You should make the \code{initialize-stack}
+stack with each register.  You should make the \code{initialize\-/stack}
 operation initialize all the register stacks.
 
 \end{enumerate}
@@ -1882,8 +1882,8 @@ new information.  To test your analyzer, define the Fibonacci machine from
 
 \exerciseHeading{\phantomsection\label{Exercise 5.13}Exercise 5.13:} Modify the simulator so that it
 uses the controller sequence to determine what registers the machine has rather
-than requiring a list of registers as an argument to \code{make-machine}.
-Instead of pre-allocating the registers in \code{make-machine}, you can
+than requiring a list of registers as an argument to \code{make\-/machine}.
+Instead of pre-allocating the registers in \code{make\-/machine}, you can
 allocate them one at a time when they are first seen during assembly of the
 instructions.
 \end{exerciseGroup}
@@ -1899,7 +1899,7 @@ stack to keep track of the number of times registers are saved on the stack and
 the maximum depth reached by the stack, and add a message to the stack's
 interface that prints the statistics, as shown below.  We also add an operation
 to the basic machine model to print the stack statistics, by initializing
-\code{the-ops} in \code{make-new-machine} to
+\code{the\-/ops} in \code{make\-/new\-/machine} to
 
 \begin{codeBlock}
 (list (list 'initialize-stack
@@ -1909,7 +1909,7 @@ to the basic machine model to print the stack statistics, by initializing
 \end{codeBlock}
 
 \noindent
-Here is the new version of \code{make-stack}:
+Here is the new version of \code{make\-/stack}:
 
 \begin{codeBlock}
 (define (make-stack)
@@ -1966,8 +1966,8 @@ the factorial machine with instructions to initialize the stack and print the
 statistics.  You may want to also modify the machine so that it repeatedly
 reads a value for \( n \), computes the factorial, and prints the result (as we
 did for the \acronym{GCD} machine in \link{Figure 5.4}), so that you will not
-have to repeatedly invoke \code{get-register-contents},
-\code{set-register-contents!}, and \code{start}.
+have to repeatedly invoke \code{get\-/register\-/contents},
+\code{set\-/register\-/contents!}, and \code{start}.
 
 \exerciseHeading{\phantomsection\label{Exercise 5.15}Exercise 5.15:} Add \newterm{instruction
 counting} to the register machine simulation.  That is, have the machine model
@@ -1978,7 +1978,7 @@ count and resets the count to zero.
 \exerciseHeading{\phantomsection\label{Exercise 5.16}Exercise 5.16:} Augment the simulator to provide
 for \newterm{instruction tracing}.  That is, before each instruction is
 executed, the simulator should print the text of the instruction.  Make the
-machine model accept \code{trace-on} and \code{trace-off} messages to turn
+machine model accept \code{trace\-/on} and \code{trace\-/off} messages to turn
 tracing on and off.
 
 \exerciseHeading{\phantomsection\label{Exercise 5.17}Exercise 5.17:} Extend the instruction tracing of
@@ -1988,7 +1988,7 @@ sequence.  Be careful to do this in a way that does not interfere with
 instruction counting (\link{Exercise 5.15}).  You will have to make the
 simulator retain the necessary label information.
 
-\exerciseHeading{\phantomsection\label{Exercise 5.18}Exercise 5.18:} Modify the \code{make-register}
+\exerciseHeading{\phantomsection\label{Exercise 5.18}Exercise 5.18:} Modify the \code{make\-/register}
 procedure of \link{Section 5.2.1} so that registers can be traced.  Registers
 should accept messages that turn tracing on and off.  When a register is
 traced, assigning a value to the register should print the name of the
@@ -2016,11 +2016,11 @@ label.  For example,
 \end{codeBlock}
 
 \noindent
-installs a breakpoint in \code{gcd-machine} just before the assignment to
+installs a breakpoint in \code{gcd\-/machine} just before the assignment to
 register \code{a}.  When the simulator reaches the breakpoint it should print
 the label and the offset of the breakpoint and stop executing instructions.
-Alyssa can then use \code{get-register-contents} and
-\code{set-register-contents!} to manipulate the state of the simulated machine.
+Alyssa can then use \code{get\-/register\-/contents} and
+\code{set\-/register\-/contents!} to manipulate the state of the simulated machine.
 She should then be able to continue execution by saying
 
 \begin{codeBlock}
@@ -2101,20 +2101,20 @@ primitive Scheme procedures for manipulating vectors:
 \begin{itemize}
 
 \item
-\code{(vector-ref \( \langle \)\var{vector}\( \rangle \) \( \langle \)\var{n}\( \rangle \))} returns the \( n^{\mathrm{th}} \)
+\code{(vector\-/ref \( \langle \)\var{vector}\( \rangle \) \( \langle \)\var{n}\( \rangle \))} returns the \( n^{\mathrm{th}} \)
 element of the vector.
 
 \item
-\code{(vector-set! \( \langle \)\var{vector}\( \rangle \) \( \langle \)\var{n}\( \rangle \) \( \langle \)\var{value}\( \rangle \))}
+\code{(vector\-/set! \( \langle \)\var{vector}\( \rangle \) \( \langle \)\var{n}\( \rangle \) \( \langle \)\var{value}\( \rangle \))}
 sets the \( n^{\mathrm{th}} \) element of the vector to the designated value.
 
 \end{itemize}
 
 \noindent
-For example, if \code{v} is a vector, then \code{(vector-ref v 5)} gets the
-fifth entry in the vector \code{v} and \code{(vector-set! v 5 7)} changes the
+For example, if \code{v} is a vector, then \code{(vector\-/ref v 5)} gets the
+fifth entry in the vector \code{v} and \code{(vector\-/set! v 5 7)} changes the
 value of the fifth entry of the vector \code{v} to 7.\footnote{For
-completeness, we should specify a \code{make-vector} operation that constructs
+completeness, we should specify a \code{make\-/vector} operation that constructs
 vectors.  However, in the present application we will use vectors only to model
 fixed divisions of the computer memory.}  For computer memory, this access can
 be implemented through the use of address arithmetic to combine a \newterm{base
@@ -2126,10 +2126,10 @@ vector.
 
 We can use vectors to implement the basic pair structures required for a
 list-structured memory.  Let us imagine that computer memory is divided into
-two vectors: \code{the-cars} and \code{the-cdrs}.  We will represent list
+two vectors: \code{the\-/cars} and \code{the\-/cdrs}.  We will represent list
 structure as follows: A pointer to a pair is an index into the two vectors.
-The \code{car} of the pair is the entry in \code{the-cars} with the designated
-index, and the \code{cdr} of the pair is the entry in \code{the-cdrs} with the
+The \code{car} of the pair is the entry in \code{the\-/cars} with the designated
+index, and the \code{cdr} of the pair is the entry in \code{the\-/cdrs} with the
 designated index.  We also need a representation for objects other than pairs
 (such as numbers and symbols) and a way to distinguish one kind of data from
 another.  There are many methods of accomplishing this, but they all reduce to
@@ -2161,8 +2161,8 @@ pointer to the pair with index 5 is denoted \code{p5}, the empty list is
 denoted by the pointer \code{e0}, and a pointer to the number 4 is denoted
 \code{n4}.  In the box-and-pointer diagram, we have indicated at the lower left
 of each pair the vector index that specifies where the \code{car} and
-\code{cdr} of the pair are stored.  The blank locations in \code{the-cars} and
-\code{the-cdrs} may contain parts of other list structures (not of interest
+\code{cdr} of the pair are stored.  The blank locations in \code{the\-/cars} and
+\code{the\-/cdrs} may contain parts of other list structures (not of interest
 here).
 
 A pointer to a number, such as \code{n4}, might consist of a type indicating
@@ -2210,8 +2210,8 @@ character strings by unique pointers is called \newterm{interning} symbols.
 
 Given the above representation scheme, we can replace each ``primitive'' list
 operation of a register machine with one or more primitive vector operations.
-We will use two registers, \code{the-cars} and \code{the-cdrs}, to identify the
-memory vectors, and will assume that \code{vector-ref} and \code{vector-set!}
+We will use two registers, \code{the\-/cars} and \code{the\-/cdrs}, to identify the
+memory vectors, and will assume that \code{vector\-/ref} and \code{vector\-/set!}
 are available as primitive operations.  We also assume that numeric operations
 on pointers (such as incrementing a pointer, using a pair pointer to index a
 vector, or adding two numbers) use only the index portion of the typed pointer.
@@ -2251,7 +2251,7 @@ are implemented as
 
 \noindent
 \code{cons} is performed by allocating an unused index and storing the
-arguments to \code{cons} in \code{the-cars} and \code{the-cdrs} at that indexed
+arguments to \code{cons} in \code{the\-/cars} and \code{the\-/cdrs} at that indexed
 vector position.  We presume that there is a special register, \code{free},
 that always holds a pair pointer containing the next available index, and that
 we can increment the index part of that pointer to find the next free
@@ -2267,9 +2267,9 @@ pointer) because we are using a compacting garbage collector, as we will see in
 
 \noindent
 is implemented as the following sequence of vector operations:\footnote{This is
-essentially the implementation of \code{cons} in terms of \code{set-car!} and
-\code{set-cdr!}, as described in \link{Section 3.3.1}.  The operation
-\code{get-new-pair} used in that implementation is realized here by the
+essentially the implementation of \code{cons} in terms of \code{set\-/car!} and
+\code{set\-/cdr!}, as described in \link{Section 3.3.1}.  The operation
+\code{get\-/new\-/pair} used in that implementation is realized here by the
 \code{free} pointer.}
 
 \begin{codeBlock}
@@ -2297,7 +2297,7 @@ check the type field.
 
 Although our register machines use stacks, we need do nothing special here,
 since stacks can be modeled in terms of lists.  The stack can be a list of the
-saved values, pointed to by a special register \code{the-stack}.  Thus, \code{
+saved values, pointed to by a special register \code{the\-/stack}.  Thus, \code{
 (save \( \langle \)\var{reg}\( \rangle \))} can be implemented as
 
 \begin{codeBlock}
@@ -2313,7 +2313,7 @@ Similarly, \code{(restore \( \langle \)\var{reg}\( \rangle \))} can be implement
 \end{codeBlock}
 
 \noindent
-and \code{(perform (op initialize-stack))} can be implemented as
+and \code{(perform (op initialize\-/stack))} can be implemented as
 
 \begin{codeBlock}
 (assign the-stack (const ()))
@@ -2347,7 +2347,7 @@ available as machine primitives.
 \begin{enumerate}[a.]
 
 \item
-Recursive \code{count-leaves}:
+Recursive \code{count\-/leaves}:
 
 \begin{codeBlock}
 (define (count-leaves tree)
@@ -2358,7 +2358,7 @@ Recursive \code{count-leaves}:
 \end{codeBlock}
 
 \item
-Recursive \code{count-leaves} with explicit counter:
+Recursive \code{count\-/leaves} with explicit counter:
 
 \begin{codeBlock}
 (define (count-leaves tree)
@@ -2475,12 +2475,12 @@ all accessible data.  This can be arranged by storing the contents of all the
 machine registers in a pre-allocated list pointed at by \code{root} just before
 starting garbage collection.\footnote{This list of registers does not include
 the registers used by the storage-allocation system---\code{root},
-\code{the-cars}, \code{the-cdrs}, and the other registers that will be
+\code{the\-/cars}, \code{the\-/cdrs}, and the other registers that will be
 introduced in this section.} We also assume that, in addition to the current
 working memory, there is free memory available into which we can copy the
 useful data.  The current working memory consists of vectors whose base
-addresses are in registers called \code{the-cars} and \code{the-cdrs}, and the
-free memory is in registers called \code{new-cars} and \code{new-cdrs}.
+addresses are in registers called \code{the\-/cars} and \code{the\-/cdrs}, and the
+free memory is in registers called \code{new\-/cars} and \code{new\-/cdrs}.
 
 Garbage collection is triggered when we exhaust the free cells in the current
 working memory, that is, when a \code{cons} operation attempts to increment the
@@ -2536,12 +2536,12 @@ terminate.
 
 We can specify the stop-and-copy algorithm as a sequence of instructions for a
 register machine.  The basic step of relocating an object is accomplished by a
-subroutine called \code{relocate-old-result-in-new}.  This subroutine gets its
+subroutine called \code{relocate\-/old\-/result\-/in\-/new}.  This subroutine gets its
 argument, a pointer to the object to be relocated, from a register named
 \code{old}.  It relocates the designated object (incrementing \code{free} in
 the process), puts a pointer to the relocated object into a register called
 \code{new}, and returns by branching to the entry point stored in the register
-\code{relocate-continue}.  To begin garbage collection, we invoke this
+\code{relocate\-/continue}.  To begin garbage collection, we invoke this
 subroutine to relocate the \code{root} pointer, after initializing \code{free}
 and \code{scan}.  When the relocation of \code{root} has been accomplished, we
 install the new pointer as the new \code{root} and enter the main loop of the
@@ -2564,10 +2564,10 @@ In the main loop of the garbage collector we must determine whether there are
 any more objects to be scanned.  We do this by testing whether the \code{scan}
 pointer is coincident with the \code{free} pointer.  If the pointers are equal,
 then all accessible objects have been relocated, and we branch to
-\code{gc-flip}, which cleans things up so that we can continue the interrupted
+\code{gc\-/flip}, which cleans things up so that we can continue the interrupted
 computation.  If there are still pairs to be scanned, we call the relocate
 subroutine to relocate the \code{car} of the next pair (by placing the
-\code{car} pointer in \code{old}).  The \code{relocate-continue} register is
+\code{car} pointer in \code{old}).  The \code{relocate\-/continue} register is
 set up so that the subroutine will return to update the \code{car} pointer.
 
 \begin{codeBlock}
@@ -2580,9 +2580,9 @@ gc-loop
 \end{codeBlock}
 
 \noindent
-At \code{update-car}, we modify the \code{car} pointer of the pair being
+At \code{update\-/car}, we modify the \code{car} pointer of the pair being
 scanned, then proceed to relocate the \code{cdr} of the pair.  We return to
-\code{update-cdr} when that relocation has been accomplished.  After relocating
+\code{update\-/cdr} when that relocation has been accomplished.  After relocating
 and updating the \code{cdr}, we are finished scanning that pair, so we continue
 with the main loop.
 
@@ -2605,7 +2605,7 @@ update-cdr
 \end{codeBlock}
 
 \noindent
-The subroutine \code{relocate-old-result-in-new} relocates objects as follows:
+The subroutine \code{relocate\-/old\-/result\-/in\-/new} relocates objects as follows:
 If the object to be relocated (pointed at by \code{old}) is not a pair, then we
 return the same pointer to the object unchanged (in \code{new}).  (For example,
 we may be scanning a pair whose \code{car} is the number 4.  If we represent
@@ -2618,15 +2618,15 @@ the broken heart) and return this in \code{new}.  If the pointer in \code{old}
 points at a yet-unmoved pair, then we move the pair to the first free cell in
 new memory (pointed at by \code{free}) and set up the broken heart by storing a
 broken-heart tag and forwarding address at the old location.
-\code{relocate-old-result-in-new} uses a register \code{oldcr} to hold the
+\code{relocate\-/old\-/result\-/in\-/new} uses a register \code{oldcr} to hold the
 \code{car} or the \code{cdr} of the object pointed at by
 \code{old}.\footnote{The garbage collector uses the low-level predicate
-\code{pointer-to-pair?} instead of the list-structure \code{pair?}  operation
+\code{pointer\-/to\-/pair?} instead of the list-structure \code{pair?}  operation
 because in a real system there might be various things that are treated as
 pairs for garbage-collection purposes.  For example, in a Scheme system that
 conforms to the \acronym{IEEE} standard a procedure object may be implemented
 as a special kind of ``pair'' that doesn't satisfy the \code{pair?} predicate.
-For simulation purposes, \code{pointer-to-pair?} can be implemented as
+For simulation purposes, \code{pointer\-/to\-/pair?} can be implemented as
 \code{pair?}.}
 
 \begin{codeBlock}
@@ -2661,8 +2661,8 @@ already-moved
 
 \noindent
 At the very end of the garbage-collection process, we interchange the role of
-old and new memories by interchanging pointers: interchanging \code{the-cars}
-with \code{new-cars}, and \code{the-cdrs} with \code{new-cdrs}.  We will then
+old and new memories by interchanging pointers: interchanging \code{the\-/cars}
+with \code{new\-/cars}, and \code{the\-/cdrs} with \code{new\-/cdrs}.  We will then
 be ready to perform another garbage collection the next time memory runs out.
 
 \begin{codeBlock}
@@ -2710,7 +2710,7 @@ on the chip and the method by which it was designed.}
 In designing the explicit-control evaluator, we must specify the operations to
 be used in our register machine.  We described the metacircular evaluator in
 terms of abstract syntax, using procedures such as \code{quoted?} and
-\code{make-procedure}.  In implementing the register machine, we could expand
+\code{make\-/procedure}.  In implementing the register machine, we could expand
 these procedures into sequences of elementary list-structure memory operations,
 and implement these operations on our register machine.  However, this would
 make our evaluator very long, obscuring the basic structure with details.  To
@@ -2746,20 +2746,20 @@ will be presented in detail.
 \label{Section 5.4.1}
 
 The central element in the evaluator is the sequence of instructions beginning
-at \code{eval-dispatch}.  This corresponds to the \code{eval} procedure of the
+at \code{eval\-/dispatch}.  This corresponds to the \code{eval} procedure of the
 metacircular evaluator described in \link{Section 4.1.1}.  When the controller
-starts at \code{eval-dispatch}, it evaluates the expression specified by
+starts at \code{eval\-/dispatch}, it evaluates the expression specified by
 \code{exp} in the environment specified by \code{env}.  When evaluation is
 complete, the controller will go to the entry point stored in \code{continue},
 and the \code{val} register will hold the value of the expression.  As with the
-metacircular \code{eval}, the structure of \code{eval-dispatch} is a case
+metacircular \code{eval}, the structure of \code{eval\-/dispatch} is a case
 analysis on the syntactic type of the expression to be evaluated.\footnote{In
 our controller, the dispatch is written as a sequence of \code{test} and
 \code{branch} instructions.  Alternatively, it could have been written in a
 data-directed style (and in a real system it probably would have been) to avoid
 the need to perform sequential tests and to facilitate the definition of new
 expression types.  A machine designed to run Lisp would probably include a
-\code{dispatch-on-type} instruction that would efficiently execute such
+\code{dispatch\-/on\-/type} instruction that would efficiently execute such
 data-directed dispatches.}
 
 \begin{codeBlock}
@@ -2811,9 +2811,9 @@ ev-lambda
 \end{codeBlock}
 
 \noindent
-Observe how \code{ev-lambda} uses the \code{unev} and \code{exp} registers to
+Observe how \code{ev\-/lambda} uses the \code{unev} and \code{exp} registers to
 hold the parameters and body of the lambda expression so that they can be
-passed to the \code{make-procedure} operation, along with the environment in
+passed to the \code{make\-/procedure} operation, along with the environment in
 \code{env}.
 
 \subsubsection*{Evaluating procedure applications}
@@ -2842,12 +2842,12 @@ reused.}
 We begin the evaluation of an application by evaluating the operator to produce
 a procedure, which will later be applied to the evaluated operands.  To
 evaluate the operator, we move it to the \code{exp} register and go to
-\code{eval-dispatch}.  The environment in the \code{env} register is already
+\code{eval\-/dispatch}.  The environment in the \code{env} register is already
 the correct one in which to evaluate the operator.  However, we save \code{env}
 because we will need it later to evaluate the operands.  We also extract the
 operands into \code{unev} and save this on the stack.  We set up
-\code{continue} so that \code{eval-dispatch} will resume at
-\code{ev-appl-did-operator} after the operator has been evaluated.  First,
+\code{continue} so that \code{eval\-/dispatch} will resume at
+\code{ev\-/appl\-/did\-/operator} after the operator has been evaluated.  First,
 however, we save the old value of \code{continue}, which tells the controller
 where to continue after the application.
 
@@ -2869,7 +2869,7 @@ arguments in a list, held in \code{argl}.  First we restore the unevaluated
 operands and the environment.  We initialize \code{argl} to an empty list.
 Then we assign to the \code{proc} register the procedure that was produced by
 evaluating the operator.  If there are no operands, we go directly to
-\code{apply-dispatch}.  Otherwise we save \code{proc} on the stack and start
+\code{apply\-/dispatch}.  Otherwise we save \code{proc} on the stack and start
 the argument-evaluation loop:\footnote{We add to the evaluator data-structure
 procedures in \link{Section 4.1.3} the following two procedures for manipulating
 argument lists:
@@ -2900,13 +2900,13 @@ ev-appl-did-operator
 \noindent
 Each cycle of the argument-evaluation loop evaluates an operand from the list
 in \code{unev} and accumulates the result into \code{argl}.  To evaluate an
-operand, we place it in the \code{exp} register and go to \code{eval-dispatch},
+operand, we place it in the \code{exp} register and go to \code{eval\-/dispatch},
 after setting \code{continue} so that execution will resume with the
 argument-accumulation phase.  But first we save the arguments accumulated so
 far (held in \code{argl}), the environment (held in \code{env}), and the
 remaining operands to be evaluated (held in \code{unev}).  A special case is
 made for the evaluation of the last operand, which is handled at
-\code{ev-appl-last-arg}.
+\code{ev\-/appl\-/last\-/arg}.
 
 \begin{codeBlock}
 ev-appl-operand-loop
@@ -2938,9 +2938,9 @@ ev-appl-accumulate-arg
 \noindent
 Evaluation of the last argument is handled differently.  There is no need to
 save the environment or the list of unevaluated operands before going to
-\code{eval-dispatch}, since they will not be required after the last operand is
+\code{eval\-/dispatch}, since they will not be required after the last operand is
 evaluated.  Thus, we return from the evaluation to a special entry point
-\code{ev-appl-accum-last-arg}, which restores the argument list, accumulates
+\code{ev\-/appl\-/accum\-/last\-/arg}, which restores the argument list, accumulates
 the new argument, restores the saved procedure, and goes off to perform the
 application.\footnote{The optimization of treating the last operand specially
 is known as \newterm{evlis tail recursion} (see \link{Wand 1980}).  We could be
@@ -2948,7 +2948,7 @@ somewhat more efficient in the argument evaluation loop if we made evaluation
 of the first operand a special case too.  This would permit us to postpone
 initializing \code{argl} until after evaluating the first operand, so as to
 avoid saving \code{argl} in this case.  The compiler in \link{Section 5.5}
-performs this optimization.  (Compare the \code{construct-arglist} procedure of
+performs this optimization.  (Compare the \code{construct\-/arglist} procedure of
 \link{Section 5.5.3}.)}
 
 \begin{codeBlock}
@@ -2970,21 +2970,21 @@ metacircular evaluator, which inherits its control structure from the
 underlying Scheme in which it is implemented.\footnote{The order of operand
 evaluation in the metacircular evaluator is determined by the order of
 evaluation of the arguments to \code{cons} in the procedure
-\code{list-of-values} of \link{Section 4.1.1} (see \link{Exercise 4.1}).} Because
-the \code{first-operand} selector (used in \code{ev-appl-operand-loop} to
+\code{list\-/of\-/values} of \link{Section 4.1.1} (see \link{Exercise 4.1}).} Because
+the \code{first\-/operand} selector (used in \code{ev\-/appl\-/operand\-/loop} to
 extract successive operands from \code{unev}) is implemented as \code{car} and
-the \code{rest-operands} selector is implemented as \code{cdr}, the
+the \code{rest\-/operands} selector is implemented as \code{cdr}, the
 explicit-control evaluator will evaluate the operands of a combination in
 left-to-right order.
 
 \subsubsection*{Procedure application}
 
-The entry point \code{apply-dispatch} corresponds to the \code{apply} procedure
-of the metacircular evaluator.  By the time we get to \code{apply-dispatch},
+The entry point \code{apply\-/dispatch} corresponds to the \code{apply} procedure
+of the metacircular evaluator.  By the time we get to \code{apply\-/dispatch},
 the \code{proc} register contains the procedure to apply and \code{argl}
 contains the list of evaluated arguments to which it must be applied.  The
-saved value of \code{continue} (originally passed to \code{eval-dispatch} and
-saved at \code{ev-application}), which tells where to return with the result of
+saved value of \code{continue} (originally passed to \code{eval\-/dispatch} and
+saved at \code{ev\-/application}), which tells where to return with the result of
 the procedure application, is on the stack.  When the application is complete,
 the controller transfers to the entry point specified by the saved
 \code{continue}, with the result of the application in \code{val}.  As with the
@@ -3004,14 +3004,14 @@ apply-dispatch
 We assume that each primitive is implemented so as to obtain its arguments from
 \code{argl} and place its result in \code{val}.  To specify how the machine
 handles primitives, we would have to provide a sequence of controller
-instructions to implement each primitive and arrange for \code{primitive-apply}
+instructions to implement each primitive and arrange for \code{primitive\-/apply}
 to dispatch to the instructions for the primitive identified by the contents of
 \code{proc}.  Since we are interested in the structure of the evaluation
 process rather than the details of the primitives, we will instead just use an
-\code{apply-primitive-procedure} operation that applies the procedure in
+\code{apply\-/primitive\-/procedure} operation that applies the procedure in
 \code{proc} to the arguments in \code{argl}.  For the purpose of simulating the
 evaluator with the simulator of \link{Section 5.2} we use the procedure
-\code{apply-primitive-procedure}, which calls on the underlying Scheme system
+\code{apply\-/primitive\-/procedure}, which calls on the underlying Scheme system
 to perform the application, just as we did for the metacircular evaluator in
 \link{Section 4.1.4}.  After computing the value of the primitive application,
 we restore \code{continue} and go to the designated entry point.
@@ -3031,7 +3031,7 @@ To apply a compound procedure, we proceed just as with the metacircular
 evaluator.  We construct a frame that binds the procedure's parameters to the
 arguments, use this frame to extend the environment carried by the procedure,
 and evaluate in this extended environment the sequence of expressions that
-forms the body of the procedure.  \code{ev-sequence}, described below in
+forms the body of the procedure.  \code{ev\-/sequence}, described below in
 \link{Section 5.4.2}, handles the evaluation of the sequence.
 
 \begin{codeBlock}
@@ -3045,7 +3045,7 @@ compound-apply
 \end{codeBlock}
 
 \noindent
-\code{compound-apply} is the only place in the interpreter where the \code{env}
+\code{compound\-/apply} is the only place in the interpreter where the \code{env}
 register is ever assigned a new value.  Just as in the metacircular evaluator,
 the new environment is constructed from the environment carried by the
 procedure, together with the argument list and the corresponding list of
@@ -3054,14 +3054,14 @@ variables to be bound.
 \subsection{Sequence Evaluation and Tail Recursion}
 \label{Section 5.4.2}
 
-The portion of the explicit-control evaluator at \code{ev-sequence} is
-analogous to the metacircular evaluator's \code{eval-sequence} procedure.  It
+The portion of the explicit-control evaluator at \code{ev\-/sequence} is
+analogous to the metacircular evaluator's \code{eval\-/sequence} procedure.  It
 handles sequences of expressions in procedure bodies or in explicit
 \code{begin} expressions.
 
 Explicit \code{begin} expressions are evaluated by placing the sequence of
 expressions to be evaluated in \code{unev}, saving \code{continue} on the
-stack, and jumping to \code{ev-sequence}.
+stack, and jumping to \code{ev\-/sequence}.
 
 \begin{codeBlock}
 ev-begin
@@ -3072,30 +3072,30 @@ ev-begin
 
 \noindent
 The implicit sequences in procedure bodies are handled by jumping to
-\code{ev-sequence} from \code{compound-apply}, at which point \code{continue}
-is already on the stack, having been saved at \code{ev-application}.
+\code{ev\-/sequence} from \code{compound\-/apply}, at which point \code{continue}
+is already on the stack, having been saved at \code{ev\-/application}.
 
-The entries at \code{ev-sequence} and \code{ev-sequence-continue} form a loop
+The entries at \code{ev\-/sequence} and \code{ev\-/sequence\-/continue} form a loop
 that successively evaluates each expression in a sequence.  The list of
 unevaluated expressions is kept in \code{unev}.  Before evaluating each
 expression, we check to see if there are additional expressions to be evaluated
 in the sequence.  If so, we save the rest of the unevaluated expressions (held
 in \code{unev}) and the environment in which these must be evaluated (held in
-\code{env}) and call \code{eval-dispatch} to evaluate the expression.  The two
+\code{env}) and call \code{eval\-/dispatch} to evaluate the expression.  The two
 saved registers are restored upon the return from this evaluation, at
-\code{ev-sequence-continue}.
+\code{ev\-/sequence\-/continue}.
 
 The final expression in the sequence is handled differently, at the entry point
-\code{ev-sequence-last-exp}.  Since there are no more expressions to be
+\code{ev\-/sequence\-/last\-/exp}.  Since there are no more expressions to be
 evaluated after this one, we need not save \code{unev} or \code{env} before
-going to \code{eval-dispatch}.  The value of the whole sequence is the value of
+going to \code{eval\-/dispatch}.  The value of the whole sequence is the value of
 the last expression, so after the evaluation of the last expression there is
 nothing left to do except continue at the entry point currently held on the
-stack (which was saved by \code{ev-application} or \code{ev-begin}.)  Rather
-than setting up \code{continue} to arrange for \code{eval-dispatch} to return
+stack (which was saved by \code{ev\-/application} or \code{ev\-/begin}.)  Rather
+than setting up \code{continue} to arrange for \code{eval\-/dispatch} to return
 here and then restoring \code{continue} from the stack and continuing at that
 entry point, we restore \code{continue} from the stack before going to
-\code{eval-dispatch}, so that \code{eval-dispatch} will continue at that entry
+\code{eval\-/dispatch}, so that \code{eval\-/dispatch} will continue at that entry
 point after evaluating the expression.
 
 \begin{codeBlock}
@@ -3131,11 +3131,11 @@ In \link{Chapter 1} we said that the process described by a procedure such as
 \noindent
 is an iterative process.  Even though the procedure is syntactically recursive
 (defined in terms of itself), it is not logically necessary for an evaluator to
-save information in passing from one call to \code{sqrt-iter} to the
+save information in passing from one call to \code{sqrt\-/iter} to the
 next.\footnote{We saw in \link{Section 5.1} how to implement such a process with
 a register machine that had no stack; the state of the process was stored in a
 fixed set of registers.} An evaluator that can execute a procedure such as
-\code{sqrt-iter} without requiring increasing storage as the procedure
+\code{sqrt\-/iter} without requiring increasing storage as the procedure
 continues to call itself is called a \newterm{tail-recursive} evaluator.  The
 metacircular implementation of the evaluator in \link{Chapter 4} does not
 specify whether the evaluator is tail-recursive, because that evaluator
@@ -3145,24 +3145,24 @@ process to see when procedure calls cause a net accumulation of information on
 the stack.
 
 Our evaluator is tail-recursive, because in order to evaluate the final
-expression of a sequence we transfer directly to \code{eval-dispatch} without
+expression of a sequence we transfer directly to \code{eval\-/dispatch} without
 saving any information on the stack.  Hence, evaluating the final expression in
-a sequence---even if it is a procedure call (as in \code{sqrt-iter}, where the
+a sequence---even if it is a procedure call (as in \code{sqrt\-/iter}, where the
 \code{if} expression, which is the last expression in the procedure body,
-reduces to a call to \code{sqrt-iter})---will not cause any information to be
+reduces to a call to \code{sqrt\-/iter})---will not cause any information to be
 accumulated on the stack.\footnote{This implementation of tail recursion in
-\code{ev-sequence} is one variety of a well-known optimization technique used
+\code{ev\-/sequence} is one variety of a well-known optimization technique used
 by many compilers.  In compiling a procedure that ends with a procedure call,
 one can replace the call by a jump to the called procedure's entry point.
 Building this strategy into the interpreter, as we have done in this section,
 provides the optimization uniformly throughout the language.}
 
 If we did not think to take advantage of the fact that it was unnecessary to
-save information in this case, we might have implemented \code{eval-sequence}
+save information in this case, we might have implemented \code{eval\-/sequence}
 by treating all the expressions in a sequence in the same way---saving the
 registers, evaluating the expression, returning to restore the registers, and
 repeating this until all the expressions have been evaluated:\footnote{We can
-define \code{no-more-exps?} as follows:
+define \code{no\-/more\-/exps?} as follows:
 
 \begin{compactCodeBlock}
 (define (no-more-exps? seq) (null? seq))
@@ -3196,7 +3196,7 @@ will still give the same value for any expression.  But this change is fatal to
 the tail-recursive implementation, because we must now return after evaluating
 the final expression in a sequence in order to undo the (useless) register
 saves.  These extra saves will accumulate during a nest of procedure calls.
-Consequently, processes such as \code{sqrt-iter} will require space
+Consequently, processes such as \code{sqrt\-/iter} will require space
 proportional to the number of iterations rather than requiring constant space.
 This difference can be significant.  For example, with tail recursion, an
 infinite loop can be expressed using only the procedure-call mechanism:
@@ -3239,8 +3239,8 @@ ev-if
 \noindent
 When we return from evaluating the predicate, we test whether it was true or
 false and, depending on the result, place either the consequent or the
-alternative in \code{exp} before going to \code{eval-dispatch}.  Notice that
-restoring \code{env} and \code{continue} here sets up \code{eval-dispatch} to
+alternative in \code{exp} before going to \code{eval\-/dispatch}.  Notice that
+restoring \code{env} and \code{continue} here sets up \code{eval\-/dispatch} to
 have the correct environment and to continue at the right place to receive the
 value of the \code{if} expression.
 
@@ -3262,10 +3262,10 @@ ev-if-consequent
 
 \subsubsection*{Assignments and definitions}
 
-Assignments are handled by \code{ev-assignment}, which is reached from
-\code{eval-dispatch} with the assignment expression in \code{exp}.  The code at
-\code{ev-assignment} first evaluates the value part of the expression and then
-installs the new value in the environment.  \code{set-variable-value!} is
+Assignments are handled by \code{ev\-/assignment}, which is reached from
+\code{eval\-/dispatch} with the assignment expression in \code{exp}.  The code at
+\code{ev\-/assignment} first evaluates the value part of the expression and then
+installs the new value in the environment.  \code{set\-/variable\-/value!} is
 assumed to be available as a machine operation.
 
 \begin{codeBlock}
@@ -3313,16 +3313,16 @@ ev-definition-1
 \exerciseHeading{\phantomsection\label{Exercise 5.23}Exercise 5.23:} Extend the evaluator to handle
 derived expressions such as \code{cond}, \code{let}, and so on
 (\link{Section 4.1.2}).  You may ``cheat'' and assume that the syntax transformers such
-as \code{cond->if} are available as machine operations.\footnote{This isn't
+as \code{cond\-/>if} are available as machine operations.\footnote{This isn't
 really cheating.  In an actual implementation built from scratch, we would use
 our explicit-control evaluator to interpret a Scheme program that performs
-source-level transformations like \code{cond->if} in a syntax phase that runs
+source-level transformations like \code{cond\-/>if} in a syntax phase that runs
 before execution.}
 
 \exerciseHeading{\phantomsection\label{Exercise 5.24}Exercise 5.24:} Implement \code{cond} as a new
 basic special form without reducing it to \code{if}.  You will have to
 construct a loop that tests the predicates of successive \code{cond} clauses
-until you find one that is true, and then use \code{ev-sequence} to evaluate
+until you find one that is true, and then use \code{ev\-/sequence} to evaluate
 the actions of the clause.
 
 \exerciseHeading{\phantomsection\label{Exercise 5.25}Exercise 5.25:} Modify the evaluator so that it
@@ -3347,9 +3347,9 @@ precise treatment of evaluation.  To understand the behavior of the
 explicit-control evaluator, we can simulate it and monitor its performance.
 
 We will install a driver loop in our evaluator machine.  This plays the role of
-the \code{driver-loop} procedure of \link{Section 4.1.4}.  The evaluator will
+the \code{driver\-/loop} procedure of \link{Section 4.1.4}.  The evaluator will
 repeatedly print a prompt, read an expression, evaluate the expression by going
-to \code{eval-dispatch}, and print the result.  The following instructions form
+to \code{eval\-/dispatch}, and print the result.  The following instructions form
 the beginning of the explicit-control evaluator's controller
 sequence:\footnote{We assume here that \code{read} and the various printing
 operations are available as primitive machine operations, which is useful for
@@ -3358,7 +3358,7 @@ extremely complex operations.  In practice, they would be implemented using
 low-level input-output operations such as transferring single characters to and
 from a device.
 
-To support the \code{get-global-environment} operation we define
+To support the \code{get\-/global\-/environment} operation we define
 
 \begin{compactCodeBlock}
 (define the-global-environment (setup-environment))
@@ -3383,7 +3383,7 @@ print-result
 
 \noindent
 When we encounter an error in a procedure (such as the ``unknown procedure type
-error'' indicated at \code{apply-dispatch}), we print an error message and
+error'' indicated at \code{apply\-/dispatch}), we print an error message and
 return to the driver loop.\footnote{There are other errors that we would like
 the interpreter to handle, but these are not so simple.  See \link{Exercise 5.30}.}
 
@@ -3392,7 +3392,7 @@ unknown-expression-type
   (assign val (const unknown-expression-type-error))
   (goto (label signal-error))
 unknown-procedure-type
-  (restore continue)    ~\textrm{; clean up stack (from \code{apply-dispatch})}~
+  (restore continue)    ~\textrm{; clean up stack (from \code{apply\-/dispatch})}~
   (assign val (const unknown-procedure-type-error))
   (goto (label signal-error))
 signal-error
@@ -3465,7 +3465,7 @@ example, one important factor in performance is how efficiently the evaluator
 uses the stack.  We can observe the number of stack operations required to
 evaluate various expressions by defining the evaluator register machine with
 the version of the simulator that collects statistics on stack use
-(\link{Section 5.2.4}), and adding an instruction at the evaluator's \code{print-result}
+(\link{Section 5.2.4}), and adding an instruction at the evaluator's \code{print\-/result}
 entry point to print the statistics:
 
 \begin{codeBlock}
@@ -3564,7 +3564,7 @@ carrying out the computation, and the number of pushes correlates well with the
 time required.
 
 \exerciseHeading{\phantomsection\label{Exercise 5.28}Exercise 5.28:} Modify the definition of the
-evaluator by changing \code{eval-sequence} as described in \link{Section 5.4.2}
+evaluator by changing \code{eval\-/sequence} as described in \link{Section 5.4.2}
 so that the evaluator is no longer tail-recursive.  Rerun your experiments from
 \link{Exercise 5.26} and \link{Exercise 5.27} to demonstrate that both versions
 of the \code{factorial} procedure now require space that grows linearly with
@@ -3621,7 +3621,7 @@ Errors that occur in the evaluation process, such as an attempt to access an
 unbound variable, could be caught by changing the lookup operation to make it
 return a distinguished condition code, which cannot be a possible value of any
 user variable.  The evaluator can test for this condition code and then do what
-is necessary to go to \code{signal-error}.  Find all of the places in the
+is necessary to go to \code{signal\-/error}.  Find all of the places in the
 evaluator where such a change is necessary and fix them.  This is lots of work.
 
 \item
@@ -3635,8 +3635,8 @@ return a distinguished condition code to the evaluator, which would then report
 the failure.  We could arrange for this in our register-machine simulator by
 making each primitive procedure check for applicability and returning an
 appropriate distinguished condition code on failure. Then the
-\code{primitive-apply} code in the evaluator can check for the condition code
-and go to \code{signal-error} if necessary.  Build this structure and make it
+\code{primitive\-/apply} code in the evaluator can check for the condition code
+and go to \code{signal\-/error} if necessary.  Build this structure and make it
 work.  This is a major project.
 
 \end{enumerate}
@@ -3772,7 +3772,7 @@ to obtain the result in \code{val}, restores the saved registers, and finally
 moves the result from \code{val} to \code{proc}.  However, in the particular
 expression we are dealing with, the operator is the symbol \code{f}, whose
 evaluation is accomplished by the machine operation
-\code{lookup-variable-value}, which does not alter any registers.  The compiler
+\code{lookup\-/variable\-/value}, which does not alter any registers.  The compiler
 that we implement in this section will take advantage of this fact and generate
 code that evaluates the operator using the instruction
 
@@ -3790,7 +3790,7 @@ obtain the result in \code{val} and then move this to \code{proc}.
 A compiler can also optimize access to the environment.  Having analyzed the
 code, the compiler can in many cases know in which frame a particular variable
 will be located and access that frame directly, rather than performing the
-\code{lookup-variable-value} search.  We will discuss how to implement such
+\code{lookup\-/variable\-/value} search.  We will discuss how to implement such
 variable access in \link{Section 5.5.6}.  Until then, however, we will focus on
 the kind of register and stack optimizations described above.  There are many
 other optimizations that can be performed by a compiler, such as coding
@@ -3813,7 +3813,7 @@ sequences of instructions to be run by our register machine.
 
 The procedure \code{compile} is the top-level dispatch in the compiler.  It
 corresponds to the \code{eval} procedure of \link{Section 4.1.1}, the
-\code{analyze} procedure of \link{Section 4.1.7}, and the \code{eval-dispatch}
+\code{analyze} procedure of \link{Section 4.1.7}, and the \code{eval\-/dispatch}
 entry point of the explicit-control-evaluator in \link{Section 5.4.1}.  The
 compiler, like the interpreters, uses the expression-syntax procedures defined
 in \link{Section 4.1.2}.\footnote{Notice, however, that our compiler is a Scheme
@@ -3909,7 +3909,7 @@ generators for component expressions, just as evaluation of a compound
 expression is accomplished by evaluating the component expressions.
 
 The simplest method for combining instruction sequences is a procedure called
-\code{append-instruction-sequences}.  It takes as arguments any number of
+\code{append\-/instruction\-/sequences}.  It takes as arguments any number of
 instruction sequences that are to be executed sequentially; it appends them and
 returns the combined sequence.  That is, if \( \langle \)\var{seq}\( _1\rangle \) and \( \langle \)\var{seq}\( _2\rangle \) are
 sequences of instructions, then evaluating
@@ -3969,7 +3969,7 @@ writing each of the individual code generators.  In fact no \code{save} or
 \code{restore} instructions are explicitly produced by the code generators.
 
 In principle, we could represent an instruction sequence simply as a list of
-instructions.  \code{append-instruction-sequences} could then combine
+instructions.  \code{append\-/instruction\-/sequences} could then combine
 instruction sequences by performing an ordinary list \code{append}.  However,
 \code{preserving} would then be a complex operation, because it would have to
 analyze each instruction sequence to determine how the sequence uses its
@@ -4090,7 +4090,7 @@ In this section and the next we implement the code generators to which the
 \subsubsection*{Compiling linkage code}
 
 In general, the output of each code generator will end with
-instructions---generated by the procedure \code{compile-linkage}---that
+instructions---generated by the procedure \code{compile\-/linkage}---that
 implement the required linkage.  If the linkage is \code{return} then we must
 generate the instruction \code{(goto (reg continue))}.  This needs the
 \code{continue} register and does not modify any registers.  If the linkage is
@@ -4229,11 +4229,11 @@ arbitrary ways.
 \noindent
 The appended two-instruction sequence requires \code{env} and \code{val} and
 modifies the target.  Note that although we preserve \code{env} for this
-sequence, we do not preserve \code{val}, because the \code{get-value-code} is
+sequence, we do not preserve \code{val}, because the \code{get\-/value\-/code} is
 designed to explicitly place its result in \code{val} for use by this sequence.
 (In fact, if we did preserve \code{val}, we would have a bug, because this
 would cause the previous contents of \code{val} to be restored right after the
-\code{get-value-code} is run.)
+\code{get\-/value\-/code} is run.)
 
 \subsubsection*{Compiling conditional expressions}
 
@@ -4256,13 +4256,13 @@ after-if
 To generate this code, we compile the predicate, consequent, and alternative,
 and combine the resulting code with instructions to test the predicate result
 and with newly generated labels to mark the true and false branches and the end
-of the conditional.\footnote{We can't just use the labels \code{true-branch},
-\code{false-branch}, and \code{after-if} as shown above, because there might be
+of the conditional.\footnote{We can't just use the labels \code{true\-/branch},
+\code{false\-/branch}, and \code{after\-/if} as shown above, because there might be
 more than one \code{if} in the program.  The compiler uses the procedure
-\code{make-label} to generate labels.  \code{make-label} takes a symbol as
+\code{make\-/label} to generate labels.  \code{make\-/label} takes a symbol as
 argument and returns a new symbol that begins with the given symbol.  For
-example, successive calls to \code{(make-label 'a)} would return \code{a1},
-\code{a2}, and so on.  \code{make-label} can be implemented similarly to the
+example, successive calls to \code{(make\-/label 'a)} would return \code{a1},
+\code{a2}, and so on.  \code{make\-/label} can be implemented similarly to the
 generation of unique variable names in the query language, as follows:
 
 \begin{compactCodeBlock}
@@ -4313,11 +4313,11 @@ for the false branch to the label at the end of the conditional.
 the true and false branches, and \code{continue} is preserved because it could
 be needed by the linkage code in those branches.  The code for the true and
 false branches (which are not executed sequentially) is appended using a
-special combiner \code{parallel-instruction-sequences} described in
+special combiner \code{parallel\-/instruction\-/sequences} described in
 \link{Section 5.5.4}.
 
 Note that \code{cond} is a derived expression, so all that the compiler needs
-to do handle it is to apply the \code{cond->if} transformer (from
+to do handle it is to apply the \code{cond\-/>if} transformer (from
 \link{Section 4.1.2}) and compile the resulting \code{if} expression.
 
 \subsubsection*{Compiling sequences}
@@ -4363,13 +4363,13 @@ object code thus has the form
 
 \begin{codeBlock}
 ~\(\langle \)~~\emph{construct procedure object and assign it to target register}~~\(\rangle \)~
- ~\(\langle \)~~\emph{code for given linkage}~~\(\rangle \)~ ~\emph{or}~ ~\code{(goto (label after-lambda))}~
+ ~\(\langle \)~~\emph{code for given linkage}~~\(\rangle \)~ ~\emph{or}~ ~\code{(goto (label after\-/lambda))}~
  ~\(\langle \)~~\emph{compilation of procedure body}~~\(\rangle \)~
 after-lambda
 \end{codeBlock}
 
 \noindent
-\code{compile-lambda} generates the code for constructing the procedure object
+\code{compile\-/lambda} generates the code for constructing the procedure object
 followed by the code for the procedure body.  The procedure object will be
 constructed at run time by combining the current environment (the environment
 at the point of definition) with the entry point to the compiled procedure body
@@ -4407,15 +4407,15 @@ procedures, analogous to the structure for compound procedures described in
 \end{codeBlock}
 
 \noindent
-\code{compile-lambda} uses the special combiner
-\code{tack-on-instruction-sequence} rather than
-\code{append-instruction-sequences} (\link{Section 5.5.4}) to append the procedure body to the
+\code{compile\-/lambda} uses the special combiner
+\code{tack\-/on\-/instruction\-/sequence} rather than
+\code{append\-/instruction\-/sequences} (\link{Section 5.5.4}) to append the procedure body to the
 \code{lambda} expression code, because the body is not part of the sequence of
 instructions that will be executed when the combined sequence is entered;
 rather, it is in the sequence only because that was a convenient place to put
 it.
 
-\code{compile-lambda-body} constructs the code for the body of the procedure.
+\code{compile\-/lambda\-/body} constructs the code for the body of the procedure.
 This code begins with a label for the entry point.  Next come instructions that
 will cause the run-time evaluation environment to switch to the correct
 environment for evaluating the procedure body---namely, the definition
@@ -4461,14 +4461,14 @@ The registers \code{env}, \code{proc}, and \code{argl} may have to be saved and
 restored during evaluation of the operator and operands.  Note that this is the
 only place in the compiler where a target other than \code{val} is specified.
 
-The required code is generated by \code{compile-application}.  This recursively
+The required code is generated by \code{compile\-/application}.  This recursively
 compiles the operator, to produce code that puts the procedure to be applied
 into \code{proc}, and compiles the operands, to produce code that evaluates the
 individual operands of the application.  The instruction sequences for the
-operands are combined (by \code{construct-arglist}) with code that constructs
+operands are combined (by \code{construct\-/arglist}) with code that constructs
 the list of arguments in \code{argl}, and the resulting argument-list code is
 combined with the procedure code and the code that performs the procedure call
-(produced by \code{compile-procedure-call}).  In appending the code sequences,
+(produced by \code{compile\-/procedure\-/call}).  In appending the code sequences,
 the \code{env} register must be preserved around the evaluation of the operator
 (since evaluating the operator might modify \code{env}, which will be needed to
 evaluate the operands), and the \code{proc} register must be preserved around
@@ -4520,7 +4520,7 @@ operand evaluations).
 
 Compiling this argument code is a bit tricky, because of the special treatment
 of the first operand to be evaluated and the need to preserve \code{argl} and
-\code{env} in different places.  The \code{construct-arglist} procedure takes
+\code{env} in different places.  The \code{construct\-/arglist} procedure takes
 as arguments the code that evaluates the individual operands.  If there are no
 operands at all, it simply emits the instruction
 
@@ -4529,11 +4529,11 @@ operands at all, it simply emits the instruction
 \end{codeBlock}
 
 \noindent
-Otherwise, \code{construct-arglist} creates code that initializes \code{argl}
+Otherwise, \code{construct\-/arglist} creates code that initializes \code{argl}
 with the last argument, and appends code that evaluates the rest of the
 arguments and adjoins them to \code{argl} in succession.  In order to process
 the arguments from last to first, we must reverse the list of operand code
-sequences from the order supplied by \code{compile-application}.
+sequences from the order supplied by \code{compile\-/application}.
 
 \begin{codeBlock}
 (define (construct-arglist operand-codes)
@@ -4572,11 +4572,11 @@ sequences from the order supplied by \code{compile-application}.
 After evaluating the elements of a combination, the compiled code must apply
 the procedure in \code{proc} to the arguments in \code{argl}.  The code
 performs essentially the same dispatch as the \code{apply} procedure in the
-metacircular evaluator of \link{Section 4.1.1} or the \code{apply-dispatch}
+metacircular evaluator of \link{Section 4.1.1} or the \code{apply\-/dispatch}
 entry point in the explicit-control evaluator of \link{Section 5.4.1}.  It
 checks whether the procedure to be applied is a primitive procedure or a
 compiled procedure.  For a primitive procedure, it uses
-\code{apply-primitive-procedure}; we will see shortly how it handles compiled
+\code{apply\-/primitive\-/procedure}; we will see shortly how it handles compiled
 procedures.  The procedure-application code has the following form:
 
 \begin{codeBlock}
@@ -4599,7 +4599,7 @@ Observe that the compiled branch must skip around the primitive branch.
 Therefore, if the linkage for the original procedure call was \code{next}, the
 compound branch must use a linkage that jumps to a label that is inserted after
 the primitive branch.  (This is similar to the linkage used for the true branch
-in \code{compile-if}.)
+in \code{compile\-/if}.)
 
 \begin{codeBlock}
 (define (compile-procedure-call target linkage)
@@ -4631,20 +4631,20 @@ in \code{compile-if}.)
 
 \noindent
 The primitive and compound branches, like the true and false branches in
-\code{compile-if}, are appended using \code{parallel-instruction-sequences}
-rather than the ordinary \code{append-instruction-sequences}, because they will
+\code{compile\-/if}, are appended using \code{parallel\-/instruction\-/sequences}
+rather than the ordinary \code{append\-/instruction\-/sequences}, because they will
 not be executed sequentially.
 
 \subsubsection*{Applying compiled procedures}
 
 The code that handles procedure application is the most subtle part of the
 compiler, even though the instruction sequences it generates are very short.  A
-compiled procedure (as constructed by \code{compile-lambda}) has an entry
+compiled procedure (as constructed by \code{compile\-/lambda}) has an entry
 point, which is a label that designates where the code for the procedure
 starts.  The code at this entry point computes a result in \code{val} and
 returns by executing the instruction \code{(goto (reg continue))}.  Thus, we
 might expect the code for a compiled-procedure application (to be generated by
-\code{compile-proc-appl}) with a given target and linkage to look like this if
+\code{compile\-/proc\-/appl}) with a given target and linkage to look like this if
 the linkage is a label
 
 \begin{codeBlock}
@@ -4672,12 +4672,12 @@ proc-return
 
 \noindent
 This code sets up \code{continue} so that the procedure will return to a label
-\code{proc-return} and jumps to the procedure's entry point.  The code at
-\code{proc-return} transfers the procedure's result from \code{val} to the
+\code{proc\-/return} and jumps to the procedure's entry point.  The code at
+\code{proc\-/return} transfers the procedure's result from \code{val} to the
 target register (if necessary) and then jumps to the location specified by the
 linkage.  (The linkage is always \code{return} or a label, because
-\code{compile-procedure-call} replaces a \code{next} linkage for the
-compound-procedure branch by an \code{after-call} label.)
+\code{compile\-/procedure\-/call} replaces a \code{next} linkage for the
+compound-procedure branch by an \code{after\-/call} label.)
 
 In fact, if the target is not \code{val}, that is exactly the code our compiler
 will generate.\footnote{Actually, we signal an error when the target is not
@@ -4701,7 +4701,7 @@ specified by the caller's linkage:
 If the linkage is a label, we set up \code{continue} so that the procedure will
 return to that label.  (That is, the \code{(goto (reg continue))} the procedure
 ends with becomes equivalent to the \code{(goto (label \( \langle \)\var{linkage}\( \rangle \)))} at
-\code{proc-return} above.)
+\code{proc\-/return} above.)
 
 \begin{codeBlock}
 (assign continue (label ~\(\langle \)~~\var{linkage}~~\(\rangle \)~))
@@ -4713,7 +4713,7 @@ ends with becomes equivalent to the \code{(goto (label \( \langle \)\var{linkage
 If the linkage is \code{return}, we don't need to set up \code{continue} at
 all: It already holds the desired location.  (That is, the \code{(goto (reg
 continue))} the procedure ends with goes directly to the place where the
-\code{(goto (reg continue))} at \code{proc-return} would have gone.)
+\code{(goto (reg continue))} at \code{proc\-/return} would have gone.)
 
 \begin{codeBlock}
 (assign val (op compiled-procedure-entry) (reg proc))
@@ -4748,12 +4748,12 @@ actually more efficient than garbage collection in the first place, but the
 details seem to hinge on fine points of computer architecture.  (See \link{Appel 1987}
 and \link{Miller and Rozas 1994} for opposing views on this issue.)}
 
-\code{compile-proc-appl} generates the above procedure-application code by
+\code{compile\-/proc\-/appl} generates the above procedure-application code by
 considering four cases, depending on whether the target for the call is
 \code{val} and whether the linkage is \code{return}.  Observe that the
 instruction sequences are declared to modify all the registers, since executing
 the procedure body can change the registers in arbitrary ways.\footnote{The
-variable \code{all-regs} is bound to the list of names of all the registers:
+variable \code{all\-/regs} is bound to the list of names of all the registers:
 
 \begin{compactCodeBlock}
 (define all-regs '(env proc val argl continue))
@@ -4831,7 +4831,7 @@ sequence needs or modifies a given register we use the predicates
 In terms of these predicates and selectors, we can implement the various
 instruction sequence combiners used throughout the compiler.
 
-The basic combiner is \code{append-instruction-sequences}.  This takes as
+The basic combiner is \code{append\-/instruction\-/sequences}.  This takes as
 arguments an arbitrary number of instruction sequences that are to be executed
 sequentially and returns an instruction sequence whose statements are the
 statements of all the sequences appended together.  The subtle point is to
@@ -4842,7 +4842,7 @@ those registers that must be initialized before the first sequence can be run
 needed by any of the other sequences that are not initialized (modified) by
 sequences preceding it.
 
-The sequences are appended two at a time by \code{append-2-sequences}.  This
+The sequences are appended two at a time by \code{append\-/2\-/sequences}.  This
 takes two instruction sequences \code{seq1} and \code{seq2} and returns the
 instruction sequence whose statements are the statements of \code{seq1}
 followed by the statements of \code{seq2}, whose modified registers are those
@@ -4852,7 +4852,7 @@ registers needed by \code{seq2} that are not modified by \code{seq1}.  (In
 terms of set operations, the new set of needed registers is the union of the
 set of registers needed by \code{seq1} with the set difference of the registers
 needed by \code{seq2} and the registers modified by \code{seq1}.)  Thus,
-\code{append-instruction-sequences} is implemented as follows:
+\code{append\-/instruction\-/sequences} is implemented as follows:
 
 \begin{codeBlock}
 (define (append-instruction-sequences . seqs)
@@ -4932,8 +4932,8 @@ shown in this book accepts only two arguments, Scheme standardly provides an
 \end{codeBlock}
 
 \noindent
-Another sequence combiner, \code{tack-on-instruction-sequence}, is used by
-\code{compile-lambda} to append a procedure body to another sequence.  Because
+Another sequence combiner, \code{tack\-/on\-/instruction\-/sequence}, is used by
+\code{compile\-/lambda} to append a procedure body to another sequence.  Because
 the procedure body is not ``in line'' to be executed as part of the combined
 sequence, its register use has no impact on the register use of the sequence in
 which it is embedded.  We thus ignore the procedure body's sets of needed and
@@ -4949,8 +4949,8 @@ modified registers when we tack it onto the other sequence.
 \end{codeBlock}
 
 \noindent
-\code{compile-if} and \code{compile-procedure-call} use a special combiner
-called \code{parallel-instruction-sequences} to append the two alternative
+\code{compile\-/if} and \code{compile\-/procedure\-/call} use a special combiner
+called \code{parallel\-/instruction\-/sequences} to append the two alternative
 branches that follow a test.  The two branches will never be executed
 sequentially; for any particular evaluation of the test, one branch or the
 other will be entered.  Because of this, the registers needed by the second
@@ -4992,7 +4992,7 @@ after executing the \code{define}, so our choice of \code{next} as the linkage
 descriptor is arbitrary.
 
 \code{compile} determines that the expression is a definition, so it calls
-\code{compile-definition} to compile code to compute the value to be assigned
+\code{compile\-/definition} to compile code to compute the value to be assigned
 (targeted to \code{val}), followed by code to install the definition, followed
 by code to put the value of the \code{define} (which is the symbol \code{ok})
 into the target register, followed finally by the linkage code.  \code{env} is
@@ -5015,7 +5015,7 @@ linkage code in this case.  The skeleton of the compiled code is thus
 The expression that is to be compiled to produce the value for the variable
 \code{factorial} is a \code{lambda} expression whose value is the procedure
 that computes factorials.  \code{compile} handles this by calling
-\code{compile-lambda}, which compiles the procedure body, labels it as a new
+\code{compile\-/lambda}, which compiles the procedure body, labels it as a new
 entry point, and generates the instruction that will combine the procedure body
 at the new entry point with the run-time environment and assign the result to
 \code{val}.  The sequence then skips around the compiled procedure code, which
@@ -5051,7 +5051,7 @@ after-lambda1
 \end{codeBlock}
 
 \noindent
-A procedure body is always compiled (by \code{compile-lambda-body}) as a
+A procedure body is always compiled (by \code{compile\-/lambda\-/body}) as a
 sequence with target \code{val} and linkage \code{return}.  The sequence in
 this case consists of a single \code{if} expression:
 
@@ -5062,7 +5062,7 @@ this case consists of a single \code{if} expression:
 \end{codeBlock}
 
 \noindent
-\code{compile-if} generates code that first computes the predicate (targeted to
+\code{compile\-/if} generates code that first computes the predicate (targeted to
 \code{val}), then checks the result and branches around the true branch if the
 predicate is false.  \code{env} and \code{continue} are preserved around the
 predicate code, since they may be needed for the rest of the \code{if}
@@ -5092,7 +5092,7 @@ The predicate \code{(= n 1)} is a procedure call.  This looks up the operator
 the arguments \code{1} and the value of \code{n} into \code{argl}.  Then it
 tests whether \code{proc} contains a primitive or a compound procedure, and
 dispatches to a primitive branch or a compound branch accordingly.  Both
-branches resume at the \code{after-call} label.  The requirements to preserve
+branches resume at the \code{after\-/call} label.  The requirements to preserve
 registers around the evaluation of the operator and operands don't result in
 any saving of registers, because in this case those evaluations don't modify
 the registers in question.
@@ -5477,8 +5477,8 @@ family of code generators for the open-coded primitives.
 
 \item
 The open-coded primitives, unlike the special forms, all need their operands
-evaluated.  Write a code generator \code{spread-arguments} for use by all the
-open-coding code generators.  \code{spread-arguments} should take an operand
+evaluated.  Write a code generator \code{spread\-/arguments} for use by all the
+open-coding code generators.  \code{spread\-/arguments} should take an operand
 list and compile the given operands targeted to successive argument registers.
 Note that an operand may contain a call to an open-coded primitive, so argument
 registers will have to be preserved during operand evaluation.
@@ -5509,7 +5509,7 @@ only two inputs.
 
 One of the most common optimizations performed by compilers is the optimization
 of variable lookup.  Our compiler, as we have implemented it so far, generates
-code that uses the \code{lookup-variable-value} operation of the evaluator
+code that uses the \code{lookup\-/variable\-/value} operation of the evaluator
 machine.  This searches for a variable by comparing it with each variable that
 is currently bound, working frame by frame outward through the run-time
 environment.  This search can be expensive if the frames are deeply nested or
@@ -5539,7 +5539,7 @@ combination, this expression is equivalent to
 \end{codeBlock}
 
 \noindent
-Each time \code{lookup-variable-value} searches for \code{x}, it must determine
+Each time \code{lookup\-/variable\-/value} searches for \code{x}, it must determine
 that the symbol \code{x} is not \code{eq?} to \code{y} or \code{z} (in the
 first frame), nor to \code{a}, \code{b}, \code{c}, \code{d}, or \code{e} (in
 the second frame).  We will assume, for the moment, that our programs do not
@@ -5554,17 +5554,17 @@ two frames out from the current frame and will be the first variable in that
 frame.
 
 We can exploit this fact by inventing a new kind of variable-lookup operation,
-\code{lexical-address-lookup}, that takes as arguments an environment and a
+\code{lexical\-/address\-/lookup}, that takes as arguments an environment and a
 \newterm{lexical address} that consists of two numbers: a \newterm{frame
 number}, which specifies how many frames to pass over, and a
 \newterm{displacement number}, which specifies how many variables to pass over
-in that frame.  \code{lexical-address-lookup} will produce the value of the
+in that frame.  \code{lexical\-/address\-/lookup} will produce the value of the
 variable stored at that lexical address relative to the current environment.
-If we add the \code{lexical-address-lookup} operation to our machine, we can
+If we add the \code{lexical\-/address\-/lookup} operation to our machine, we can
 make the compiler generate code that references variables using this operation,
-rather than \code{lookup-variable-value}.  Similarly, our compiled code can use
-a new \code{lexical-address-set!}  operation instead of
-\code{set-variable-value!}.
+rather than \code{lookup\-/variable\-/value}.  Similarly, our compiled code can use
+a new \code{lexical\-/address\-/set!}  operation instead of
+\code{set\-/variable\-/value!}.
 
 In order to generate such code, the compiler must be able to determine the
 lexical address of a variable it is about to compile a reference to.  The
@@ -5596,10 +5596,10 @@ since values are not computed at compile time.)  The compile-time environment
 becomes an additional argument to \code{compile} and is passed along to each
 code generator.  The top-level call to \code{compile} uses an empty
 compile-time environment.  When a \code{lambda} body is compiled,
-\code{compile-lambda-body} extends the compile-time environment by a frame
+\code{compile\-/lambda\-/body} extends the compile-time environment by a frame
 containing the procedure's parameters, so that the sequence making up the body
 is compiled with that extended environment.  At each point in the compilation,
-\code{compile-variable} and \code{compile-assignment} use the compile-time
+\code{compile\-/variable} and \code{compile\-/assignment} use the compile-time
 environment in order to generate the appropriate lexical addresses.
 
 \link{Exercise 5.39} through \link{Exercise 5.43} describe how to complete this
@@ -5609,28 +5609,28 @@ compile-time environment.
 
 \begin{exerciseGroup}
 \exerciseHeading{\phantomsection\label{Exercise 5.39}Exercise 5.39:} Write a procedure
-\code{lexical-address-lookup} that implements the new lookup operation.  It
+\code{lexical\-/address\-/lookup} that implements the new lookup operation.  It
 should take two arguments---a lexical address and a run-time environment---and
 return the value of the variable stored at the specified lexical address.
-\code{lexical-address-lookup} should signal an error if the value of the
+\code{lexical\-/address\-/lookup} should signal an error if the value of the
 variable is the symbol \code{*unassigned*}.\footnote{This is the modification
 to variable lookup required if we implement the scanning method to eliminate
 internal definitions (\link{Exercise 5.43}).  We will need to eliminate these
 definitions in order for lexical addressing to work.} Also write a procedure
-\code{lexical-address-set!} that implements the operation that changes the
+\code{lexical\-/address\-/set!} that implements the operation that changes the
 value of the variable at a specified lexical address.
 
 \exerciseHeading{\phantomsection\label{Exercise 5.40}Exercise 5.40:} Modify the compiler to maintain
 the compile-time environment as described above.  That is, add a
 compile-time-environment argument to \code{compile} and the various code
-generators, and extend it in \code{compile-lambda-body}.
+generators, and extend it in \code{compile\-/lambda\-/body}.
 
 \exerciseHeading{\phantomsection\label{Exercise 5.41}Exercise 5.41:} Write a procedure
-\code{find-variable} that takes as arguments a variable and a compile-time
+\code{find\-/variable} that takes as arguments a variable and a compile-time
 environment and returns the lexical address of the variable with respect to
 that environment.  For example, in the program fragment that is shown above,
 the compile-time environment during the compilation of expression \( \langle \)\var{e1}\( \kern0.08em\rangle \) is
-\code{((y z) (a b c d e) (x y))}.  \code{find-variable} should produce
+\code{((y z) (a b c d e) (x y))}.  \code{find\-/variable} should produce
 
 \begin{codeBlock}
 (find-variable 'c '((y z) (a b c d e) (x y)))
@@ -5641,10 +5641,10 @@ the compile-time environment during the compilation of expression \( \langle \)\
 ~\textit{not-found}~
 \end{codeBlock}
 
-\exerciseHeading{\phantomsection\label{Exercise 5.42}Exercise 5.42:} Using \code{find-variable} from
-\link{Exercise 5.41}, rewrite \code{compile-variable} and
-\code{compile-assignment} to output lexical-address instructions.  In cases
-where \code{find-variable} returns \code{not-found} (that is, where the
+\exerciseHeading{\phantomsection\label{Exercise 5.42}Exercise 5.42:} Using \code{find\-/variable} from
+\link{Exercise 5.41}, rewrite \code{compile\-/variable} and
+\code{compile\-/assignment} to output lexical-address instructions.  In cases
+where \code{find\-/variable} returns \code{not\-/found} (that is, where the
 variable is not in the compile-time environment), you should have the code
 generators use the evaluator operations, as before, to search for the binding.
 (The only place a variable that is not found at compile time can be is in the
@@ -5657,7 +5657,7 @@ those at top level, which act on the global environment.  Compilation of a
 definition does not cause the defined name to be entered in the compile-time
 environment.}  Thus, if you wish, you may have the evaluator operations look
 directly in the global environment, which can be obtained with the operation
-\code{(op get-global-environment)}, instead of having them search the whole
+\code{(op get\-/global\-/environment)}, instead of having them search the whole
 run-time environment found in \code{env}.)  Test the modified compiler on a few
 simple cases, such as the nested \code{lambda} combination at the beginning of
 this section.
@@ -5704,7 +5704,7 @@ We have not yet explained how to load compiled code into the evaluator machine
 or how to run it.  We will assume that the explicit-control-evaluator machine
 has been defined as in \link{Section 5.4.4}, with the additional operations
 specified in \link{Footnote 38}.  We will implement a procedure
-\code{compile-and-go} that compiles a Scheme expression, loads the resulting
+\code{compile\-/and\-/go} that compiles a Scheme expression, loads the resulting
 object code into the evaluator machine, and causes the machine to run the code
 in the evaluator global environment, print the result, and enter the
 evaluator's driver loop.  We will also modify the evaluator so that interpreted
@@ -5729,7 +5729,7 @@ it:
 \noindent
 To allow the evaluator to handle compiled procedures (for example, to evaluate
 the call to \code{factorial} above), we need to change the code at
-\code{apply-dispatch} (\link{Section 5.4.1}) so that it recognizes compiled
+\code{apply\-/dispatch} (\link{Section 5.4.1}) so that it recognizes compiled
 procedures (as distinct from compound or primitive procedures) and transfers
 control directly to the entry point of the compiled code:\footnote{Of course,
 compiled procedures as well as interpreted procedures are compound
@@ -5753,8 +5753,8 @@ compiled-apply
 \end{codeBlock}
 
 \noindent
-Note the restore of \code{continue} at \code{compiled-apply}.  Recall that the
-evaluator was arranged so that at \code{apply-dispatch}, the continuation would
+Note the restore of \code{continue} at \code{compiled\-/apply}.  Recall that the
+evaluator was arranged so that at \code{apply\-/dispatch}, the continuation would
 be at the top of the stack.  The compiled code entry point, on the other hand,
 expects the continuation to be in \code{continue}, so \code{continue} must be
 restored before the compiled code is executed.
@@ -5783,15 +5783,15 @@ read-eval-print-loop
 \end{codeBlock}
 
 \noindent
-\code{external-entry} assumes that the machine is started with \code{val}
+\code{external\-/entry} assumes that the machine is started with \code{val}
 containing the location of an instruction sequence that puts a result into
 \code{val} and ends with \code{(goto (reg continue))}.  Starting at this entry
 point jumps to the location designated by \code{val}, but first assigns
-\code{continue} so that execution will return to \code{print-result}, which
+\code{continue} so that execution will return to \code{print\-/result}, which
 prints the value in \code{val} and then goes to the beginning of the
 evaluator's read-eval-print loop.\footnote{Since a compiled procedure is an
 object that the system may try to print, we also modify the system print
-operation \code{user-print} (from \link{Section 4.1.4}) so that it will not
+operation \code{user\-/print} (from \link{Section 4.1.4}) so that it will not
 attempt to print the components of a compiled procedure:
 
 \begin{compactCodeBlock}
@@ -5825,7 +5825,7 @@ object code produced by the compiler into executable instructions for the
 evaluator register machine, we use the procedure \code{assemble} from the
 register-machine simulator (\link{Section 5.2.2}).  We then initialize the
 \code{val} register to point to the list of instructions, set the \code{flag}
-so that the evaluator will go to \code{external-entry}, and start the
+so that the evaluator will go to \code{external\-/entry}, and start the
 evaluator.
 
 \begin{codeBlock}
@@ -5992,10 +5992,10 @@ modify the explicit-control evaluator so that interpreted code can call
 compiled procedures.  Show how to modify the compiler so that compiled
 procedures can call not only primitive procedures and compiled procedures, but
 interpreted procedures as well.  This requires modifying
-\code{compile-procedure-call} to handle the case of compound (interpreted)
+\code{compile\-/procedure\-/call} to handle the case of compound (interpreted)
 procedures.  Be sure to handle all the same \code{target} and \code{linkage}
-combinations as in \code{compile-proc-appl}.  To do the actual procedure
-application, the code needs to jump to the evaluator's \code{compound-apply}
+combinations as in \code{compile\-/proc\-/appl}.  To do the actual procedure
+application, the code needs to jump to the evaluator's \code{compound\-/apply}
 entry point.  This label cannot be directly referenced in object code (since
 the assembler requires that all labels referenced by the code it is assembling
 be defined there), so we will add a register called \code{compapp} to the
@@ -6009,14 +6009,14 @@ read-eval-print-loop ~\( \dots \)~
 \end{codeBlock}
 
 To test your code, start by defining a procedure \code{f} that calls a
-procedure \code{g}.  Use \code{compile-and-go} to compile the definition of
+procedure \code{g}.  Use \code{compile\-/and\-/go} to compile the definition of
 \code{f} and start the evaluator.  Now, typing at the evaluator, define
 \code{g} and try to call \code{f}.
 
-\exerciseHeading{\phantomsection\label{Exercise 5.48}Exercise 5.48:} The \code{compile-and-go}
+\exerciseHeading{\phantomsection\label{Exercise 5.48}Exercise 5.48:} The \code{compile\-/and\-/go}
 interface implemented in this section is awkward, since the compiler can be
 called only once (when the evaluator machine is started).  Augment the
-compiler-interpreter interface by providing a \code{compile-and-run} primitive
+compiler-interpreter interface by providing a \code{compile\-/and\-/run} primitive
 that can be called from within the explicit-control evaluator as follows:
 
 \begin{codeBlock}

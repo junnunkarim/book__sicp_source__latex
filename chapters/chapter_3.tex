@@ -234,11 +234,11 @@ local variable \code{balance}, bound to the initial value 100.  Within this
 local environment, we use \code{lambda} to create a procedure that takes
 \code{amount} as an argument and behaves like our previous \code{withdraw}
 procedure.  This procedure---returned as the result of evaluating the
-\code{let} expression---is \code{new-withdraw}, which behaves in precisely the
+\code{let} expression---is \code{new\-/withdraw}, which behaves in precisely the
 same way as \code{withdraw} but whose variable \code{balance} is not accessible
 by any other procedure.\footnote{In programming-language jargon, the variable
 \code{balance} is said to be \newterm{encapsulated} within the
-\code{new-withdraw} procedure.  Encapsulation reflects the general
+\code{new\-/withdraw} procedure.  Encapsulation reflects the general
 system-design principle known as the \newterm{hiding principle}: One can make a
 system more modular and robust by protecting parts of the system from each
 other; that is, by providing information access only to those parts of the
@@ -254,17 +254,17 @@ evaluating the body of the procedure with the formal parameters replaced by
 their values.  The trouble is that, as soon as we introduce assignment into our
 language, substitution is no longer an adequate model of procedure application.
 (We will see why this is so in \link{Section 3.1.3}.)  As a consequence, we
-technically have at this point no way to understand why the \code{new-withdraw}
+technically have at this point no way to understand why the \code{new\-/withdraw}
 procedure behaves as claimed above.  In order to really understand a procedure
-such as \code{new-withdraw}, we will need to develop a new model of procedure
+such as \code{new\-/withdraw}, we will need to develop a new model of procedure
 application.  In \link{Section 3.2} we will introduce such a model, together
 with an explanation of \code{set!} and local variables.  First, however, we
-examine some variations on the theme established by \code{new-withdraw}.
+examine some variations on the theme established by \code{new\-/withdraw}.
 
-The following procedure, \code{make-withdraw}, creates ``withdrawal
-processors.''  The formal parameter \code{balance} in \code{make-withdraw}
+The following procedure, \code{make\-/withdraw}, creates ``withdrawal
+processors.''  The formal parameter \code{balance} in \code{make\-/withdraw}
 specifies the initial amount of money in the account.\footnote{In contrast with
-\code{new-withdraw} above, we do not have to use \code{let} to make
+\code{new\-/withdraw} above, we do not have to use \code{let} to make
 \code{balance} a local variable, since formal parameters are already local.
 This will be clearer after the discussion of the environment model of
 evaluation in \link{Section 3.2}.  (See also \link{Exercise 3.10}.)}
@@ -279,7 +279,7 @@ evaluation in \link{Section 3.2}.  (See also \link{Exercise 3.10}.)}
 \end{codeBlock}
 
 \noindent
-\code{make-withdraw} can be used as follows to create two objects \code{W1} and
+\code{make\-/withdraw} can be used as follows to create two objects \code{W1} and
 \code{W2}:
 
 \begin{codeBlock}
@@ -324,8 +324,8 @@ thus we can represent simple bank accounts.  Here is a procedure that returns a
 \end{codeBlock}
 
 \noindent
-Each call to \code{make-account} sets up an environment with a local state
-variable \code{balance}.  Within this environment, \code{make-account} defines
+Each call to \code{make\-/account} sets up an environment with a local state
+variable \code{balance}.  Within this environment, \code{make\-/account} defines
 procedures \code{deposit} and \code{withdraw} that access \code{balance} and an
 additional procedure \code{dispatch} that takes a ``message'' as input and
 returns one of the two local procedures.  The \code{dispatch} procedure itself
@@ -334,7 +334,7 @@ precisely the \newterm{message-passing} style of programming that we saw in
 \link{Section 2.4.3}, although here we are using it in conjunction with the
 ability to modify local variables.
 
-\code{make-account} can be used as follows:
+\code{make\-/account} can be used as follows:
 
 \begin{codeBlock}
 (define acc (make-account 100))
@@ -351,8 +351,8 @@ ability to modify local variables.
 \noindent
 Each call to \code{acc} returns the locally defined \code{deposit} or
 \code{withdraw} procedure, which is then applied to the specified
-\code{amount}.  As was the case with \code{make-withdraw}, another call to
-\code{make-account}
+\code{amount}.  As was the case with \code{make\-/withdraw}, another call to
+\code{make\-/account}
 
 \begin{codeBlock}
 (define acc2 (make-account 100))
@@ -366,9 +366,9 @@ local \code{balance}.
 \exerciseHeading{\phantomsection\label{Exercise 3.1}Exercise 3.1:} An \newterm{accumulator} is a
 procedure that is called repeatedly with a single numeric argument and
 accumulates its arguments into a sum.  Each time it is called, it returns the
-currently accumulated sum.  Write a procedure \code{make-accumulator} that
+currently accumulated sum.  Write a procedure \code{make\-/accumulator} that
 generates accumulators, each maintaining an independent sum.  The input to
-\code{make-accumulator} should specify the initial value of the sum; for
+\code{make\-/accumulator} should specify the initial value of the sum; for
 example
 
 \begin{codeBlock}
@@ -382,12 +382,12 @@ example
 \exerciseHeading{\phantomsection\label{Exercise 3.2}Exercise 3.2:} In software-testing applications,
 it is useful to be able to count the number of times a given procedure is
 called during the course of a computation.  Write a procedure
-\code{make-monitored} that takes as input a procedure, \code{f}, that itself
-takes one input.  The result returned by \code{make-monitored} is a third
+\code{make\-/monitored} that takes as input a procedure, \code{f}, that itself
+takes one input.  The result returned by \code{make\-/monitored} is a third
 procedure, say \code{mf}, that keeps track of the number of times it has been
 called by maintaining an internal counter.  If the input to \code{mf} is the
-special symbol \code{how-many-calls?}, then \code{mf} returns the value of the
-counter.  If the input is the special symbol \code{reset-count}, then \code{mf}
+special symbol \code{how\-/many\-/calls?}, then \code{mf} returns the value of the
+counter.  If the input is the special symbol \code{reset\-/count}, then \code{mf}
 resets the counter to zero.  For any other input, \code{mf} returns the result
 of calling \code{f} on that input and increments the counter.  For instance, we
 could make a monitored version of the \code{sqrt} procedure:
@@ -400,9 +400,9 @@ could make a monitored version of the \code{sqrt} procedure:
 ~\textit{1}~
 \end{codeBlock}
 
-\exerciseHeading{\phantomsection\label{Exercise 3.3}Exercise 3.3:} Modify the \code{make-account}
+\exerciseHeading{\phantomsection\label{Exercise 3.3}Exercise 3.3:} Modify the \code{make\-/account}
 procedure so that it creates password-protected accounts.  That is,
-\code{make-account} should take a symbol as an additional argument, as in
+\code{make\-/account} should take a symbol as an additional argument, as in
 
 \begin{codeBlock}
 (define acc (make-account 100 'secret-password))
@@ -419,10 +419,10 @@ a complaint:
 ~\textit{"Incorrect password"}~
 \end{codeBlock}
 
-\exerciseHeading{\phantomsection\label{Exercise 3.4}Exercise 3.4:} Modify the \code{make-account}
+\exerciseHeading{\phantomsection\label{Exercise 3.4}Exercise 3.4:} Modify the \code{make\-/account}
 procedure of \link{Exercise 3.3} by adding another local state variable so that,
 if an account is accessed more than seven consecutive times with an incorrect
-password, it invokes the procedure \code{call-the-cops}.
+password, it invokes the procedure \code{call\-/the\-/cops}.
 \end{exerciseGroup}
 
 \subsection{The Benefits of Introducing Assignment}
@@ -439,7 +439,7 @@ It is not at all clear what is meant by ``chosen at random.''  What we
 presumably want is for successive calls to \code{rand} to produce a sequence of
 numbers that has statistical properties of uniform distribution.  We will not
 discuss methods for generating suitable sequences here.  Rather, let us assume
-that we have a procedure \code{rand-update} that has the property that if we
+that we have a procedure \code{rand\-/update} that has the property that if we
 start with a given number \( x_1 \) and form
 
 \begin{codeBlock}
@@ -450,13 +450,13 @@ start with a given number \( x_1 \) and form
 \noindent
 then the sequence of values \( x_1 \), \( x_2 \), \( x_3 \), \( \dots \) will have the
 desired statistical properties.\footnote{One common way to implement
-\code{rand-update} is to use the rule that \( x \) is updated to \( ax + b \)
+\code{rand\-/update} is to use the rule that \( x \) is updated to \( ax + b \)
 modulo \( m \), where \( a \), \( b \), and \( m \) are appropriately chosen
 integers.  Chapter 3 of \link{Knuth 1981} includes an extensive discussion of
 techniques for generating sequences of random numbers and establishing their
-statistical properties.  Notice that the \code{rand-update} procedure computes
+statistical properties.  Notice that the \code{rand\-/update} procedure computes
 a mathematical function: Given the same input twice, it produces the same
-output.  Therefore, the number sequence produced by \code{rand-update}
+output.  Therefore, the number sequence produced by \code{rand\-/update}
 certainly is not ``random,'' if by ``random'' we insist that each number in the
 sequence is unrelated to the preceding number.  The relation between ``real
 randomness'' and so-called \newterm{pseudo-random} sequences, which are
@@ -466,8 +466,8 @@ philosophy.  Kolmogorov, Solomonoff, and Chaitin have made great progress in
 clarifying these issues; a discussion can be found in \link{Chaitin 1975}.}
 
 We can implement \code{rand} as a procedure with a local state variable
-\code{x} that is initialized to some fixed value \code{random-init}.  Each call
-to \code{rand} computes \code{rand-update} of the current value of \code{x},
+\code{x} that is initialized to some fixed value \code{random\-/init}.  Each call
+to \code{rand} computes \code{rand\-/update} of the current value of \code{x},
 returns this as the random number, and also stores this as the new value of
 \code{x}.
 
@@ -480,10 +480,10 @@ returns this as the random number, and also stores this as the new value of
 
 \noindent
 Of course, we could generate the same sequence of random numbers without using
-assignment by simply calling \code{rand-update} directly.  However, this would
+assignment by simply calling \code{rand\-/update} directly.  However, this would
 mean that any part of our program that used random numbers would have to
 explicitly remember the current value of \code{x} to be passed as an argument
-to \code{rand-update}.  To realize what an annoyance this would be, consider
+to \code{rand\-/update}.  To realize what an annoyance this would be, consider
 using random numbers to implement a technique called \newterm{Monte Carlo
 simulation}.
 
@@ -500,10 +500,10 @@ if their \acronym{GCD} is 1.  The fraction of times that the test is passed
 gives us our estimate of \( 6/\pi^2 \), and from this we obtain our
 approximation to \( \pi \).
 
-The heart of our program is a procedure \code{monte-carlo}, which takes as
+The heart of our program is a procedure \code{monte\-/carlo}, which takes as
 arguments the number of times to try an experiment, together with the
 experiment, represented as a no-argument procedure that will return either true
-or false each time it is run.  \code{monte-carlo} runs the experiment for the
+or false each time it is run.  \code{monte\-/carlo} runs the experiment for the
 designated number of trials and returns a number telling the fraction of the
 trials in which the experiment was found to be true.
 
@@ -527,7 +527,7 @@ trials in which the experiment was found to be true.
 \end{codeBlock}
 
 \noindent
-Now let us try the same computation using \code{rand-update} directly rather
+Now let us try the same computation using \code{rand\-/update} directly rather
 than \code{rand}, the way we would be forced to proceed if we did not use
 assignment to model local state:
 
@@ -554,16 +554,16 @@ assignment to model local state:
 \noindent
 While the program is still simple, it betrays some painful breaches of
 modularity.  In our first version of the program, using \code{rand}, we can
-express the Monte Carlo method directly as a general \code{monte-carlo}
+express the Monte Carlo method directly as a general \code{monte\-/carlo}
 procedure that takes as an argument an arbitrary \code{experiment} procedure.
 In our second version of the program, with no local state for the random-number
-generator, \code{random-gcd-test} must explicitly manipulate the random numbers
+generator, \code{random\-/gcd\-/test} must explicitly manipulate the random numbers
 \code{x1} and \code{x2} and recycle \code{x2} through the iterative loop as the
-new input to \code{rand-update}.  This explicit handling of the random numbers
+new input to \code{rand\-/update}.  This explicit handling of the random numbers
 intertwines the structure of accumulating test results with the fact that our
 particular experiment uses two random numbers, whereas other Monte Carlo
 experiments might use one random number or three.  Even the top-level procedure
-\code{estimate-pi} has to be concerned with supplying an initial random number.
+\code{estimate\-/pi} has to be concerned with supplying an initial random number.
 The fact that the random-number generator's insides are leaking out into other
 parts of the program makes it difficult for us to isolate the Monte Carlo idea
 so that it can be applied to other tasks.  In the first version of the program,
@@ -605,16 +605,16 @@ estimate of the proportion of the rectangle that lies in the region.  Hence,
 multiplying this fraction by the area of the entire rectangle should produce an
 estimate of the integral.
 
-Implement Monte Carlo integration as a procedure \code{estimate-integral} that
+Implement Monte Carlo integration as a procedure \code{estimate\-/integral} that
 takes as arguments a predicate \code{P}, upper and lower bounds \code{x1},
 \code{x2}, \code{y1}, and \code{y2} for the rectangle, and the number of trials
 to perform in order to produce the estimate.  Your procedure should use the
-same \code{monte-carlo} procedure that was used above to estimate \( \pi \).
-Use your \code{estimate-integral} to produce an estimate of \( \pi \) by
+same \code{monte\-/carlo} procedure that was used above to estimate \( \pi \).
+Use your \code{estimate\-/integral} to produce an estimate of \( \pi \) by
 measuring the area of a unit circle.
 
 You will find it useful to have a procedure that returns a number chosen at
-random from a given range.  The following \code{random-in-range} procedure
+random from a given range.  The following \code{random\-/in\-/range} procedure
 implements this in terms of the \code{random} procedure used in
 \link{Section 1.2.6}, which returns a nonnegative number less than its
 input.\footnote{\acronym{MIT} Scheme provides such a procedure.  If
@@ -656,7 +656,7 @@ assignments, as we did throughout the first two chapters of this book, is
 accordingly known as \newterm{functional programming}.
 
 To understand how assignment complicates matters, consider a simplified version
-of the \code{make-withdraw} procedure of \link{Section 3.1.1} that does not
+of the \code{make\-/withdraw} procedure of \link{Section 3.1.1} that does not
 bother to check for an insufficient amount:
 
 \begin{codeBlock}
@@ -672,7 +672,7 @@ bother to check for an insufficient amount:
 \end{codeBlock}
 
 \noindent
-Compare this procedure with the following \code{make-decrementer} procedure,
+Compare this procedure with the following \code{make\-/decrementer} procedure,
 which does not use \code{set!}:
 
 \begin{codeBlock}
@@ -682,9 +682,9 @@ which does not use \code{set!}:
 \end{codeBlock}
 
 \noindent
-\code{make-decrementer} returns a procedure that subtracts its input from a
+\code{make\-/decrementer} returns a procedure that subtracts its input from a
 designated amount \code{balance}, but there is no accumulated effect over
-successive calls, as with \code{make-simplified-withdraw}:
+successive calls, as with \code{make\-/simplified\-/withdraw}:
 
 \begin{codeBlock}
 (define D (make-decrementer 25))
@@ -695,7 +695,7 @@ successive calls, as with \code{make-simplified-withdraw}:
 \end{codeBlock}
 
 \noindent
-We can use the substitution model to explain how \code{make-decrementer} works.
+We can use the substitution model to explain how \code{make\-/decrementer} works.
 For instance, let us analyze the evaluation of the expression
 
 \begin{codeBlock}
@@ -704,7 +704,7 @@ For instance, let us analyze the evaluation of the expression
 
 \noindent
 We first simplify the operator of the combination by substituting 25 for
-\code{balance} in the body of \code{make-decrementer}.  This reduces the
+\code{balance} in the body of \code{make\-/decrementer}.  This reduces the
 expression to
 
 \begin{codeBlock}
@@ -723,7 +723,7 @@ the \code{lambda} expression:
 The final answer is 5.
 
 Observe, however, what happens if we attempt a similar substitution analysis
-with \code{make-simplified-withdraw}:
+with \code{make\-/simplified\-/withdraw}:
 
 \begin{codeBlock}
 ((make-simplified-withdraw 25) 20)
@@ -731,7 +731,7 @@ with \code{make-simplified-withdraw}:
 
 \noindent
 We first simplify the operator by substituting 25 for \code{balance} in the
-body of \code{make-simplified-withdraw}.  This reduces the expression
+body of \code{make\-/simplified\-/withdraw}.  This reduces the expression
 to\footnote{We don't substitute for the occurrence of \code{balance} in the
 \code{set!} expression because the \( \langle \)\var{name}\( \kern0.08em\rangle \) in a \code{set!} is not
 evaluated.  If we did substitute for it, we would get \code{(set! 25 (- 25
@@ -773,7 +773,7 @@ particular model of computation.  As soon as we introduce change into our
 computational models, many notions that were previously straightforward become
 problematical.  Consider the concept of two things being ``the same.''
 
-Suppose we call \code{make-decrementer} twice with the same argument to create
+Suppose we call \code{make\-/decrementer} twice with the same argument to create
 two procedures:
 
 \begin{codeBlock}
@@ -787,7 +787,7 @@ Are \code{D1} and \code{D2} the same?  An acceptable answer is yes, because
 procedure that subtracts its input from 25.  In fact, \code{D1} could be
 substituted for \code{D2} in any computation without changing the result.
 
-Contrast this with making two calls to \code{make-simplified-withdraw}:
+Contrast this with making two calls to \code{make\-/simplified\-/withdraw}:
 
 \begin{codeBlock}
 (define W1 (make-simplified-withdraw 25))
@@ -810,7 +810,7 @@ interactions:
 
 \noindent
 Even though \code{W1} and \code{W2} are ``equal'' in the sense that they are
-both created by evaluating the same expression, \code{(make-simplified-withdraw
+both created by evaluating the same expression, \code{(make\-/simplified\-/withdraw
 25)}, it is not true that \code{W1} could be substituted for \code{W2} in any
 expression without changing the result of evaluating the expression.
 
@@ -854,16 +854,16 @@ and modeling it as
 \noindent
 In the first situation, the two bank accounts are distinct.  Transactions made
 by Peter will not affect Paul's account, and vice versa.  In the second
-situation, however, we have defined \code{paul-acc} to be \emph{the same thing}
-as \code{peter-acc}.  In effect, Peter and Paul now have a joint bank account,
-and if Peter makes a withdrawal from \code{peter-acc} Paul will observe less
-money in \code{paul-acc}.  These two similar but distinct situations can cause
+situation, however, we have defined \code{paul\-/acc} to be \emph{the same thing}
+as \code{peter\-/acc}.  In effect, Peter and Paul now have a joint bank account,
+and if Peter makes a withdrawal from \code{peter\-/acc} Paul will observe less
+money in \code{paul\-/acc}.  These two similar but distinct situations can cause
 confusion in building computational models.  With the shared account, in
 particular, it can be especially confusing that there is one object (the bank
-account) that has two different names (\code{peter-acc} and \code{paul-acc});
-if we are searching for all the places in our program where \code{paul-acc} can
+account) that has two different names (\code{peter\-/acc} and \code{paul\-/acc});
+if we are searching for all the places in our program where \code{paul\-/acc} can
 be changed, we must remember to look also at things that change
-\code{peter-acc}.\footnote{The phenomenon of a single computational object
+\code{peter\-/acc}.\footnote{The phenomenon of a single computational object
 being accessed by more than one name is known as \newterm{aliasing}.  The joint
 bank account situation illustrates a very simple example of an alias.  In
 \link{Section 3.3} we will see much more complex examples, such as ``distinct''
@@ -963,16 +963,16 @@ explore the uses of objects with local state in designing simulations.
 
 \begin{exerciseGroup}
 \exerciseHeading{\phantomsection\label{Exercise 3.7}Exercise 3.7:} Consider the bank account objects
-created by \code{make-account}, with the password modification described in
+created by \code{make\-/account}, with the password modification described in
 \link{Exercise 3.3}.  Suppose that our banking system requires the ability to
-make joint accounts.  Define a procedure \code{make-joint} that accomplishes
-this.  \code{make-joint} should take three arguments.  The first is a
+make joint accounts.  Define a procedure \code{make\-/joint} that accomplishes
+this.  \code{make\-/joint} should take three arguments.  The first is a
 password-protected account.  The second argument must match the password with
-which the account was defined in order for the \code{make-joint} operation to
-proceed.  The third argument is a new password.  \code{make-joint} is to create
+which the account was defined in order for the \code{make\-/joint} operation to
+proceed.  The third argument is a new password.  \code{make\-/joint} is to create
 an additional access to the original account using the new password.  For
-example, if \code{peter-acc} is a bank account with password
-\code{open-sesame}, then
+example, if \code{peter\-/acc} is a bank account with password
+\code{open\-/sesame}, then
 
 \begin{codeBlock}
 (define paul-acc
@@ -980,8 +980,8 @@ example, if \code{peter-acc} is a bank account with password
 \end{codeBlock}
 
 \noindent
-will allow one to make transactions on \code{peter-acc} using the name
-\code{paul-acc} and the password \code{rosebud}.  You may wish to modify your
+will allow one to make transactions on \code{peter\-/acc} using the name
+\code{paul\-/acc} and the password \code{rosebud}.  You may wish to modify your
 solution to \link{Exercise 3.3} to accommodate this new feature.
 
 \exerciseHeading{\phantomsection\label{Exercise 3.8}Exercise 3.8:} When we defined the evaluation
@@ -1243,7 +1243,7 @@ definitions:
 \noindent
 We can analyze the same example using the environment model.  \link{Figure 3.4}
 shows the three procedure objects created by evaluating the definitions of
-\code{f}, \code{square}, and \code{sum-of-squares} in the global environment.
+\code{f}, \code{square}, and \code{sum\-/of\-/squares} in the global environment.
 Each procedure object consists of some code, together with a pointer to the
 global environment.
 
@@ -1263,22 +1263,22 @@ bound to the argument 5.  In E1, we evaluate the body of \code{f}:
 
 \noindent
 To evaluate this combination, we first evaluate the subexpressions.  The first
-subexpression, \code{sum-of-squares}, has a value that is a procedure object.
+subexpression, \code{sum\-/of\-/squares}, has a value that is a procedure object.
 (Notice how this value is found: We first look in the first frame of E1, which
-contains no binding for \code{sum-of-squares}.  Then we proceed to the
+contains no binding for \code{sum\-/of\-/squares}.  Then we proceed to the
 enclosing environment, i.e. the global environment, and find the binding shown
 in \link{Figure 3.4}.)  The other two subexpressions are evaluated by applying
 the primitive operations \code{+} and \code{*} to evaluate the two combinations
 \code{(+ a 1)} and \code{(* a 2)} to obtain 6 and 10, respectively.
 
-Now we apply the procedure object \code{sum-of-squares} to the arguments 6 and
+Now we apply the procedure object \code{sum\-/of\-/squares} to the arguments 6 and
 10.  This results in a new environment E2 in which the formal parameters
 \code{x} and \code{y} are bound to the arguments.  Within E2 we evaluate the
 combination \code{(+ (square x) (square y))}.  This leads us to evaluate
 \code{(square x)}, where \code{square} is found in the global frame and
 \code{x} is 6.  Once again, we set up a new environment, E3, in which \code{x}
 is bound to 6, and within this we evaluate the body of \code{square}, which is
-\code{(* x x)}.  Also as part of applying \code{sum-of-squares}, we must
+\code{(* x x)}.  Also as part of applying \code{sum\-/of\-/squares}, we must
 evaluate the subexpression \code{(square y)}, where \code{y} is 10.  This
 second call to \code{square} creates another environment, E4, in which
 \code{x}, the formal parameter of \code{square}, is bound to 10.  And within E4
@@ -1301,7 +1301,7 @@ environment, since this is the environment indicated by the \code{square}
 procedure object.
 
 After the subexpressions are evaluated, the results are returned.  The values
-generated by the two calls to \code{square} are added by \code{sum-of-squares},
+generated by the two calls to \code{square} are added by \code{sum\-/of\-/squares},
 and this result is returned by \code{f}.  Since our focus here is on the
 environment structures, we will not dwell on how these returned values are
 passed from call to call; however, this is also an important aspect of the
@@ -1333,7 +1333,7 @@ and an iterative version
 Show the environment structures created by evaluating \\ \code{(factorial 6)}
 using each version of the \code{factorial} procedure.\footnote{The environment
 model will not clarify our claim in \link{Section 1.2.1} that the interpreter
-can execute a procedure such as \code{fact-iter} in a constant amount of space
+can execute a procedure such as \code{fact\-/iter} in a constant amount of space
 using tail recursion.  We will discuss tail recursion when we deal with the
 control structure of the interpreter in \link{Section 5.4}.}
 \end{exerciseGroup}
@@ -1371,7 +1371,7 @@ followed by
 \end{codeBlock}
 
 \noindent
-\link{Figure 3.6} shows the result of defining the \code{make-withdraw}
+\link{Figure 3.6} shows the result of defining the \code{make\-/withdraw}
 procedure in the global environment.  This produces a procedure object that
 contains a pointer to the global environment.  So far, this is no different
 from the examples we have already seen, except that the body of the procedure
@@ -1379,18 +1379,18 @@ is itself a λ-expression.
 
 % figure 3.6
 \begin{imageFigure}
-  {Result of defining \code{make-withdraw} in the global environment.}
+  {Result of defining \code{make\-/withdraw} in the global environment.}
   \includegraphics[width=91mm]{assets/figures/chapter_3/figure_3.6b.pdf}
 \end{imageFigure}
 
 % figure 3.7
 \begin{imageFigure}
-  {Result of evaluating \code{(define W1 (make-withdraw 100))}.}
+  {Result of evaluating \code{(define W1 (make\-/withdraw 100))}.}
   \includegraphics[width=100mm]{assets/figures/chapter_3/figure_3.7a.pdf}
 \end{imageFigure}
 
 The interesting part of the computation happens when we apply the procedure
-\code{make-withdraw} to an argument:
+\code{make\-/withdraw} to an argument:
 
 \begin{codeBlock}
 (define W1 (make-withdraw 100))
@@ -1399,12 +1399,12 @@ The interesting part of the computation happens when we apply the procedure
 \noindent
 We begin, as usual, by setting up an environment E1 in which the formal
 parameter \code{balance} is bound to the argument 100.  Within this
-environment, we evaluate the body of \code{make-withdraw}, namely the
+environment, we evaluate the body of \code{make\-/withdraw}, namely the
 λ-expression.  This constructs a new procedure object, whose code
 is as specified by the \code{lambda} and whose environment is E1, the
 environment in which the \code{lambda} was evaluated to produce the procedure.
 The resulting procedure object is the value returned by the call to
-\code{make-withdraw}.  This is bound to \code{W1} in the global environment,
+\code{make\-/withdraw}.  This is bound to \code{W1} in the global environment,
 since the \code{define} itself is being evaluated in the global environment.
 \link{Figure 3.7} shows the resulting environment structure.
 
@@ -1460,7 +1460,7 @@ state variable for the procedure object \code{W1}.  \link{Figure 3.9} shows the
 situation after the call to \code{W1}.
 
 Observe what happens when we create a second ``withdraw'' object by making
-another call to \code{make-withdraw}:
+another call to \code{make\-/withdraw}:
 
 \begin{codeBlock}
 (define W2 (make-withdraw 100))
@@ -1468,17 +1468,17 @@ another call to \code{make-withdraw}:
 
 % figure 3.10
 \begin{imageFigure}
-  {Using \code{(define W2 (make-withdraw 100))} to create a second object.}
+  {Using \code{(define W2 (make\-/withdraw 100))} to create a second object.}
   \includegraphics[width=108mm]{assets/figures/chapter_3/figure_3.10a.pdf}
 \end{imageFigure}
 
 This produces the environment structure of \link{Figure 3.10}, which shows that
 \code{W2} is a procedure object, that is, a pair with some code and an
 environment.  The environment E2 for \code{W2} was created by the call to
-\code{make-withdraw}.  It contains a frame with its own local binding for
+\code{make\-/withdraw}.  It contains a frame with its own local binding for
 \code{balance}.  On the other hand, \code{W1} and \code{W2} have the same code:
 the code specified by the λ-expression in the body of
-\code{make-withdraw}.\footnote{Whether \code{W1} and \code{W2} share the same
+\code{make\-/withdraw}.\footnote{Whether \code{W1} and \code{W2} share the same
 physical code stored in the computer, or whether they each keep a copy of the
 code, is a detail of the implementation.  For the interpreter we implement in
 \link{Chapter 4}, the code is in fact shared.} We see here why \code{W1} and
@@ -1488,9 +1488,9 @@ reference the \code{balance} stored in E2. Thus, changes to the local state of
 one object do not affect the other object.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 3.10}Exercise 3.10:} In the \code{make-withdraw}
+\exerciseHeading{\phantomsection\label{Exercise 3.10}Exercise 3.10:} In the \code{make\-/withdraw}
 procedure, the local variable \code{balance} is created as a parameter of
-\code{make-withdraw}.  We could also create the local state variable
+\code{make\-/withdraw}.  We could also create the local state variable
 explicitly, using \code{let}, as follows:
 
 \begin{codeBlock}
@@ -1518,7 +1518,7 @@ is interpreted as an alternate syntax for
 \end{codeBlock}
 
 Use the environment model to analyze this alternate version of
-\code{make-withdraw}, drawing figures like the ones above to illustrate the
+\code{make\-/withdraw}, drawing figures like the ones above to illustrate the
 interactions
 
 \begin{codeBlock}
@@ -1527,7 +1527,7 @@ interactions
 (define W2 (make-withdraw 100))
 \end{codeBlock}
 
-Show that the two versions of \code{make-withdraw} create objects with the same
+Show that the two versions of \code{make\-/withdraw} create objects with the same
 behavior.  How do the environment structures differ for the two versions?
 \end{exerciseGroup}
 
@@ -1554,7 +1554,7 @@ compute square roots:
 \noindent
 Now we can use the environment model to see why these internal definitions
 behave as desired.  \link{Figure 3.11} shows the point in the evaluation of the
-expression \code{(sqrt 2)} where the internal procedure \code{good-enough?} has
+expression \code{(sqrt 2)} where the internal procedure \code{good\-/enough?} has
 been called for the first time with \code{guess} equal to 1.
 
 Observe the structure of the environment.  \code{sqrt} is a symbol in the
@@ -1570,32 +1570,32 @@ in E1.  Since the first expression in the body of \code{sqrt} is
 \end{codeBlock}
 
 \noindent
-evaluating this expression defined the procedure \code{good-enough?}  in the
-environment E1.  To be more precise, the symbol \code{good-enough?} was added
+evaluating this expression defined the procedure \code{good\-/enough?}  in the
+environment E1.  To be more precise, the symbol \code{good\-/enough?} was added
 to the first frame of E1, bound to a procedure object whose associated
-environment is E1.  Similarly, \code{improve} and \code{sqrt-iter} were defined
+environment is E1.  Similarly, \code{improve} and \code{sqrt\-/iter} were defined
 as procedures in E1.  For conciseness, \link{Figure 3.11} shows only the
-procedure object for \code{good-enough?}.
+procedure object for \code{good\-/enough?}.
 
 % figure 3.11
 \begin{imageFigure}{\code{sqrt} procedure with internal definitions.}
   \includegraphics[width=107mm]{assets/figures/chapter_3/figure_3.11a.pdf}
 \end{imageFigure}
 
-After the local procedures were defined, the expression \code{(sqrt-iter 1.0)}
+After the local procedures were defined, the expression \code{(sqrt\-/iter 1.0)}
 was evaluated, still in environment E1.  So the procedure object bound to
-\code{sqrt-iter} in E1 was called with 1 as an argument.  This created an
-environment E2 in which \code{guess}, the parameter of \code{sqrt-iter}, is
-bound to 1.  \code{sqrt-iter} in turn called \code{good-enough?} with the value
-of \code{guess} (from E2) as the argument for \code{good-enough?}.  This set up
+\code{sqrt\-/iter} in E1 was called with 1 as an argument.  This created an
+environment E2 in which \code{guess}, the parameter of \code{sqrt\-/iter}, is
+bound to 1.  \code{sqrt\-/iter} in turn called \code{good\-/enough?} with the value
+of \code{guess} (from E2) as the argument for \code{good\-/enough?}.  This set up
 another environment, E3, in which \code{guess} (the parameter of
-\code{good-enough?}) is bound to 1.  Although \code{sqrt-iter} and
-\code{good-enough?} both have a parameter named \code{guess}, these are two
+\code{good\-/enough?}) is bound to 1.  Although \code{sqrt\-/iter} and
+\code{good\-/enough?} both have a parameter named \code{guess}, these are two
 distinct local variables located in different frames.  Also, E2 and E3 both
-have E1 as their enclosing environment, because the \code{sqrt-iter} and
-\code{good-enough?} procedures both have E1 as their environment part.  One
+have E1 as their enclosing environment, because the \code{sqrt\-/iter} and
+\code{good\-/enough?} procedures both have E1 as their environment part.  One
 consequence of this is that the symbol \code{x} that appears in the body of
-\code{good-enough?} will reference the binding of \code{x} that appears in E1,
+\code{good\-/enough?} will reference the binding of \code{x} that appears in E1,
 namely the value of \code{x} with which the original \code{sqrt} procedure was
 called.
 
@@ -1712,16 +1712,16 @@ list operations we have used so far, such as \code{append} and \code{list},
 since these can be defined in terms of \code{cons}, \code{car}, and \code{cdr}.
 To modify list structures we need new operations.
 
-The primitive mutators for pairs are \code{set-car!} and
-\code{set-cdr!}. \code{set-car!} takes two arguments, the first of which must
+The primitive mutators for pairs are \code{set\-/car!} and
+\code{set\-/cdr!}. \code{set\-/car!} takes two arguments, the first of which must
 be a pair.  It modifies this pair, replacing the \code{car} pointer by a
-pointer to the second argument of \code{set-car!}.\footnote{\code{set-car!} and
-\code{set-cdr!} return implementation-dependent values.  Like \code{set!}, they
+pointer to the second argument of \code{set\-/car!}.\footnote{\code{set\-/car!} and
+\code{set\-/cdr!} return implementation-dependent values.  Like \code{set!}, they
 should be used only for their effect.}
 
 As an example, suppose that \code{x} is bound to the list \code{((a b) c d)}
 and \code{y} to the list \code{(e f)} as illustrated in \link{Figure 3.12}.
-Evaluating the expression \code{ (set-car!  x y)} modifies the pair to which
+Evaluating the expression \code{ (set\-/car!  x y)} modifies the pair to which
 \code{x} is bound, replacing its \code{car} by the value of \code{y}.  The
 result of the operation is shown in \link{Figure 3.13}.  The structure \code{x}
 has been modified and would now be printed as \code{((e f) c d)}.  The pairs
@@ -1746,7 +1746,7 @@ bound to a new pair created by the \code{cons} operation; the list to which
 
 % figure 3.13
 \begin{imageFigure}
-  {Effect of \code{(set-car! x y)} on the lists in \link{Figure 3.12}.}
+  {Effect of \code{(set\-/car! x y)} on the lists in \link{Figure 3.12}.}
   \includegraphics[width=72mm]{assets/figures/chapter_3/figure_3.13b.pdf}
 \end{imageFigure}
 
@@ -1761,13 +1761,13 @@ bound to a new pair created by the \code{cons} operation; the list to which
 
 % figure 3.15
 \begin{imageFigure}
-  {Effect of \code{(set-cdr! x y)} on the lists in \link{Figure 3.12}.}
+  {Effect of \code{(set\-/cdr! x y)} on the lists in \link{Figure 3.12}.}
   \includegraphics[width=72mm]{assets/figures/chapter_3/figure_3.15b.pdf}
 \end{imageFigure}
 
-The \code{set-cdr!} operation is similar to \code{set-car!}.  The only
+The \code{set\-/cdr!} operation is similar to \code{set\-/car!}.  The only
 difference is that the \code{cdr} pointer of the pair, rather than the
-\code{car} pointer, is replaced.  The effect of executing \code{(set-cdr! x y)}
+\code{car} pointer, is replaced.  The effect of executing \code{(set\-/cdr! x y)}
 on the lists of \link{Figure 3.12} is shown in \link{Figure 3.15}.  Here the
 \code{cdr} pointer of \code{x} has been replaced by the pointer to \code{(e
 f)}.  Also, the list \code{(c d)}, which used to be the \code{cdr} of \code{x},
@@ -1782,12 +1782,12 @@ is now detached from the structure.
 \end{codeBlock}
 
 \code{cons} builds new list structure by creating new pairs, while
-\code{set-car!} and \code{set-cdr!} modify existing pairs.  Indeed, we could
+\code{set\-/car!} and \code{set\-/cdr!} modify existing pairs.  Indeed, we could
 implement \code{cons} in terms of the two mutators, together with a procedure
-\code{get-new-pair}, which returns a new pair that is not part of any existing
+\code{get\-/new\-/pair}, which returns a new pair that is not part of any existing
 list structure.  We obtain the new pair, set its \code{car} and \code{cdr}
 pointers to the designated objects, and return the new pair as the result of
-the \code{cons}.\footnote{\code{get-new-pair} is one of the operations that
+the \code{cons}.\footnote{\code{get\-/new\-/pair} is one of the operations that
 must be implemented as part of the memory management required by a Lisp
 implementation.  We will discuss this in \link{Section 5.3.1}.}
 
@@ -1815,7 +1815,7 @@ empty \code{x}.)
   x)
 \end{codeBlock}
 
-Here \code{last-pair} is a procedure that returns the last pair in its
+Here \code{last\-/pair} is a procedure that returns the last pair in its
 argument:
 
 \begin{codeBlock}
@@ -1844,7 +1844,7 @@ What are the missing \( \langle \)\var{response}\( \rangle \)s?
 Draw box-and-pointer \\ diagrams to explain your answer.
 
 \exerciseHeading{\phantomsection\label{Exercise 3.13}Exercise 3.13:} Consider the following
-\code{make-cycle} procedure, which uses the \code{last-pair} procedure defined
+\code{make\-/cycle} procedure, which uses the \code{last\-/pair} procedure defined
 in \link{Exercise 3.12}:
 
 \begin{codeBlock}
@@ -1859,7 +1859,7 @@ Draw a box-and-pointer diagram that shows the structure \code{z} created by
 (define z (make-cycle (list 'a 'b 'c)))
 \end{codeBlock}
 
-What happens if we try to compute \code{(last-pair z)}?
+What happens if we try to compute \code{(last\-/pair z)}?
 
 \exerciseHeading{\phantomsection\label{Exercise 3.14}Exercise 3.14:} The following procedure is quite
 useful, although obscure:
@@ -1876,7 +1876,7 @@ useful, although obscure:
 \end{codeBlock}
 
 \code{loop} uses the ``temporary'' variable \code{temp} to hold the old value
-of the \code{cdr} of \code{x}, since the \code{set-cdr!}  on the next line
+of the \code{cdr} of \code{x}, since the \code{set\-/cdr!}  on the next line
 destroys the \code{cdr}.  Explain what \code{mystery} does in general.  Suppose
 \code{v} is defined by \code{(define v (list 'a 'b 'c 'd))}. Draw the
 box-and-pointer diagram that represents the list to which \code{v} is bound.
@@ -1948,10 +1948,10 @@ applied:
 
 \noindent
 Even though \code{z1} and \code{z2} are ``the same'' structure, applying
-\code{set-to-wow!} to them yields different results.  With \code{z1}, altering
+\code{set\-/to\-/wow!} to them yields different results.  With \code{z1}, altering
 the \code{car} also changes the \code{cdr}, because in \code{z1} the \code{car}
 and the \code{cdr} are the same pair.  With \code{z2}, the \code{car} and
-\code{cdr} are distinct, so \code{set-to-wow!} modifies only the \code{car}:
+\code{cdr} are distinct, so \code{set\-/to\-/wow!} modifies only the \code{car}:
 
 \begin{codeBlock}
 z1
@@ -1977,7 +1977,7 @@ As will be seen in the following sections, we can exploit sharing to greatly
 extend the repertoire of data structures that can be represented by pairs.  On
 the other hand, sharing can also be dangerous, since modifications made to
 structures will also affect other structures that happen to share the modified
-parts.  The mutation operations \code{set-car!} and \code{set-cdr!} should be
+parts.  The mutation operations \code{set\-/car!} and \code{set\-/cdr!} should be
 used with care; unless we have a good understanding of how our data objects are
 shared, mutation can have unanticipated results.\footnote{The subtleties of
 dealing with sharing of mutable data objects reflect the underlying issues of
@@ -1995,7 +1995,7 @@ models.}
 
 \begin{exerciseGroup}
 \exerciseHeading{\phantomsection\label{Exercise 3.15}Exercise 3.15:} Draw box-and-pointer diagrams to
-explain the effect of \code{set-to-wow!} on the structures \code{z1} and
+explain the effect of \code{set\-/to\-/wow!} on the structures \code{z1} and
 \code{z2} above.
 
 \exerciseHeading{\phantomsection\label{Exercise 3.16}Exercise 3.16:} Ben Bitdiddle decides to write a
@@ -2018,7 +2018,7 @@ diagrams representing list structures made up of exactly three pairs for which
 Ben's procedure would return 3; return 4; return 7; never return at all.
 
 \exerciseHeading{\phantomsection\label{Exercise 3.17}Exercise 3.17:} Devise a correct version of the
-\code{count-pairs} procedure of \link{Exercise 3.16} that returns the number of
+\code{count\-/pairs} procedure of \link{Exercise 3.16} that returns the number of
 distinct pairs in any structure.  (Hint: Traverse the structure, maintaining an
 auxiliary data structure that is used to keep track of which pairs have already
 been counted.)
@@ -2052,9 +2052,9 @@ can be represented purely in terms of procedures:
 \noindent
 The same observation is true for mutable data.  We can implement mutable data
 objects as procedures using assignment and local state.  For instance, we can
-extend the above pair implementation to handle \code{set-car!} and
-\code{set-cdr!} in a manner analogous to the way we implemented bank accounts
-using \code{make-account} in \link{Section 3.1.1}:
+extend the above pair implementation to handle \code{set\-/car!} and
+\code{set\-/cdr!} in a manner analogous to the way we implemented bank accounts
+using \code{make\-/account} in \link{Section 3.1.1}:
 
 \begin{codeBlock}
 (define (cons x y)
@@ -2105,7 +2105,7 @@ using the procedural implementation of pairs given above.  (Compare
 \subsection{Representing Queues}
 \label{Section 3.3.2}
 
-The mutators \code{set-car!} and \code{set-cdr!} enable us to use pairs to
+The mutators \code{set\-/car!} and \code{set\-/cdr!} enable us to use pairs to
 construct data structures that cannot be built with \code{cons}, \code{car},
 and \code{cdr} alone.  This section shows how to use pairs to represent a data
 structure called a queue.  \link{Section 3.3.3} will show how to represent data
@@ -2131,27 +2131,27 @@ set of operations:
 \begin{itemize}
 
 \item
-a constructor: \code{(make-queue)} returns an empty queue (a queue containing
+a constructor: \code{(make\-/queue)} returns an empty queue (a queue containing
 no items).
 
 \item
 two selectors:
 
-\code{(empty-queue? \( \langle \)\var{queue}\( \rangle \))}
+\code{(empty\-/queue? \( \langle \)\var{queue}\( \rangle \))}
 tests if the queue is empty.
 
-\code{(front-queue \( \langle \)\var{queue}\( \rangle \))}
+\code{(front\-/queue \( \langle \)\var{queue}\( \rangle \))}
 returns the object at the front of the queue, signaling an error if the queue
 is empty; it does not modify the queue.
 
 \item
 two mutators:
 
-\code{(insert-queue! \( \langle \)\var{queue}\( \rangle \) \( \langle \)\var{item}\( \rangle \))}
+\code{(insert\-/queue! \( \langle \)\var{queue}\( \rangle \) \( \langle \)\var{item}\( \rangle \))}
 inserts the item at the rear of the queue and returns the modified queue as its
 value.
 
-\code{(delete-queue! \( \langle \)\var{queue}\( \rangle \))}
+\code{(delete\-/queue! \( \langle \)\var{queue}\( \rangle \))}
 removes the item at the front of the queue and returns the modified queue as
 its value, signaling an error if the queue is empty before the deletion.
 
@@ -2180,8 +2180,8 @@ the queue as a list, together with an additional pointer that indicates the
 final pair in the list.  That way, when we go to insert an item, we can consult
 the rear pointer and so avoid scanning the list.
 
-A queue is represented, then, as a pair of pointers, \code{front-ptr} and
-\code{rear-ptr}, which indicate, respectively, the first and last pairs in an
+A queue is represented, then, as a pair of pointers, \code{front\-/ptr} and
+\code{rear\-/ptr}, which indicate, respectively, the first and last pairs in an
 ordinary list.  Since we would like the queue to be an identifiable object, we
 can use \code{cons} to combine the two pointers.  Thus, the queue itself will
 be the \code{cons} of the two pointers.  \link{Figure 3.19} illustrates this
@@ -2215,7 +2215,7 @@ be empty if its front pointer is the empty list:
 \end{codeBlock}
 
 \noindent
-The \code{make-queue} constructor returns, as an initially empty queue, a pair
+The \code{make\-/queue} constructor returns, as an initially empty queue, a pair
 whose \code{car} and \code{cdr} are both the empty list:
 
 \begin{codeBlock}
@@ -2236,7 +2236,7 @@ pair indicated by the front pointer:
 % figure 3.20
 \begin{imageFigure}
   {%
-    Result of using \code{(insert-queue! q 'd)} on the queue of
+    Result of using \code{(insert\-/queue! q 'd)} on the queue of
     \link{Figure 3.19}.
   }%
   \includegraphics[width=88mm]{assets/figures/chapter_3/figure_3.20b.pdf}
@@ -2266,7 +2266,7 @@ also set the rear pointer to the new pair.
 % figure 3.21
 \begin{imageFigure}
   {%
-    Result of using \code{(delete-queue!  q)} on the queue of
+    Result of using \code{(delete\-/queue!  q)} on the queue of
     \link{Figure 3.20}.
   }%
   \includegraphics[width=88mm]{assets/figures/chapter_3/figure_3.21b.pdf}
@@ -2279,7 +2279,7 @@ found by following the \code{cdr} pointer of the first item (see
 \link{Figure 3.21}):\footnote{If the first item is the final item in the queue, the front
 pointer will be the empty list after the deletion, which will mark the queue as
 empty; we needn't worry about updating the rear pointer, which will still point
-to the deleted item, because \code{empty-queue?} looks only at the front
+to the deleted item, because \code{empty\-/queue?} looks only at the front
 pointer.}
 
 \begin{codeBlock}
@@ -2320,13 +2320,13 @@ explains.  ``It's just that the standard Lisp printer doesn't know how to make
 sense of the queue representation.  If you want to see the queue printed
 correctly, you'll have to define your own print procedure for queues.'' Explain
 what Eva Lu is talking about.  In particular, show why Ben's examples produce
-the printed results that they do.  Define a procedure \code{print-queue} that
+the printed results that they do.  Define a procedure \code{print\-/queue} that
 takes a queue as input and prints the sequence of items in the queue.
 
 \exerciseHeading{\phantomsection\label{Exercise 3.22}Exercise 3.22:} Instead of representing a queue
 as a pair of pointers, we can build a queue as a procedure with local state.
 The local state will consist of pointers to the beginning and the end of an
-ordinary list.  Thus, the \code{make-queue} procedure will have the form
+ordinary list.  Thus, the \code{make\-/queue} procedure will have the form
 
 \begin{codeBlock}
 (define (make-queue)
@@ -2337,16 +2337,16 @@ ordinary list.  Thus, the \code{make-queue} procedure will have the form
     dispatch))
 \end{codeBlock}
 
-Complete the definition of \code{make-queue} and provide implementations of the
+Complete the definition of \code{make\-/queue} and provide implementations of the
 queue operations using this representation.
 
 \exerciseHeading{\phantomsection\label{Exercise 3.23}Exercise 3.23:} A \newterm{deque} (``double-ended
 queue'') is a sequence in which items can be inserted and deleted at either the
-front or the rear.  Operations on deques are the constructor \code{make-deque},
-the predicate \code{empty-deque?}, selectors \code{front-deque} and
-\code{rear-deque}, mutators \code{front-insert-deque!},
-\code{rear-insert-deque!}, \code{front-delete-deque!}, and
-\code{rear-delete-deque!}.  Show how to represent deques using pairs, and give
+front or the rear.  Operations on deques are the constructor \code{make\-/deque},
+the predicate \code{empty\-/deque?}, selectors \code{front\-/deque} and
+\code{rear\-/deque}, mutators \code{front\-/insert\-/deque!},
+\code{rear\-/insert\-/deque!}, \code{front\-/delete\-/deque!}, and
+\code{rear\-/delete\-/deque!}.  Show how to represent deques using pairs, and give
 implementations of the operations.\footnote{Be careful not to make the
 interpreter try to print a structure that contains cycles.  (See \link{Exercise 3.13}.)}
 All operations should be accomplished in \( \Theta \)(1) steps.
@@ -2484,7 +2484,7 @@ Then we use the second key to identify the record within the subtable.
 
 To insert a new item under a pair of keys, we use \code{assoc} to see if there
 is a subtable stored under the first key.  If not, we build a new subtable
-containing the single record (\code{key-2}, \code{value}) and insert it into
+containing the single record (\code{key\-/2}, \code{value}) and insert it into
 the table under the first key.  If a subtable already exists for the first key,
 we insert the new record into this subtable, using the insertion method for
 one-dimensional tables described above:
@@ -2554,7 +2554,7 @@ generator for two-dimensional tables represented in this fashion:
 \end{codeBlock}
 
 \noindent
-Using \code{make-table}, we could implement the \code{get} and \code{put}
+Using \code{make\-/table}, we could implement the \code{get} and \code{put}
 operations used in \link{Section 2.4.3} for data-directed programming, as
 follows:
 
@@ -2567,7 +2567,7 @@ follows:
 \noindent
 \code{get} takes as arguments two keys, and \code{put} takes as arguments two
 keys and a value.  Both operations access the same local table, which is
-encapsulated within the object created by the call to \code{make-table}.
+encapsulated within the object created by the call to \code{make\-/table}.
 
 \begin{exerciseGroup}
 \exerciseHeading{\phantomsection\label{Exercise 3.24}Exercise 3.24:} In the table implementations
@@ -2575,9 +2575,9 @@ above, the keys are tested for equality using \code{equal?} (called by
 \code{assoc}).  This is not always the appropriate test.  For instance, we
 might have a table with numeric keys in which we don't need an exact match to
 the number we're looking up, but only a number within some tolerance of it.
-Design a table constructor \code{make-table} that takes as an argument a
-\code{same-key?} procedure that will be used to test ``equality'' of keys.
-\code{make-table} should return a \code{dispatch} procedure that can be used to
+Design a table constructor \code{make\-/table} that takes as an argument a
+\code{same\-/key?} procedure that will be used to test ``equality'' of keys.
+\code{make\-/table} should return a \code{dispatch} procedure that can be used to
 access appropriate \code{lookup} and \code{insert!} procedures for a local
 table.
 
@@ -2641,10 +2641,10 @@ where the memoizer is defined as
               result))))))
 \end{codeBlock}
 
-Draw an environment diagram to analyze the computation of \code{(memo-fib 3)}.
-Explain why \code{memo-fib} computes the \( n^{\mathrm{th}} \) Fibonacci number in a number
+Draw an environment diagram to analyze the computation of \code{(memo\-/fib 3)}.
+Explain why \code{memo\-/fib} computes the \( n^{\mathrm{th}} \) Fibonacci number in a number
 of steps proportional to \( n \).  Would the scheme still work if we had simply
-defined \code{memo-fib} to be \code{(memoize fib)}?
+defined \code{memo\-/fib} to be \code{(memoize fib)}?
 \end{exerciseGroup}
 
 \subsection{A Simulator for Digital Circuits}
@@ -2711,7 +2711,7 @@ study.  The program will construct computational objects modeling the wires,
 which will ``hold'' the signals.  Function boxes will be modeled by procedures
 that enforce the correct relationships among the signals.
 
-One basic element of our simulation will be a procedure \code{make-wire}, which
+One basic element of our simulation will be a procedure \code{make\-/wire}, which
 constructs wires.  For example, we can construct six wires as follows:
 
 \begin{codeBlock}
@@ -2743,7 +2743,7 @@ in \link{Figure 3.25}:
 
 \noindent
 Better yet, we can explicitly name this operation by defining a procedure
-\code{half-adder} that constructs this circuit, given the four external wires
+\code{half\-/adder} that constructs this circuit, given the four external wires
 to be attached to the half-adder:
 
 \begin{codeBlock}
@@ -2757,7 +2757,7 @@ to be attached to the half-adder:
 \end{codeBlock}
 
 \noindent
-The advantage of making this definition is that we can use \code{half-adder}
+The advantage of making this definition is that we can use \code{half\-/adder}
 itself as a building block in creating more complex circuits.  \link{Figure 3.26},
 for example, shows a \newterm{full-adder} composed of two half-adders
 and an or-gate.\footnote{A full-adder is a basic circuit element used in adding
@@ -2784,7 +2784,7 @@ bit to be propagated to the left.} We can construct a full-adder as follows:
 \end{imageFigure}
 
 \noindent
-Having defined \code{full-adder} as a procedure, we can now use it as a
+Having defined \code{full\-/adder} as a procedure, we can now use it as a
 building block for creating still more complex circuits.  (For example, see
 \link{Exercise 3.30}.)
 
@@ -2823,16 +2823,16 @@ signal value on the wire are communicated to other wires.
 \end{itemize}
 
 \noindent
-In addition, we will make use of a procedure \code{after-delay} that takes a
+In addition, we will make use of a procedure \code{after\-/delay} that takes a
 time delay and a procedure to be run and executes the given procedure after the
 given delay.
 
 Using these procedures, we can define the primitive digital logic functions.
-To connect an input to an output through an inverter, we use \code{add-action!}
+To connect an input to an output through an inverter, we use \code{add\-/action!}
 to associate with the input wire a procedure that will be run whenever the
 signal on the input wire changes value.  The procedure computes the
-\code{logical-not} of the input signal, and then, after one
-\code{inverter-delay}, sets the output signal to be this new value:
+\code{logical\-/not} of the input signal, and then, after one
+\code{inverter\-/delay}, sets the output signal to be this new value:
 
 \begin{codeBlock}
 (define (inverter input output)
@@ -2850,10 +2850,10 @@ signal on the input wire changes value.  The procedure computes the
 
 \noindent
 An and-gate is a little more complex.  The action procedure must be run if
-either of the inputs to the gate changes.  It computes the \code{logical-and}
-(using a procedure analogous to \code{logical-not}) of the values of the
+either of the inputs to the gate changes.  It computes the \code{logical\-/and}
+(using a procedure analogous to \code{logical\-/not}) of the values of the
 signals on the input wires and sets up a change to the new value to occur on
-the output wire after one \code{and-gate-delay}.
+the output wire after one \code{and\-/gate\-/delay}.
 
 \begin{codeBlock}
 (define (and-gate a1 a2 output)
@@ -2872,14 +2872,14 @@ the output wire after one \code{and-gate-delay}.
 
 \begin{exerciseGroup}
 \exerciseHeading{\phantomsection\label{Exercise 3.28}Exercise 3.28:} Define an or-gate as a primitive
-function box.  Your \code{or-gate} constructor should be similar to
-\code{and-gate}.
+function box.  Your \code{or\-/gate} constructor should be similar to
+\code{and\-/gate}.
 
 \exerciseHeading{\phantomsection\label{Exercise 3.29}Exercise 3.29:} Another way to construct an
 or-gate is as a compound digital logic device, built from and-gates and
-inverters.  Define a procedure \code{or-gate} that accomplishes this.  What is
-the delay time of the or-gate in terms of \code{and-gate-delay} and
-\code{inverter-delay}?
+inverters.  Define a procedure \code{or\-/gate} that accomplishes this.  What is
+the delay time of the or-gate in terms of \code{and\-/gate\-/delay} and
+\code{inverter\-/delay}?
 
 \exerciseHeading{\phantomsection\label{Exercise 3.30}Exercise 3.30:} \link{Figure 3.27} shows a
 \newterm{ripple-carry adder} formed by stringing together \( n \) full-adders.
@@ -2890,7 +2890,7 @@ numbers.  The inputs \( A_1 \), \( A_2 \), \( A_3 \), \( \dots \), \( A_n \) and
 \( B_k \) is a 0 or a 1).  The circuit generates \( S_1 \), \( S_2 \),
 \( S_3 \), \( \dots \), \( S_n \),
 the \( n \) bits of the sum, and \( C \), the carry from the addition.  Write a
-procedure \code{ripple-carry-adder} that generates this circuit.  The procedure
+procedure \code{ripple\-/carry\-/adder} that generates this circuit.  The procedure
 should take as arguments three lists of \( n \) wires each---the \( A_k \), the
 \( B_k \), and the \( S_k \)---and also another wire \( C \).  The major drawback of the
 ripple-carry adder is the need to wait for the carry signals to propagate.
@@ -2909,8 +2909,8 @@ and inverters?
 \subsubsection*{Representing wires}
 
 A wire in our simulation will be a computational object with two local state
-variables: a \code{signal-value} (initially taken to be 0) and a collection of
-\code{action-procedures} to be run when the signal changes value.  We implement
+variables: a \code{signal\-/value} (initially taken to be 0) and a collection of
+\code{action\-/procedures} to be run when the signal changes value.  We implement
 the wire, using message-passing style, as a collection of local procedures
 together with a \code{dispatch} procedure that selects the appropriate local
 operation, just as we did with the simple bank-account object in
@@ -2940,9 +2940,9 @@ operation, just as we did with the simple bank-account object in
 \end{codeBlock}
 
 \noindent
-The local procedure \code{set-my-signal!} tests whether the new signal value
+The local procedure \code{set\-/my\-/signal!} tests whether the new signal value
 changes the signal on the wire.  If so, it runs each of the action procedures,
-using the following procedure \code{call-each}, which calls each of the items
+using the following procedure \code{call\-/each}, which calls each of the items
 in a list of no-argument procedures:
 
 \begin{codeBlock}
@@ -2954,7 +2954,7 @@ in a list of no-argument procedures:
 \end{codeBlock}
 
 \noindent
-The local procedure \code{accept-action-procedure!} adds the given procedure to
+The local procedure \code{accept\-/action\-/procedure!} adds the given procedure to
 the list of procedures to be run, and then runs the new procedure once.  (See
 \link{Exercise 3.31}.)
 
@@ -2964,10 +2964,10 @@ wires:\footnote{\label{Footnote 27} These procedures are simply
 syntactic sugar that allow us to use ordinary procedural syntax to access the
 local procedures of objects.  It is striking that we can interchange the role
 of ``procedures'' and ``data'' in such a simple way.  For example, if we write
-\code{(wire 'get-signal)} we think of \code{wire} as a procedure that is called
-with the message \code{get-signal} as input.  Alternatively, writing
-\code{(get-signal wire)} encourages us to think of \code{wire} as a data object
-that is the input to a procedure \code{get-signal}.  The truth of the matter is
+\code{(wire 'get\-/signal)} we think of \code{wire} as a procedure that is called
+with the message \code{get\-/signal} as input.  Alternatively, writing
+\code{(get\-/signal wire)} encourages us to think of \code{wire} as a data object
+that is the input to a procedure \code{get\-/signal}.  The truth of the matter is
 that, in a language in which we can deal with procedures as objects, there is
 no fundamental difference between ``procedures'' and ``data,'' and we can
 choose our syntactic sugar to allow us to program in whatever style we choose.}
@@ -2985,7 +2985,7 @@ Wires, which have time-varying signals and may be incrementally attached to
 devices, are typical of mutable objects.  We have modeled them as procedures
 with local state variables that are modified by assignment.  When a new wire is
 created, a new set of state variables is allocated (by the \code{let}
-expression in \code{make-wire}) and a new \code{dispatch} procedure is
+expression in \code{make\-/wire}) and a new \code{dispatch} procedure is
 constructed and returned, capturing the environment with the new state
 variables.
 
@@ -2997,7 +2997,7 @@ connections were established.
 
 \subsubsection*{The agenda}
 
-The only thing needed to complete the simulator is \code{after-delay}.  The
+The only thing needed to complete the simulator is \code{after\-/delay}.  The
 idea here is that we maintain a data structure, called an \newterm{agenda},
 that contains a schedule of things to do.  The following operations are defined
 for agendas:
@@ -3024,8 +3024,8 @@ removing the first item.
 \end{itemize}
 
 \noindent
-The particular agenda that we use is denoted by \code{the-agenda}.  The
-procedure \code{after-delay} adds new elements to \code{the-agenda}:
+The particular agenda that we use is denoted by \code{the\-/agenda}.  The
+procedure \code{after\-/delay} adds new elements to \code{the\-/agenda}:
 
 \begin{codeBlock}
 (define (after-delay delay action)
@@ -3036,7 +3036,7 @@ procedure \code{after-delay} adds new elements to \code{the-agenda}:
 
 \noindent
 The simulation is driven by the procedure \code{propagate}, which operates on
-\code{the-agenda}, executing each procedure on the agenda in sequence.  In
+\code{the\-/agenda}, executing each procedure on the agenda in sequence.  In
 general, as the simulation runs, new items will be added to the agenda, and
 \code{propagate} will continue the simulation as long as there are items on the
 agenda:
@@ -3099,7 +3099,7 @@ Now we define four wires, placing probes on two of them:
 
 \noindent
 Next we connect the wires in a half-adder circuit (as in \link{Figure 3.25}),
-set the signal on \code{input-1} to 1, and run the simulation:
+set the signal on \code{input\-/1} to 1, and run the simulation:
 
 \begin{codeBlock}
 (half-adder input-1 input-2 sum carry)
@@ -3120,7 +3120,7 @@ set the signal on \code{input-1} to 1, and run the simulation:
 \noindent
 The \code{sum} signal changes to 1 at time 8.  We are now eight time units from
 the beginning of the simulation.  At this point, we can set the signal on
-\code{input-2} to 1 and allow the values to propagate:
+\code{input\-/2} to 1 and allow the values to propagate:
 
 \begin{codeBlock}
 (set-signal! input-2 1)
@@ -3140,11 +3140,11 @@ time 16.
 
 \begin{exerciseGroup}
 \exerciseHeading{\phantomsection\label{Exercise 3.31}Exercise 3.31:} The internal procedure
-\code{accept-action-procedure!} defined in \code{make-wire} specifies that when
+\code{accept\-/action\-/procedure!} defined in \code{make\-/wire} specifies that when
 a new action procedure is added to a wire, the procedure is immediately run.
 Explain why this initialization is necessary.  In particular, trace through the
 half-adder example in the paragraphs above and say how the system's response
-would differ if we had defined \code{accept-action-procedure!} as
+would differ if we had defined \code{accept\-/action\-/procedure!} as
 
 \begin{codeBlock}
 (define (accept-action-procedure! proc)
@@ -3370,7 +3370,7 @@ to \( 25 \cdot 9 = 225 \).  Then \( u \) awakens the second multiplier, which se
 
 To use the constraint system to carry out the temperature computation outlined
 above, we first create two connectors, \code{C} and \code{F}, by calling the
-constructor \code{make-connector}, and link \code{C} and \code{F} in an
+constructor \code{make\-/connector}, and link \code{C} and \code{F} in an
 appropriate network:
 
 \begin{codeBlock}
@@ -3420,7 +3420,7 @@ cause a message to be printed whenever the connector is given a value:
 
 \noindent
 Next we set the value of \code{C} to 25.  (The third argument to
-\code{set-value!} tells \code{C} that this directive comes from the
+\code{set\-/value!} tells \code{C} that this directive comes from the
 \code{user}.)
 
 \begin{codeBlock}
@@ -3491,30 +3491,30 @@ The basic operations on connectors are the following:
 \begin{itemize}
 
 \item
-\code{(has-value? \( \langle \)\var{connector}\( \rangle \))} tells whether the connector has a value.
+\code{(has\-/value? \( \langle \)\var{connector}\( \rangle \))} tells whether the connector has a value.
 
 \item
-\code{(get-value \( \langle \)\var{connector}\( \rangle \))} returns the connector's current value.
+\code{(get\-/value \( \langle \)\var{connector}\( \rangle \))} returns the connector's current value.
 
 \item
-\code{(set-value! \( \langle \)\var{connector}\( \rangle \) \( \langle \)\var{new-value}\( \rangle \) \( \langle \)\var{informant}\( \rangle \))}
+\code{(set\-/value! \( \langle \)\var{connector}\( \rangle \) \( \langle \)\var{new\-/value}\( \rangle \) \( \langle \)\var{informant}\( \rangle \))}
 indicates that the informant is requesting the connector to set its value to
 the new value.
 
 \item
-\code{(forget-value! \( \langle \)\var{connector}\( \rangle \) \( \langle \)\var{retractor}\( \rangle \))} tells the connector
+\code{(forget\-/value! \( \langle \)\var{connector}\( \rangle \) \( \langle \)\var{retractor}\( \rangle \))} tells the connector
 that the retractor is requesting it to forget its value.
 
 \item
-\code{(connect \( \langle \)\var{connector}\( \rangle \) \( \langle \)\var{new-constraint}\( \rangle \))} tells the connector
+\code{(connect \( \langle \)\var{connector}\( \rangle \) \( \langle \)\var{new\-/constraint}\( \rangle \))} tells the connector
 to participate in the new constraint.
 
 \end{itemize}
 
 \noindent
 The connectors communicate with the constraints by means of the procedures
-\code{inform-about-value}, which tells the given constraint that the connector
-has a value, and \code{inform-about-no-value}, which tells the constraint that
+\code{inform\-/about\-/value}, which tells the given constraint that the connector
+has a value, and \code{inform\-/about\-/no\-/value}, which tells the constraint that
 the connector has lost its value.
 
 \code{adder} constructs an adder constraint among summand connectors \code{a1}
@@ -3576,18 +3576,18 @@ the dispatch:
 \end{codeBlock}
 
 \noindent
-The adder's local procedure \code{process-new-value} is called when the adder
+The adder's local procedure \code{process\-/new\-/value} is called when the adder
 is informed that one of its connectors has a value. The adder first checks to
 see if both \code{a1} and \code{a2} have values. If so, it tells \code{sum} to
 set its value to the sum of the two addends.  The \code{informant} argument to
-\code{set-value!} is \code{me}, which is the adder object itself.  If \code{a1}
+\code{set\-/value!} is \code{me}, which is the adder object itself.  If \code{a1}
 and \code{a2} do not both have values, then the adder checks to see if perhaps
 \code{a1} and \code{sum} have values.  If so, it sets \code{a2} to the
 difference of these two.  Finally, if \code{a2} and \code{sum} have values,
 this gives the adder enough information to set \code{a1}.  If the adder is told
 that one of its connectors has lost a value, it requests that all of its
 connectors now lose their values.  (Only those values that were set by this
-adder are actually lost.)  Then it runs \code{process-new-value}.  The reason
+adder are actually lost.)  Then it runs \code{process\-/new\-/value}.  The reason
 for this last step is that one or more connectors may still have a value (that
 is, a connector may have had a value that was not originally set by the adder),
 and these values may need to be propagated back through the adder.
@@ -3642,7 +3642,7 @@ if either of the factors is 0, even if the other factor is not known.
 
 \noindent
 A \code{constant} constructor simply sets the value of the designated
-connector.  Any \code{I-have-a-value} or \code{I-lost-my-value} message sent to
+connector.  Any \code{I\-/have\-/a\-/value} or \code{I\-/lost\-/my\-/value} message sent to
 the constant box will produce an error.
 
 \begin{codeBlock}
@@ -3733,7 +3733,7 @@ constraints in which the connector participates.
 \end{codeBlock}
 
 \noindent
-The connector's local procedure \code{set-my-value} is called when there is a
+The connector's local procedure \code{set\-/my\-/value} is called when there is a
 request to set the connector's value.  If the connector does not currently have
 a value, it will set its value and remember as \code{informant} the constraint
 that requested the value to be set.\footnote{The \code{setter} might not be a
@@ -3758,7 +3758,7 @@ to all items in a list except a given one:
 
 \noindent
 If a connector is asked to forget its value, it runs the local procedure
-\code{forget-my-value}, which first checks to make sure that the request is
+\code{forget\-/my\-/value}, which first checks to make sure that the request is
 coming from the same object that set the value originally.  If so, the
 connector informs its associated constraints about the loss of the value.
 
@@ -3832,7 +3832,7 @@ sequence of expressions in the global environment:
 (set-value! a 10 'user)
 \end{codeBlock}
 
-At some time during evaluation of the \code{set-value!}, the following
+At some time during evaluation of the \code{set\-/value!}, the following
 expression from the connector's local procedure is evaluated:
 
 \begin{codeBlock}
@@ -3844,7 +3844,7 @@ Draw an environment diagram showing the environment in which the above
 expression is evaluated.
 
 \exerciseHeading{\phantomsection\label{Exercise 3.37}Exercise 3.37:} The
-\code{celsius-fahrenheit-converter} procedure is cumbersome when compared with
+\code{celsius\-/fahrenheit\-/converter} procedure is cumbersome when compared with
 a more expression-oriented style of definition, such as
 
 \begin{codeBlock}
@@ -4231,21 +4231,21 @@ changed between an access and the corresponding assignment.
 \subsubsection*{Serializers in Scheme}
 
 To make the above mechanism more concrete, suppose that we have extended Scheme
-to include a procedure called \code{parallel-execute}:
+to include a procedure called \code{parallel\-/execute}:
 
 \begin{codeBlock}
 (parallel-execute ~\(\langle \)~~\var{p}~~\(_{\mono{1}}\rangle \)~ ~\(\langle \)~~\var{p}~~\(_{\mono{2}}\rangle \)~ ~\( \dots \)~ ~\(\langle \)~~\var{p}~~\(_{\monoItalic{k}}\rangle \)~)
 \end{codeBlock}
 
 \noindent
-Each \( \langle p \rangle \) must be a procedure of no arguments.  \code{parallel-execute}
+Each \( \langle p \rangle \) must be a procedure of no arguments.  \code{parallel\-/execute}
 creates a separate process for each \( \langle p \rangle \), which applies \( \langle p \rangle \) (to no
 arguments).  These processes all run
-concurrently.\footnote{\code{parallel-execute} is not part of standard Scheme,
+concurrently.\footnote{\code{parallel\-/execute} is not part of standard Scheme,
 but it can be implemented in \acronym{MIT} Scheme.  In our implementation, the
 new concurrent processes also run concurrently with the original Scheme
 process.  Also, in our implementation, the value returned by
-\code{parallel-execute} is a special control object that can be used to halt
+\code{parallel\-/execute} is a special control object that can be used to halt
 the newly created processes.}
 
 As an example of how this is used, consider
@@ -4275,7 +4275,7 @@ depending on the interleaving of the events of \( P_1 \) and \( P_2 \):
 \noindent
 We can constrain the concurrency by using serialized procedures, which are
 created by \newterm{serializers}. Serializers are constructed by
-\code{make-serializer}, whose implementation is given below.  A serializer
+\code{make\-/serializer}, whose implementation is given below.  A serializer
 takes a procedure as argument and returns a serialized procedure that behaves
 like the original procedure.  All calls to a given serializer return serialized
 procedures in the same set.
@@ -4295,7 +4295,7 @@ can produce only two possible values for \code{x}, 101 or 121.  The other
 possibilities are eliminated, because the execution of \( P_1 \) and \( P_2 \)
 cannot be interleaved.
 
-Here is a version of the \code{make-account} procedure from
+Here is a version of the \code{make\-/account} procedure from
 \link{Section 3.1.1}, where the deposits and withdrawals have been serialized:
 
 \begin{codeBlock}
@@ -4394,7 +4394,7 @@ Ben's concern?
 
 \exerciseHeading{\phantomsection\label{Exercise 3.42}Exercise 3.42:} Ben Bitdiddle suggests that it's
 a waste of time to create a new serialized procedure in response to every
-\code{withdraw} and \code{deposit} message.  He says that \code{make-account}
+\code{withdraw} and \code{deposit} message.  He says that \code{make\-/account}
 could be changed so that the calls to \code{protected} are done outside the
 \code{dispatch} procedure.  That is, an account would return the same
 serialized procedure (which was created at the same time as the account) each
@@ -4424,7 +4424,7 @@ time it is asked for a withdrawal procedure.
 \end{codeBlock}
 
 Is this a safe change to make?  In particular, is there any difference in what
-concurrency is allowed by these two versions of \code{make-account}?
+concurrency is allowed by these two versions of \code{make\-/account}?
 \end{exerciseGroup}
 
 \subsubsection*{Complexity of using multiple shared resources}
@@ -4458,7 +4458,7 @@ exchange.  Suppose, however, that Peter and Paul both have access to accounts
 \( {a1} \), \( {a2} \), and \( {a3} \), and that Peter exchanges \( {a1} \)
 and \( {a2} \) while Paul concurrently exchanges \( {a1} \) and \( {a3} \).  Even
 with account deposits and withdrawals serialized for individual accounts (as in
-the \code{make-account} procedure shown above in this section), \code{exchange}
+the \code{make\-/account} procedure shown above in this section), \code{exchange}
 can still produce incorrect results.  For example, Peter might compute the difference
 in the balances for \( {a1} \) and \( {a2} \), but then Paul might change the balance
 in \( {a1} \) before Peter is able to complete the exchange.\footnote{If the account
@@ -4473,7 +4473,7 @@ One way we can accomplish this is by using both accounts' serializers to
 serialize the entire \code{exchange} procedure.  To do this, we will arrange
 for access to an account's serializer.  Note that we are deliberately breaking
 the modularity of the bank-account object by exposing the serializer.  The
-following version of \code{make-account} is identical to the original version
+following version of \code{make\-/account} is identical to the original version
 given in \link{Section 3.1.1}, except that a serializer is provided to protect
 the balance variable, and the serializer is exported via message passing:
 
@@ -4545,7 +4545,7 @@ transferring an amount from one account to another.  Ben Bitdiddle claims that
 this can be accomplished with the following procedure, even if there are
 multiple people concurrently transferring money among multiple accounts, using
 any account mechanism that serializes deposit and withdrawal transactions, for
-example, the version of \code{make-account} in the text above.
+example, the version of \code{make\-/account} in the text above.
 
 \begin{codeBlock}
 (define (transfer from-account to-account amount)
@@ -4557,14 +4557,14 @@ Louis Reasoner claims that there is a problem here, and that we need to use a
 more sophisticated method, such as the one required for dealing with the
 exchange problem.  Is Louis right?  If not, what is the essential difference
 between the transfer problem and the exchange problem?  (You should assume that
-the balance in \code{from-account} is at least \code{amount}.)
+the balance in \code{from\-/account} is at least \code{amount}.)
 
 \exerciseHeading{\phantomsection\label{Exercise 3.45}Exercise 3.45:} Louis Reasoner thinks our
 bank-account system is unnecessarily complex and error-prone now that deposits
 and withdrawals aren't automatically serialized.  He suggests that
-\code{make-account-and-serializer} should have exported the serializer (for use
-by such procedures as \code{serialized-exchange}) in addition to (rather than
-instead of) using it to serialize accounts and deposits as \code{make-account}
+\code{make\-/account\-/and\-/serializer} should have exported the serializer (for use
+by such procedures as \code{serialized\-/exchange}) in addition to (rather than
+instead of) using it to serialize accounts and deposits as \code{make\-/account}
 did.  He proposes to redefine accounts as follows:
 
 \begin{compactCodeBlock}
@@ -4585,7 +4585,7 @@ did.  He proposes to redefine accounts as follows:
     dispatch))
 \end{compactCodeBlock}
 
-Then deposits are handled as with the original \code{make-account}:
+Then deposits are handled as with the original \code{make\-/account}:
 
 \begin{codeBlock}
 (define (deposit account amount)
@@ -4593,7 +4593,7 @@ Then deposits are handled as with the original \code{make-account}:
 \end{codeBlock}
 
 Explain what is wrong with Louis's reasoning.  In particular, consider what
-happens when \code{serialized-exchange} is called.
+happens when \code{serialized\-/exchange} is called.
 \end{exerciseGroup}
 
 \subsubsection*{Implementing serializers}
@@ -4640,7 +4640,7 @@ value is false, the mutex is available to be acquired.  When the value is true,
 the mutex is unavailable, and any process that attempts to acquire the mutex
 must wait.
 
-Our mutex constructor \code{make-mutex} begins by initializing the cell
+Our mutex constructor \code{make\-/mutex} begins by initializing the cell
 contents to false.  To acquire the mutex, we test the cell.  If the mutex is
 available, we set the cell contents to true and proceed.  Otherwise, we wait in
 a loop, attempting to acquire over and over again, until we find that the mutex
@@ -4663,8 +4663,8 @@ mutex, we set the cell contents to false.
 \end{codeBlock}
 
 \noindent
-\code{test-and-set!} tests the cell and returns the result of the test.  In
-addition, if the test was false, \code{test-and-set!} sets the cell contents to
+\code{test\-/and\-/set!} tests the cell and returns the result of the test.  In
+addition, if the test was false, \code{test\-/and\-/set!} sets the cell contents to
 true before returning false.  We can express this behavior as the following
 procedure:
 
@@ -4674,23 +4674,23 @@ procedure:
 \end{codeBlock}
 
 \noindent
-However, this implementation of \code{test-and-set!} does not suffice as it
+However, this implementation of \code{test\-/and\-/set!} does not suffice as it
 stands.  There is a crucial subtlety here, which is the essential place where
-concurrency control enters the system: The \code{test-and-set!} operation must
+concurrency control enters the system: The \code{test\-/and\-/set!} operation must
 be performed \newterm{atomically}.  That is, we must guarantee that, once a
 process has tested the cell and found it to be false, the cell contents will
 actually be set to true before any other process can test the cell.  If we do
 not make this guarantee, then the mutex can fail in a way similar to the
 bank-account failure in \link{Figure 3.29}.  (See \link{Exercise 3.46}.)
 
-The actual implementation of \code{test-and-set!} depends on the details of how
+The actual implementation of \code{test\-/and\-/set!} depends on the details of how
 our system runs concurrent processes.  For example, we might be executing
 concurrent processes on a sequential processor using a time-slicing mechanism
 that cycles through the processes, permitting each process to run for a short
 time before interrupting it and moving on to the next process.  In that case,
-\code{test-and-set!}  can work by disabling time slicing during the testing and
+\code{test\-/and\-/set!}  can work by disabling time slicing during the testing and
 setting.\footnote{In \acronym{MIT} Scheme for a single processor, which uses a
-time-slicing model, \code{test-and-set!} can be implemented as follows:
+time-slicing model, \code{test\-/and\-/set!} can be implemented as follows:
 
 \begin{compactCodeBlock}
 (define (test-and-set! cell)
@@ -4703,7 +4703,7 @@ time-slicing model, \code{test-and-set!} can be implemented as follows:
 \end{compactCodeBlock}
 
 \noindent
-\code{without-interrupts} disables time-slicing interrupts while its procedure
+\code{without\-/interrupts} disables time-slicing interrupts while its procedure
 argument is being executed.}  Alternatively, multiprocessing computers provide
 instructions that support atomic operations directly in
 hardware.\footnote{There are many variants of such instructions---including
@@ -4725,7 +4725,7 @@ deciding which to go to first.}
 
 \begin{exerciseGroup}
 \exerciseHeading{\phantomsection\label{Exercise 3.46}Exercise 3.46:} Suppose that we implement
-\code{test-and-set!}  using an ordinary procedure as shown in the text, without
+\code{test\-/and\-/set!}  using an ordinary procedure as shown in the text, without
 attempting to make the operation atomic.  Draw a timing diagram like the one in
 \link{Figure 3.29} to demonstrate how the mutex implementation can fail by
 allowing two processes to acquire the mutex at the same time.
@@ -4742,7 +4742,7 @@ semaphore must wait for release operations.  Give implementations of semaphores
 in terms of mutexes
 
 \item
-in terms of atomic \code{test-and-set!} operations.
+in terms of atomic \code{test\-/and\-/set!} operations.
 
 \end{enumerate}
 \end{exerciseGroup}
@@ -4750,7 +4750,7 @@ in terms of atomic \code{test-and-set!} operations.
 \subsubsection*{Deadlock}
 
 Now that we have seen how to implement serializers, we can see that account
-exchanging still has a problem, even with the \code{serialized-exchange}
+exchanging still has a problem, even with the \code{serialized\-/exchange}
 procedure above.  Imagine that Peter attempts to exchange \( a1 \) with \( a2 \)
 while Paul concurrently attempts to exchange \( a2 \) with \( a1 \).  Suppose that
 Peter's process reaches the point where it has entered a serialized procedure
@@ -4764,7 +4764,7 @@ Deadlock is always a danger in systems that provide concurrent access to
 multiple shared resources.
 
 One way to avoid the deadlock in this situation is to give each account a
-unique identification number and rewrite \code{serialized-exchange} so that a
+unique identification number and rewrite \code{serialized\-/exchange} so that a
 process will always attempt to enter a procedure protecting the lowest-numbered
 account first.  Although this method works well for the exchange problem, there
 are other situations that require more sophisticated deadlock-avoidance
@@ -4781,8 +4781,8 @@ used in database management systems, a topic that is treated in detail in
 \exerciseHeading{\phantomsection\label{Exercise 3.48}Exercise 3.48:} Explain in detail why the
 deadlock-avoidance method described above, (i.e., the accounts are numbered,
 and each process attempts to acquire the smaller-numbered account first) avoids
-deadlock in the exchange problem.  Re\-write \code{serialized-exchange} to
-incorporate this idea.  (You will also need to modify \code{make-account} so
+deadlock in the exchange problem.  Re\-write \code{serialized\-/exchange} to
+incorporate this idea.  (You will also need to modify \code{make\-/account} so
 that each account is created with a number, which can be accessed by sending an
 appropriate message.)
 
@@ -4802,7 +4802,7 @@ achieve this control through judicious use of serializers.  But the problems of
 concurrency lie deeper than this, because, from a fundamental point of view,
 it's not always clear what is meant by ``shared state.''
 
-Mechanisms such as \code{test-and-set!} require processes to examine a global
+Mechanisms such as \code{test\-/and\-/set!} require processes to examine a global
 shared flag at arbitrary times.  This is problematic and inefficient to
 implement in modern high-speed processors, where due to optimization techniques
 such as pipelining and cached memory, the contents of memory may not be in a
@@ -4947,7 +4947,7 @@ of \link{Section 2.2.3}:
 \noindent
 In carrying out the computation, the first program needs to store only the sum
 being accumulated.  In contrast, the filter in the second program cannot do any
-testing until \code{enumerate-interval} has constructed a complete list of the
+testing until \code{enumerate\-/interval} has constructed a complete list of the
 numbers in the interval.  The filter generates another list, which in turn is
 passed to \code{accumulate} before being collapsed to form a sum.  Such large
 intermediate storage is not needed by the first program, which we can think of
@@ -4985,8 +4985,8 @@ to automatically and transparently interleave the construction of the stream
 with its use.
 
 On the surface, streams are just lists with different names for the procedures
-that manipulate them.  There is a constructor, \code{cons-stream}, and two
-selectors, \code{stream-car} and \code{stream-cdr}, which satisfy the
+that manipulate them.  There is a constructor, \code{cons\-/stream}, and two
+selectors, \code{stream\-/car} and \code{stream\-/cdr}, which satisfy the
 constraints
 
 \begin{codeBlock}
@@ -4995,15 +4995,15 @@ constraints
 \end{codeBlock}
 
 \noindent
-There is a distinguishable object, \code{the-empty-stream}, which cannot be the
-result of any \code{cons-stream} operation, and which can be identified with
-the predicate \code{stream-null?}.\footnote{In the \acronym{MIT}
-implementation, \code{the-empty-stream} is the same as the empty list
-\code{'()}, and \code{stream-null?} is the same as \code{null?}.}  Thus we can
+There is a distinguishable object, \code{the\-/empty\-/stream}, which cannot be the
+result of any \code{cons\-/stream} operation, and which can be identified with
+the predicate \code{stream\-/null?}.\footnote{In the \acronym{MIT}
+implementation, \code{the\-/empty\-/stream} is the same as the empty list
+\code{'()}, and \code{stream\-/null?} is the same as \code{null?}.}  Thus we can
 make and use streams, in just the same way as we can make and use lists, to
 represent aggregate data arranged in a sequence.  In particular, we can build
 stream analogs of the list operations from \link{Chapter 2}, such as
-\code{list-ref}, \code{map}, and \code{for-each}:\footnote{This should bother
+\code{list\-/ref}, \code{map}, and \code{for\-/each}:\footnote{This should bother
 you.  The fact that we are defining such similar procedures for streams and
 lists indicates that we are missing some underlying abstraction.
 Unfortunately, in order to exploit this abstraction, we will need to exert
@@ -5029,7 +5029,7 @@ discuss this point further at the end of \link{Section 3.5.4}.  In
 \end{codeBlock}
 
 \noindent
-\code{stream-for-each} is useful for viewing streams:
+\code{stream\-/for\-/each} is useful for viewing streams:
 
 \begin{codeBlock}
 (define (display-stream s)
@@ -5040,8 +5040,8 @@ discuss this point further at the end of \link{Section 3.5.4}.  In
 \noindent
 To make the stream implementation automatically and transparently interleave
 the construction of a stream with its use, we will arrange for the \code{cdr}
-of a stream to be evaluated when it is accessed by the \code{stream-cdr}
-procedure rather than when the stream is constructed by \code{cons-stream}.
+of a stream to be evaluated when it is accessed by the \code{stream\-/cdr}
+procedure rather than when the stream is constructed by \code{cons\-/stream}.
 This implementation choice is reminiscent of our discussion of rational numbers
 in \link{Section 2.1.2}, where we saw that we can choose to implement rational
 numbers so that the reduction of numerator and denominator to lowest terms is
@@ -5064,7 +5064,7 @@ evaluation---in effect, forcing the \code{delay} to fulfill its promise.  We
 will see below how \code{delay} and \code{force} can be implemented, but first
 let us use these to construct streams.
 
-\code{cons-stream} is a special form defined so that
+\code{cons\-/stream} is a special form defined so that
 
 \begin{codeBlock}
 (cons-stream ~\(\langle \)~~\var{a}~~\(\rangle \)~ ~\(\langle \)~~\var{b}~~\(\rangle \)~)
@@ -5081,7 +5081,7 @@ is equivalent to
 What this means is that we will construct streams using pairs.  However, rather
 than placing the value of the rest of the stream into the \code{cdr} of the
 pair we will put there a promise to compute the rest if it is ever requested.
-\code{stream-car} and \code{stream-cdr} can now be defined as procedures:
+\code{stream\-/car} and \code{stream\-/cdr} can now be defined as procedures:
 
 \begin{codeBlock}
 (define (stream-car stream) (car stream))
@@ -5089,12 +5089,12 @@ pair we will put there a promise to compute the rest if it is ever requested.
 \end{codeBlock}
 
 \noindent
-\code{stream-car} selects the \code{car} of the pair; \code{stream-cdr} selects
+\code{stream\-/car} selects the \code{car} of the pair; \code{stream\-/cdr} selects
 the \code{cdr} of the pair and evaluates the delayed expression found there to
-obtain the rest of the stream.\footnote{Although \code{stream-car} and
-\code{stream-cdr} can be defined as procedures, \code{cons-stream} must be a
-special form.  If \code{cons-stream} were a procedure, then, according to our
-model of evaluation, evaluating \code{(cons-stream \( \langle \)\var{a}\( \rangle \) \( \langle \)\var{b}\( \rangle \))} would
+obtain the rest of the stream.\footnote{Although \code{stream\-/car} and
+\code{stream\-/cdr} can be defined as procedures, \code{cons\-/stream} must be a
+special form.  If \code{cons\-/stream} were a procedure, then, according to our
+model of evaluation, evaluating \code{(cons\-/stream \( \langle \)\var{a}\( \rangle \) \( \langle \)\var{b}\( \rangle \))} would
 automatically cause \( \langle \)\var{b}\( \kern0.08em\rangle \) to be evaluated, which is precisely what we do
 not want to happen.  For the same reason, \code{delay} must be a special form,
 though \code{force} can be an ordinary procedure.}
@@ -5115,9 +5115,9 @@ computation we saw above, reformulated in terms of streams:
 \noindent
 We will see that it does indeed work efficiently.
 
-We begin by calling \code{stream-enumerate-interval} with the arguments 10,000
-and 1,000,000.  \code{stream-enumerate-interval} is the stream analog of
-\code{enumerate-interval} (\link{Section 2.2.3}):
+We begin by calling \code{stream\-/enumerate\-/interval} with the arguments 10,000
+and 1,000,000.  \code{stream\-/enumerate\-/interval} is the stream analog of
+\code{enumerate\-/interval} (\link{Section 2.2.3}):
 
 \begin{codeBlock}
 (define (stream-enumerate-interval low high)
@@ -5129,8 +5129,8 @@ and 1,000,000.  \code{stream-enumerate-interval} is the stream analog of
 \end{codeBlock}
 
 \noindent
-and thus the result returned by \code{stream-enumerate-interval}, formed by the
-\code{cons-stream}, is\footnote{The numbers shown here do not really appear in
+and thus the result returned by \code{stream\-/enumerate\-/interval}, formed by the
+\code{cons\-/stream}, is\footnote{The numbers shown here do not really appear in
 the delayed expression.  What actually appears is the original expression, in
 an environment in which the variables are bound to the appropriate numbers.
 For example, \code{(+ low 1)} with \code{low} bound to 10,000 actually appears
@@ -5142,7 +5142,7 @@ where \code{10001} is shown.}
 \end{codeBlock}
 
 \noindent
-That is, \code{stream-enumerate-interval} returns a stream represented as a
+That is, \code{stream\-/enumerate\-/interval} returns a stream represented as a
 pair whose \code{car} is 10,000 and whose \code{cdr} is a promise to enumerate
 more of the interval if so requested.  This stream is now filtered for primes,
 using the stream analog of the \code{filter} procedure (\link{Section 2.2.3}):
@@ -5159,11 +5159,11 @@ using the stream analog of the \code{filter} procedure (\link{Section 2.2.3}):
 \end{codeBlock}
 
 \noindent
-\code{stream-filter} tests the \code{stream-car} of the stream (the \code{car}
-of the pair, which is 10,000).  Since this is not prime, \code{stream-filter}
-examines the \code{stream-cdr} of its input stream.  The call to
-\code{stream-cdr} forces evaluation of the delayed
-\code{stream-enumerate-interval}, which now returns
+\code{stream\-/filter} tests the \code{stream\-/car} of the stream (the \code{car}
+of the pair, which is 10,000).  Since this is not prime, \code{stream\-/filter}
+examines the \code{stream\-/cdr} of its input stream.  The call to
+\code{stream\-/cdr} forces evaluation of the delayed
+\code{stream\-/enumerate\-/interval}, which now returns
 
 \begin{codeBlock}
 (cons 10001
@@ -5171,10 +5171,10 @@ examines the \code{stream-cdr} of its input stream.  The call to
 \end{codeBlock}
 
 \noindent
-\code{stream-filter} now looks at the \code{stream-car} of this stream, 10,001,
-sees that this is not prime either, forces another \code{stream-cdr}, and so
-on, until \code{stream-enumerate-interval} yields the prime 10,007, whereupon
-\code{stream-filter}, according to its definition, returns
+\code{stream\-/filter} now looks at the \code{stream\-/car} of this stream, 10,001,
+sees that this is not prime either, forces another \code{stream\-/cdr}, and so
+on, until \code{stream\-/enumerate\-/interval} yields the prime 10,007, whereupon
+\code{stream\-/filter}, according to its definition, returns
 
 \begin{codeBlock}
 (cons-stream (stream-car stream)
@@ -5195,10 +5195,10 @@ which in this case is
 \end{codeBlock}
 
 \noindent
-This result is now passed to \code{stream-cdr} in our original expression.
-This forces the delayed \code{stream-filter}, which in turn keeps forcing the
-delayed \code{stream-enumerate-interval} until it finds the next prime, which
-is 10,009.  Finally, the result passed to \code{stream-car} in our original
+This result is now passed to \code{stream\-/cdr} in our original expression.
+This forces the delayed \code{stream\-/filter}, which in turn keeps forcing the
+delayed \code{stream\-/enumerate\-/interval} until it finds the next prime, which
+is 10,009.  Finally, the result passed to \code{stream\-/car} in our original
 expression is
 
 \begin{codeBlock}
@@ -5212,7 +5212,7 @@ expression is
 \end{codeBlock}
 
 \noindent
-\code{stream-car} returns 10,009, and the computation is complete.  Only as
+\code{stream\-/car} returns 10,009, and the computation is complete.  Only as
 many integers were tested for primality as were necessary to find the second
 prime, and the interval was enumerated only as far as was necessary to feed the
 prime filter.
@@ -5301,7 +5301,7 @@ versions as \newterm{call-by-need thunks}.}
 
 \begin{exerciseGroup}
 \exerciseHeading{\phantomsection\label{Exercise 3.50}Exercise 3.50:} Complete the following
-definition, which generalizes \code{stream-map} to allow procedures that take
+definition, which generalizes \code{stream\-/map} to allow procedures that take
 multiple arguments, analogous to \code{map} in \link{Section 2.2.1},
 \link{Footnote 12}.
 
@@ -5364,11 +5364,11 @@ expressions
 \end{codeBlock}
 
 What is the value of \code{sum} after each of the above expressions is
-evaluated?  What is the printed response to evaluating the \code{stream-ref}
-and \code{display-stream} expressions?  Would these responses differ if we had
+evaluated?  What is the printed response to evaluating the \code{stream\-/ref}
+and \code{display\-/stream} expressions?  Would these responses differ if we had
 implemented \code{(delay \( \langle \)\var{exp}\( \rangle \))} simply as
 \code{(lambda () \( \langle \)\var{exp}\( \rangle \))}
-without using the optimization provided by \code{memo-proc}?  Explain.
+without using the optimization provided by \code{memo\-/proc}?  Explain.
 \end{exerciseGroup}
 
 \subsection{Infinite Streams}
@@ -5430,7 +5430,7 @@ to evaluate \code{(fibgen 1 1)}.  When we evaluate this delayed \code{(fibgen 1
 promise to evaluate \code{(fibgen 1 2)}, and so on.
 
 For a look at a more exciting infinite stream, we can generalize the
-\code{no-sevens} example to construct the infinite stream of prime numbers,
+\code{no\-/sevens} example to construct the infinite stream of prime numbers,
 using a method known as the \newterm{sieve of
 Eratosthenes}.\footnote{Eratosthenes, a third-century \acronym{B.C.}
 Alexandrian Greek philosopher, is famous for giving the first accurate estimate
@@ -5511,8 +5511,8 @@ pair whose \code{car} is 1 and whose \code{cdr} is a promise to evaluate
 evaluate \code{ones}, and so on.
 
 We can do more interesting things by manipulating streams with operations such
-as \code{add-streams}, which produces the elementwise sum of two given
-streams:\footnote{This uses the generalized version of \code{stream-map} from
+as \code{add\-/streams}, which produces the elementwise sum of two given
+streams:\footnote{This uses the generalized version of \code{stream\-/map} from
 \link{Exercise 3.50}.}
 
 \begin{codeBlock}
@@ -5553,13 +5553,13 @@ that the rest of the stream can be generated by adding \code{fibs} to itself
 shifted by one place:
 
 \begin{codeBlock}
-      1  1  2  3  5  8   13  21  ~\( \dots \)~  =  ~\code{(stream-cdr fibs)}~
+      1  1  2  3  5  8   13  21  ~\( \dots \)~  =  ~\code{(stream\-/cdr fibs)}~
       0  1  1  2  3  5   8   13  ~\( \dots \)~  =  ~\code{fibs}~
 0  1  1  2  3  5  8  13  21  34  ~\( \dots \)~  =  ~\code{fibs}~
 \end{codeBlock}
 
 \noindent
-\code{scale-stream} is another useful procedure in formulating such stream
+\code{scale\-/stream} is another useful procedure in formulating such stream
 definitions.  This multiplies each item in a stream by a given constant:
 
 \begin{codeBlock}
@@ -5631,7 +5631,7 @@ describe the elements of the stream defined by
 \end{codeBlock}
 
 \exerciseHeading{\phantomsection\label{Exercise 3.54}Exercise 3.54:} Define a procedure
-\code{mul-streams}, analogous to \code{add-streams}, that produces the
+\code{mul\-/streams}, analogous to \code{add\-/streams}, that produces the
 elementwise product of its two input streams.  Use this together with the
 stream of \code{integers} to complete the following definition of the stream
 whose \( n^{\mathrm{th}} \) element (counting from 0) is \( n + 1 \) factorial:
@@ -5641,12 +5641,12 @@ whose \( n^{\mathrm{th}} \) element (counting from 0) is \( n + 1 \) factorial:
   (cons-stream 1 (mul-streams ~\(\langle \)~??~\(\rangle \)~ ~\(\langle \)~??~\(\rangle \)~)))
 \end{codeBlock}
 % \noindent
-% \code{(define factorials (cons-stream 1 (mul-streams}\( \kern0.7ex\langle \)\code{?}\( \rangle \)\( \kern0.7ex\langle \)\code{?}\( \rangle \)\code{)))}
+% \code{(define factorials (cons\-/stream 1 (mul\-/streams}\( \kern0.7ex\langle \)\code{?}\( \rangle \)\( \kern0.7ex\langle \)\code{?}\( \rangle \)\code{)))}
 
 \exerciseHeading{\phantomsection\label{Exercise 3.55}Exercise 3.55:} Define a procedure
-\code{partial-sums} that takes as argument a stream \( S \) and returns the
+\code{partial\-/sums} that takes as argument a stream \( S \) and returns the
 stream whose elements are \( S_0 \), \( S_0 + S_1 \), \( S_0 + S_1 + S_2, \dots \).
-For example, \code{(partial-sums integers)} should be the
+For example, \code{(partial\-/sums integers)} should be the
 stream 1, 3, 6, 10, 15, \( \dots \).
 
 \exerciseHeading{\phantomsection\label{Exercise 3.56}Exercise 3.56:} A famous problem, first raised by
@@ -5664,12 +5664,12 @@ following facts about it.
 \code{S} begins with 1.
 
 \item
-The elements of \code{(scale-stream S 2)} are also
+The elements of \code{(scale\-/stream S 2)} are also
 elements of \code{S}.
 
 \item
-The same is true for \code{(scale-stream S 3)}
-and \code{(scale-stream 5 S)}.
+The same is true for \code{(scale\-/stream S 3)}
+and \code{(scale\-/stream 5 S)}.
 
 \item
 These are all the elements of \code{S}.
@@ -5712,10 +5712,10 @@ Fill in the missing expressions in the places marked \( \langle \)??\( \kern0.08
 
 \exerciseHeading{\phantomsection\label{Exercise 3.57}Exercise 3.57:} How many additions are performed
 when we compute the \( n^{\mathrm{th}} \) Fibonacci number using the definition of
-\code{fibs} based on the \code{add-streams} procedure?  Show that the number of
+\code{fibs} based on the \code{add\-/streams} procedure?  Show that the number of
 additions would be exponentially greater if we had implemented \code{(delay
 \( \langle \)\var{exp}\( \rangle \))} simply as \code{(lambda () \( \langle \)\var{exp}\( \rangle \))}, without using the
-optimization provided by the \code{memo-proc} procedure described in
+optimization provided by the \code{memo\-/proc} procedure described in
 \link{Section 3.5.1}.\footnote{This exercise shows how call-by-need is closely related
 to ordinary memoization as described in \link{Exercise 3.27}.  In that exercise,
 we used assignment to explicitly construct a local table.  Our call-by-need
@@ -5767,12 +5767,12 @@ The integral of the series \( a_0 + a_1 x + a_2 x^2 + a_3 x^3 + \dots \) is the 
 $$ c + a_0 x + \frac{1}{2} a_1 x^2 + \frac{1}{3} a_2 x^3 + \frac{1}{4} a_3 x^4 + \dots, $$
 
 \noindent
-where \( c \) is any constant.  Define a procedure \code{integrate-series} that
+where \( c \) is any constant.  Define a procedure \code{integrate\-/series} that
 takes as input a stream \( a_0 \), \( a_1 \), \( a_2 \), \( \dots \) representing a power
 series and returns the stream \( a_0 \), \( \frac{1}{2}a_1 \), \( \frac{1}{3}a_2 \), \( \dots \) of
 coefficients of the non-constant terms of the integral of the series.  (Since
 the result has no constant term, it doesn't represent a power series; when we
-use \code{integrate-series}, we will \code{cons} on the appropriate constant.)
+use \code{integrate\-/series}, we will \code{cons} on the appropriate constant.)
 
 \item
 The function \( x \mapsto e^x \) is its own derivative.  This implies that
@@ -5797,7 +5797,7 @@ negative of sine:
 
 \exerciseHeading{\phantomsection\label{Exercise 3.60}Exercise 3.60:} With power series represented as
 streams of coefficients as in \link{Exercise 3.59}, adding series is implemented
-by \code{add-streams}.  Complete the definition of the following procedure for
+by \code{add\-/streams}.  Complete the definition of the following procedure for
 multiplying series:
 
 \begin{codeBlock}
@@ -5825,16 +5825,16 @@ $$
 
 In other words, \( X \) is the power series whose constant term is 1 and whose
 higher-order terms are given by the negative of \( S_R \) times \( X \).  Use
-this idea to write a procedure \code{invert-unit-series} that computes \( 1 / S \)
+this idea to write a procedure \code{invert\-/unit\-/series} that computes \( 1 / S \)
 for a power series \( S \) with constant term 1.  You will need to use
-\code{mul-series} from \link{Exercise 3.60}.
+\code{mul\-/series} from \link{Exercise 3.60}.
 
 \exerciseHeading{\phantomsection\label{Exercise 3.62}Exercise 3.62:} Use the results of \link{Exercise 3.60}
-and \link{Exercise 3.61} to define a procedure \code{div-series} that
-divides two power series.  \code{div-series} should work for any two series,
+and \link{Exercise 3.61} to define a procedure \code{div\-/series} that
+divides two power series.  \code{div\-/series} should work for any two series,
 provided that the denominator series begins with a nonzero constant term.  (If
-the denominator has a zero constant term, then \code{div-series} should signal
-an error.)  Show how to use \code{div-series} together with the result of
+the denominator has a zero constant term, then \code{div\-/series} should signal
+an error.)  Show how to use \code{div\-/series} together with the result of
 \link{Exercise 3.59} to generate the power series for tangent.
 \end{exerciseGroup}
 
@@ -5908,7 +5908,7 @@ $$ \frac{\pi}{4} = 1 - \frac{1}{3} + \frac{1}{5} - frac{1}{7} + \dots. $$
 
 We first generate the stream of summands of the series (the reciprocals of the
 odd integers, with alternating signs).  Then we take the stream of sums of more
-and more terms (using the \code{partial-sums} procedure of
+and more terms (using the \code{partial\-/sums} procedure of
 \link{Exercise 3.55}) and scale the result by 4:
 
 \begin{codeBlock}
@@ -6042,7 +6042,7 @@ manipulated with a uniform set of operations.
 
 \begin{exerciseGroup}
 \exerciseHeading{\phantomsection\label{Exercise 3.63}Exercise 3.63:} Louis Reasoner asks why the
-\code{sqrt-stream} procedure was not written in the following more
+\code{sqrt\-/stream} procedure was not written in the following more
 straightforward way, without the local variable \code{guesses}:
 
 \begin{codeBlock}
@@ -6057,10 +6057,10 @@ Alyssa P. Hacker replies that this version of the procedure is considerably
 less efficient because it performs redundant computation.  Explain Alyssa's
 answer.  Would the two versions still differ in efficiency if our
 implementation of \code{delay} used only \code{(lambda () \( \langle \)\var{exp}\( \rangle \))} without
-using the optimization provided by \code{memo-proc} (\link{Section 3.5.1})?
+using the optimization provided by \code{memo\-/proc} (\link{Section 3.5.1})?
 
 \exerciseHeading{\phantomsection\label{Exercise 3.64}Exercise 3.64:} Write a procedure
-\code{stream-limit} that takes as arguments a stream and a number (the
+\code{stream\-/limit} that takes as arguments a stream and a number (the
 tolerance).  It should examine the stream until it finds two successive
 elements that differ in absolute value by less than the tolerance, and return
 the second of the two elements.  Using this, we could compute square roots up
@@ -6088,10 +6088,10 @@ nested loops as processes defined on sequences of pairs.  If we generalize this
 technique to infinite streams, then we can write programs that are not easily
 represented as loops, because the ``looping'' must range over an infinite set.
 
-For example, suppose we want to generalize the \code{prime-sum-pairs} procedure
+For example, suppose we want to generalize the \code{prime\-/sum\-/pairs} procedure
 of \link{Section 2.2.3} to produce the stream of pairs of \emph{all} integers
 \( (i, j) \) with \( i \le j \) such that \( i + j \) is prime.  If
-\code{int-pairs} is the sequence of all pairs of integers \( (i, j) \) with
+\code{int\-/pairs} is the sequence of all pairs of integers \( (i, j) \) with
 \( i \le j \), then our required stream is simply\footnote{As in
 \link{Section 2.2.3}, we represent a pair of integers as a list rather than a Lisp
 pair.}
@@ -6103,7 +6103,7 @@ pair.}
 \end{codeBlock}
 
 \noindent
-Our problem, then, is to produce the stream \code{int-pairs}.  More generally,
+Our problem, then, is to produce the stream \code{int\-/pairs}.  More generally,
 suppose we have two streams \( S = (S_i) \) and \( T = (T_j) \),
 and imagine the infinite rectangular array
 
@@ -6130,7 +6130,7 @@ on or above the diagonal, i.e., the pairs
 
 \noindent
 (If we take both \( S \) and \( T \) to be the stream of integers, then this will
-be our desired stream \code{int-pairs}.)
+be our desired stream \code{int\-/pairs}.)
 
 Call the general stream of pairs \code{(pairs S T)}, and consider it to be
 composed of three parts: the pair \( (S_0, T_0) \), the rest of the pairs in
@@ -6148,8 +6148,8 @@ some insight into why we chose this decomposition.}
 \]
 
 Observe that the third piece in this decomposition (pairs that are not in the
-first row) is (recursively) the pairs formed from \code{(stream-cdr S)} and
-\code{(stream-cdr T)}.  Also note that the second piece (the rest of the first
+first row) is (recursively) the pairs formed from \code{(stream\-/cdr S)} and
+\code{(stream\-/cdr T)}.  Also note that the second piece (the rest of the first
 row) is
 
 \begin{codeBlock}
@@ -6278,14 +6278,14 @@ define a way to say that one pair of integers is ``less than'' another.  One
 way to do this is to define a ``weighting function'' \( W(i, j) \) and
 stipulate that \( (i_1, j_1) \) is less than \( (i_2, j_2) \) if
 \( W(i_1, j_1) < W(i_2, j_2) \).  Write a procedure
-\code{merge-weighted} that is like \code{merge}, except that
-\code{merge-weighted} takes an additional argument \code{weight}, which is a
+\code{merge\-/weighted} that is like \code{merge}, except that
+\code{merge\-/weighted} takes an additional argument \code{weight}, which is a
 procedure that computes the weight of a pair, and is used to determine the
 order in which elements should appear in the resulting merged
 stream.\footnote{We will require that the weighting function be such that the
 weight of a pair increases as we move out along a row or down along a column of
 the array of pairs.}  Using this, generalize \code{pairs} to a procedure
-\code{weighted-pairs} that takes two streams, together with a procedure that
+\code{weighted\-/pairs} that takes two streams, together with a procedure that
 computes a weighting function, and generates the stream of pairs, ordered
 according to weight.  Use your procedure to generate
 
@@ -6408,9 +6408,9 @@ zero-crossing signal would be
 \end{codeBlock}
 
 In Alyssa's system, the signal from the sensor is represented as a stream
-\code{sense-data} and the stream \code{zero-crossings} is the corresponding
+\code{sense\-/data} and the stream \code{zero\-/crossings} is the corresponding
 stream of zero crossings.  Alyssa first writes a procedure
-\code{sign-change-detector} that takes two values as arguments and compares the
+\code{sign\-/change\-/detector} that takes two values as arguments and compares the
 signs of the values to produce an appropriate 0, 1, or - 1.  She then
 constructs her zero-crossing stream as follows:
 
@@ -6429,7 +6429,7 @@ constructs her zero-crossing stream as follows:
 
 Alyssa's boss, Eva Lu Ator, walks by and suggests that this program is
 approximately equivalent to the following one, which uses the generalized
-version of \code{stream-map} from \link{Exercise 3.50}:
+version of \code{stream\-/map} from \link{Exercise 3.50}:
 
 \begin{codeBlock}
 (define zero-crossings
@@ -6463,7 +6463,7 @@ idea, altering Alyssa's program as follows:
 
 This does not correctly implement Alyssa's plan.  Find the bug that Louis has
 installed and fix it without changing the structure of the program.  (Hint: You
-will need to increase the number of arguments to \code{make-zero-crossings}.)
+will need to increase the number of arguments to \code{make\-/zero\-/crossings}.)
 
 \exerciseHeading{\phantomsection\label{Exercise 3.76}Exercise 3.76:} Eva Lu Ator has a criticism of
 Louis's approach in \link{Exercise 3.75}.  The program he wrote is not modular,
@@ -6495,9 +6495,9 @@ itself:
 
 \noindent
 The interpreter's ability to deal with such an implicit definition depends on
-the \code{delay} that is incorporated into \code{cons-stream}.  Without this
+the \code{delay} that is incorporated into \code{cons\-/stream}.  Without this
 \code{delay}, the interpreter could not construct \code{int} before evaluating
-both arguments to \code{cons-stream}, which would require that \code{int}
+both arguments to \code{cons\-/stream}, which would require that \code{int}
 already be defined.  In general, \code{delay} is crucial for using streams to
 model signal-processing systems that contain loops.  Without \code{delay}, our
 models would have to be formulated so that the inputs to any signal-processing
@@ -6511,7 +6511,7 @@ would outlaw loops.
 \end{imageFigure}
 
 Unfortunately, stream models of systems with loops may require uses of
-\code{delay} beyond the ``hidden'' \code{delay} supplied by \code{cons-stream}.
+\code{delay} beyond the ``hidden'' \code{delay} supplied by \code{cons\-/stream}.
 For instance, \link{Figure 3.34} shows a signal-processing system for solving
 the differential equation \( dy / dt = f(y) \) where \( f \) is a given
 function.  The figure shows a mapping component, which applies \( f \) to its
@@ -6537,12 +6537,12 @@ does not happen until the second line of \code{solve}.
 On the other hand, the intent of our definition does make sense, because we
 can, in principle, begin to generate the \code{y} stream without knowing
 \code{dy}.  Indeed, \code{integral} and many other stream operations have
-properties similar to those of \code{cons-stream}, in that we can generate part
+properties similar to those of \code{cons\-/stream}, in that we can generate part
 of the answer given only partial information about the arguments.  For
 \code{integral}, the first element of the output stream is the specified
-\code{initial-value}.  Thus, we can generate the first element of the output
+\code{initial\-/value}.  Thus, we can generate the first element of the output
 stream without evaluating the integrand \code{dy}.  Once we know the first
-element of \code{y}, the \code{stream-map} in the second line of \code{solve}
+element of \code{y}, the \code{stream\-/map} in the second line of \code{solve}
 can begin working to generate the first element of \code{dy}, which will
 produce the next element of \code{y}, and so on.
 
@@ -6595,7 +6595,7 @@ condition \( y(0) = 1 \):
 \exerciseHeading{\phantomsection\label{Exercise 3.77}Exercise 3.77:} The \code{integral} procedure
 used above was analogous to the ``implicit'' definition of the infinite stream
 of integers in \link{Section 3.5.2}.  Alternatively, we can give a definition of
-\code{integral} that is more like \code{integers-starting-from} (also in
+\code{integral} that is more like \code{integers\-/starting\-/from} (also in
 \link{Section 3.5.2}):
 
 \begin{compactCodeBlock}
@@ -6634,12 +6634,12 @@ The output stream, modeling \( y \), is generated by a network that contains a
 loop. This is because the value of \( d^2\!y / dt^2 \) depends upon the
 values of \( y \) and \( dy / dt \) and both of these are determined by
 integrating \( d^2\!y / dt^2 \).  The diagram we would like to encode is
-shown in \link{Figure 3.35}.  Write a procedure \code{solve-2nd} that takes as
+shown in \link{Figure 3.35}.  Write a procedure \code{solve\-/2nd} that takes as
 arguments the constants \( a \), \( b \), and \( dt \) and the initial values
 \( y_0 \) and \( dy_0 \) for \( y \) and \( dy / dt \) and generates the
 stream of successive values of \( y \).
 
-\exerciseHeading{\phantomsection\label{Exercise 3.79}Exercise 3.79:} Generalize the \code{solve-2nd}
+\exerciseHeading{\phantomsection\label{Exercise 3.79}Exercise 3.79:} Generalize the \code{solve\-/2nd}
 procedure of \link{Exercise 3.78} so that it can be used to solve general
 second-order differential equations \( d^2\!y / dt^2 =
 f(dy / dt, y) \).
@@ -6710,7 +6710,7 @@ higher-order procedures.  In such languages, the programmer must specify the
 data types of the arguments and the result of each procedure: number, logical
 value, sequence, and so on.  Consequently, we could not express an abstraction
 such as ``map a given procedure \code{proc} over all the elements in a
-sequence'' by a single higher-order procedure such as \code{stream-map}.
+sequence'' by a single higher-order procedure such as \code{stream\-/map}.
 Rather, we would need a different mapping procedure for each different
 combination of argument and result data types that might be specified for a
 \code{proc}.  Maintaining a practical notion of ``data type'' in the presence
@@ -6736,7 +6736,7 @@ studied the evaluator, we will see how to transform our language in just this
 way.  Unfortunately, including delays in procedure calls wreaks havoc with our
 ability to design programs that depend on the order of events, such as programs
 that use assignment, mutate data, or perform input or output.  Even the single
-\code{delay} in \code{cons-stream} can cause great confusion, as illustrated by
+\code{delay} in \code{cons\-/stream} can cause great confusion, as illustrated by
 \link{Exercise 3.51} and \link{Exercise 3.52}.  As far as anyone knows,
 mutability and delayed evaluation do not mix well in programming languages, and
 devising ways to deal with both of these at once is an active area of research.
@@ -6754,7 +6754,7 @@ stream-processing point of view.
 
 The key modularity issue was that we wished to hide the internal state of a
 random-number generator from programs that used random numbers.  We began with
-a procedure \code{rand-update}, whose successive values furnished our supply of
+a procedure \code{rand\-/update}, whose successive values furnished our supply of
 random numbers, and used this to produce a random-number generator:
 
 \begin{codeBlock}
@@ -6768,7 +6768,7 @@ random numbers, and used this to produce a random-number generator:
 \noindent
 In the stream formulation there is no random-number generator \emph{per se},
 just a stream of random numbers produced by successive calls to
-\code{rand-update}:
+\code{rand\-/update}:
 
 \begin{codeBlock}
 (define random-numbers
@@ -6779,7 +6779,7 @@ just a stream of random numbers produced by successive calls to
 
 \noindent
 We use this to construct the stream of outcomes of the Ces\`aro experiment
-performed on consecutive pairs in the \code{random-numbers} stream:
+performed on consecutive pairs in the \code{random\-/numbers} stream:
 
 \begin{codeBlock}
 (define cesaro-stream
@@ -6793,7 +6793,7 @@ performed on consecutive pairs in the \code{random-numbers} stream:
 \end{codeBlock}
 
 \noindent
-The \code{cesaro-stream} is now fed to a \code{monte-carlo} procedure, which
+The \code{cesaro\-/stream} is now fed to a \code{monte\-/carlo} procedure, which
 produces a stream of estimates of probabilities.  The results are then
 converted into a stream of estimates of \( \pi \).  This version of the program
 doesn't need a parameter telling how many trials to perform.  Better estimates
@@ -6818,7 +6818,7 @@ into the \code{pi} stream:
 
 \noindent
 There is considerable modularity in this approach, because we still can
-formulate a general \code{monte-carlo} procedure that can deal with arbitrary
+formulate a general \code{monte\-/carlo} procedure that can deal with arbitrary
 experiments.  Yet there is no assignment or local state.
 
 \begin{exerciseGroup}
@@ -6832,7 +6832,7 @@ stream of random numbers.  Don't use assignment in your solution.
 
 \exerciseHeading{\phantomsection\label{Exercise 3.82}Exercise 3.82:} Redo \link{Exercise 3.5} on Monte
 Carlo integration in terms of streams.  The stream version of
-\code{estimate-integral} will not have an argument telling how many trials to
+\code{estimate\-/integral} will not have an argument telling how many trials to
 perform.  Instead, it will produce a stream of estimates based on successively
 more trials.
 \end{exerciseGroup}
@@ -6869,7 +6869,7 @@ such a processor:
 \end{codeBlock}
 
 \noindent
-Calls to \code{make-simplified-withdraw} produce computational objects, each
+Calls to \code{make\-/simplified\-/withdraw} produce computational objects, each
 with a local state variable \code{balance} that is decremented by successive
 calls to the object.  The object takes an \code{amount} as an argument and
 returns the new balance.  We can imagine the user of a bank account typing a
@@ -6890,17 +6890,17 @@ successive balances in the account:
 \end{codeBlock}
 
 \noindent
-\code{stream-withdraw} implements a well-defined mathematical function whose
+\code{stream\-/withdraw} implements a well-defined mathematical function whose
 output is fully determined by its input.  Suppose, however, that the input
-\code{amount-stream} is the stream of successive values typed by the user and
+\code{amount\-/stream} is the stream of successive values typed by the user and
 that the resulting stream of balances is displayed.  Then, from the perspective
 of the user who is typing values and watching results, the stream process has
-the same behavior as the object created by \code{make-simplified-withdraw}.
+the same behavior as the object created by \code{make\-/simplified\-/withdraw}.
 However, with the stream version, there is no assignment, no local state
 variable, and consequently none of the theoretical difficulties that we
 encountered in \link{Section 3.1.3}.  Yet the system has state!
 
-This is really remarkable.  Even though \code{stream-withdraw} implements a
+This is really remarkable.  Even though \code{stream\-/withdraw} implements a
 well-defined mathematical function whose behavior does not change, the user's
 perception here is one of interacting with a system that has a changing state.
 One way to resolve this paradox is to realize that it is the user's temporal
