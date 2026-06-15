@@ -1,4 +1,4 @@
-# SICP
+<h1 align="center"><i><u>SICP</u></i></h1>
 
 ![SICP new front cover](assets/covers/sicp_book_cover__front.png)
 
