@@ -48,7 +48,7 @@ pdf_a4_ch3: ${FIG}
 pdf_a4_ch4: ${FIG}
 	$(call BUILD,sicp_a4_chapter_4,1,4)
 pdf_a4_ch5: ${FIG}
-	$(call BUILD,sicp_a4_chapter5,1,5)
+	$(call BUILD,sicp_a4_chapter_5,1,5)
 
 pdf_a4_all_ch: pdf_a4_ch1 pdf_a4_ch2 pdf_a4_ch3 pdf_a4_ch4 pdf_a4_ch5
 
