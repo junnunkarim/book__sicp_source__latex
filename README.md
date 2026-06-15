@@ -1,37 +1,67 @@
 # SICP
 
-<img src="http://sicpebook.files.wordpress.com/2013/09/dreamsmile3.png"
- alt="Par dreaming and smiling" align="right" />
+<b>PDF download link:
+[releases](https://github.com/junnunkarim/book__sicp_source__latex/releases)</b>
 
-<b>Direct link: [sicp.pdf](https://github.com/sarabander/sicp-pdf/raw/master/sicp.pdf)</b>
+This is a PDF version of "Structure and Interpretation of Computer Programs" by
+Harold Abelson, Gerald Jay Sussman, and Julie Sussman. It is a further developed
+version of the followings:
 
-This is a PDF version of "Structure and Interpretation of Computer Programs" by Harold Abelson, Gerald Jay Sussman, and Julie Sussman. It is a further development of the [Unofficial Texinfo Format](http://www.neilvandyke.org/sicp-texi/) (UTF), which was originally derived from the [HTML version](http://mitpress.mit.edu/sicp/) at The MIT Press.
+- [duongdominhchau/sicp](https://github.com/duongdominhchau/sicp-pdf) by
+  [duongdominhchau](https://github.com/duongdominhchau)
+  - which was a PR intended to be merged with the version
+    [sarabander/sicp](https://github.com/sarabander/sicp) by
+    [Andres Raba](https://github.com/sarabander)
+    - which is a developed of the
+      [Unofficial Texinfo Format](http://www.neilvandyke.org/sicp-texi/) (UTF)
+      - which was originally derived from the
+        [HTML version](http://mitpress.mit.edu/sicp/) at The MIT Press.
 
-Biggest change in this revision (2.andresraba5) is the conversion to LaTeX, which opens the door to design and customization possibilities that the massive CTAN archive enables. Also, the latest typesetting engine XeTeX can be used, along with the Unicode and OpenType goodness it brings.
+The biggest change in this revision is the new typesetting of the book and the
+full conversion to LaTeX (completely moving away from the previous Texinfo).
+Some of the improvements in this version are as follows:
+
+- Many QoL improvements
+  - The whole book now uses the "New Computer Modern" typeface
+  - Cover page is now generated using LaTeX instead of the manual SVG format
+  - Chapter heading, quote and figure styles are updated
+  - Code blocks now have numbered lines
+  - Page numbers are moved to the page header area
+  - Page headers now show the chapter name on even pages and section name on odd
+    pages
+  - Exercises now have a heading for easier recognition, reduced margins, and
+    always end with a page break
+  - Long code lines are now properly broken
+  - All ASCII figures are removed in favor of SVG figures
+- "List of Figures" section is now auto-generated and shows a figure's number
+  and name
+- Cleanup of manual page breaks and layout adjustments to allow for a more
+  natural and elegant output
+- Multiple figures are updated to fix issues
+- The whole codebase structure is now modularized, making development easier and
+  more manageable
+  - Multiple macros are created to handle formatting more efficiently
+- Builds for multiple page layouts (A4, A5, etc.) are now supported
+- Builds for individual chapters are now supported
+- New cover pages are designed for printing needs
 
 ## Dependencies
 
-To properly build this book, you need these fonts:
+- Font: [NewComputerModern](https://ctan.org/pkg/newcomputermodern?lang=en)
+- [Inkscape](https://inkscape.org/)
+- [TeX Live distribution](https://tug.org/texlive/)
 
-- **Inconsolata**: [ttf-inconsolata](https://archlinux.org/packages/community/any/ttf-inconsolata/)
-- **Libertinus**: [libertinus-font](https://archlinux.org/packages/community/any/libertinus-font/)
-- **Alegreya**: <https://github.com/huertatipografica/Alegreya>
+## Instructions
 
-## Source
-
-*For macOS Users:* The Inconsolata LGC and Linux Libertine fonts are not included in MacTex. You need to install them separately. Download the Inconsolata LGC fonts [here](https://github.com/MihailJP/Inconsolata-LGC/downloads) and the Linux Libertine fonts [here](http://sourceforge.net/projects/linuxlibertine/files/linuxlibertine/5.3.0/LinLibertineOTF_5.3.0_2012_07_02.tgz/download). To install the fonts system-wide, move all the downloaded `.otf` files into the `/Library/Fonts` folder. After completing these tasks, continue with the instructions below.
-
-The `src` directory contains both Texinfo and LaTeX sources. To recompile the book, go there and enter:
+To build the PDF of the book, enter:
 
 ```bash
 $ make -j4
 ```
 
-The file `preamble.tex` contains all the configuration and style declarations. Note that the LaTeX file `sicp.tex` will be generated on the fly, overwriting the previous version. To keep `sicp.texi` and `sicp.tex` in sync, I make changes to `sicp.texi,` which is already a hybrid of Texinfo and LaTeX code. This is fine, because all non-Texinfo content remains unchanged by the script.
-
-Chances for successful compilation are increased if you have almost complete installation of recent TeX Live distribution (the pdf here is compiled with 2012 release). The needed OpenType fonts must be installed in the operating system. You also need Inkscape to recreate image PDFs from SVGs.
-
-If compilation stops with "LaTeX Error: Too many unprocessed floats.", you could try to increase the width and height of text area in [preamble](https://github.com/sarabander/sicp-pdf/blob/master/src/preamble.tex#L70-L71). Newer TeX Live or updated fonts could result in different character metrics, so that some figures no longer fit. The problem is reported in issue [#5](https://github.com/sarabander/sicp-pdf/issues/5).
+This will generate a pdf suitable for A5 paper named `sicp_a5.pdf` in the
+`outputs/` directory. If you want to build PDF for a different page layout or
+for individual chapters, checkout the `Makefile`.
 
 To clean up after the build:
 
@@ -39,37 +69,32 @@ To clean up after the build:
 $ make clean
 ```
 
-This deletes the temporary files written during sicp.pdf creation, including sicp.pdf itself. Move it up to root directory if you want to keep it.
+This deletes the temporary files written during PDF generation.
 
-To remove all the generated PDFs and auxiliary files in the whole `src` tree:
+To remove all the generated figure PDFs and auxiliary files in the whole
+directory:
 
 ```bash
-$ make clean-all
+$ make clean_all
 ```
 
 ## Acknowledgements
 
-* Lytha Ayth
-* Neil Van Dyke
-* Gavrie Philipson
-* J. E. Johnson
-* Mingshen Sun
-* holomorph
-* Narumi Katoh
-* tfgit
-* Brian Wignall
-* dine2014
+- Lytha Ayth
+- Neil Van Dyke
+- Gavrie Philipson
+- J. E. Johnson
+- Mingshen Sun
+- holomorph
+- Narumi Katoh
+- tfgit
+- Brian Wignall
+- dine2014
+- Andres Raba
+- duongdominhchau
 
 ## License
 
-The files `sicp.texi, sicp.pdf,` and diagrams in directory `src/fig` are licensed under Creative Commons Attribution-ShareAlike 4.0 International License ([cc by-sa](https://creativecommons.org/licenses/by-sa/4.0/)).
-          
-The script files `ex-fig-ref.pl, survey.rb,` and `texi-to-latex.pl` are licensed under GNU General Public License version 3 (for details, see src/LICENSE).
-
-## Sister project
-
-A new [HTML5 version](https://github.com/sarabander/sicp) is out, bringing the advantages of adjustable font size and reflowable text to mobile reading.
-
-## Translation
-
-There is a new [Japanese translation](https://github.com/minghai/sicp-pdf/) of the PDF by Narumi Katoh. Great to see new languages joining the collection!
+The files in this directory and diagrams in the directory `assets/` are licensed
+under Creative Commons Attribution-ShareAlike 4.0 International License
+([cc by-sa](https://creativecommons.org/licenses/by-sa/4.0/)).
