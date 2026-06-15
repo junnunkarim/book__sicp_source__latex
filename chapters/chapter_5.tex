@@ -1216,14 +1216,18 @@ instruction sequence).
         (stack (make-stack))
         (the-instruction-sequence '()))
     (let ((the-ops
-           (list (list 'initialize-stack
-                       (lambda ()
-                               (stack 'initialize)))))
+            (list
+              (list 'initialize-stack
+                    (lambda ()
+                      (stack 'initialize)))))
           (register-table
-           (list (list 'pc pc) (list 'flag flag))))
+            (list (list 'pc pc)
+                  (list 'flag flag))))
       (define (allocate-register name)
         (if (assoc name register-table)
-            (error "Multiply defined register: " name)
+            (error
+              "Multiply defined register: "
+              name)
             (set! register-table
                   (cons (list name
                               (make-register name))
@@ -1233,19 +1237,22 @@ instruction sequence).
         (let ((val (assoc name register-table)))
           (if val
               (cadr val)
-              (error "Unknown register:" name))))
+              (error
+                "Unknown register:"
+                name))))
       (define (execute)
         (let ((insts (get-contents pc)))
           (if (null? insts)
               'done
               (begin
-                ((instruction-execution-proc (car
-                                             insts)))
+                ((instruction-execution-proc
+                   (car insts)))
                 (execute)))))
       (define (dispatch message)
         (cond ((eq? message 'start)
-               (set-contents! pc
-                              the-instruction-sequence)
+               (set-contents!
+                 pc
+                 the-instruction-sequence)
                (execute))
               ((eq? message
                     'install-instruction-sequence)
@@ -1260,8 +1267,10 @@ instruction sequence).
                  (set! the-ops (append the-ops ops))))
               ((eq? message 'stack) stack)
               ((eq? message 'operations) the-ops)
-              (else (error "Unknown request: MACHINE"
-                           message))))
+              (else
+                (error
+                  "Unknown request: MACHINE"
+                  message))))
       dispatch)))
 \end{codeBlock}
 \end{codeFigure}
@@ -1286,10 +1295,16 @@ contents, as specified at the beginning of \link{Section 5.2}:
 
 \begin{codeBlock}
 (define (start machine) (machine 'start))
-(define (get-register-contents machine register-name)
-  (get-contents (get-register machine register-name)))
-(define (set-register-contents! machine register-name value)
-  (set-contents! (get-register machine register-name)
+(define (get-register-contents machine
+                               register-name)
+  (get-contents (get-register machine
+                              register-name)))
+(define (set-register-contents! machine
+                                register-name
+                                value)
+  (set-contents! (get-register
+                   machine
+                   register-name)
                  value)
   'done)
 \end{codeBlock}
@@ -1613,17 +1628,26 @@ condition is called, the result is assigned to the \code{flag} register, and
 the \code{pc} is advanced:
 
 \begin{codeBlock}
-(define (make-test inst machine labels operations flag pc)
+(define (make-test inst
+                   machine
+                   labels
+                   operations
+                   flag
+                   pc)
   (let ((condition (test-condition inst)))
     (if (operation-exp? condition)
         (let ((condition-proc
                 (make-operation-exp
-                  condition machine labels operations)))
+                  condition
+                  machine
+                  labels
+                  operations)))
           (lambda ()
             (set-contents! flag (condition-proc))
             (advance-pc pc)))
-        (error "Bad TEST instruction: ASSEMBLE"
-               inst))))
+        (error
+          "Bad TEST instruction: ASSEMBLE"
+          inst))))
 (define (test-condition test-instruction)
   (cdr test-instruction))
 \end{codeBlock}
@@ -1746,11 +1770,14 @@ the simulation:
            (lambda () insts)))
         ((register-exp? exp)
          (let ((r
-                 (get-register machine
-                               (register-exp-reg exp))))
+                 (get-register
+                   machine
+                   (register-exp-reg exp))))
            (lambda () (get-contents r))))
-        (else (error "Unknown expression type: ASSEMBLE"
-                     exp))))
+        (else
+          (error
+            "Unknown expression type: ASSEMBLE"
+            exp))))
 \end{codeBlock}
 
 \noindent
