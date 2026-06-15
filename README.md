@@ -1,5 +1,7 @@
 # SICP
 
+![SICP new front cover](assets/covers/sicp_book_cover__front.png)
+
 <b>PDF download link:
 [releases](https://github.com/junnunkarim/book__sicp_source__latex/releases)</b>
 
