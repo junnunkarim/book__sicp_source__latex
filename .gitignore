@@ -18,6 +18,7 @@
 *.xdv
 *.swp
 *~
+*.pdf
 assets/figures/chapter*/figure_*.pdf
 assets/figures/icons/*_chess_queen.pdf
 assets/coverpage.pdf

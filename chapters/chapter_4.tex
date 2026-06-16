@@ -272,25 +272,24 @@ the language by using the same evaluator, but with a different collection of
 syntax procedures.
 
 \bigskip
+\needspace{2\baselineskip}%
 \noindent
 \textbf{Primitive expressions}
 
 \begin{itemize}
-
 \item
 For self-evaluating expressions, such as numbers, \code{eval} returns the
 expression itself.
 
 \item
 \code{eval} must look up variables in the environment to find their values.
-
 \end{itemize}
 
+\needspace{2\baselineskip}%
 \noindent
 \textbf{Special forms}
 
 \begin{itemize}
-
 \item
 For quoted expressions, \code{eval} returns the expression that was quoted.
 
@@ -316,20 +315,18 @@ the order in which they appear.
 \item
 A case analysis (\code{cond}) is transformed into a nest of \code{if}
 expressions and then evaluated.
-
 \end{itemize}
 
+\needspace{2\baselineskip}%
 \noindent
 \textbf{Combinations}
 
 \begin{itemize}
-
 \item
 For a procedure application, \code{eval} must recursively evaluate the operator
 part and the operands of the combination.  The resulting procedure and
 arguments are passed to \code{apply}, which handles the actual procedure
 application.
-
 \end{itemize}
 
 \noindent
@@ -499,7 +496,8 @@ assignment or a definition.\footnote{As we said when we introduced
 Scheme---that is, the implementor can choose what value to return.}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 4.1}Exercise 4.1:} Notice that we cannot tell whether
+\phantomsection\label{Exercise 4.1}
+\exerciseHeading{Exercise 4.1:} Notice that we cannot tell whether
 the metacircular evaluator evaluates operands from left to right or from right
 to left.  Its evaluation order is inherited from the underlying Lisp: If the
 arguments to \code{cons} in \code{list\-/of\-/values} are evaluated from left to
@@ -531,7 +529,6 @@ expressions.
 Here is the specification of the syntax of our language:
 
 \begin{itemize}
-
 \item
 The only self-evaluating items are numbers and strings:
 
@@ -709,7 +706,6 @@ expression types.  The \code{car} of the expression is the operator, and the
 (define (first-operand ops) (car ops))
 (define (rest-operands ops) (cdr ops))
 \end{codeBlock}
-
 \end{itemize}
 
 \subsubsection*{Derived expressions}
@@ -791,7 +787,8 @@ definition that do not cause these difficulties.  See, for example, \link{Kohlbe
 \link{Clinger and Rees 1991}, and \link{Hanson 1991}.}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 4.2}Exercise 4.2:} Louis Reasoner plans to reorder the
+\phantomsection\label{Exercise 4.2}
+\exerciseHeading{Exercise 4.2:} Louis Reasoner plans to reorder the
 \code{cond} clauses in \code{eval} so that the clause for procedure
 applications appears before the clause for assignments.  He argues that this
 will make the interpreter more efficient: Since programs usually contain more
@@ -816,17 +813,18 @@ factorial 3)} and instead of \code{(+ 1 2)} we will have to write \code{(call +
 
 \end{enumerate}
 
-\exerciseHeading{\phantomsection\label{Exercise 4.3}Exercise 4.3:} Rewrite \code{eval} so that the
+\phantomsection\label{Exercise 4.3}
+\exerciseHeading{Exercise 4.3:} Rewrite \code{eval} so that the
 dispatch is done in data-directed style.  Compare this with the data-directed
 differentiation procedure of \link{Exercise 2.73}.  (You may use the \code{car}
 of a compound expression as the type of the expression, as is appropriate for
 the syntax implemented in this section.)
 
-\exerciseHeading{\phantomsection\label{Exercise 4.4}Exercise 4.4:} Recall the definitions of the
+\phantomsection\label{Exercise 4.4}
+\exerciseHeading{Exercise 4.4:} Recall the definitions of the
 special forms \code{and} and \code{or} from \link{Chapter 1}:
 
 \begin{itemize}
-
 \item
 \code{and}: The expressions are evaluated from left to right.  If any
 expression evaluates to false, false is returned; any remaining expressions are
@@ -839,7 +837,6 @@ returned.
 evaluates to a true value, that value is returned; any remaining expressions
 are not evaluated.  If all expressions evaluate to false, or if there are no
 expressions, then false is returned.
-
 \end{itemize}
 
 Install \code{and} and \code{or} as new special forms for the evaluator by
@@ -847,7 +844,8 @@ defining appropriate syntax procedures and evaluation procedures
 \code{eval\-/and} and \code{eval\-/or}.  Alternatively, show how to implement
 \code{and} and \code{or} as derived expressions.
 
-\exerciseHeading{\phantomsection\label{Exercise 4.5}Exercise 4.5:} Scheme allows an additional syntax
+\phantomsection\label{Exercise 4.5}
+\exerciseHeading{Exercise 4.5:} Scheme allows an additional syntax
 for \code{cond} clauses, \code{(\( \langle \)\var{test}\( \rangle \) => \( \langle \)\var{recipient}\( \rangle \))}.  If
 \( \langle \)\var{test}\( \kern0.08em\rangle \) evaluates to a true value, then \( \langle \)\var{recipient}\( \kern0.08em\rangle \) is evaluated.
 Its value must be a procedure of one argument; this procedure is then invoked
@@ -863,7 +861,8 @@ the \code{cond} expression.  For example
 returns 2.  Modify the handling of \code{cond} so that it supports this
 extended syntax.
 
-\exerciseHeading{\phantomsection\label{Exercise 4.6}Exercise 4.6:} \code{let} expressions are derived
+\phantomsection\label{Exercise 4.6}
+\exerciseHeading{Exercise 4.6:} \code{let} expressions are derived
 expressions, because
 
 \begin{codeBlock}
@@ -887,7 +886,8 @@ evaluating \code{let} expressions to evaluating combinations of the type shown
 above, and add the appropriate clause to \code{eval} to handle \code{let}
 expressions.
 
-\exerciseHeading{\phantomsection\label{Exercise 4.7}Exercise 4.7:} \code{let*} is similar to
+\phantomsection\label{Exercise 4.7}
+\exerciseHeading{Exercise 4.7:} \code{let*} is similar to
 \code{let}, except that the bindings of the \code{let*} variables are performed
 sequentially from left to right, and each binding is made in an environment in
 which all of the preceding bindings are visible.  For example
@@ -911,7 +911,8 @@ is it sufficient to add a clause to \code{eval} whose action is
 \noindent
 or must we explicitly expand \code{let*} in terms of non-derived expressions?
 
-\exerciseHeading{\phantomsection\label{Exercise 4.8}Exercise 4.8:} ``Named \code{let}'' is a variant
+\phantomsection\label{Exercise 4.8}
+\exerciseHeading{Exercise 4.8:} ``Named \code{let}'' is a variant
 of \code{let} that has the form
 
 \begin{codeBlock}
@@ -939,7 +940,8 @@ named \( \langle \)\var{var}\( \kern0.08em\rangle \).  For example, the iterativ
 Modify \code{let\-/>combination} of \link{Exercise 4.6} to also support named
 \code{let}.
 
-\exerciseHeading{\phantomsection\label{Exercise 4.9}Exercise 4.9:} Many languages support a variety of
+\phantomsection\label{Exercise 4.9}
+\exerciseHeading{Exercise 4.9:} Many languages support a variety of
 iteration constructs, such as \code{do}, \code{for}, \code{while}, and
 \code{until}.  In Scheme, iterative processes can be expressed in terms of
 ordinary procedure calls, so special iteration constructs provide no essential
@@ -947,7 +949,8 @@ gain in computational power.  On the other hand, such constructs are often
 convenient.  Design some iteration constructs, give examples of their use, and
 show how to implement them as derived expressions.
 
-\exerciseHeading{\phantomsection\label{Exercise 4.10}Exercise 4.10:} By using data abstraction, we
+\phantomsection\label{Exercise 4.10}
+\exerciseHeading{Exercise 4.10:} By using data abstraction, we
 were able to write an \code{eval} procedure that is independent of the
 particular syntax of the language to be evaluated.  To illustrate this, design
 and implement a new syntax for Scheme by modifying the procedures in this
@@ -979,7 +982,6 @@ To handle primitives, we assume that we have available the following
 procedures:
 
 \begin{itemize}
-
 \item
 \code{(apply\-/primitive\-/procedure \( \langle \)\var{proc}\( \rangle \) \( \langle \)\var{args}\( \rangle \))}
 
@@ -992,7 +994,6 @@ applies the given primitive procedure to the argument values in the list
 
 \noindent
 tests whether \( \langle \)\var{proc}\( \kern0.08em\rangle \) is a primitive procedure.
-
 \end{itemize}
 
 \noindent
@@ -1020,7 +1021,6 @@ a table of bindings that associate variables with their corresponding values.
 We use the following operations for manipulating environments:
 
 \begin{itemize}
-
 \item
 \code{(lookup\-/variable\-/value \( \langle \)\var{var}\( \rangle \) \( \langle \)\var{env}\( \rangle \))}
 
@@ -1047,7 +1047,6 @@ associates the variable \( \langle \)\var{var}\( \kern0.08em\rangle \) with the 
 changes the binding of the variable \( \langle \)\var{var}\( \kern0.08em\rangle \) in the environment \( \langle \)\var{env}\( \kern0.08em\rangle \)
 so that the variable is now bound to the value \( \langle \)\var{value}\( \kern0.08em\rangle \), or signals an
 error if the variable is unbound.
-
 \end{itemize}
 
 \noindent
@@ -1176,19 +1175,22 @@ inefficiency is to make use of a strategy called \newterm{lexical addressing},
 which will be discussed in \link{Section 5.5.6}.}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 4.11}Exercise 4.11:} Instead of representing a frame
+\phantomsection\label{Exercise 4.11}
+\exerciseHeading{Exercise 4.11:} Instead of representing a frame
 as a pair of lists, we can represent a frame as a list of bindings, where each
 binding is a name-value pair.  Rewrite the environment operations to use this
 alternative representation.
 
-\exerciseHeading{\phantomsection\label{Exercise 4.12}Exercise 4.12:} The procedures
+\phantomsection\label{Exercise 4.12}
+\exerciseHeading{Exercise 4.12:} The procedures
 \code{set\-/variable\-/value!}, \code{define\-/variable!} and
 \code{lookup\-/variable\-/value} can be expressed in terms of more abstract
 procedures for traversing the environment structure.  Define abstractions that
 capture the common patterns and redefine the three procedures in terms of these
 abstractions.
 
-\exerciseHeading{\phantomsection\label{Exercise 4.13}Exercise 4.13:} Scheme allows us to create new
+\phantomsection\label{Exercise 4.13}
+\exerciseHeading{Exercise 4.13:} Scheme allows us to create new
 bindings for variables by means of \code{define}, but provides no way to get
 rid of bindings.  Implement for the evaluator a special form
 \code{make\-/unbound!} that removes the binding of a given symbol from the
@@ -1365,7 +1367,8 @@ environment and start the driver loop.  Here is a sample interaction:
 \end{codeBlock}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 4.14}Exercise 4.14:} Eva Lu Ator and Louis Reasoner
+\phantomsection\label{Exercise 4.14}
+\exerciseHeading{Exercise 4.14:} Eva Lu Ator and Louis Reasoner
 are each experimenting with the metacircular evaluator.  Eva types in the
 definition of \code{map}, and runs some test programs that use it.  They work
 fine.  Louis, in contrast, has installed the system version of \code{map} as a
@@ -1493,7 +1496,8 @@ is bound to the initial environment in which the user's input expressions are
 evaluated.}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 4.15}Exercise 4.15:} Given a one-argument procedure
+\phantomsection\label{Exercise 4.15}
+\exerciseHeading{Exercise 4.15:} Given a one-argument procedure
 \code{p} and an object \code{a}, \code{p} is said to ``halt'' on \code{a} if
 evaluating the expression \code{(p a)} returns a value (as opposed to
 terminating with an error message or running forever).  Show that it is
@@ -1618,7 +1622,8 @@ the transformation shown above.  Thus, some programs that don't obey this
 restriction will in fact run in such implementations.}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 4.16}Exercise 4.16:} In this exercise we implement the
+\phantomsection\label{Exercise 4.16}
+\exerciseHeading{Exercise 4.16:} In this exercise we implement the
 method just described for interpreting internal definitions.  We assume that
 the evaluator supports \code{let} (see \link{Exercise 4.6}).
 
@@ -1640,7 +1645,8 @@ Which place is better?  Why?
 
 \end{enumerate}
 
-\exerciseHeading{\phantomsection\label{Exercise 4.17}Exercise 4.17:} Draw diagrams of the environment
+\phantomsection\label{Exercise 4.17}
+\exerciseHeading{Exercise 4.17:} Draw diagrams of the environment
 in effect when evaluating the expression \( \langle \)\var{e3}\( \kern0.1em\rangle \) in the procedure in the
 text, comparing how this will be structured when definitions are interpreted
 sequentially with how it will be structured if definitions are scanned out as
@@ -1650,7 +1656,8 @@ behavior of a correct program.  Design a way to make the interpreter implement
 the ``simultaneous'' scope rule for internal definitions without constructing
 the extra frame.
 
-\exerciseHeading{\phantomsection\label{Exercise 4.18}Exercise 4.18:} Consider an alternative strategy
+\phantomsection\label{Exercise 4.18}
+\exerciseHeading{Exercise 4.18:} Consider an alternative strategy
 for scanning out definitions that translates the example in the text to
 
 \begin{codeBlock}
@@ -1676,7 +1683,8 @@ by the interpreter, that do not appear in the user's program.  Consider the
 Will this procedure work if internal definitions are scanned out as shown in
 this exercise?  What if they are scanned out as shown in the text?  Explain.
 
-\exerciseHeading{\phantomsection\label{Exercise 4.19}Exercise 4.19:} Ben Bitdiddle, Alyssa P. Hacker,
+\phantomsection\label{Exercise 4.19}
+\exerciseHeading{Exercise 4.19:} Ben Bitdiddle, Alyssa P. Hacker,
 and Eva Lu Ator are arguing about the desired result of evaluating the
 expression
 
@@ -1710,7 +1718,8 @@ Eva requires.  In the absence of such a mechanism, it is better to generate an
 error in the difficult cases of simultaneous definitions (Alyssa's notion) than
 to produce an incorrect answer (as Ben would have it).}
 
-\exerciseHeading{\phantomsection\label{Exercise 4.20}Exercise 4.20:} Because internal definitions look
+\phantomsection\label{Exercise 4.20}
+\exerciseHeading{Exercise 4.20:} Because internal definitions look
 sequential but are actually simultaneous, some people prefer to avoid them
 entirely, and use the special form \code{letrec} instead.  \code{letrec} looks
 like \code{let}, so it is not surprising that the variables it binds are bound
@@ -1771,7 +1780,8 @@ environment diagram for the same evaluation, but with \code{let} in place of
 
 \end{enumerate}
 
-\exerciseHeading{\phantomsection\label{Exercise 4.21}Exercise 4.21:} Amazingly,
+\phantomsection\label{Exercise 4.21}
+\exerciseHeading{Exercise 4.21:} Amazingly,
 Louis's intuition in \link{Exercise 4.20} is correct. It is indeed possible to
 specify recursive procedures without using \code{letrec} (or even \code{define}),
 although the method for accomplishing this is much more subtle than Louis imagined.
@@ -2043,10 +2053,12 @@ run-time support procedures as in sections \link{Section 4.1.2}, \link{Section 4
 \link{Section 4.1.4}.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 4.22}Exercise 4.22:} Extend the evaluator in this
+\phantomsection\label{Exercise 4.22}
+\exerciseHeading{Exercise 4.22:} Extend the evaluator in this
 section to support the special form \code{let}.  (See \link{Exercise 4.6}.)
 
-\exerciseHeading{\phantomsection\label{Exercise 4.23}Exercise 4.23:} Alyssa P. Hacker doesn't
+\phantomsection\label{Exercise 4.23}
+\exerciseHeading{Exercise 4.23:} Alyssa P. Hacker doesn't
 understand why \code{analyze\-/sequence} needs to be so complicated.  All the
 other analysis procedures are straightforward transformations of the
 corresponding evaluation procedures (or \code{eval} clauses) in
@@ -2081,7 +2093,8 @@ program do?  What about the execution procedure produced by the program in the
 text above?  How do the two versions compare for a sequence with two
 expressions?
 
-\exerciseHeading{\phantomsection\label{Exercise 4.24}Exercise 4.24:} Design and carry out some
+\phantomsection\label{Exercise 4.24}
+\exerciseHeading{Exercise 4.24:} Design and carry out some
 experiments to compare the speed of the original metacircular evaluator with
 the version in this section.  Use your results to estimate the fraction of time
 that is spent in analysis versus execution for various procedures.
@@ -2189,7 +2202,8 @@ will exploit this idea in \link{Section 4.2.3} to implement the streams of
 \link{Chapter 3} as lists formed of non-strict \code{cons} pairs.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 4.25}Exercise 4.25:} Suppose that (in ordinary
+\phantomsection\label{Exercise 4.25}
+\exerciseHeading{Exercise 4.25:} Suppose that (in ordinary
 applicative-order Scheme) we define \code{unless} as shown above and then
 define \code{factorial} in terms of \code{unless} as
 
@@ -2203,7 +2217,8 @@ define \code{factorial} in terms of \code{unless} as
 What happens if we attempt to evaluate \code{(factorial 5)}?  Will our
 definitions work in a normal-order language?
 
-\exerciseHeading{\phantomsection\label{Exercise 4.26}Exercise 4.26:} Ben Bitdiddle and Alyssa
+\phantomsection\label{Exercise 4.26}
+\exerciseHeading{Exercise 4.26:} Ben Bitdiddle and Alyssa
 P. Hacker disagree over the importance of lazy evaluation for implementing
 things such as \code{unless}.  Ben points out that it's possible to implement
 \code{unless} in applicative order as a special form.  Alyssa counters that, if
@@ -2469,7 +2484,8 @@ Notice that the same \code{delay\-/it} procedure works both with and without
 memoization.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 4.27}Exercise 4.27:} Suppose we type in the following
+\phantomsection\label{Exercise 4.27}
+\exerciseHeading{Exercise 4.27:} Suppose we type in the following
 definitions to the lazy evaluator:
 
 \begin{codeBlock}
@@ -2498,13 +2514,15 @@ count
 ~\(\langle \)~~\var{response}~~\(\rangle \)~
 \end{codeBlock}
 
-\exerciseHeading{\phantomsection\label{Exercise 4.28}Exercise 4.28:} \code{eval} uses
+\phantomsection\label{Exercise 4.28}
+\exerciseHeading{Exercise 4.28:} \code{eval} uses
 \code{actual\-/value} rather than \code{eval} to evaluate the operator before
 passing it to \code{apply}, in order to force the value of the operator.  Give
 an example that demonstrates the need for this forcing.
 
 \noindent
-\exerciseHeading{\phantomsection\label{Exercise 4.29}Exercise 4.29:} Exhibit a program that you would
+\phantomsection\label{Exercise 4.29}
+\exerciseHeading{Exercise 4.29:} Exhibit a program that you would
 expect to run much more slowly without memoization than with memoization.
 Also, consider the following interaction, where the \code{id} procedure is
 defined as in \link{Exercise 4.27} and \code{count} starts at 0:
@@ -2523,7 +2541,8 @@ count
 
 Give the responses both when the evaluator memoizes and when it does not.
 
-\exerciseHeading{\phantomsection\label{Exercise 4.30}Exercise 4.30:} Cy D. Fect, a reformed C
+\phantomsection\label{Exercise 4.30}
+\exerciseHeading{Exercise 4.30:} Cy D. Fect, a reformed C
 programmer, is worried that some side effects may never take place, because the
 lazy evaluator doesn't force the expressions in a sequence.  Since the value of
 an expression in a sequence other than the last one is not used (the expression
@@ -2603,7 +2622,8 @@ like Cy's approach, the approach in the text, or some other approach?
 
 \end{enumerate}
 
-\exerciseHeading{\phantomsection\label{Exercise 4.31}Exercise 4.31:} The approach taken in this
+\phantomsection\label{Exercise 4.31}
+\exerciseHeading{Exercise 4.31:} The approach taken in this
 section is somewhat unpleasant, because it makes an incompatible change to
 Scheme.  It might be nicer to implement lazy evaluation as an
 \newterm{upward-compatible extension}, that is, so that ordinary Scheme
@@ -2734,12 +2754,14 @@ as we originally intended in \link{Section 3.5.4}:
 \end{codeBlock}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 4.32}Exercise 4.32:} Give some examples that
+\phantomsection\label{Exercise 4.32}
+\exerciseHeading{Exercise 4.32:} Give some examples that
 illustrate the difference between the streams of \link{Chapter 3} and the
 ``lazier'' lazy lists described in this section.  How can you take advantage of
 this extra laziness?
 
-\exerciseHeading{\phantomsection\label{Exercise 4.33}Exercise 4.33:} Ben Bitdiddle tests the lazy list
+\phantomsection\label{Exercise 4.33}
+\exerciseHeading{Exercise 4.33:} Ben Bitdiddle tests the lazy list
 implementation given above by evaluating the expression:
 
 \begin{codeBlock}
@@ -2752,7 +2774,8 @@ lists manipulated by the new definitions of \code{cons}, \code{car}, and
 \code{cdr}.  Modify the evaluator's treatment of quoted expressions so that
 quoted lists typed at the driver loop will produce true lazy lists.
 
-\exerciseHeading{\phantomsection\label{Exercise 4.34}Exercise 4.34:} Modify the driver loop for the
+\phantomsection\label{Exercise 4.34}
+\exerciseHeading{Exercise 4.34:} Modify the driver loop for the
 evaluator so that lazy pairs and lists will print in some reasonable way.
 (What are you going to do about infinite lists?)  You may also need to modify
 the representation of lazy pairs so that the evaluator can identify them in
@@ -3047,7 +3070,8 @@ try-again
 \end{codeBlock}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 4.35}Exercise 4.35:} Write a procedure
+\phantomsection\label{Exercise 4.35}
+\exerciseHeading{Exercise 4.35:} Write a procedure
 \code{an\-/integer\-/between} that returns an integer between two given bounds.
 This can be used to implement a procedure that finds Pythagorean triples, i.e.,
 triples of integers \( (i, j, k) \) between the given bounds such that
@@ -3062,7 +3086,8 @@ triples of integers \( (i, j, k) \) between the given bounds such that
         (list i j k)))))
 \end{codeBlock}
 
-\exerciseHeading{\phantomsection\label{Exercise 4.36}Exercise 4.36:} \link{Exercise 3.69} discussed how
+\phantomsection\label{Exercise 4.36}
+\exerciseHeading{Exercise 4.36:} \link{Exercise 3.69} discussed how
 to generate the stream of \emph{all} Pythagorean triples, with no upper bound
 on the size of the integers to be searched.  Explain why simply replacing
 \code{an\-/integer\-/between} by \code{an\-/integer\-/starting\-/from} in the procedure
@@ -3071,7 +3096,8 @@ triples.  Write a procedure that actually will accomplish this.  (That is,
 write a procedure for which repeatedly typing \code{try\-/again} would in
 principle eventually generate all Pythagorean triples.)
 
-\exerciseHeading{\phantomsection\label{Exercise 4.37}Exercise 4.37:} Ben Bitdiddle claims that the
+\phantomsection\label{Exercise 4.37}
+\exerciseHeading{Exercise 4.37:} Ben Bitdiddle claims that the
 following method for generating Pythagorean triples is more efficient than the
 one in \link{Exercise 4.35}.  Is he correct?  (Hint: Consider the number of
 possibilities that must be explored.)
@@ -3161,17 +3187,20 @@ Although this simple procedure works, it is very slow.  \link{Exercise 4.39} and
 \link{Exercise 4.40} discuss some possible improvements.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 4.38}Exercise 4.38:} Modify the multiple-dwelling
+\phantomsection\label{Exercise 4.38}
+\exerciseHeading{Exercise 4.38:} Modify the multiple-dwelling
 procedure to omit the requirement that Smith and Fletcher do not live on
 adjacent floors.  How many solutions are there to this modified puzzle?
 
-\exerciseHeading{\phantomsection\label{Exercise 4.39}Exercise 4.39:} Does the order of the
+\phantomsection\label{Exercise 4.39}
+\exerciseHeading{Exercise 4.39:} Does the order of the
 restrictions in the multiple-dwelling procedure affect the answer? Does it
 affect the time to find an answer?  If you think it matters, demonstrate a
 faster program obtained from the given one by reordering the restrictions.  If
 you think it does not matter, argue your case.
 
-\exerciseHeading{\phantomsection\label{Exercise 4.40}Exercise 4.40:} In the multiple dwelling problem,
+\phantomsection\label{Exercise 4.40}
+\exerciseHeading{Exercise 4.40:} In the multiple dwelling problem,
 how many sets of assignments are there of people to floors, both before and
 after the requirement that floor assignments be distinct?  It is very
 inefficient to generate all possible assignments of people to floors and then
@@ -3183,10 +3212,12 @@ problem based upon generating only those possibilities that are not already
 ruled out by previous restrictions.  (Hint: This will require a nest of
 \code{let} expressions.)
 
-\exerciseHeading{\phantomsection\label{Exercise 4.41}Exercise 4.41:} Write an ordinary Scheme program
+\phantomsection\label{Exercise 4.41}
+\exerciseHeading{Exercise 4.41:} Write an ordinary Scheme program
 to solve the multiple dwelling puzzle.
 
-\exerciseHeading{\phantomsection\label{Exercise 4.42}Exercise 4.42:} Solve the following ``Liars''
+\phantomsection\label{Exercise 4.42}
+\exerciseHeading{Exercise 4.42:} Solve the following ``Liars''
 puzzle (from \link{Phillips 1934}):
 
 Five schoolgirls sat for an examination.  Their parents---so they
@@ -3196,7 +3227,6 @@ true statement and one untrue one.  The following are the relevant passages
 from their letters:
 
 \begin{itemize}
-
 \item
 Betty: ``Kitty was second in the examination.  I was only third.''
 
@@ -3211,12 +3241,12 @@ Kitty: ``I came out second.  Mary was only fourth.''
 
 \item
 Mary: ``I was fourth.  Top place was taken by Betty.''
-
 \end{itemize}
 
 What in fact was the order in which the five girls were placed?
 
-\exerciseHeading{\phantomsection\label{Exercise 4.43}Exercise 4.43:} Use the \code{amb} evaluator to
+\phantomsection\label{Exercise 4.43}
+\exerciseHeading{Exercise 4.43:} Use the \code{amb} evaluator to
 solve the following puzzle:\footnote{This is taken from a booklet called
 ``Problematical Recreations,'' published in the 1960s by Litton Industries,
 where it is attributed to the \textit{Kansas State Engineer}.}
@@ -3233,7 +3263,8 @@ Try to write the program so that it runs efficiently (see \link{Exercise 4.40}).
 Also determine how many solutions there are if we are not told that Mary Ann's
 last name is Moore.
 
-\exerciseHeading{\phantomsection\label{Exercise 4.44}Exercise 4.44:} \link{Exercise 2.42} described the
+\phantomsection\label{Exercise 4.44}
+\exerciseHeading{Exercise 4.44:} \link{Exercise 2.42} described the
 ``eight-queens puzzle'' of placing queens on a chessboard so that no two attack
 each other.  Write a nondeterministic program to solve this puzzle.
 \end{exerciseGroup}
@@ -3472,18 +3503,21 @@ Asking the evaluator to try again yields
 \end{codeBlock}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 4.45}Exercise 4.45:} With the grammar given above, the
+\phantomsection\label{Exercise 4.45}
+\exerciseHeading{Exercise 4.45:} With the grammar given above, the
 following sentence can be parsed in five different ways: ``The professor
 lectures to the student in the class with the cat.''  Give the five parses and
 explain the differences in shades of meaning among them.
 
-\exerciseHeading{\phantomsection\label{Exercise 4.46}Exercise 4.46:} The evaluators in
+\phantomsection\label{Exercise 4.46}
+\exerciseHeading{Exercise 4.46:} The evaluators in
 \link{Section 4.1} and \link{Section 4.2} do not determine what order operands are evaluated in.
 We will see that the \code{amb} evaluator evaluates them from left to right.
 Explain why our parsing program wouldn't work if the operands were evaluated in
 some other order.
 
-\exerciseHeading{\phantomsection\label{Exercise 4.47}Exercise 4.47:} Louis Reasoner suggests that,
+\phantomsection\label{Exercise 4.47}
+\exerciseHeading{Exercise 4.47:} Louis Reasoner suggests that,
 since a verb phrase is either a verb or a verb phrase followed by a
 prepositional phrase, it would be much more straightforward to define the
 procedure \code{parse\-/verb\-/phrase} as follows (and similarly for noun phrases):
@@ -3499,7 +3533,8 @@ procedure \code{parse\-/verb\-/phrase} as follows (and similarly for noun phrase
 Does this work?  Does the program's behavior change if we interchange the order
 of expressions in the \code{amb}?
 
-\exerciseHeading{\phantomsection\label{Exercise 4.48}Exercise 4.48:} Extend the grammar given above to
+\phantomsection\label{Exercise 4.48}
+\exerciseHeading{Exercise 4.48:} Extend the grammar given above to
 handle more complex sentences.  For example, you could extend noun phrases and
 verb phrases to include adjectives and adverbs, or you could handle compound
 sentences.\footnote{This kind of grammar can become arbitrarily complex, but it
@@ -3511,7 +3546,8 @@ such as information-retrieval systems.  \link{Winston 1992} discusses computatio
 approaches to real language understanding and also the applications of simple
 grammars to command languages.}
 
-\exerciseHeading{\phantomsection\label{Exercise 4.49}Exercise 4.49:} Alyssa P. Hacker is more
+\phantomsection\label{Exercise 4.49}
+\exerciseHeading{Exercise 4.49:} Alyssa P. Hacker is more
 interested in generating interesting sentences than in parsing them.  She
 reasons that by simply changing the procedure \code{parse\-/word} so that it
 ignores the ``input sentence'' and instead always succeeds and generates an
@@ -3593,7 +3629,6 @@ failure continuation that undoes the side effect and propagates the failure.
 In summary, failure continuations are constructed by
 
 \begin{itemize}
-
 \item
 \code{amb} expressions---to provide a mechanism to make alternative choices if
 the current choice made by the \code{amb} expression leads to a dead end;
@@ -3604,27 +3639,23 @@ choices are exhausted;
 
 \item
 assignments---to intercept failures and undo assignments during backtracking.
-
 \end{itemize}
 
 \noindent
 Failures are initiated only when a dead end is encountered.  This occurs
 
 \begin{itemize}
-
 \item
 if the user program executes \code{(amb)};
 
 \item
 if the user types \code{try\-/again} at the top-level driver.
-
 \end{itemize}
 
 \noindent
 Failure continuations are also called during processing of a failure:
 
 \begin{itemize}
-
 \item
 When the failure continuation created by an assignment finishes undoing a side
 effect, it calls the failure continuation it intercepted, in order to propagate
@@ -3635,7 +3666,6 @@ level.
 When the failure continuation for an \code{amb} runs out of choices, it calls
 the failure continuation that was originally given to the \code{amb}, in order
 to propagate the failure back to the previous choice point or to the top level.
-
 \end{itemize}
 
 \subsubsection*{Structure of the evaluator}
@@ -4021,12 +4051,14 @@ is the behavior that will happen if the user types \code{try\-/again} when there
 is no evaluation in progress.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 4.50}Exercise 4.50:} Implement a new special form
+\phantomsection\label{Exercise 4.50}
+\exerciseHeading{Exercise 4.50:} Implement a new special form
 \code{ramb} that is like \code{amb} except that it searches alternatives in a
 random order, rather than from left to right.  Show how this can help with
 Alyssa's problem in \link{Exercise 4.49}.
 
-\exerciseHeading{\phantomsection\label{Exercise 4.51}Exercise 4.51:} Implement a new kind of
+\phantomsection\label{Exercise 4.51}
+\exerciseHeading{Exercise 4.51:} Implement a new kind of
 assignment called \code{permanent\-/set!} that is not undone upon failure.  For
 example, we can choose two distinct elements from a list and count the number
 of trials required to make a successful choice as follows:
@@ -4050,7 +4082,8 @@ try-again
 What values would have been displayed if we had used \code{set!} here
 rather than \code{permanent\-/set!} ?
 
-\exerciseHeading{\phantomsection\label{Exercise 4.52}Exercise 4.52:} Implement a new construct called
+\phantomsection\label{Exercise 4.52}
+\exerciseHeading{Exercise 4.52:} Implement a new construct called
 \code{if\-/fail} that permits the user to catch the failure of an expression.
 \code{if\-/fail} takes two expressions.  It evaluates the first expression as
 usual and returns as usual if the evaluation succeeds.  If the evaluation
@@ -4077,7 +4110,8 @@ following example:
 ~\textit{8}~
 \end{codeBlock}
 
-\exerciseHeading{\phantomsection\label{Exercise 4.53}Exercise 4.53:} With \code{permanent\-/set!} as
+\phantomsection\label{Exercise 4.53}
+\exerciseHeading{Exercise 4.53:} With \code{permanent\-/set!} as
 described in \link{Exercise 4.51} and \code{if\-/fail} as in
 \link{Exercise 4.52}, what will be the result of evaluating
 
@@ -4091,7 +4125,8 @@ described in \link{Exercise 4.51} and \code{if\-/fail} as in
    pairs))
 \end{codeBlock}
 
-\exerciseHeading{\phantomsection\label{Exercise 4.54}Exercise 4.54:} If we had not realized that
+\phantomsection\label{Exercise 4.54}
+\exerciseHeading{Exercise 4.54:} If we had not realized that
 \code{require} could be implemented as an ordinary procedure that uses
 \code{amb}, to be defined by the user as part of a nondeterministic program, we
 would have had to implement it as a special form.  This would require syntax
@@ -4216,7 +4251,6 @@ second of which handles the case of a nonempty list, which is a \code{cons} of
 two parts:
 
 \begin{itemize}
-
 \item
 For any list \code{y}, the empty list and \code{y} \code{append} to form
 \code{y}.
@@ -4228,7 +4262,6 @@ For any \code{u}, \code{v}, \code{y}, and \code{z}, \code{(cons u v)} and
 rules and the procedure, let \code{x} in the procedure (where \code{x} is
 nonempty) correspond to \code{(cons u v)} in the rule.  Then \code{z} in the
 rule corresponds to the \code{append} of \code{(cdr x)} and \code{y}.}
-
 \end{itemize}
 
 \noindent
@@ -4560,7 +4593,6 @@ with \code{?type} as the empty list \code{()}.
 We can describe the query language's processing of simple queries as follows:
 
 \begin{itemize}
-
 \item
 The system finds all assignments to variables in the query pattern that
 \newterm{satisfy} the pattern---that is, all sets of values for the variables
@@ -4570,7 +4602,6 @@ by) the values, the result is in the data base.
 \item
 The system responds to the query by listing all instantiations of the query
 pattern with the variable assignments that satisfy it.
-
 \end{itemize}
 
 \noindent
@@ -4580,7 +4611,8 @@ which assigns no values to variables, satisfies that pattern for that data
 base.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 4.55}Exercise 4.55:} Give simple queries that retrieve
+\phantomsection\label{Exercise 4.55}
+\exerciseHeading{Exercise 4.55:} Give simple queries that retrieve
 the following information from the data base:
 
 \begin{enumerate}
@@ -4719,7 +4751,8 @@ be done with the \code{same} rule shown below).}
 \end{codeBlock}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 4.56}Exercise 4.56:} Formulate compound queries that
+\phantomsection\label{Exercise 4.56}
+\exerciseHeading{Exercise 4.56:} Formulate compound queries that
 retrieve the following information:
 
 \begin{enumerate}[a.]
@@ -4838,7 +4871,8 @@ is the person's supervisor or (recursively) if the person's supervisor is
 outranked by the boss.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 4.57}Exercise 4.57:} Define a rule that says that
+\phantomsection\label{Exercise 4.57}
+\exerciseHeading{Exercise 4.57:} Define a rule that says that
 person 1 can replace person 2 if either person 1 does the same job as person 2
 or someone who does person 1's job can also do person 2's job, and if person 1
 and person 2 are not the same person. Using your rule, give queries that find
@@ -4855,11 +4889,13 @@ together with the two salaries.
 
 \end{enumerate}
 
-\exerciseHeading{\phantomsection\label{Exercise 4.58}Exercise 4.58:} Define a rule that says that a
+\phantomsection\label{Exercise 4.58}
+\exerciseHeading{Exercise 4.58:} Define a rule that says that a
 person is a ``big shot'' in a division if the person works in the division but
 does not have a supervisor who works in the division.
 
-\exerciseHeading{\phantomsection\label{Exercise 4.59}Exercise 4.59:} Ben Bitdiddle has missed one
+\phantomsection\label{Exercise 4.59}
+\exerciseHeading{Exercise 4.59:} Ben Bitdiddle has missed one
 meeting too many.  Fearing that his habit of forgetting meetings could cost him
 his job, Ben decides to do something about it.  He adds all the weekly meetings
 of the firm to the Microshaft data base by asserting the following:
@@ -4904,7 +4940,8 @@ to find this out?
 
 \end{enumerate}
 
-\exerciseHeading{\phantomsection\label{Exercise 4.60}Exercise 4.60:} By giving the query
+\phantomsection\label{Exercise 4.60}
+\exerciseHeading{Exercise 4.60:} By giving the query
 
 \begin{codeBlock}
 (lives-near ?person (Hacker Alyssa P))
@@ -4942,7 +4979,6 @@ example, consider the \code{append} operation described at the beginning of
 following two rules:
 
 \begin{itemize}
-
 \item
 For any list \code{y}, the empty list and \code{y} \code{append} to form
 \code{y}.
@@ -4951,7 +4987,6 @@ For any list \code{y}, the empty list and \code{y} \code{append} to form
 For any \code{u}, \code{v}, \code{y}, and \code{z}, \code{(cons u v)} and
 \code{y} \code{append} to form \code{(cons u z)} if \code{v} and \code{y}
 \code{append} to form \code{z}.
-
 \end{itemize}
 
 \noindent
@@ -5022,7 +5057,8 @@ the \code{append} case, the general methods may break down in more complex
 cases, as we will see in \link{Section 4.4.3}.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 4.61}Exercise 4.61:} The following rules implement a
+\phantomsection\label{Exercise 4.61}
+\exerciseHeading{Exercise 4.61:} The following rules implement a
 \code{next\-/to} relation that finds adjacent elements of a list:
 
 \begin{codeBlock}
@@ -5038,14 +5074,16 @@ What will the response be to the following queries?
 (?x next-to  1 in (2 1 3 1))
 \end{codeBlock}
 
-\exerciseHeading{\phantomsection\label{Exercise 4.62}Exercise 4.62:} Define rules to implement the
+\phantomsection\label{Exercise 4.62}
+\exerciseHeading{Exercise 4.62:} Define rules to implement the
 \code{last\-/pair} operation of \link{Exercise 2.17}, which returns a list
 containing the last element of a nonempty list.  Check your rules on queries
 such as \code{(last\-/pair (3) ?x)}, \code{(last\-/pair (1 2 3) ?x)} and
 \code{(last\-/pair (2 ?x) (3))}.  Do your rules work correctly on queries such as
 \code{(last\-/pair ?x (3))} ?
 
-\exerciseHeading{\phantomsection\label{Exercise 4.63}Exercise 4.63:} The following data base (see
+\phantomsection\label{Exercise 4.63}
+\exerciseHeading{Exercise 4.63:} The following data base (see
 Genesis 4) traces the genealogy of the descendants of Ada back to Adam, by way
 of Cain:
 
@@ -5412,7 +5450,6 @@ trying to establish a query pattern in a frame that specifies bindings for some
 of the pattern variables:
 
 \begin{itemize}
-
 \item
 Unify the query with the conclusion of the rule to form, if successful, an
 extension of the original frame.
@@ -5420,7 +5457,6 @@ extension of the original frame.
 \item
 Relative to the extended frame, evaluate the query formed by the body of the
 rule.
-
 \end{itemize}
 
 \noindent
@@ -5428,7 +5464,6 @@ Notice how similar this is to the method for applying a procedure in the
 \code{eval}/\code{apply} evaluator for Lisp:
 
 \begin{itemize}
-
 \item
 Bind the procedure's parameters to its arguments to form a frame that extends
 the original procedure environment.
@@ -5436,7 +5471,6 @@ the original procedure environment.
 \item
 Relative to the extended environment, evaluate the expression formed by the
 body of the procedure.
-
 \end{itemize}
 
 \noindent
@@ -5456,7 +5490,6 @@ Given the query pattern and a stream of frames, we produce, for each frame in
 the input stream, two streams:
 
 \begin{itemize}
-
 \item
 a stream of extended frames obtained by matching the pattern against all
 assertions in the data base (using the pattern matcher), and
@@ -5467,7 +5500,6 @@ unifier).\footnote{Since unification is a generalization of matching, we could
 simplify the system by using the unifier to produce both streams.  Treating the
 easy case with the simple matcher, however, illustrates how matching (as
 opposed to full-blown unification) can be useful in its own right.}
-
 \end{itemize}
 
 \noindent
@@ -5632,7 +5664,6 @@ and again query
 Unfortunately, this will drive the system into an infinite loop, as follows:
 
 \begin{itemize}
-
 \item
 The system finds that the \code{married} rule is applicable; that is, the rule
 conclusion \code{(married ?x ?y)} successfully unifies with the query pattern
@@ -5648,7 +5679,6 @@ Minnie Mickey)}.
 \item
 The \code{married} rule is also applicable, so the interpreter again evaluates
 the rule body, which this time is equivalent to \code{(married Mickey ?who)}.
-
 \end{itemize}
 
 \noindent
@@ -5727,7 +5757,8 @@ and justification of this treatment of \code{not} can be found in the article
 by \link{Clark (1978)}.}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 4.64}Exercise 4.64:} Louis Reasoner mistakenly deletes
+\phantomsection\label{Exercise 4.64}
+\exerciseHeading{Exercise 4.64:} Louis Reasoner mistakenly deletes
 the \code{outranked\-/by} rule (\link{Section 4.4.1}) from the data base.  When he
 realizes this, he quickly reinstalls it.  Unfortunately, he makes a slight
 change in the rule, and types it in as
@@ -5749,7 +5780,8 @@ to find out who outranks Ben Bitdiddle. He issues the query
 
 After answering, the system goes into an infinite loop.  Explain why.
 
-\exerciseHeading{\phantomsection\label{Exercise 4.65}Exercise 4.65:} Cy D. Fect, looking forward to
+\phantomsection\label{Exercise 4.65}
+\exerciseHeading{Exercise 4.65:} Cy D. Fect, looking forward to
 the day when he will rise in the organization, gives a query to find all the
 wheels (using the \code{wheel} rule of \link{Section 4.4.1}):
 
@@ -5770,7 +5802,8 @@ To his surprise, the system responds
 
 Why is Oliver Warbucks listed four times?
 
-\exerciseHeading{\phantomsection\label{Exercise 4.66}Exercise 4.66:} Ben has been generalizing the
+\phantomsection\label{Exercise 4.66}
+\exerciseHeading{Exercise 4.66:} Ben has been generalizing the
 query system to provide statistics about the company.  For example, to find the
 total salaries of all the computer programmers one will be able to say
 
@@ -5800,7 +5833,8 @@ Cy walks by, still puzzling over the \code{wheel} query result in
 What has Ben just realized?  Outline a method he can use to salvage the
 situation.
 
-\exerciseHeading{\phantomsection\label{Exercise 4.67}Exercise 4.67:} Devise a way to install a loop
+\phantomsection\label{Exercise 4.67}
+\exerciseHeading{Exercise 4.67:} Devise a way to install a loop
 detector in the query system so as to avoid the kinds of simple loops
 illustrated in the text and in \link{Exercise 4.64}.
 The general idea is that
@@ -5811,13 +5845,15 @@ this history, and how the check should be made.  (After you study the details
 of the query-system implementation in \link{Section 4.4.4}, you may want to
 modify the system to include your loop detector.)
 
-\exerciseHeading{\phantomsection\label{Exercise 4.68}Exercise 4.68:} Define rules to implement the
+\phantomsection\label{Exercise 4.68}
+\exerciseHeading{Exercise 4.68:} Define rules to implement the
 \code{reverse} operation of \link{Exercise 2.18}, which returns a list
 containing the same elements as a given list in reverse order.  (Hint: Use
 \code{append\-/to\-/form}.)  Can your rules answer both \code{(reverse (1 2 3) ?x)}
 and \code{(reverse ?x (1 2 3))} ?
 
-\exerciseHeading{\phantomsection\label{Exercise 4.69}Exercise 4.69:} Beginning with the data base and
+\phantomsection\label{Exercise 4.69}
+\exerciseHeading{Exercise 4.69:} Beginning with the data base and
 the rules you formulated in \link{Exercise 4.63}, devise a rule for adding
 ``greats'' to a grandson relationship. This should enable the system to deduce
 that Irad is the great-grandson of Adam, or that Jabal and Jubal are the
@@ -6564,7 +6600,8 @@ pattern starts with a constant symbol.
 \end{codeBlock}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 4.70}Exercise 4.70:} What is the purpose of the
+\phantomsection\label{Exercise 4.70}
+\exerciseHeading{Exercise 4.70:} What is the purpose of the
 \code{let} bindings in the procedures \code{add\-/assertion!} and
 \code{add\-/rule!} ?  What would be wrong with the following implementation of
 \code{add\-/assertion!} ?  Hint: Recall the definition of the infinite stream of
@@ -6794,7 +6831,8 @@ Frames are represented as lists of bindings, which are variable-value pairs:
 \end{codeBlock}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 4.71}Exercise 4.71:} Louis Reasoner wonders why the
+\phantomsection\label{Exercise 4.71}
+\exerciseHeading{Exercise 4.71:} Louis Reasoner wonders why the
 \code{simple\-/query} and \code{disjoin} procedures (\link{Section 4.4.4.2}) are
 implemented using explicit \code{delay} operations, rather than being defined
 as follows:
@@ -6820,12 +6858,14 @@ as follows:
 Can you give examples of queries where these simpler definitions would lead to
 undesirable behavior?
 
-\exerciseHeading{\phantomsection\label{Exercise 4.72}Exercise 4.72:} Why do \code{disjoin} and
+\phantomsection\label{Exercise 4.72}
+\exerciseHeading{Exercise 4.72:} Why do \code{disjoin} and
 \code{stream\-/flatmap} interleave the streams rather than simply append them?
 Give examples that illustrate why interleaving works better.  (Hint: Why did we
 use \code{interleave} in \link{Section 3.5.3}?)
 
-\exerciseHeading{\phantomsection\label{Exercise 4.73}Exercise 4.73:} Why does \code{flatten\-/stream}
+\phantomsection\label{Exercise 4.73}
+\exerciseHeading{Exercise 4.73:} Why does \code{flatten\-/stream}
 use \code{delay} explicitly?  What would be wrong with defining it as follows:
 
 \begin{codeBlock}
@@ -6837,7 +6877,8 @@ use \code{delay} explicitly?  What would be wrong with defining it as follows:
        (flatten-stream (stream-cdr stream)))))
 \end{codeBlock}
 
-\exerciseHeading{\phantomsection\label{Exercise 4.74}Exercise 4.74:} Alyssa P. Hacker proposes to use
+\phantomsection\label{Exercise 4.74}
+\exerciseHeading{Exercise 4.74:} Alyssa P. Hacker proposes to use
 a simpler version of \code{stream\-/flatmap} in \code{negate}, \code{lisp\-/value},
 and \code{find\-/assertions}.  She observes that the procedure that is mapped
 over the frame stream in these cases always produces either the empty stream or
@@ -6861,7 +6902,8 @@ Does the query system's behavior change if we change it in this way?
 
 \end{enumerate}
 
-\exerciseHeading{\phantomsection\label{Exercise 4.75}Exercise 4.75:} Implement for the query language
+\phantomsection\label{Exercise 4.75}
+\exerciseHeading{Exercise 4.75:} Implement for the query language
 a new special form called \code{unique}.  \code{unique} should succeed if there
 is precisely one item in the data base satisfying a specified query.  For
 example,
@@ -6922,7 +6964,8 @@ This is similar to the implementation of the \code{not} special form.
 Test your implementation by forming a query that lists all people who supervise
 precisely one person.
 
-\exerciseHeading{\phantomsection\label{Exercise 4.76}Exercise 4.76:} Our implementation of \code{and}
+\phantomsection\label{Exercise 4.76}
+\exerciseHeading{Exercise 4.76:} Our implementation of \code{and}
 as a series combination of queries (\link{Figure 4.5}) is elegant, but it is
 inefficient because in processing the second query of the \code{and} we must
 scan the data base for each frame produced by the first query.  If the data
@@ -6940,7 +6983,8 @@ implement a procedure that takes two frames as inputs, checks whether the
 bindings in the frames are compatible, and, if so, produces a frame that merges
 the two sets of bindings.  This operation is similar to unification.
 
-\exerciseHeading{\phantomsection\label{Exercise 4.77}Exercise 4.77:} In \link{Section 4.4.3} we saw
+\phantomsection\label{Exercise 4.77}
+\exerciseHeading{Exercise 4.77:} In \link{Section 4.4.3} we saw
 that \code{not} and \code{lisp\-/value} can cause the query language to give
 ``wrong'' answers if these filtering operations are applied to frames in which
 variables are unbound.  Devise a way to fix this shortcoming.  One idea is to
@@ -6951,7 +6995,8 @@ all other operations have been performed.  However, for efficiency's sake, we
 would like to perform filtering as soon as possible so as to cut down on the
 number of intermediate frames generated.
 
-\exerciseHeading{\phantomsection\label{Exercise 4.78}Exercise 4.78:} Redesign the query language as a
+\phantomsection\label{Exercise 4.78}
+\exerciseHeading{Exercise 4.78:} Redesign the query language as a
 nondeterministic program to be implemented using the evaluator of
 \link{Section 4.3}, rather than as a stream process.  In this approach, each query will
 produce a single answer (rather than the stream of all answers) and the user
@@ -6961,7 +7006,8 @@ and backtracking.  You will probably also find, however, that your new query
 language has subtle differences in behavior from the one implemented here.  Can
 you find examples that illustrate this difference?
 
-\exerciseHeading{\phantomsection\label{Exercise 4.79}Exercise 4.79:} When we implemented the Lisp
+\phantomsection\label{Exercise 4.79}
+\exerciseHeading{Exercise 4.79:} When we implemented the Lisp
 evaluator in \link{Section 4.1}, we saw how to use local environments to avoid
 name conflicts between the parameters of procedures.  For example, in
 evaluating

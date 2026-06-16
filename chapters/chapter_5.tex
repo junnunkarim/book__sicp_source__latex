@@ -170,7 +170,8 @@ reaches \code{done}, we will find the value of the \acronym{GCD} in register
 \code{a}.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 5.1}Exercise 5.1:} Design a register machine to
+\phantomsection\label{Exercise 5.1}
+\exerciseHeading{Exercise 5.1:} Design a register machine to
 compute factorials using the iterative algorithm specified by the following
 procedure.  Draw data-path and controller diagrams for this machine.
 
@@ -210,7 +211,6 @@ together with \newterm{labels} that identify \newterm{entry points} in the
 sequence. An instruction is one of the following:
 
 \begin{itemize}
-
 \item
 The name of a data-path button to push to assign a value to a register.  (This
 corresponds to a box in the controller diagram.)
@@ -229,7 +229,6 @@ the label.
 \item
 An unconditional branch (\code{goto} instruction) naming a controller label at
 which to continue execution.
-
 \end{itemize}
 
 \noindent
@@ -310,7 +309,6 @@ This form of description is easier to read than the kind illustrated in
 \link{Figure 5.3}, but it also has disadvantages:
 
 \begin{itemize}
-
 \item
 It is more verbose for large machines, because complete descriptions of the
 data-path elements are repeated whenever the elements are mentioned in the
@@ -326,7 +324,6 @@ expressions, it is easy to forget that they are not arbitrary Lisp expressions.
 They can notate only legal machine operations.  For example, operations can
 operate directly only on constants and the contents of registers, not on the
 results of other operations.
-
 \end{itemize}
 
 \noindent
@@ -337,7 +334,8 @@ We should keep in mind, however, that data-path design is crucial in designing
 real machines.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 5.2}Exercise 5.2:} Use the register-machine language
+\phantomsection\label{Exercise 5.2}
+\exerciseHeading{Exercise 5.2:} Use the register-machine language
 to describe the iterative factorial machine of \link{Exercise 5.1}.
 \end{exerciseGroup}
 
@@ -463,7 +461,8 @@ instructions that contains a loop, as shown in \link{Figure 5.6}.
 \end{codeFigure}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 5.3}Exercise 5.3:} Design a machine to compute square
+\phantomsection\label{Exercise 5.3}
+\exerciseHeading{Exercise 5.3:} Design a machine to compute square
 roots using Newton's method, as described in \link{Section 1.1.7}:
 
 \begin{codeBlock}
@@ -879,7 +878,8 @@ shows the controller sequence for this machine.
 \end{codeFigure}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 5.4}Exercise 5.4:} Specify register machines that
+\phantomsection\label{Exercise 5.4}
+\exerciseHeading{Exercise 5.4:} Specify register machines that
 implement each of the following procedures.  For each machine, write a
 controller instruction sequence and draw a diagram showing the data paths.
 
@@ -910,12 +910,14 @@ Iterative exponentiation:
 
 \end{enumerate}
 
-\exerciseHeading{\phantomsection\label{Exercise 5.5}Exercise 5.5:} Hand-simulate the factorial and
+\phantomsection\label{Exercise 5.5}
+\exerciseHeading{Exercise 5.5:} Hand-simulate the factorial and
 Fibonacci machines, using some nontrivial input (requiring execution of at
 least one recursive call).  Show the contents of the stack at each significant
 point in the execution.
 
-\exerciseHeading{\phantomsection\label{Exercise 5.6}Exercise 5.6:} Ben Bitdiddle observes that the
+\phantomsection\label{Exercise 5.6}
+\exerciseHeading{Exercise 5.6:} Ben Bitdiddle observes that the
 Fibonacci machine's controller sequence has an extra \code{save} and an extra
 \code{restore}, which can be removed to make a faster machine.  Where are these
 instructions?
@@ -1067,7 +1069,8 @@ in Scheme, because we will simulate low-level machine instructions, such as
 \code{assign}, by much more complex operations.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 5.7}Exercise 5.7:} Use the simulator to test the
+\phantomsection\label{Exercise 5.7}
+\exerciseHeading{Exercise 5.7:} Use the simulator to test the
 machines you designed in \link{Exercise 5.4}.
 \end{exerciseGroup}
 
@@ -1398,7 +1401,7 @@ designates.
 \code{extract\-/labels} works by sequentially scanning the elements of the
 \code{text} and accumulating the \code{insts} and the \code{labels}.  If an
 element is a symbol (and thus a label) an appropriate entry is added to the
-\code{labels} table.  Otherwise the element is accumulated onto the
+\code{labels} table. Otherwise the element is accumulated onto the
 \code{insts} list.\footnote{Using the \code{receive} procedure here is a way to
 get \code{extract\-/labels} to effectively return two values---\code{labels} and
 \code{insts}---without explicitly making a compound data structure to hold
@@ -1498,7 +1501,8 @@ Entries will be looked up in the table with
 \end{codeBlock}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 5.8}Exercise 5.8:} The following register-machine code
+\phantomsection\label{Exercise 5.8}
+\exerciseHeading{Exercise 5.8:} The following register-machine code
 is ambiguous, because the label \code{here} is defined more than once:
 
 \begin{codeBlock}
@@ -1849,17 +1853,20 @@ the operation table for the machine:
 \end{codeBlock}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 5.9}Exercise 5.9:} The treatment of machine operations
+\phantomsection\label{Exercise 5.9}
+\exerciseHeading{Exercise 5.9:} The treatment of machine operations
 above permits them to operate on labels as well as on constants and the
 contents of registers.  Modify the expression-processing procedures to enforce
 the condition that operations can be used only with registers and constants.
 
-\exerciseHeading{\phantomsection\label{Exercise 5.10}Exercise 5.10:} Design a new syntax for
+\phantomsection\label{Exercise 5.10}
+\exerciseHeading{Exercise 5.10:} Design a new syntax for
 register-machine instructions and modify the simulator to use your new syntax.
 Can you implement your new syntax without changing any part of the simulator
 except the syntax procedures in this section?
 
-\exerciseHeading{\phantomsection\label{Exercise 5.11}Exercise 5.11:} When we introduced \code{save}
+\phantomsection\label{Exercise 5.11}
+\exerciseHeading{Exercise 5.11:} When we introduced \code{save}
 and \code{restore} in \link{Section 5.1.4}, we didn't specify what would happen
 if you tried to restore a register that was not the last one saved, as in the
 sequence
@@ -1893,13 +1900,13 @@ operation initialize all the register stacks.
 
 \end{enumerate}
 
-\exerciseHeading{\phantomsection\label{Exercise 5.12}Exercise 5.12:} The simulator can be used to help
+\phantomsection\label{Exercise 5.12}
+\exerciseHeading{Exercise 5.12:} The simulator can be used to help
 determine the data paths required for implementing a machine with a given
 controller.  Extend the assembler to store the following information in the
 machine model:
 
 \begin{itemize}
-
 \item
 a list of all instructions, with duplicates removed, sorted by instruction type
 (\code{assign}, \code{goto}, and so on);
@@ -1917,14 +1924,14 @@ for each register, a list (without duplicates) of the sources from which it is
 assigned (for example, the sources for register \code{val} in the factorial
 machine of \link{Figure 5.11} are \code{(const 1)} and \code{((op *) (reg n)
 (reg val))}).
-
 \end{itemize}
 
 Extend the message-passing interface to the machine to provide access to this
 new information.  To test your analyzer, define the Fibonacci machine from
 \link{Figure 5.12} and examine the lists you constructed.
 
-\exerciseHeading{\phantomsection\label{Exercise 5.13}Exercise 5.13:} Modify the simulator so that it
+\phantomsection\label{Exercise 5.13}
+\exerciseHeading{Exercise 5.13:} Modify the simulator so that it
 uses the controller sequence to determine what registers the machine has rather
 than requiring a list of registers as an argument to \code{make\-/machine}.
 Instead of pre-allocating the registers in \code{make\-/machine}, you can
@@ -2000,7 +2007,8 @@ monitoring and debugging features that can be added to the register-machine
 simulator.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 5.14}Exercise 5.14:} Measure the number of pushes and
+\phantomsection\label{Exercise 5.14}
+\exerciseHeading{Exercise 5.14:} Measure the number of pushes and
 the maximum stack depth required to compute \( n! \) for various small values of
 \( n \) using the factorial machine shown in \link{Figure 5.11}.  From your data
 determine formulas in terms of \( n \) for the total number of push operations
@@ -2014,26 +2022,30 @@ did for the \acronym{GCD} machine in \link{Figure 5.4}), so that you will not
 have to repeatedly invoke \code{get\-/register\-/contents},
 \code{set\-/register\-/contents!}, and \code{start}.
 
-\exerciseHeading{\phantomsection\label{Exercise 5.15}Exercise 5.15:} Add \newterm{instruction
+\phantomsection\label{Exercise 5.15}
+\exerciseHeading{Exercise 5.15:} Add \newterm{instruction
 counting} to the register machine simulation.  That is, have the machine model
 keep track of the number of instructions executed.  Extend the machine model's
 interface to accept a new message that prints the value of the instruction
 count and resets the count to zero.
 
-\exerciseHeading{\phantomsection\label{Exercise 5.16}Exercise 5.16:} Augment the simulator to provide
+\phantomsection\label{Exercise 5.16}
+\exerciseHeading{Exercise 5.16:} Augment the simulator to provide
 for \newterm{instruction tracing}.  That is, before each instruction is
 executed, the simulator should print the text of the instruction.  Make the
 machine model accept \code{trace\-/on} and \code{trace\-/off} messages to turn
 tracing on and off.
 
-\exerciseHeading{\phantomsection\label{Exercise 5.17}Exercise 5.17:} Extend the instruction tracing of
+\phantomsection\label{Exercise 5.17}
+\exerciseHeading{Exercise 5.17:} Extend the instruction tracing of
 \link{Exercise 5.16} so that before printing an instruction, the simulator
 prints any labels that immediately precede that instruction in the controller
 sequence.  Be careful to do this in a way that does not interfere with
 instruction counting (\link{Exercise 5.15}).  You will have to make the
 simulator retain the necessary label information.
 
-\exerciseHeading{\phantomsection\label{Exercise 5.18}Exercise 5.18:} Modify the \code{make\-/register}
+\phantomsection\label{Exercise 5.18}
+\exerciseHeading{Exercise 5.18:} Modify the \code{make\-/register}
 procedure of \link{Section 5.2.1} so that registers can be traced.  Registers
 should accept messages that turn tracing on and off.  When a register is
 traced, assigning a value to the register should print the name of the
@@ -2041,7 +2053,8 @@ register, the old contents of the register, and the new contents being
 assigned.  Extend the interface to the machine model to permit you to turn
 tracing on and off for designated machine registers.
 
-\exerciseHeading{\phantomsection\label{Exercise 5.19}Exercise 5.19:} Alyssa P. Hacker wants a
+\phantomsection\label{Exercise 5.19}
+\exerciseHeading{Exercise 5.19:} Alyssa P. Hacker wants a
 \newterm{breakpoint} feature in the simulator to help her debug her machine
 designs.  You have been hired to install this feature for her.  She wants to be
 able to specify a place in the controller sequence where the simulator will
@@ -2144,7 +2157,6 @@ index, since accessing the \( n^{\mathrm{th}} \) element of a list requires \( n
 primitive Scheme procedures for manipulating vectors:
 
 \begin{itemize}
-
 \item
 \code{(vector\-/ref \( \langle \)\var{vector}\( \rangle \) \( \langle \)\var{n}\( \rangle \))} returns the \( n^{\mathrm{th}} \)
 element of the vector.
@@ -2152,7 +2164,6 @@ element of the vector.
 \item
 \code{(vector\-/set! \( \langle \)\var{vector}\( \rangle \) \( \langle \)\var{n}\( \rangle \) \( \langle \)\var{value}\( \rangle \))}
 sets the \( n^{\mathrm{th}} \) element of the vector to the designated value.
-
 \end{itemize}
 
 \noindent
@@ -2386,7 +2397,8 @@ popping the stack can be accomplished by incrementing or decrementing an index
 into that vector.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 5.20}Exercise 5.20:} Draw the box-and-pointer
+\phantomsection\label{Exercise 5.20}
+\exerciseHeading{Exercise 5.20:} Draw the box-and-pointer
 representation and the memory-vector representation (as in \link{Figure 5.14})
 of the list structure produced by
 
@@ -2399,7 +2411,8 @@ of the list structure produced by
 with the \code{free} pointer initially \code{p1}.  What is the final value of
 \code{free} ?  What pointers represent the values of \code{x} and \code{y} ?
 
-\exerciseHeading{\phantomsection\label{Exercise 5.21}Exercise 5.21:} Implement register machines for
+\phantomsection\label{Exercise 5.21}
+\exerciseHeading{Exercise 5.21:} Implement register machines for
 the following procedures.  Assume that the list-structure memory operations are
 available as machine primitives.
 
@@ -2432,7 +2445,8 @@ Recursive \code{count\-/leaves} with explicit counter:
 \end{codeBlock}
 \end{enumerate}
 
-\exerciseHeading{\phantomsection\label{Exercise 5.22}Exercise 5.22:} \link{Exercise 3.12} of
+\phantomsection\label{Exercise 5.22}
+\exerciseHeading{Exercise 5.22:} \link{Exercise 3.12} of
 \link{Section 3.3.1} presented an \code{append} procedure that appends two lists to form
 a new list and an \code{append!} procedure that splices two lists together.
 Design a register machine to implement each of these procedures.  Assume that
@@ -3402,7 +3416,8 @@ ev-definition-1
 \end{codeBlock}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 5.23}Exercise 5.23:} Extend the evaluator to handle
+\phantomsection\label{Exercise 5.23}
+\exerciseHeading{Exercise 5.23:} Extend the evaluator to handle
 derived expressions such as \code{cond}, \code{let}, and so on
 (\link{Section 4.1.2}).  You may ``cheat'' and assume that the syntax transformers such
 as \code{cond\-/>if} are available as machine operations.\footnote{This isn't
@@ -3411,13 +3426,15 @@ our explicit-control evaluator to interpret a Scheme program that performs
 source-level transformations like \code{cond\-/>if} in a syntax phase that runs
 before execution.}
 
-\exerciseHeading{\phantomsection\label{Exercise 5.24}Exercise 5.24:} Implement \code{cond} as a new
+\phantomsection\label{Exercise 5.24}
+\exerciseHeading{Exercise 5.24:} Implement \code{cond} as a new
 basic special form without reducing it to \code{if}.  You will have to
 construct a loop that tests the predicates of successive \code{cond} clauses
 until you find one that is true, and then use \code{ev\-/sequence} to evaluate
 the actions of the clause.
 
-\exerciseHeading{\phantomsection\label{Exercise 5.25}Exercise 5.25:} Modify the evaluator so that it
+\phantomsection\label{Exercise 5.25}
+\exerciseHeading{Exercise 5.25:} Modify the evaluator so that it
 uses normal-order evaluation, based on the lazy evaluator of \link{Section 4.2}.
 \end{exerciseGroup}
 
@@ -3592,7 +3609,8 @@ of each interaction, so that the statistics printed will refer only to stack
 operations used to evaluate the previous expression.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 5.26}Exercise 5.26:} Use the monitored stack to
+\phantomsection\label{Exercise 5.26}
+\exerciseHeading{Exercise 5.26:} Use the monitored stack to
 explore the tail-recursive property of the evaluator (\link{Section 5.4.2}).
 Start the evaluator and define the iterative \code{factorial} procedure from
 \link{Section 1.2.1}:
@@ -3624,7 +3642,8 @@ by two constants.
 
 \end{enumerate}
 
-\exerciseHeading{\phantomsection\label{Exercise 5.27}Exercise 5.27:} For comparison with \link{Exercise 5.26},
+\phantomsection\label{Exercise 5.27}
+\exerciseHeading{Exercise 5.27:} For comparison with \link{Exercise 5.26},
 explore the behavior of the following procedure for computing factorials
 recursively:
 
@@ -3656,14 +3675,16 @@ The maximum depth is a measure of the amount of space used by the evaluator in
 carrying out the computation, and the number of pushes correlates well with the
 time required.
 
-\exerciseHeading{\phantomsection\label{Exercise 5.28}Exercise 5.28:} Modify the definition of the
+\phantomsection\label{Exercise 5.28}
+\exerciseHeading{Exercise 5.28:} Modify the definition of the
 evaluator by changing \code{eval\-/sequence} as described in \link{Section 5.4.2}
 so that the evaluator is no longer tail-recursive.  Rerun your experiments from
 \link{Exercise 5.26} and \link{Exercise 5.27} to demonstrate that both versions
 of the \code{factorial} procedure now require space that grows linearly with
 their input.
 
-\exerciseHeading{\phantomsection\label{Exercise 5.29}Exercise 5.29:} Monitor the stack operations in
+\phantomsection\label{Exercise 5.29}
+\exerciseHeading{Exercise 5.29:} Monitor the stack operations in
 the tree-recursive Fibonacci computation:
 
 \begin{codeBlock}
@@ -3693,7 +3714,8 @@ constant \( k \) that is independent of \( n \).  Give the formula, and say what
 
 \end{enumerate}
 
-\exerciseHeading{\phantomsection\label{Exercise 5.30}Exercise 5.30:} Our evaluator currently catches
+\phantomsection\label{Exercise 5.30}
+\exerciseHeading{Exercise 5.30:} Our evaluator currently catches
 and signals only two kinds of errors---unknown expression types and unknown
 procedure types.  Other errors will take us out of the evaluator
 read-eval-print loop.  When we run the evaluator using the register-machine
@@ -3957,7 +3979,6 @@ it has finished its execution.  The linkage descriptor can require that the
 code do one of the following three things:
 
 \begin{itemize}
-
 \item
 continue at the next instruction in sequence (this is specified by the linkage
 descriptor \code{next}),
@@ -3969,7 +3990,6 @@ descriptor \code{return}), or
 \item
 jump to a named entry point (this is specified by using the designated label as
 the linkage descriptor).
-
 \end{itemize}
 
 \noindent
@@ -4083,7 +4103,6 @@ component sequences.
 An instruction sequence will contain three pieces of information:
 
 \begin{itemize}
-
 \item
 the set of registers that must be initialized before the instructions in the
 sequence are executed (these registers are said to be \newterm{needed} by the
@@ -4095,7 +4114,6 @@ sequence, and
 
 \item
 the actual instructions (also called \newterm{statements}) in the sequence.
-
 \end{itemize}
 
 \noindent
@@ -4139,7 +4157,8 @@ The procedures for combining instruction sequences are shown in
 \link{Section 5.5.4}.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 5.31}Exercise 5.31:} In evaluating a procedure
+\phantomsection\label{Exercise 5.31}
+\exerciseHeading{Exercise 5.31:} In evaluating a procedure
 application, the explicit-control evaluator always saves and restores the
 \code{env} register around the evaluation of the operator, saves and restores
 \code{env} around the evaluation of each operand (except the final one), saves
@@ -4156,7 +4175,8 @@ compiler's \code{preserving} mechanism:
 (f (g 'x) 'y)
 \end{codeBlock}
 
-\exerciseHeading{\phantomsection\label{Exercise 5.32}Exercise 5.32:} Using the \code{preserving}
+\phantomsection\label{Exercise 5.32}
+\exerciseHeading{Exercise 5.32:} Using the \code{preserving}
 mechanism, the compiler will avoid saving and restoring \code{env} around the
 evaluation of the operator of a combination in the case where the operator is a
 symbol.  We could also build such optimizations into the evaluator.  Indeed,
@@ -5356,7 +5376,8 @@ procedure call in the predicate and needed for the procedure call and the
 \code{return} linkage in the branches.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 5.33}Exercise 5.33:} Consider the following definition
+\phantomsection\label{Exercise 5.33}
+\exerciseHeading{Exercise 5.33:} Consider the following definition
 of a factorial procedure, which is slightly different from the one given above:
 
 \begin{codeBlock}
@@ -5370,7 +5391,8 @@ Compile this procedure and compare the resulting code with that produced for
 \code{factorial}.  Explain any differences you find.  Does either program
 execute more efficiently than the other?
 
-\exerciseHeading{\phantomsection\label{Exercise 5.34}Exercise 5.34:} Compile the iterative factorial
+\phantomsection\label{Exercise 5.34}
+\exerciseHeading{Exercise 5.34:} Compile the iterative factorial
 procedure
 
 \begin{codeBlock}
@@ -5526,7 +5548,8 @@ after-lambda1
 \end{compactCodeBlock}
 \end{codeFigure}
 
-\exerciseHeading{\phantomsection\label{Exercise 5.35}Exercise 5.35:} What expression was compiled to
+\phantomsection\label{Exercise 5.35}
+\exerciseHeading{Exercise 5.35:} What expression was compiled to
 produce the code shown in \link{Figure 5.18}?
 
 % figure 5.18
@@ -5625,7 +5648,8 @@ after-lambda15
 \end{compactCodeBlock}
 \end{codeFigure}
 
-\exerciseHeading{\phantomsection\label{Exercise 5.36}Exercise 5.36:} What order of evaluation does our
+\phantomsection\label{Exercise 5.36}
+\exerciseHeading{Exercise 5.36:} What order of evaluation does our
 compiler produce for operands of a combination?  Is it left-to-right,
 right-to-left, or some other order?  Where in the compiler is this order
 determined?  Modify the compiler so that it produces some other order of
@@ -5634,7 +5658,8 @@ explicit-control evaluator in \link{Section 5.4.1}.)  How does changing the
 order of operand evaluation affect the efficiency of the code that constructs
 the argument list?
 
-\exerciseHeading{\phantomsection\label{Exercise 5.37}Exercise 5.37:} One way to understand the
+\phantomsection\label{Exercise 5.37}
+\exerciseHeading{Exercise 5.37:} One way to understand the
 compiler's \code{preserving} mechanism for optimizing stack usage is to see
 what extra operations would be generated if we did not use this idea.  Modify
 \code{preserving} so that it always generates the \code{save} and
@@ -5642,7 +5667,8 @@ what extra operations would be generated if we did not use this idea.  Modify
 unnecessary stack operations that are generated.  Compare the code to that
 generated with the \code{preserving} mechanism intact.
 
-\exerciseHeading{\phantomsection\label{Exercise 5.38}Exercise 5.38:} Our compiler is clever about
+\phantomsection\label{Exercise 5.38}
+\exerciseHeading{Exercise 5.38:} Our compiler is clever about
 avoiding unnecessary stack operations, but it is not clever at all when it
 comes to compiling calls to the primitive procedures of the language in terms
 of the primitive operations supplied by the machine.  For example, consider how
@@ -5823,7 +5849,8 @@ lookup into the compiler.  \link{Exercise 5.44} describes another use for the
 compile-time environment.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 5.39}Exercise 5.39:} Write a procedure
+\phantomsection\label{Exercise 5.39}
+\exerciseHeading{Exercise 5.39:} Write a procedure
 \code{lexical\-/address\-/lookup} that implements the new lookup operation.  It
 should take two arguments---a lexical address and a run-time environment---and
 return the value of the variable stored at the specified lexical address.
@@ -5835,12 +5862,14 @@ definitions in order for lexical addressing to work.} Also write a procedure
 \code{lexical\-/address\-/set!} that implements the operation that changes the
 value of the variable at a specified lexical address.
 
-\exerciseHeading{\phantomsection\label{Exercise 5.40}Exercise 5.40:} Modify the compiler to maintain
+\phantomsection\label{Exercise 5.40}
+\exerciseHeading{Exercise 5.40:} Modify the compiler to maintain
 the compile-time environment as described above.  That is, add a
 compile-time-environment argument to \code{compile} and the various code
 generators, and extend it in \code{compile\-/lambda\-/body}.
 
-\exerciseHeading{\phantomsection\label{Exercise 5.41}Exercise 5.41:} Write a procedure
+\phantomsection\label{Exercise 5.41}
+\exerciseHeading{Exercise 5.41:} Write a procedure
 \code{find\-/variable} that takes as arguments a variable and a compile-time
 environment and returns the lexical address of the variable with respect to
 that environment.  For example, in the program fragment that is shown above,
@@ -5856,7 +5885,8 @@ the compile-time environment during the compilation of expression \( \langle \)\
 ~\textit{not-found}~
 \end{codeBlock}
 
-\exerciseHeading{\phantomsection\label{Exercise 5.42}Exercise 5.42:} Using \code{find\-/variable} from
+\phantomsection\label{Exercise 5.42}
+\exerciseHeading{Exercise 5.42:} Using \code{find\-/variable} from
 \link{Exercise 5.41}, rewrite \code{compile\-/variable} and
 \code{compile\-/assignment} to output lexical-address instructions.  In cases
 where \code{find\-/variable} returns \code{not\-/found} (that is, where the
@@ -5877,7 +5907,8 @@ run-time environment found in \code{env}.)  Test the modified compiler on a few
 simple cases, such as the nested \code{lambda} combination at the beginning of
 this section.
 
-\exerciseHeading{\phantomsection\label{Exercise 5.43}Exercise 5.43:} We argued in \link{Section 4.1.6}
+\phantomsection\label{Exercise 5.43}
+\exerciseHeading{Exercise 5.43:} We argued in \link{Section 4.1.6}
 that internal definitions for block structure should not be considered ``real''
 \code{define}s.  Rather, a procedure body should be interpreted as if the
 internal variables being defined were installed as ordinary \code{lambda}
@@ -5887,7 +5918,8 @@ interpreter to accomplish this by scanning out internal definitions.  Modify
 the compiler to perform the same transformation before it compiles a procedure
 body.
 
-\exerciseHeading{\phantomsection\label{Exercise 5.44}Exercise 5.44:} In this section we have focused
+\phantomsection\label{Exercise 5.44}
+\exerciseHeading{Exercise 5.44:} In this section we have focused
 on the use of the compile-time environment to produce lexical addresses.  But
 there are other uses for compile-time environments.  For instance, in
 \link{Exercise 5.38} we increased the efficiency of compiled code by open-coding
@@ -6146,7 +6178,8 @@ minuscule details.}  Or we can compile one of the interpreters of
 \link{Section 4.1} to produce an interpreter that runs on the new machine.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 5.45}Exercise 5.45:} By comparing the stack operations
+\phantomsection\label{Exercise 5.45}
+\exerciseHeading{Exercise 5.45:} By comparing the stack operations
 used by compiled code to the stack operations used by the evaluator for the
 same computation, we can determine the extent to which the compiler optimizes
 use of the stack, both in speed (reducing the total number of stack operations)
@@ -6183,7 +6216,8 @@ that would come closer in performance to the hand-tailored version?
 
 \end{enumerate}
 
-\exerciseHeading{\phantomsection\label{Exercise 5.46}Exercise 5.46:} Carry out an analysis like the
+\phantomsection\label{Exercise 5.46}
+\exerciseHeading{Exercise 5.46:} Carry out an analysis like the
 one in \link{Exercise 5.45} to determine the effectiveness of compiling the
 tree-recursive Fibonacci procedure
 
@@ -6202,7 +6236,8 @@ compared to the effectiveness of using the special-purpose Fibonacci machine of
 \( n; \) hence the ratios of stack operations will not approach a limiting value
 that is independent of \( n \).
 
-\exerciseHeading{\phantomsection\label{Exercise 5.47}Exercise 5.47:} This section described how to
+\phantomsection\label{Exercise 5.47}
+\exerciseHeading{Exercise 5.47:} This section described how to
 modify the explicit-control evaluator so that interpreted code can call
 compiled procedures.  Show how to modify the compiler so that compiled
 procedures can call not only primitive procedures and compiled procedures, but
@@ -6228,7 +6263,8 @@ procedure \code{g}.  Use \code{compile\-/and\-/go} to compile the definition of
 \code{f} and start the evaluator.  Now, typing at the evaluator, define
 \code{g} and try to call \code{f}.
 
-\exerciseHeading{\phantomsection\label{Exercise 5.48}Exercise 5.48:} The \code{compile\-/and\-/go}
+\phantomsection\label{Exercise 5.48}
+\exerciseHeading{Exercise 5.48:} The \code{compile\-/and\-/go}
 interface implemented in this section is awkward, since the compiler can be
 called only once (when the evaluator machine is started).  Augment the
 compiler-interpreter interface by providing a \code{compile\-/and\-/run} primitive
@@ -6247,7 +6283,8 @@ that can be called from within the explicit-control evaluator as follows:
 ~\textit{120}~
 \end{codeBlock}
 
-\exerciseHeading{\phantomsection\label{Exercise 5.49}Exercise 5.49:} As an alternative to using the
+\phantomsection\label{Exercise 5.49}
+\exerciseHeading{Exercise 5.49:} As an alternative to using the
 explicit-control evaluator's read-eval-print loop, design a register machine
 that performs a read-compile-execute-print loop.  That is, the machine should
 run a loop that reads an expression, compiles it, assembles and executes the
@@ -6255,20 +6292,23 @@ resulting code, and prints the result.  This is easy to run in our simulated
 setup, since we can arrange to call the procedures \code{compile} and
 \code{assemble} as ``register-machine operations.''
 
-\exerciseHeading{\phantomsection\label{Exercise 5.50}Exercise 5.50:} Use the compiler to compile the
+\phantomsection\label{Exercise 5.50}
+\exerciseHeading{Exercise 5.50:} Use the compiler to compile the
 metacircular evaluator of \link{Section 4.1} and run this program using the
 register-machine simulator.  (To compile more than one definition at a time,
 you can package the definitions in a \code{begin}.)  The resulting interpreter
 will run very slowly because of the multiple levels of interpretation, but
 getting all the details to work is an instructive exercise.
 
-\exerciseHeading{\phantomsection\label{Exercise 5.51}Exercise 5.51:} Develop a rudimentary
+\phantomsection\label{Exercise 5.51}
+\exerciseHeading{Exercise 5.51:} Develop a rudimentary
 implementation of Scheme in C (or some other low-level language of your choice)
 by translating the explicit-control evaluator of \link{Section 5.4} into C.  In
 order to run this code you will need to also provide appropriate
 storage-allocation routines and other run-time support.
 
-\exerciseHeading{\phantomsection\label{Exercise 5.52}Exercise 5.52:} As a counterpoint to
+\phantomsection\label{Exercise 5.52}
+\exerciseHeading{Exercise 5.52:} As a counterpoint to
 \link{Exercise 5.51}, modify the compiler so that it compiles Scheme procedures
 into sequences of C instructions.  Compile the metacircular evaluator of
 \link{Section 4.1} to produce a Scheme interpreter written in C.

@@ -9,7 +9,7 @@
 \newcommand{\acronym}[1]{#1}
 
 \newcommand{\newterm}[1]{\index{#1}\emph{#1}}
-\newcommand{\link}[1]{\mbox{\hyperref[#1]{#1}}}
+\newcommand{\link}[1]{\hyperref[#1]{#1}}
 
 % reset previous environment using "\upshape"
 \newcommand{\var}[1]{{\upshape\textsl{#1}}}
@@ -17,7 +17,7 @@
 
 \newcommand{\exerciseHeading}[1]{%
   \needspace{2\baselineskip}%
-  {\sffamily\bfseries #1}%
+  \MakeUppercase{\sffamily\bfseries #1}%
 }
 
 \newcommand{\mono}[1]{%
@@ -49,7 +49,7 @@
 }
 
 \lstnewenvironment{codeBlock}[1][]{%
-  \upshape
+  \upshape%
   \lstset{%
     basicstyle=\ttfamily\small\color{SchemeLight},%
     #1%

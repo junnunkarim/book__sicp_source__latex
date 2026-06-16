@@ -1,6 +1,8 @@
 <h1 align="center"><i><u>SICP</u></i></h1>
 
-![SICP new front cover](assets/covers/sicp_book_cover__front.png)
+<p align="center">
+  <img src="assets/covers/sicp_book_cover__front.png" alt="SICP new front cover" width="50%" />
+</p>
 
 <b>PDF download link:
 [releases](https://github.com/junnunkarim/book__sicp_source__latex/releases)</b>

@@ -363,7 +363,8 @@ will produce a completely separate account object, which maintains its own
 local \code{balance}.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 3.1}Exercise 3.1:} An \newterm{accumulator} is a
+\phantomsection\label{Exercise 3.1}
+\exerciseHeading{Exercise 3.1:} An \newterm{accumulator} is a
 procedure that is called repeatedly with a single numeric argument and
 accumulates its arguments into a sum.  Each time it is called, it returns the
 currently accumulated sum.  Write a procedure \code{make\-/accumulator} that
@@ -379,7 +380,8 @@ example
 ~\textit{25}~
 \end{codeBlock}
 
-\exerciseHeading{\phantomsection\label{Exercise 3.2}Exercise 3.2:} In software-testing applications,
+\phantomsection\label{Exercise 3.2}
+\exerciseHeading{Exercise 3.2:} In software-testing applications,
 it is useful to be able to count the number of times a given procedure is
 called during the course of a computation.  Write a procedure
 \code{make\-/monitored} that takes as input a procedure, \code{f}, that itself
@@ -400,7 +402,8 @@ could make a monitored version of the \code{sqrt} procedure:
 ~\textit{1}~
 \end{codeBlock}
 
-\exerciseHeading{\phantomsection\label{Exercise 3.3}Exercise 3.3:} Modify the \code{make\-/account}
+\phantomsection\label{Exercise 3.3}
+\exerciseHeading{Exercise 3.3:} Modify the \code{make\-/account}
 procedure so that it creates password-protected accounts.  That is,
 \code{make\-/account} should take a symbol as an additional argument, as in
 
@@ -419,7 +422,8 @@ a complaint:
 ~\textit{"Incorrect password"}~
 \end{codeBlock}
 
-\exerciseHeading{\phantomsection\label{Exercise 3.4}Exercise 3.4:} Modify the \code{make\-/account}
+\phantomsection\label{Exercise 3.4}
+\exerciseHeading{Exercise 3.4:} Modify the \code{make\-/account}
 procedure of \link{Exercise 3.3} by adding another local state variable so that,
 if an account is accessed more than seven consecutive times with an incorrect
 password, it invokes the procedure \code{call\-/the\-/cops}.
@@ -586,7 +590,8 @@ manipulated explicitly, by passing additional parameters.  Unfortunately, as we
 shall see, the story is not so simple.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 3.5}Exercise 3.5:} \newterm{Monte Carlo integration}
+\phantomsection\label{Exercise 3.5}
+\exerciseHeading{Exercise 3.5:} \newterm{Monte Carlo integration}
 is a method of estimating definite integrals by means of Monte Carlo
 simulation.  Consider computing the area of a region of space described by a
 predicate \( P(x, y) \) that is true for points \( (x, y) \) in the
@@ -628,7 +633,8 @@ returns a decimal value.}
     (+ low (random range))))
 \end{codeBlock}
 
-\exerciseHeading{\phantomsection\label{Exercise 3.6}Exercise 3.6:} It is useful to be able to reset a
+\phantomsection\label{Exercise 3.6}
+\exerciseHeading{Exercise 3.6:} It is useful to be able to reset a
 random-number generator to produce a sequence starting from a given value.
 Design a new \code{rand} procedure that is called with an argument that is
 either the symbol \code{generate} or the symbol \code{reset} and behaves as
@@ -962,7 +968,8 @@ providing a computational model for expressions that involve assignment, and
 explore the uses of objects with local state in designing simulations.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 3.7}Exercise 3.7:} Consider the bank account objects
+\phantomsection\label{Exercise 3.7}
+\exerciseHeading{Exercise 3.7:} Consider the bank account objects
 created by \code{make\-/account}, with the password modification described in
 \link{Exercise 3.3}.  Suppose that our banking system requires the ability to
 make joint accounts.  Define a procedure \code{make\-/joint} that accomplishes
@@ -984,7 +991,8 @@ will allow one to make transactions on \code{peter\-/acc} using the name
 \code{paul\-/acc} and the password \code{rosebud}.  You may wish to modify your
 solution to \link{Exercise 3.3} to accommodate this new feature.
 
-\exerciseHeading{\phantomsection\label{Exercise 3.8}Exercise 3.8:} When we defined the evaluation
+\phantomsection\label{Exercise 3.8}
+\exerciseHeading{Exercise 3.8:} When we defined the evaluation
 model in \link{Section 1.1.3}, we said that the first step in evaluating an
 expression is to evaluate its subexpressions.  But we never specified the order
 in which the subexpressions should be evaluated (e.g., left to right or right
@@ -1009,11 +1017,9 @@ substitution model of evaluation (\link{Section 1.1.5}) to define what is meant
 by applying a procedure to arguments:
 
 \begin{itemize}
-
 \item
 To apply a compound procedure to arguments, evaluate the body of the procedure
 with each formal parameter replaced by the corresponding argument.
-
 \end{itemize}
 
 \noindent
@@ -1077,14 +1083,10 @@ The overall specification of how the interpreter evaluates a combination
 remains the same as when we first introduced it in \link{Section 1.1.3}:
 
 \begin{itemize}
-
 \item
 To evaluate a combination:
 
-\end{itemize}
-
 \begin{enumerate}
-
 \item
 Evaluate the subexpressions of the combination.\footnote{Assignment introduces a
 subtlety into step 1 of the evaluation rule.  As shown in \link{Exercise 3.8},
@@ -1102,6 +1104,7 @@ Apply the value of the operator subexpression to the values of the operand
 subexpressions.
 
 \end{enumerate}
+\end{itemize}
 
 \noindent
 The environment model of evaluation replaces the substitution model in
@@ -1183,7 +1186,6 @@ Since the value of \code{x} in E1 is 5, the result is \code{(* 5 5)}, or 25.
 The environment model of procedure application can be summarized by two rules:
 
 \begin{itemize}
-
 \item
 A procedure object is applied to a set of arguments by constructing a frame,
 binding the formal parameters of the procedure to the arguments of the call,
@@ -1196,7 +1198,6 @@ A procedure is created by evaluating a λ-expression relative to a
 given environment.  The resulting procedure object is a pair consisting of the
 text of the λ-expression and a pointer to the environment in which
 the procedure was created.
-
 \end{itemize}
 
 \noindent
@@ -1308,7 +1309,8 @@ passed from call to call; however, this is also an important aspect of the
 evaluation process, and we will return to it in detail in \link{Chapter 5}.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 3.9}Exercise 3.9:} In \link{Section 1.2.1} we used the
+\phantomsection\label{Exercise 3.9}
+\exerciseHeading{Exercise 3.9:} In \link{Section 1.2.1} we used the
 substitution model to analyze two procedures for computing factorials, a
 recursive version
 
@@ -1488,7 +1490,8 @@ reference the \code{balance} stored in E2. Thus, changes to the local state of
 one object do not affect the other object.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 3.10}Exercise 3.10:} In the \code{make\-/withdraw}
+\phantomsection\label{Exercise 3.10}
+\exerciseHeading{Exercise 3.10:} In the \code{make\-/withdraw}
 procedure, the local variable \code{balance} is created as a parameter of
 \code{make\-/withdraw}.  We could also create the local state variable
 explicitly, using \code{let}, as follows:
@@ -1603,7 +1606,6 @@ The environment model thus explains the two key properties that make local
 procedure definitions a useful technique for modularizing programs:
 
 \begin{itemize}
-
 \item
 The names of the local procedures do not interfere with names external to the
 enclosing procedure, because the local procedure names will be bound in the
@@ -1615,11 +1617,11 @@ The local procedures can access the arguments of the enclosing procedure,
 simply by using parameter names as free variables.  This is because the body of
 the local procedure is evaluated in an environment that is subordinate to the
 evaluation environment for the enclosing procedure.
-
 \end{itemize}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 3.11}Exercise 3.11:} In \link{Section 3.2.3} we saw how
+\phantomsection\label{Exercise 3.11}
+\exerciseHeading{Exercise 3.11:} In \link{Section 3.2.3} we saw how
 the environment model described the behavior of procedures with local state.
 Now we have seen how internal definitions work.  A typical message-passing
 procedure contains both of these aspects.  Consider the bank account procedure
@@ -1792,7 +1794,8 @@ must be implemented as part of the memory management required by a Lisp
 implementation.  We will discuss this in \link{Section 5.3.1}.}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 3.12}Exercise 3.12:} The following procedure for
+\phantomsection\label{Exercise 3.12}
+\exerciseHeading{Exercise 3.12:} The following procedure for
 appending lists was introduced in \link{Section 2.2.1}:
 
 \begin{codeBlock}
@@ -1843,7 +1846,8 @@ w
 What are the missing \( \langle \)\var{response}\( \rangle \)s?
 Draw box-and-pointer \\ diagrams to explain your answer.
 
-\exerciseHeading{\phantomsection\label{Exercise 3.13}Exercise 3.13:} Consider the following
+\phantomsection\label{Exercise 3.13}
+\exerciseHeading{Exercise 3.13:} Consider the following
 \code{make\-/cycle} procedure, which uses the \code{last\-/pair} procedure defined
 in \link{Exercise 3.12}:
 
@@ -1861,7 +1865,8 @@ Draw a box-and-pointer diagram that shows the structure \code{z} created by
 
 What happens if we try to compute \code{(last\-/pair z)}?
 
-\exerciseHeading{\phantomsection\label{Exercise 3.14}Exercise 3.14:} The following procedure is quite
+\phantomsection\label{Exercise 3.14}
+\exerciseHeading{Exercise 3.14:} The following procedure is quite
 useful, although obscure:
 
 \begin{codeBlock}
@@ -1994,11 +1999,13 @@ is hardly a general way to resolve the issue of ``sameness'' in computational
 models.}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 3.15}Exercise 3.15:} Draw box-and-pointer diagrams to
+\phantomsection\label{Exercise 3.15}
+\exerciseHeading{Exercise 3.15:} Draw box-and-pointer diagrams to
 explain the effect of \code{set\-/to\-/wow!} on the structures \code{z1} and
 \code{z2} above.
 
-\exerciseHeading{\phantomsection\label{Exercise 3.16}Exercise 3.16:} Ben Bitdiddle decides to write a
+\phantomsection\label{Exercise 3.16}
+\exerciseHeading{Exercise 3.16:} Ben Bitdiddle decides to write a
 procedure to count the number of pairs in any list structure.  ``It's easy,''
 he reasons.  ``The number of pairs in any structure is the number in the
 \code{car} plus the number in the \code{cdr} plus one more to count the current
@@ -2017,18 +2024,21 @@ Show that this procedure is not correct.  In particular, draw box-and-pointer
 diagrams representing list structures made up of exactly three pairs for which
 Ben's procedure would return 3; return 4; return 7; never return at all.
 
-\exerciseHeading{\phantomsection\label{Exercise 3.17}Exercise 3.17:} Devise a correct version of the
+\phantomsection\label{Exercise 3.17}
+\exerciseHeading{Exercise 3.17:} Devise a correct version of the
 \code{count\-/pairs} procedure of \link{Exercise 3.16} that returns the number of
 distinct pairs in any structure.  (Hint: Traverse the structure, maintaining an
 auxiliary data structure that is used to keep track of which pairs have already
 been counted.)
 
-\exerciseHeading{\phantomsection\label{Exercise 3.18}Exercise 3.18:} Write a procedure that examines a
+\phantomsection\label{Exercise 3.18}
+\exerciseHeading{Exercise 3.18:} Write a procedure that examines a
 list and determines whether it contains a cycle, that is, whether a program
 that tried to find the end of the list by taking successive \code{cdr}s would
 go into an infinite loop.  \link{Exercise 3.13} constructed such lists.
 
-\exerciseHeading{\phantomsection\label{Exercise 3.19}Exercise 3.19:} Redo \link{Exercise 3.18} using an
+\phantomsection\label{Exercise 3.19}
+\exerciseHeading{Exercise 3.19:} Redo \link{Exercise 3.18} using an
 algorithm that takes only a constant amount of space.  (This requires a very
 clever idea.)
 \end{exerciseGroup}
@@ -2086,7 +2096,8 @@ assignment and mutation are equipotent: Each can be implemented in terms of the
 other.}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 3.20}Exercise 3.20:} Draw environment diagrams to
+\phantomsection\label{Exercise 3.20}
+\exerciseHeading{Exercise 3.20:} Draw environment diagrams to
 illustrate the evaluation of the sequence of expressions
 
 \begin{codeBlock}
@@ -2129,7 +2140,6 @@ In terms of data abstraction, we can regard a queue as defined by the following
 set of operations:
 
 \begin{itemize}
-
 \item
 a constructor: \code{(make\-/queue)} returns an empty queue (a queue containing
 no items).
@@ -2154,7 +2164,6 @@ value.
 \code{(delete\-/queue! \( \langle \)\var{queue}\( \rangle \))}
 removes the item at the front of the queue and returns the modified queue as
 its value, signaling an error if the queue is empty before the deletion.
-
 \end{itemize}
 
 \noindent
@@ -2295,7 +2304,8 @@ pointer.}
 \end{codeBlock}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 3.21}Exercise 3.21:} Ben Bitdiddle decides to test the
+\phantomsection\label{Exercise 3.21}
+\exerciseHeading{Exercise 3.21:} Ben Bitdiddle decides to test the
 queue implementation described above.  He types in the procedures to the Lisp
 interpreter and proceeds to try them out:
 
@@ -2323,7 +2333,8 @@ what Eva Lu is talking about.  In particular, show why Ben's examples produce
 the printed results that they do.  Define a procedure \code{print\-/queue} that
 takes a queue as input and prints the sequence of items in the queue.
 
-\exerciseHeading{\phantomsection\label{Exercise 3.22}Exercise 3.22:} Instead of representing a queue
+\phantomsection\label{Exercise 3.22}
+\exerciseHeading{Exercise 3.22:} Instead of representing a queue
 as a pair of pointers, we can build a queue as a procedure with local state.
 The local state will consist of pointers to the beginning and the end of an
 ordinary list.  Thus, the \code{make\-/queue} procedure will have the form
@@ -2340,7 +2351,8 @@ ordinary list.  Thus, the \code{make\-/queue} procedure will have the form
 Complete the definition of \code{make\-/queue} and provide implementations of the
 queue operations using this representation.
 
-\exerciseHeading{\phantomsection\label{Exercise 3.23}Exercise 3.23:} A \newterm{deque} (``double-ended
+\phantomsection\label{Exercise 3.23}
+\exerciseHeading{Exercise 3.23:} A \newterm{deque} (``double-ended
 queue'') is a sequence in which items can be inserted and deleted at either the
 front or the rear.  Operations on deques are the constructor \code{make\-/deque},
 the predicate \code{empty\-/deque?}, selectors \code{front\-/deque} and
@@ -2570,7 +2582,8 @@ keys and a value.  Both operations access the same local table, which is
 encapsulated within the object created by the call to \code{make\-/table}.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 3.24}Exercise 3.24:} In the table implementations
+\phantomsection\label{Exercise 3.24}
+\exerciseHeading{Exercise 3.24:} In the table implementations
 above, the keys are tested for equality using \code{equal?} (called by
 \code{assoc}).  This is not always the appropriate test.  For instance, we
 might have a table with numeric keys in which we don't need an exact match to
@@ -2581,13 +2594,15 @@ Design a table constructor \code{make\-/table} that takes as an argument a
 access appropriate \code{lookup} and \code{insert!} procedures for a local
 table.
 
-\exerciseHeading{\phantomsection\label{Exercise 3.25}Exercise 3.25:} Generalizing one- and
+\phantomsection\label{Exercise 3.25}
+\exerciseHeading{Exercise 3.25:} Generalizing one- and
 two-dimensional tables, show how to implement a table in which values are
 stored under an arbitrary number of keys and different values may be stored
 under different numbers of keys.  The \code{lookup} and \code{insert!}
 procedures should take as input a list of keys used to access the table.
 
-\exerciseHeading{\phantomsection\label{Exercise 3.26}Exercise 3.26:} To search a table as implemented
+\phantomsection\label{Exercise 3.26}
+\exerciseHeading{Exercise 3.26:} To search a table as implemented
 above, one needs to scan through the list of records.  This is basically the
 unordered list representation of \link{Section 2.3.3}.  For large tables, it may
 be more efficient to structure the table in a different manner.  Describe a
@@ -2595,7 +2610,8 @@ table implementation where the (key, value) records are organized using a
 binary tree, assuming that keys can be ordered in some way (e.g., numerically
 or alphabetically).  (Compare \link{Exercise 2.66} of \link{Chapter 2}.)
 
-\exerciseHeading{\phantomsection\label{Exercise 3.27}Exercise 3.27:} \newterm{Memoization} (also
+\phantomsection\label{Exercise 3.27}
+\exerciseHeading{Exercise 3.27:} \newterm{Memoization} (also
 called \newterm{tabulation}) is a technique that enables a procedure to record,
 in a local table, values that have previously been computed.  This technique
 can make a vast difference in the performance of a program.  A memoized
@@ -2802,7 +2818,6 @@ signal on one wire influences the signals on other wires.  To build function
 boxes, we use the following operations on wires:
 
 \begin{itemize}
-
 \item \texttt{(get-signal} $\langle\texttt{\textsl{wire}}\rangle$\texttt{)}
 
 \noindent
@@ -2819,7 +2834,6 @@ changes the value of the signal on the wire to the new value.
 asserts that the designated procedure should be run whenever the signal on the
 wire changes value.  Such procedures are the vehicles by which changes in the
 signal value on the wire are communicated to other wires.
-
 \end{itemize}
 
 \noindent
@@ -2871,17 +2885,20 @@ the output wire after one \code{and\-/gate\-/delay}.
 \end{codeBlock}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 3.28}Exercise 3.28:} Define an or-gate as a primitive
+\phantomsection\label{Exercise 3.28}
+\exerciseHeading{Exercise 3.28:} Define an or-gate as a primitive
 function box.  Your \code{or\-/gate} constructor should be similar to
 \code{and\-/gate}.
 
-\exerciseHeading{\phantomsection\label{Exercise 3.29}Exercise 3.29:} Another way to construct an
+\phantomsection\label{Exercise 3.29}
+\exerciseHeading{Exercise 3.29:} Another way to construct an
 or-gate is as a compound digital logic device, built from and-gates and
 inverters.  Define a procedure \code{or\-/gate} that accomplishes this.  What is
 the delay time of the or-gate in terms of \code{and\-/gate\-/delay} and
 \code{inverter\-/delay}?
 
-\exerciseHeading{\phantomsection\label{Exercise 3.30}Exercise 3.30:} \link{Figure 3.27} shows a
+\phantomsection\label{Exercise 3.30}
+\exerciseHeading{Exercise 3.30:} \link{Figure 3.27} shows a
 \newterm{ripple-carry adder} formed by stringing together \( n \) full-adders.
 This is the simplest form of parallel adder for adding two \( n \)-bit binary
 numbers.  The inputs \( A_1 \), \( A_2 \), \( A_3 \), \( \dots \), \( A_n \) and
@@ -3003,7 +3020,6 @@ that contains a schedule of things to do.  The following operations are defined
 for agendas:
 
 \begin{itemize}
-
 \item
 \code{(make-agenda)} returns a new empty agenda.
 
@@ -3020,7 +3036,6 @@ removing the first item.
 \code{(add-to-agenda!} $\langle\texttt{\textsl{time}}\rangle$ $\langle\texttt{\textsl{action}}\rangle$ $\langle\texttt{\textsl{agenda}}\rangle$\texttt{)} modifies the agenda by adding the given action procedure to be run at the specified time.
 \item
 \code{(current-time} $\langle\texttt{\textsl{agenda}}\rangle$\texttt{)} returns the current simulation time.
-
 \end{itemize}
 
 \noindent
@@ -3139,7 +3154,8 @@ The \code{carry} changes to 1 at time 11 and the \code{sum} changes to 0 at
 time 16.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 3.31}Exercise 3.31:} The internal procedure
+\phantomsection\label{Exercise 3.31}
+\exerciseHeading{Exercise 3.31:} The internal procedure
 \code{accept\-/action\-/procedure!} defined in \code{make\-/wire} specifies that when
 a new action procedure is added to a wire, the procedure is immediately run.
 Explain why this initialization is necessary.  In particular, trace through the
@@ -3278,7 +3294,8 @@ been deleted.}
 \end{codeBlock}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 3.32}Exercise 3.32:} The procedures to be run during
+\phantomsection\label{Exercise 3.32}
+\exerciseHeading{Exercise 3.32:} The procedures to be run during
 each time segment of the agenda are kept in a queue.  Thus, the procedures for
 each segment are called in the order in which they were added to the agenda
 (first in, first out).  Explain why this order must be used.  In particular,
@@ -3489,7 +3506,6 @@ about agendas and logic delays.
 The basic operations on connectors are the following:
 
 \begin{itemize}
-
 \item
 \code{(has\-/value? \( \langle \)\var{connector}\( \rangle \))} tells whether the connector has a value.
 
@@ -3508,7 +3524,6 @@ that the retractor is requesting it to forget its value.
 \item
 \code{(connect \( \langle \)\var{connector}\( \rangle \) \( \langle \)\var{new\-/constraint}\( \rangle \))} tells the connector
 to participate in the new constraint.
-
 \end{itemize}
 
 \noindent
@@ -3784,13 +3799,15 @@ procedures provide a syntax interface for the dispatch:
 \end{codeBlock}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 3.33}Exercise 3.33:} Using primitive multiplier,
+\phantomsection\label{Exercise 3.33}
+\exerciseHeading{Exercise 3.33:} Using primitive multiplier,
 adder, and constant constraints, define a procedure \code{averager} that takes
 three connectors \code{a}, \code{b}, and \code{c} as inputs and establishes the
 constraint that the value of \code{c} is the average of the values of \code{a}
 and \code{b}.
 
-\exerciseHeading{\phantomsection\label{Exercise 3.34}Exercise 3.34:} Louis Reasoner wants to build a
+\phantomsection\label{Exercise 3.34}
+\exerciseHeading{Exercise 3.34:} Louis Reasoner wants to build a
 squarer, a constraint device with two terminals such that the value of
 connector \code{b} on the second terminal will always be the square of the
 value \code{a} on the first terminal.  He proposes the following simple device
@@ -3803,7 +3820,8 @@ made from a multiplier:
 
 There is a serious flaw in this idea.  Explain.
 
-\exerciseHeading{\phantomsection\label{Exercise 3.35}Exercise 3.35:} Ben Bitdiddle tells Louis that
+\phantomsection\label{Exercise 3.35}
+\exerciseHeading{Exercise 3.35:} Ben Bitdiddle tells Louis that
 one way to avoid the trouble in \link{Exercise 3.34} is to define a squarer as a
 new primitive constraint.  Fill in the missing portions in Ben's outline for a
 procedure to implement such a constraint:
@@ -3823,7 +3841,8 @@ procedure to implement such a constraint:
   me)
 \end{codeBlock}
 
-\exerciseHeading{\phantomsection\label{Exercise 3.36}Exercise 3.36:} Suppose we evaluate the following
+\phantomsection\label{Exercise 3.36}
+\exerciseHeading{Exercise 3.36:} Suppose we evaluate the following
 sequence of expressions in the global environment:
 
 \begin{codeBlock}
@@ -3843,7 +3862,8 @@ expression from the connector's local procedure is evaluated:
 Draw an environment diagram showing the environment in which the above
 expression is evaluated.
 
-\exerciseHeading{\phantomsection\label{Exercise 3.37}Exercise 3.37:} The
+\phantomsection\label{Exercise 3.37}
+\exerciseHeading{Exercise 3.37:} The
 \code{celsius\-/fahrenheit\-/converter} procedure is cumbersome when compared with
 a more expression-oriented style of definition, such as
 
@@ -4151,7 +4171,8 @@ in which the operations are done; there is no need for any restrictions on
 concurrent use of the shared values.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 3.38}Exercise 3.38:} Suppose that Peter, Paul, and
+\phantomsection\label{Exercise 3.38}
+\exerciseHeading{Exercise 3.38:} Suppose that Peter, Paul, and
 Mary share a joint bank account that initially contains \$100.  Concurrently,
 Peter deposits \$10, Paul withdraws \$20, and Mary withdraws half the money in
 the account, by executing the following commands:
@@ -4329,7 +4350,8 @@ account has its own serializer, so that deposits and withdrawals for different
 accounts can proceed concurrently.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 3.39}Exercise 3.39:} Which of the five possibilities
+\phantomsection\label{Exercise 3.39}
+\exerciseHeading{Exercise 3.39:} Which of the five possibilities
 in the parallel execution shown above remain if we instead serialize execution
 as follows:
 
@@ -4341,7 +4363,8 @@ as follows:
  (s (lambda () (set! x (+ x 1)))))
 \end{codeBlock}
 
-\exerciseHeading{\phantomsection\label{Exercise 3.40}Exercise 3.40:} Give all possible values of
+\phantomsection\label{Exercise 3.40}
+\exerciseHeading{Exercise 3.40:} Give all possible values of
 \code{x} that can result from executing
 
 \begin{codeBlock}
@@ -4359,7 +4382,8 @@ Which of these possibilities remain if we instead use serialized procedures:
                   (s (lambda () (set! x (* x x x)))))
 \end{codeBlock}
 
-\exerciseHeading{\phantomsection\label{Exercise 3.41}Exercise 3.41:} Ben Bitdiddle worries that it
+\phantomsection\label{Exercise 3.41}
+\exerciseHeading{Exercise 3.41:} Ben Bitdiddle worries that it
 would be better to implement the bank account as follows (where the commented
 line has been changed):
 
@@ -4392,7 +4416,8 @@ because allowing unserialized access to the bank balance can result in
 anomalous behavior.  Do you agree?  Is there any scenario that demonstrates
 Ben's concern?
 
-\exerciseHeading{\phantomsection\label{Exercise 3.42}Exercise 3.42:} Ben Bitdiddle suggests that it's
+\phantomsection\label{Exercise 3.42}
+\exerciseHeading{Exercise 3.42:} Ben Bitdiddle suggests that it's
 a waste of time to create a new serialized procedure in response to every
 \code{withdraw} and \code{deposit} message.  He says that \code{make\-/account}
 could be changed so that the calls to \code{protected} are done outside the
@@ -4528,7 +4553,8 @@ procedure with the serializers for both accounts:
 \end{codeBlock}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 3.43}Exercise 3.43:} Suppose that the balances in
+\phantomsection\label{Exercise 3.43}
+\exerciseHeading{Exercise 3.43:} Suppose that the balances in
 three accounts start out as \$10, \$20, and \$30, and that multiple processes run,
 exchanging the balances in the accounts.  Argue that if the processes are run
 sequentially, after any number of concurrent exchanges, the account balances
@@ -4540,7 +4566,8 @@ program in this section.  On the other hand, argue that even with this
 preserved.  Draw a timing diagram to show how even this condition would be
 violated if we did not serialize the transactions on individual accounts.
 
-\exerciseHeading{\phantomsection\label{Exercise 3.44}Exercise 3.44:} Consider the problem of
+\phantomsection\label{Exercise 3.44}
+\exerciseHeading{Exercise 3.44:} Consider the problem of
 transferring an amount from one account to another.  Ben Bitdiddle claims that
 this can be accomplished with the following procedure, even if there are
 multiple people concurrently transferring money among multiple accounts, using
@@ -4559,7 +4586,8 @@ exchange problem.  Is Louis right?  If not, what is the essential difference
 between the transfer problem and the exchange problem?  (You should assume that
 the balance in \code{from\-/account} is at least \code{amount}.)
 
-\exerciseHeading{\phantomsection\label{Exercise 3.45}Exercise 3.45:} Louis Reasoner thinks our
+\phantomsection\label{Exercise 3.45}
+\exerciseHeading{Exercise 3.45:} Louis Reasoner thinks our
 bank-account system is unnecessarily complex and error-prone now that deposits
 and withdrawals aren't automatically serialized.  He suggests that
 \code{make\-/account\-/and\-/serializer} should have exported the serializer (for use
@@ -4724,13 +4752,15 @@ attractive sources of food will starve to death, because it is incapable of
 deciding which to go to first.}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 3.46}Exercise 3.46:} Suppose that we implement
+\phantomsection\label{Exercise 3.46}
+\exerciseHeading{Exercise 3.46:} Suppose that we implement
 \code{test\-/and\-/set!}  using an ordinary procedure as shown in the text, without
 attempting to make the operation atomic.  Draw a timing diagram like the one in
 \link{Figure 3.29} to demonstrate how the mutex implementation can fail by
 allowing two processes to acquire the mutex at the same time.
 
-\exerciseHeading{\phantomsection\label{Exercise 3.47}Exercise 3.47:} A semaphore (of size \( n \)) is a
+\phantomsection\label{Exercise 3.47}
+\exerciseHeading{Exercise 3.47:} A semaphore (of size \( n \)) is a
 generalization of a mutex.  Like a mutex, a semaphore supports acquire and
 release operations, but it is more general in that up to \( n \) processes can
 acquire it concurrently.  Additional processes that attempt to acquire the
@@ -4778,7 +4808,8 @@ used in database management systems, a topic that is treated in detail in
 \link{Gray and Reuter 1993}.}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 3.48}Exercise 3.48:} Explain in detail why the
+\phantomsection\label{Exercise 3.48}
+\exerciseHeading{Exercise 3.48:} Explain in detail why the
 deadlock-avoidance method described above, (i.e., the accounts are numbered,
 and each process attempts to acquire the smaller-numbered account first) avoids
 deadlock in the exchange problem.  Re\-write \code{serialized\-/exchange} to
@@ -4786,7 +4817,8 @@ incorporate this idea.  (You will also need to modify \code{make\-/account} so
 that each account is created with a number, which can be accessed by sending an
 appropriate message.)
 
-\exerciseHeading{\phantomsection\label{Exercise 3.49}Exercise 3.49:} Give a scenario where the
+\phantomsection\label{Exercise 3.49}
+\exerciseHeading{Exercise 3.49:} Give a scenario where the
 deadlock-avoid\-ance mechanism described above does not work.  (Hint: In the
 exchange problem, each process knows in advance which accounts it will need to
 get access to.  Consider a situation where a process must get access to some
@@ -5300,7 +5332,8 @@ original delayed objects as \newterm{call-by-name thunks} and to the optimized
 versions as \newterm{call-by-need thunks}.}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 3.50}Exercise 3.50:} Complete the following
+\phantomsection\label{Exercise 3.50}
+\exerciseHeading{Exercise 3.50:} Complete the following
 definition, which generalizes \code{stream\-/map} to allow procedures that take
 multiple arguments, analogous to \code{map} in \link{Section 2.2.1},
 \link{Footnote 12}.
@@ -5315,7 +5348,8 @@ multiple arguments, analogous to \code{map} in \link{Section 2.2.1},
               (cons proc (map ~\(\langle \)~??~\(\rangle \)~ argstreams))))))
 \end{codeBlock}
 
-\exerciseHeading{\phantomsection\label{Exercise 3.51}Exercise 3.51:} In order to take a closer look at
+\phantomsection\label{Exercise 3.51}
+\exerciseHeading{Exercise 3.51:} In order to take a closer look at
 delayed evaluation, we will use the following procedure, which simply returns
 its argument after printing it:
 
@@ -5346,7 +5380,8 @@ forces us to be concerned with time and change.}
 (stream-ref x 7)
 \end{codeBlock}
 
-\exerciseHeading{\phantomsection\label{Exercise 3.52}Exercise 3.52:} Consider the sequence of
+\phantomsection\label{Exercise 3.52}
+\exerciseHeading{Exercise 3.52:} Consider the sequence of
 expressions
 
 \begin{codeBlock}
@@ -5623,14 +5658,16 @@ This result, originally conjectured in 1845, is known as \newterm{Bertrand's
 hypothesis}.  A proof can be found in section 22.3 of \link{Hardy and Wright 1960}.}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 3.53}Exercise 3.53:} Without running the program,
+\phantomsection\label{Exercise 3.53}
+\exerciseHeading{Exercise 3.53:} Without running the program,
 describe the elements of the stream defined by
 
 \begin{codeBlock}
 (define s (cons-stream 1 (add-streams s s)))
 \end{codeBlock}
 
-\exerciseHeading{\phantomsection\label{Exercise 3.54}Exercise 3.54:} Define a procedure
+\phantomsection\label{Exercise 3.54}
+\exerciseHeading{Exercise 3.54:} Define a procedure
 \code{mul\-/streams}, analogous to \code{add\-/streams}, that produces the
 elementwise product of its two input streams.  Use this together with the
 stream of \code{integers} to complete the following definition of the stream
@@ -5643,13 +5680,15 @@ whose \( n^{\mathrm{th}} \) element (counting from 0) is \( n + 1 \) factorial:
 % \noindent
 % \code{(define factorials (cons\-/stream 1 (mul\-/streams}\( \kern0.7ex\langle \)\code{?}\( \rangle \)\( \kern0.7ex\langle \)\code{?}\( \rangle \)\code{)))}
 
-\exerciseHeading{\phantomsection\label{Exercise 3.55}Exercise 3.55:} Define a procedure
+\phantomsection\label{Exercise 3.55}
+\exerciseHeading{Exercise 3.55:} Define a procedure
 \code{partial\-/sums} that takes as argument a stream \( S \) and returns the
 stream whose elements are \( S_0 \), \( S_0 + S_1 \), \( S_0 + S_1 + S_2, \dots \).
 For example, \code{(partial\-/sums integers)} should be the
 stream 1, 3, 6, 10, 15, \( \dots \).
 
-\exerciseHeading{\phantomsection\label{Exercise 3.56}Exercise 3.56:} A famous problem, first raised by
+\phantomsection\label{Exercise 3.56}
+\exerciseHeading{Exercise 3.56:} A famous problem, first raised by
 R. Hamming, is to enumerate, in ascending order with no repetitions, all
 positive integers with no prime factors other than 2, 3, or 5.  One obvious way
 to do this is to simply test each integer in turn to see whether it has any
@@ -5659,7 +5698,6 @@ alternative, let us call the required stream of numbers \code{S} and notice the
 following facts about it.
 
 \begin{itemize}
-
 \item
 \code{S} begins with 1.
 
@@ -5673,7 +5711,6 @@ and \code{(scale\-/stream 5 S)}.
 
 \item
 These are all the elements of \code{S}.
-
 \end{itemize}
 
 Now all we have to do is combine elements from these sources.  For this we
@@ -5710,7 +5747,8 @@ Then the required stream may be constructed with \code{merge}, as follows:
 
 Fill in the missing expressions in the places marked \( \langle \)??\( \kern0.08em\rangle \) above.
 
-\exerciseHeading{\phantomsection\label{Exercise 3.57}Exercise 3.57:} How many additions are performed
+\phantomsection\label{Exercise 3.57}
+\exerciseHeading{Exercise 3.57:} How many additions are performed
 when we compute the \( n^{\mathrm{th}} \) Fibonacci number using the definition of
 \code{fibs} based on the \code{add\-/streams} procedure?  Show that the number of
 additions would be exponentially greater if we had implemented \code{(delay
@@ -5722,7 +5760,8 @@ we used assignment to explicitly construct a local table.  Our call-by-need
 stream optimization effectively constructs such a table automatically, storing
 values in the previously forced parts of the stream.}
 
-\exerciseHeading{\phantomsection\label{Exercise 3.58}Exercise 3.58:} Give an interpretation of the
+\phantomsection\label{Exercise 3.58}
+\exerciseHeading{Exercise 3.58:} Give an interpretation of the
 stream computed by the following procedure:
 
 \begin{codeBlock}
@@ -5736,7 +5775,8 @@ stream computed by the following procedure:
 integers.)  What are the successive elements produced by \code{(expand 1 7
 10)}?  What is produced by \code{(expand 3 8 10)}?
 
-\exerciseHeading{\phantomsection\label{Exercise 3.59}Exercise 3.59:} In \link{Section 2.5.3} we saw how
+\phantomsection\label{Exercise 3.59}
+\exerciseHeading{Exercise 3.59:} In \link{Section 2.5.3} we saw how
 to implement a polynomial arithmetic system representing polynomials as lists
 of terms.  In a similar way, we can work with \newterm{power series}, such as
 
@@ -5795,7 +5835,8 @@ negative of sine:
 \end{codeBlock}
 \end{enumerate}
 
-\exerciseHeading{\phantomsection\label{Exercise 3.60}Exercise 3.60:} With power series represented as
+\phantomsection\label{Exercise 3.60}
+\exerciseHeading{Exercise 3.60:} With power series represented as
 streams of coefficients as in \link{Exercise 3.59}, adding series is implemented
 by \code{add\-/streams}.  Complete the definition of the following procedure for
 multiplying series:
@@ -5808,7 +5849,8 @@ multiplying series:
 You can test your procedure by verifying that \mbox{\( \sin^2\!x + \cos^2\!x = 1 \)},
 using the series from \link{Exercise 3.59}.
 
-\exerciseHeading{\phantomsection\label{Exercise 3.61}Exercise 3.61:} Let \( S \) be a power series
+\phantomsection\label{Exercise 3.61}
+\exerciseHeading{Exercise 3.61:} Let \( S \) be a power series
 (\link{Exercise 3.59}) whose constant term is 1.  Suppose we want to find the
 power series \( 1 / S \), that is, the series \( X \) such that \( SX = 1 \).
 Write \( S = 1 + S_R \) where \( S_R \) is the part of \( S \) after the
@@ -5829,7 +5871,8 @@ this idea to write a procedure \code{invert\-/unit\-/series} that computes \( 1 
 for a power series \( S \) with constant term 1.  You will need to use
 \code{mul\-/series} from \link{Exercise 3.60}.
 
-\exerciseHeading{\phantomsection\label{Exercise 3.62}Exercise 3.62:} Use the results of \link{Exercise 3.60}
+\phantomsection\label{Exercise 3.62}
+\exerciseHeading{Exercise 3.62:} Use the results of \link{Exercise 3.60}
 and \link{Exercise 3.61} to define a procedure \code{div\-/series} that
 divides two power series.  \code{div\-/series} should work for any two series,
 provided that the denominator series begins with a nonzero constant term.  (If
@@ -6041,7 +6084,8 @@ entire sequence of states is available to us as a data structure that can be
 manipulated with a uniform set of operations.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 3.63}Exercise 3.63:} Louis Reasoner asks why the
+\phantomsection\label{Exercise 3.63}
+\exerciseHeading{Exercise 3.63:} Louis Reasoner asks why the
 \code{sqrt\-/stream} procedure was not written in the following more
 straightforward way, without the local variable \code{guesses}:
 
@@ -6059,7 +6103,8 @@ answer.  Would the two versions still differ in efficiency if our
 implementation of \code{delay} used only \code{(lambda () \( \langle \)\var{exp}\( \rangle \))} without
 using the optimization provided by \code{memo\-/proc} (\link{Section 3.5.1})?
 
-\exerciseHeading{\phantomsection\label{Exercise 3.64}Exercise 3.64:} Write a procedure
+\phantomsection\label{Exercise 3.64}
+\exerciseHeading{Exercise 3.64:} Write a procedure
 \code{stream\-/limit} that takes as arguments a stream and a number (the
 tolerance).  It should examine the stream until it finds two successive
 elements that differ in absolute value by less than the tolerance, and return
@@ -6071,7 +6116,8 @@ to a given tolerance by
   (stream-limit (sqrt-stream x) tolerance))
 \end{codeBlock}
 
-\exerciseHeading{\phantomsection\label{Exercise 3.65}Exercise 3.65:} Use the series
+\phantomsection\label{Exercise 3.65}
+\exerciseHeading{Exercise 3.65:} Use the series
 
 $$ \ln 2 = 1 - \frac{1}{2} + \frac{1}{3} - \frac{1}{4} + \dots $$
 
@@ -6235,19 +6281,22 @@ We can thus generate the required stream of pairs as
 \end{codeBlock}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 3.66}Exercise 3.66:} Examine the stream \code{(pairs
+\phantomsection\label{Exercise 3.66}
+\exerciseHeading{Exercise 3.66:} Examine the stream \code{(pairs
 integers integers)}. Can you make any general comments about the order in which
 the pairs are placed into the stream? For example, approximately how many pairs precede
 the pair (1, 100)?  the pair (99, 100)? the pair (100, 100)? (If you can make
 precise mathematical statements here, all the better. But feel free to give
 more qualitative answers if you find yourself getting bogged down.)
 
-\exerciseHeading{\phantomsection\label{Exercise 3.67}Exercise 3.67:} Modify the \code{pairs} procedure
+\phantomsection\label{Exercise 3.67}
+\exerciseHeading{Exercise 3.67:} Modify the \code{pairs} procedure
 so that \code{(pairs integers integers)} will produce the stream of \emph{all}
 pairs of integers \( (i, j) \) (without the condition \( i \le j \)).  Hint:
 You will need to mix in an additional stream.
 
-\exerciseHeading{\phantomsection\label{Exercise 3.68}Exercise 3.68:} Louis Reasoner thinks that
+\phantomsection\label{Exercise 3.68}
+\exerciseHeading{Exercise 3.68:} Louis Reasoner thinks that
 building a stream of pairs from three parts is unnecessarily complicated.
 Instead of separating the pair \( (S_0, T_0) \) from the rest of the pairs in
 the first row, he proposes to work with the whole first row, as follows:
@@ -6263,14 +6312,16 @@ the first row, he proposes to work with the whole first row, as follows:
 Does this work?  Consider what happens if we evaluate \code{(pairs integers
 integers)} using Louis's definition of \code{pairs}.
 
-\exerciseHeading{\phantomsection\label{Exercise 3.69}Exercise 3.69:} Write a procedure \code{triples}
+\phantomsection\label{Exercise 3.69}
+\exerciseHeading{Exercise 3.69:} Write a procedure \code{triples}
 that takes three infinite streams, \( S \), \( T \), and \( U \), and produces the
 stream of triples \( (S_i, T_j, U_k) \) such that \( i \le j \le k \).
 Use \code{triples} to generate the stream of all Pythagorean
 triples of positive integers, i.e., the triples \( (i, j, k) \) such that
 \( i \le j \) and \( i^2 + j^2 = k^2 \).
 
-\exerciseHeading{\phantomsection\label{Exercise 3.70}Exercise 3.70:} It would be nice to be able to
+\phantomsection\label{Exercise 3.70}
+\exerciseHeading{Exercise 3.70:} It would be nice to be able to
 generate streams in which the pairs appear in some useful order, rather than in
 the order that results from an \emph{ad hoc} interleaving process.  We can use
 a technique similar to the \code{merge} procedure of \link{Exercise 3.56}, if we
@@ -6302,7 +6353,8 @@ ordered according to the sum \( 2i + 3\!j + 5i\!j \).
 
 \end{enumerate}
 
-\exerciseHeading{\phantomsection\label{Exercise 3.71}Exercise 3.71:} Numbers that can be expressed as
+\phantomsection\label{Exercise 3.71}
+\exerciseHeading{Exercise 3.71:} Numbers that can be expressed as
 the sum of two cubes in more than one way are sometimes called
 \newterm{Ramanujan numbers}, in honor of the mathematician Srinivasa
 Ramanujan.\footnote{To quote from G. H. Hardy's obituary of Ramanujan (\link{Hardy 1921}):
@@ -6321,7 +6373,8 @@ the stream of pairs of integers \( (i, j) \) weighted according to the sum
 consecutive pairs with the same weight.  Write a procedure to generate the
 Ramanujan numbers.  The first such number is 1,729.  What are the next five?
 
-\exerciseHeading{\phantomsection\label{Exercise 3.72}Exercise 3.72:} In a similar way to \link{Exercise 3.71}
+\phantomsection\label{Exercise 3.72}
+\exerciseHeading{Exercise 3.72:} In a similar way to \link{Exercise 3.71}
 generate a stream of all numbers that can be written as the sum of two
 squares in three different ways (showing how they can be so written).
 \end{exerciseGroup}
@@ -6369,7 +6422,8 @@ inputs.
 \end{imageFigure}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 3.73}Exercise 3.73:} We can model electrical circuits
+\phantomsection\label{Exercise 3.73}
+\exerciseHeading{Exercise 3.73:} We can model electrical circuits
 using streams to represent the values of currents or voltages at a sequence of
 times.  For instance, suppose we have an \newterm{RC circuit} consisting of a
 resistor of resistance \( R \) and a capacitor of capacitance \( C \) in series.
@@ -6393,7 +6447,8 @@ evaluating \code{(define RC1 (RC 5 1 0.5))}.  This defines \code{RC1} as a
 procedure that takes a stream representing the time sequence of currents and an
 initial capacitor voltage and produces the output stream of voltages.
 
-\exerciseHeading{\phantomsection\label{Exercise 3.74}Exercise 3.74:} Alyssa P. Hacker is designing a
+\phantomsection\label{Exercise 3.74}
+\exerciseHeading{Exercise 3.74:} Alyssa P. Hacker is designing a
 system to process signals coming from physical sensors.  One important feature
 she wishes to produce is a signal that describes the \newterm{zero crossings}
 of the input signal.  That is, the resulting signal should be \( +1 \) whenever the
@@ -6440,7 +6495,8 @@ version of \code{stream\-/map} from \link{Exercise 3.50}:
 
 Complete the program by supplying the indicated \( \langle \)\var{expression}\( \rangle \).
 
-\exerciseHeading{\phantomsection\label{Exercise 3.75}Exercise 3.75:} Unfortunately, Alyssa's
+\phantomsection\label{Exercise 3.75}
+\exerciseHeading{Exercise 3.75:} Unfortunately, Alyssa's
 zero-crossing detector in \link{Exercise 3.74} proves to be insufficient,
 because the noisy signal from the sensor leads to spurious zero crossings.  Lem
 E.  Tweakit, a hardware specialist, suggests that Alyssa smooth the signal to
@@ -6465,7 +6521,8 @@ This does not correctly implement Alyssa's plan.  Find the bug that Louis has
 installed and fix it without changing the structure of the program.  (Hint: You
 will need to increase the number of arguments to \code{make\-/zero\-/crossings}.)
 
-\exerciseHeading{\phantomsection\label{Exercise 3.76}Exercise 3.76:} Eva Lu Ator has a criticism of
+\phantomsection\label{Exercise 3.76}
+\exerciseHeading{Exercise 3.76:} Eva Lu Ator has a criticism of
 Louis's approach in \link{Exercise 3.75}.  The program he wrote is not modular,
 because it intermixes the operation of smoothing with the zero-crossing
 extraction.  For example, the extractor should not have to be changed if Alyssa
@@ -6592,7 +6649,8 @@ condition \( y(0) = 1 \):
 \end{codeBlock}
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 3.77}Exercise 3.77:} The \code{integral} procedure
+\phantomsection\label{Exercise 3.77}
+\exerciseHeading{Exercise 3.77:} The \code{integral} procedure
 used above was analogous to the ``implicit'' definition of the infinite stream
 of integers in \link{Section 3.5.2}.  Alternatively, we can give a definition of
 \code{integral} that is more like \code{integers\-/starting\-/from} (also in
@@ -6624,7 +6682,8 @@ expects the \code{integrand} as a delayed argument and hence can be used in the
   \includegraphics[width=91mm]{assets/figures/chapter_3/figure_3.35a.pdf}
 \end{imageFigure}
 
-\exerciseHeading{\phantomsection\label{Exercise 3.78}Exercise 3.78:} Consider the problem of designing
+\phantomsection\label{Exercise 3.78}
+\exerciseHeading{Exercise 3.78:} Consider the problem of designing
 a signal-processing system to study the homogeneous second-order linear
 differential equation
 
@@ -6639,7 +6698,8 @@ arguments the constants \( a \), \( b \), and \( dt \) and the initial values
 \( y_0 \) and \( dy_0 \) for \( y \) and \( dy / dt \) and generates the
 stream of successive values of \( y \).
 
-\exerciseHeading{\phantomsection\label{Exercise 3.79}Exercise 3.79:} Generalize the \code{solve\-/2nd}
+\phantomsection\label{Exercise 3.79}
+\exerciseHeading{Exercise 3.79:} Generalize the \code{solve\-/2nd}
 procedure of \link{Exercise 3.78} so that it can be used to solve general
 second-order differential equations \( d^2\!y / dt^2 =
 f(dy / dt, y) \).
@@ -6656,7 +6716,8 @@ f(dy / dt, y) \).
   \includegraphics[width=68mm]{assets/figures/chapter_3/figure_3.37a.pdf}
 \end{imageFigure}
 
-\exerciseHeading{\phantomsection\label{Exercise 3.80}Exercise 3.80:} A \newterm{series RLC circuit}
+\phantomsection\label{Exercise 3.80}
+\exerciseHeading{Exercise 3.80:} A \newterm{series RLC circuit}
 consists of a resistor, a capacitor, and an inductor connected in series, as
 shown in \link{Figure 3.36}.  If \( R \), \( L \), and \( C \) are the resistance,
 inductance, and capacitance, then the relations between voltage (\( v \)) and
@@ -6822,7 +6883,8 @@ formulate a general \code{monte\-/carlo} procedure that can deal with arbitrary
 experiments.  Yet there is no assignment or local state.
 
 \begin{exerciseGroup}
-\exerciseHeading{\phantomsection\label{Exercise 3.81}Exercise 3.81:} \link{Exercise 3.6} discussed
+\phantomsection\label{Exercise 3.81}
+\exerciseHeading{Exercise 3.81:} \link{Exercise 3.6} discussed
 generalizing the random-number generator to allow one to reset the
 random-number sequence so as to produce repeatable sequences of ``random''
 numbers.  Produce a stream formulation of this same generator that operates on
@@ -6830,7 +6892,8 @@ an input stream of requests to \code{generate} a new random number or to
 \code{reset} the sequence to a specified value and that produces the desired
 stream of random numbers.  Don't use assignment in your solution.
 
-\exerciseHeading{\phantomsection\label{Exercise 3.82}Exercise 3.82:} Redo \link{Exercise 3.5} on Monte
+\phantomsection\label{Exercise 3.82}
+\exerciseHeading{Exercise 3.82:} Redo \link{Exercise 3.5} on Monte
 Carlo integration in terms of streams.  The stream version of
 \code{estimate\-/integral} will not have an argument telling how many trials to
 perform.  Instead, it will produce a stream of estimates based on successively
