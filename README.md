@@ -8,7 +8,7 @@
 [releases](https://github.com/junnunkarim/book__sicp_source__latex/releases)</b>
 
 > [!NOTE]
-> If you want to know "Why read this decades old book in modern times?", please
+> If you want to know "Why read this decades-old book in modern times?", please
 > check out the [Book Review](#book-review) section.
 
 This repo contains the community developed LaTeX source of second edition of the
@@ -51,7 +51,6 @@ Some of the improvements in this version are as follows:
   - Exercises now have a heading for easier recognition, reduced margins, and
     always end with a page break
   - Long code lines are now properly broken
-  - All ASCII figures are removed in favor of SVG figures
   - "List of Figures" section is now auto-generated and shows a figure's number
     and name
   - Cleanup of manual page breaks and layout adjustments to allow for a more
